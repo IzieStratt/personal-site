@@ -1,0 +1,15 @@
+{
+  "name": "personal-site",
+  "compatibility_date": "2026-09-01",
+  "routes": [
+    {
+      "pattern": "izie.top",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./website/public",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

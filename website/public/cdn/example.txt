@@ -1,0 +1,3 @@
+This is an example public text file.
+
+Replace it, delete it, or add any files and folders you want beside it.

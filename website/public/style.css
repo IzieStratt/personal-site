@@ -1,0 +1,44 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  margin: 0;
+  place-items: center;
+}
+
+main {
+  width: min(42rem, calc(100% - 3rem));
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 7rem);
+  letter-spacing: -0.06em;
+}
+
+.eyebrow {
+  margin-bottom: 0;
+  color: #f48120;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 2rem;
+}
+
+a {
+  color: #f48120;
+}
+
+code {
+  font-size: 0.9em;
+}
