@@ -90,7 +90,7 @@ function renderStats() {
   const above = index > 0 ? players[index - 1] : null;
   const nextGap = above && izie ? Math.max(0, above.total - izie.total + 1) : null;
   const firstGap = izie ? Math.max(0, players[0].total - izie.total + (index > 0 ? 1 : 0)) : null;
-  document.querySelector('#your-rank').textContent = izie ? `${profileName} · #${index + 1}` : `${profileName} · unranked`;
+  document.querySelector('#your-rank').textContent = izie ? `Rank #${index + 1}` : 'Rank unranked';
   document.querySelector('#your-total').textContent = izie ? `${number(izie.total)} total` : 'not on leaderboard';
   document.querySelector('#your-speed').textContent = rateText(speed);
   document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
