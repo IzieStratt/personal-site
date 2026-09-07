@@ -25,7 +25,7 @@ function renderChart() {
   [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${number(max * fraction)}</text>`; });
   series.forEach((values, index) => {
     const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
-    if (path) markup += `<path class="line" d="${path}" stroke="${colors[index]}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${colors[index]}" cx="${x(values.length - 1)}" cy="${y(values.at(-1))}" r="6"/>`;
+    if (path) markup += `<path class="line" d="${path}" stroke="${colors[index]}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${colors[index]}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
   });
   svg.innerHTML = markup;
 }
@@ -59,17 +59,17 @@ async function load() {
   renderChart();
   document.querySelector('#subtitle').textContent = `${metric} totals · updated ${new Date().toLocaleTimeString()}`;
 }
-document.querySelector('.controls').addEventListener('click', event => {
+document.addEventListener('click', event => {
   const button = event.target.closest('button');
-  if (!button) return;
+  if (!button || !button.closest('.controls')) return;
   const group = button.closest('.segmented');
   group.querySelectorAll('button').forEach(item => item.classList.remove('active'));
   button.classList.add('active');
   if (group.classList.contains('metrics')) {
-    metric = button.textContent.trim();
+    metric = button.dataset.metric;
     renderPlayers();
     renderChart();
-  } else if (button.textContent.includes('my code')) {
+  } else if (button.dataset.source === 'code') {
     document.querySelector('#subtitle').textContent = 'Mine: my code is not available yet';
   } else {
     document.querySelector('#subtitle').textContent = `${metric} totals · live leaderboard`;
@@ -92,3 +92,4 @@ document.querySelector('.chips').addEventListener('click', event => {
 });
 load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; });
 setInterval(() => load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; }), 15000);
+window.addEventListener('error', event => { document.querySelector('#subtitle').textContent = `Dashboard error: ${event.message}`; });
