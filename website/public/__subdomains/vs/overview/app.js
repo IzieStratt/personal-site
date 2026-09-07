@@ -13,8 +13,9 @@ function renderChart() {
   const key = metricNames[metric];
   const aggregate = selected.includes('all');
   const names = aggregate ? players : players.filter(player => selected.includes(player.username));
+  const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
   const series = aggregate
-    ? [players.map((_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
+    ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
     : (names.length ? names : players).slice(0, 4).map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []);
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
@@ -59,6 +60,12 @@ async function load() {
   document.querySelector('#subtitle').textContent = `${metric} totals · updated ${new Date().toLocaleTimeString()}`;
 }
 document.querySelectorAll('.metrics button').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.metrics button').forEach(item => item.classList.remove('active')); button.classList.add('active'); metric = button.textContent; renderPlayers(); renderChart(); }));
+document.querySelectorAll('.source button').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.source button').forEach(item => item.classList.remove('active'));
+  button.classList.add('active');
+  if (button.textContent.includes('my code')) document.querySelector('#subtitle').textContent = 'Mine: my code is not available yet';
+  else renderChart();
+}));
 document.querySelector('.chips').addEventListener('click', event => {
   const button = event.target.closest('.chip');
   if (!button) return;
