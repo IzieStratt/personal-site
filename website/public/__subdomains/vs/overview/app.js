@@ -1,7 +1,7 @@
 const svg = document.querySelector('#chart');
 const W = 1800, H = 470, left = 72, right = 12, top = 22, bottom = 45;
 const colors = ['#e5ebf3','#4d8ce4','#ce6332','#4da574'];
-const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', reCAPTCHA: 'recaptcha-v2', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
+const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
 const history = new Map();
 let metric = 'Cap';
 let players = [];
@@ -59,13 +59,23 @@ async function load() {
   renderChart();
   document.querySelector('#subtitle').textContent = `${metric} totals · updated ${new Date().toLocaleTimeString()}`;
 }
-document.querySelectorAll('.metrics button').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.metrics button').forEach(item => item.classList.remove('active')); button.classList.add('active'); metric = button.textContent; renderPlayers(); renderChart(); }));
-document.querySelectorAll('.source button').forEach(button => button.addEventListener('click', () => {
-  document.querySelectorAll('.source button').forEach(item => item.classList.remove('active'));
+document.querySelector('.controls').addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  const group = button.closest('.segmented');
+  group.querySelectorAll('button').forEach(item => item.classList.remove('active'));
   button.classList.add('active');
-  if (button.textContent.includes('my code')) document.querySelector('#subtitle').textContent = 'Mine: my code is not available yet';
-  else renderChart();
-}));
+  if (group.classList.contains('metrics')) {
+    metric = button.textContent.trim();
+    renderPlayers();
+    renderChart();
+  } else if (button.textContent.includes('my code')) {
+    document.querySelector('#subtitle').textContent = 'Mine: my code is not available yet';
+  } else {
+    document.querySelector('#subtitle').textContent = `${metric} totals · live leaderboard`;
+    renderChart();
+  }
+});
 document.querySelector('.chips').addEventListener('click', event => {
   const button = event.target.closest('.chip');
   if (!button) return;
