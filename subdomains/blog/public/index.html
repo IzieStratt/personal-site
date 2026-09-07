@@ -3,17 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My blog</title>
+    <title>blog</title>
     <style>
-      body { max-width: 42rem; margin: 5rem auto; padding: 0 1.5rem; font: 1.1rem/1.6 system-ui, sans-serif; }
-      h1 { font-size: 3rem; line-height: 1; }
+      @font-face { font-family: "xkcd Script"; src: url("https://github.com/ipython/xkcd-font/raw/refs/heads/master/xkcd-script/font/xkcd-script.woff") format("woff"); font-display: swap; }
+      body { max-width: 42rem; margin: 20vh auto 0; padding: 0 1.5rem; background: #fffdf7; color: #222; font: 1.35rem/1.5 "xkcd Script", cursive; }
     </style>
   </head>
   <body>
     <main>
-      <h1>Blog subdomain</h1>
-      <p>This is the example site for <code>blog.example.com</code>.</p>
-      <p>Edit this file, or copy the whole <code>blog</code> folder to make another subdomain.</p>
+      <p id="greeting">hiya! youre currently at this page meoww</p>
     </main>
+    <script>document.querySelector('#greeting').textContent = `hiya! youre currently at ${window.location.href} meoww`</script>
   </body>
 </html>
