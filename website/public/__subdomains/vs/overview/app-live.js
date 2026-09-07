@@ -236,3 +236,16 @@ document.querySelector('#name-suggestions').addEventListener('click', event => {
 document.addEventListener('click', event => {
   if (!event.target.closest('.name-picker')) document.querySelector('#name-suggestions').hidden = true;
 });
+const clearDialog = document.querySelector('#clear-dialog');
+document.querySelector('#clear-data').addEventListener('click', () => clearDialog.showModal());
+document.querySelector('#cancel-clear').addEventListener('click', () => clearDialog.close());
+document.querySelector('#confirm-clear').addEventListener('click', () => {
+  localStorage.clear();
+  sessionStorage.clear();
+  document.cookie.split(';').forEach(cookie => {
+    const name = cookie.split('=')[0].trim();
+    if (name) document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+  });
+  clearDialog.close();
+  window.location.reload();
+});

@@ -17,6 +17,7 @@
           <nav class="segmented source" aria-label="Source">
             <button class="active" data-source="leaderboard">Mine: leaderboard</button><button data-source="code">Mine: my code</button>
           </nav>
+          <button class="clear-data" id="clear-data">Clear saved data</button>
         </div>
       </header>
       <p class="subtitle" id="subtitle">Cap.js totals · live leaderboard</p>
@@ -36,6 +37,11 @@
         <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Cap</th><th>Turnstile</th><th>BotID</th><th>hCaptcha</th><th>Total</th><th>Speed</th></tr></thead><tbody id="leaderboard"></tbody></table></div>
       </section>
     </main>
+    <dialog id="clear-dialog">
+      <h2>ARE YOU SURE?</h2>
+      <p>This clears saved names, chart history, local storage, session storage, and accessible cookies for this site.</p>
+      <div><button id="confirm-clear" class="confirm-clear">Yes, I want to clear ALL the cookies and saved data</button><button id="cancel-clear">No</button></div>
+    </dialog>
     <script src="app-live.js"></script>
   </body>
 </html>
