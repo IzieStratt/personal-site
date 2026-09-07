@@ -1,6 +1,13 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
+    if (url.pathname === '/api/leaderboard') {
+      const response = await fetch('https://botme.idk.dunkirk.sh/api/leaderboard', request)
+      const headers = new Headers(response.headers)
+      headers.set('cache-control', 'no-store')
+      headers.set('access-control-allow-origin', '*')
+      return new Response(response.body, { status: response.status, headers })
+    }
     const match = url.hostname.match(/^([a-z0-9-]+)\.izie\.top$/)
     const prefix = match ? `/__subdomains/${match[1]}` : null
 
