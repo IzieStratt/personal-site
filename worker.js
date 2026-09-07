@@ -5,8 +5,17 @@ export default {
     const prefix = match ? `/__subdomains/${match[1]}` : null
 
     if (prefix) {
-      url.pathname = `${prefix}${url.pathname}`
-      return env.ASSETS.fetch(new Request(url, request))
+      url.pathname = url.pathname === '/' ? `${prefix}-index.html` : `${prefix}${url.pathname}`
+      const response = await env.ASSETS.fetch(new Request(url, request))
+      const location = response.headers.get('Location')
+
+      if (location?.startsWith(prefix)) {
+        const headers = new Headers(response.headers)
+        headers.set('Location', `${location.slice(prefix.length) || '/'}`)
+        return new Response(response.body, { status: response.status, headers })
+      }
+
+      return response
     }
 
     return env.ASSETS.fetch(request)

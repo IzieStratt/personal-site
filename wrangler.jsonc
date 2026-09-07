@@ -10,6 +10,14 @@
     {
       "pattern": "*.izie.top/*",
       "zone_name": "izie.top"
+    },
+    {
+      "pattern": "vs.izie.top/*",
+      "zone_name": "izie.top"
+    },
+    {
+      "pattern": "blog.izie.top/*",
+      "zone_name": "izie.top"
     }
   ],
   "assets": {
