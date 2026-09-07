@@ -1,5 +1,5 @@
 const svg = document.querySelector('#chart');
-const W = 1800, H = 470, left = 72, right = 12, top = 22, bottom = 45;
+const W = 1800, H = 470, left = 72, right = 12, chartTop = 22, bottom = 45;
 const colors = ['#e5ebf3','#4d8ce4','#ce6332','#4da574'];
 const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
 const history = new Map();
@@ -20,7 +20,7 @@ function renderChart() {
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
-  const y = value => top + H - top - bottom - (value / max) * (H - top - bottom);
+  const y = value => chartTop + H - chartTop - bottom - (value / max) * (H - chartTop - bottom);
   let markup = '';
   [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${number(max * fraction)}</text>`; });
   series.forEach((values, index) => {
