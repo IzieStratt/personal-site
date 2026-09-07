@@ -178,16 +178,12 @@ document.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button || !button.closest('.controls')) return;
   const group = button.closest('.segmented');
+  if (!group) return;
   group.querySelectorAll('button').forEach(item => item.classList.remove('active'));
   button.classList.add('active');
   if (group.classList.contains('metrics')) {
     metric = button.dataset.metric;
     renderPlayers();
-    renderChart();
-  } else if (button.dataset.source === 'code') {
-    document.querySelector('#subtitle').textContent = 'Mine: my code is not available yet';
-  } else {
-    document.querySelector('#subtitle').textContent = `${metric} totals · live leaderboard`;
     renderChart();
   }
 });
