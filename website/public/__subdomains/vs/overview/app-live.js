@@ -8,7 +8,7 @@ let players = [];
 
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
-const rateText = value => Number.isFinite(value) && value > 0 ? `${value.toFixed(2)}/s` : '—/s';
+const rateText = value => Number.isFinite(value) && value >= 0 ? `${value.toFixed(2)}/s` : '—/s';
 const etaText = seconds => Number.isFinite(seconds) && seconds >= 0 ? `${Math.ceil(seconds / 60)}m` : '—';
 function speedFor(name, key) {
   const samples = history.get(name) || [];
@@ -80,12 +80,23 @@ function renderStats() {
   body.replaceChildren(...players.slice(0, 15).map((player, rowIndex) => {
     const rate = speedFor(player.username, key);
     const row = document.createElement('tr');
-    [rowIndex + 1, player.username, number(player.total), rateText(rate)].forEach(value => {
+    const values = [
+      rowIndex + 1,
+      player.username,
+      number(valueFor(player, 'cap-default')),
+      number(valueFor(player, 'cf-turnstile')),
+      number(valueFor(player, 'vercel-botid-basic')),
+      number(valueFor(player, 'hcaptcha')),
+      number(player.total),
+      rateText(rate),
+    ];
+    values.forEach(value => {
       const cell = document.createElement('td');
       cell.textContent = value;
       row.append(cell);
     });
-    row.children[2].title = `${rateText(rate)} ${metric} per second`;
+    [2, 3, 4, 5, 6].forEach(index => { row.children[index].title = `${rateText(speedFor(player.username, ['cap-default', 'cf-turnstile', 'vercel-botid-basic', 'hcaptcha', 'total'][index - 2]))} per second`; });
+    row.children[7].title = `${rateText(rate)} ${metric} per second`;
     return row;
   }));
   document.querySelector('#leaderboard-updated').textContent = `updated ${new Date().toLocaleTimeString()}`;
@@ -96,7 +107,11 @@ async function load() {
   const body = await response.json();
   if (!Array.isArray(body.data)) throw new Error('invalid leaderboard response');
   players = body.data;
-  players.forEach(player => { const samples = history.get(player.username) || []; samples.push({ ...player, _time: Date.now() }); history.set(player.username, samples.slice(-60)); });
+  players.forEach(player => {
+    const samples = history.get(player.username) || Array.from({ length: 4 }, (_, index) => ({ ...player, _time: Date.now() - (4 - index) * 15_000 }));
+    samples.push({ ...player, _time: Date.now() });
+    history.set(player.username, samples.slice(-60));
+  });
   renderPlayers();
   renderChart();
   renderStats();
