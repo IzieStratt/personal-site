@@ -3,13 +3,36 @@ const W = 1800, H = 470, left = 72, right = 12, chartTop = 22, bottom = 45;
 const colors = ['#e5ebf3','#4d8ce4','#ce6332','#4da574'];
 const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
 const history = new Map();
+const storageKey = 'vs-overview-state';
 let metric = 'Cap';
 let players = [];
+let profileName = 'izie';
 
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
 const rateText = value => Number.isFinite(value) && value >= 0 ? `${value.toFixed(2)}/s` : '—/s';
 const etaText = seconds => Number.isFinite(seconds) && seconds >= 0 ? `${Math.ceil(seconds / 60)}m` : '—';
+function restoreClientState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    if (typeof saved.name === 'string' && saved.name.trim()) profileName = saved.name.trim();
+    for (const [name, samples] of Object.entries(saved.history || {})) {
+      if (!Array.isArray(samples)) continue;
+      const valid = samples.filter(sample => Number.isFinite(sample?._time)).slice(-60);
+      if (valid.length) history.set(name, valid);
+    }
+  } catch {
+    // Local storage can be unavailable in private or restricted browsing modes.
+  }
+}
+function saveClientState() {
+  try {
+    const savedHistory = Object.fromEntries([...history].map(([name, samples]) => [name, samples.slice(-60)]));
+    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, history: savedHistory }));
+  } catch {
+    // Persistence is an enhancement; the live dashboard still works without it.
+  }
+}
 function speedFor(name, key) {
   const samples = history.get(name) || [];
   if (samples.length < 2) return 0;
@@ -61,13 +84,13 @@ function renderPlayers() {
 }
 function renderStats() {
   const key = metricNames[metric];
-  const index = players.findIndex(player => player.username === 'izie');
+  const index = players.findIndex(player => player.username.toLowerCase() === profileName.toLowerCase());
   const izie = players[index];
   const speed = izie ? speedFor(izie.username, key) : 0;
   const above = index > 0 ? players[index - 1] : null;
   const nextGap = above && izie ? Math.max(0, above.total - izie.total + 1) : null;
   const firstGap = izie ? Math.max(0, players[0].total - izie.total + (index > 0 ? 1 : 0)) : null;
-  document.querySelector('#your-rank').textContent = izie ? `izie · #${index + 1}` : 'izie · unranked';
+  document.querySelector('#your-rank').textContent = izie ? `${profileName} · #${index + 1}` : `${profileName} · unranked`;
   document.querySelector('#your-total').textContent = izie ? `${number(izie.total)} total` : 'not on leaderboard';
   document.querySelector('#your-speed').textContent = rateText(speed);
   document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
@@ -112,6 +135,7 @@ async function load() {
     samples.push({ ...player, _time: Date.now() });
     history.set(player.username, samples.slice(-60));
   });
+  saveClientState();
   renderPlayers();
   renderChart();
   renderStats();
@@ -151,3 +175,10 @@ document.querySelector('.chips').addEventListener('click', event => {
 load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; });
 setInterval(() => load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; }), 15000);
 window.addEventListener('error', event => { document.querySelector('#subtitle').textContent = `Dashboard error: ${event.message}`; });
+restoreClientState();
+document.querySelector('#name-input').value = profileName;
+document.querySelector('#name-input').addEventListener('input', event => {
+  profileName = event.target.value.trim() || 'izie';
+  saveClientState();
+  if (players.length) renderStats();
+});
