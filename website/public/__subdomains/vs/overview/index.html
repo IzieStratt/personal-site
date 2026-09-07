@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rates over time</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="dashboard">
+      <header class="topbar">
+        <h1>RATES OVER TIME</h1>
+        <div class="controls">
+          <nav class="segmented metrics" aria-label="Metric">
+            <button class="active">Cap</button><button>Turnstile</button><button>reCAPTCHA</button><button>BotID</button><button>hCaptcha</button><button>Total</button>
+          </nav>
+          <nav class="segmented source" aria-label="Source">
+            <button class="active">Mine: leaderboard</button><button>Mine: my code</button>
+          </nav>
+        </div>
+      </header>
+      <p class="subtitle">Cap.js/min · 5min rolling window · all lines from leaderboard</p>
+      <section class="chips" aria-label="Players">
+        <button class="chip selected"><i></i>All players (sum)<b>5,173</b></button>
+        <button class="chip blue"><i></i>@devansh<b>3,533</b></button>
+        <button class="chip orange"><i></i>@jmw<b>484</b></button>
+        <button class="chip green"><i></i>https://meowing.au<b>1,156</b></button>
+        <button class="chip muted"><i></i>coolton</button><button class="chip muted"><i></i>krn</button><button class="chip muted"><i></i>mutual-botting-coalition</button>
+        <button class="chip muted"><i></i>elijahsx</button><button class="chip muted"> <i></i>awsome-webdev</button><button class="chip muted"><i></i>izie</button><button class="chip muted"><i></i>Jack</button><button class="chip more">+11 more</button>
+      </section>
+      <div class="chart-wrap"><svg id="chart" role="img" aria-label="Rates over time chart" viewBox="0 0 1800 470" preserveAspectRatio="none"></svg></div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

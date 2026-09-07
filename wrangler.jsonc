@@ -1,14 +1,20 @@
 {
   "name": "personal-site",
+  "main": "./worker.js",
   "compatibility_date": "2026-09-01",
   "routes": [
     {
       "pattern": "izie.top",
       "custom_domain": true
+    },
+    {
+      "pattern": "*.izie.top/*",
+      "zone_name": "izie.top"
     }
   ],
   "assets": {
     "directory": "./website/public",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   }
