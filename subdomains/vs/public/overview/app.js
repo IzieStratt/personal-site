@@ -8,6 +8,16 @@ let players = [];
 
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
+const rateText = value => Number.isFinite(value) && value > 0 ? `${value.toFixed(2)}/s` : '—/s';
+const etaText = seconds => Number.isFinite(seconds) && seconds >= 0 ? `${Math.ceil(seconds / 60)}m` : '—';
+function speedFor(name, key) {
+  const samples = history.get(name) || [];
+  if (samples.length < 2) return 0;
+  const current = samples[samples.length - 1];
+  const previous = samples[samples.length - 2];
+  const seconds = (current._time - previous._time) / 1000;
+  return seconds > 0 ? Math.max(0, valueFor(current, key) - valueFor(previous, key)) / seconds : 0;
+}
 function renderChart() {
   const selected = [...document.querySelectorAll('.chip.selected')].map(button => button.dataset.player);
   const key = metricNames[metric];
@@ -32,21 +42,53 @@ function renderChart() {
 function renderPlayers() {
   const container = document.querySelector('.chips');
   const all = document.createElement('button');
-  all.className = 'chip selected';
+  all.className = 'chip';
   all.dataset.player = 'all';
   all.innerHTML = `<i></i>All players (sum)<b>${number(players.reduce((sum, player) => sum + valueFor(player, metricNames[metric]), 0))}</b>`;
   container.replaceChildren(all, ...players.slice(0, 11).map((player) => {
     const button = document.createElement('button');
-    button.className = 'chip';
+    button.className = 'chip selected';
     button.dataset.player = player.username;
     button.innerHTML = '<i></i>';
     const label = document.createTextNode(`${player.username} `);
     const total = document.createElement('b');
     total.textContent = number(valueFor(player, metricNames[metric]));
+    button.title = `${player.username}: ${rateText(speedFor(player.username, metricNames[metric]))} ${metric} per second`;
     button.prepend(label);
     button.append(total);
     return button;
   }));
+}
+function renderStats() {
+  const key = metricNames[metric];
+  const index = players.findIndex(player => player.username === 'izie');
+  const izie = players[index];
+  const speed = izie ? speedFor(izie.username, key) : 0;
+  const above = index > 0 ? players[index - 1] : null;
+  const nextGap = above && izie ? Math.max(0, above.total - izie.total + 1) : null;
+  const firstGap = izie ? Math.max(0, players[0].total - izie.total + (index > 0 ? 1 : 0)) : null;
+  document.querySelector('#your-rank').textContent = izie ? `izie · #${index + 1}` : 'izie · unranked';
+  document.querySelector('#your-total').textContent = izie ? `${number(izie.total)} total` : 'not on leaderboard';
+  document.querySelector('#your-speed').textContent = rateText(speed);
+  document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
+  document.querySelector('#next-name').textContent = above?.username || 'Already #1';
+  document.querySelector('#next-gap').textContent = nextGap == null ? '—' : `${number(nextGap)} ahead`;
+  document.querySelector('#next-eta').textContent = nextGap != null && speed > 0 ? etaText(nextGap / speed) : '—';
+  document.querySelector('#first-eta').textContent = firstGap != null && speed > 0 ? etaText(firstGap / speed) : '—';
+  document.querySelector('#first-gap').textContent = firstGap == null ? '—' : `${number(firstGap)} ahead`;
+  const body = document.querySelector('#leaderboard');
+  body.replaceChildren(...players.slice(0, 15).map((player, rowIndex) => {
+    const rate = speedFor(player.username, key);
+    const row = document.createElement('tr');
+    [rowIndex + 1, player.username, number(player.total), rateText(rate)].forEach(value => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    });
+    row.children[2].title = `${rateText(rate)} ${metric} per second`;
+    return row;
+  }));
+  document.querySelector('#leaderboard-updated').textContent = `updated ${new Date().toLocaleTimeString()}`;
 }
 async function load() {
   const response = await fetch('/api/leaderboard', { cache: 'no-store' });
@@ -54,9 +96,10 @@ async function load() {
   const body = await response.json();
   if (!Array.isArray(body.data)) throw new Error('invalid leaderboard response');
   players = body.data;
-  players.forEach(player => { const samples = history.get(player.username) || []; samples.push(player); history.set(player.username, samples.slice(-60)); });
+  players.forEach(player => { const samples = history.get(player.username) || []; samples.push({ ...player, _time: Date.now() }); history.set(player.username, samples.slice(-60)); });
   renderPlayers();
   renderChart();
+  renderStats();
   document.querySelector('#subtitle').textContent = `${metric} totals · updated ${new Date().toLocaleTimeString()}`;
 }
 document.addEventListener('click', event => {

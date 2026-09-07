@@ -24,7 +24,18 @@
           <button class="chip selected" data-player="all"><i></i>All players (sum)<b>—</b></button>
       </section>
       <div class="chart-wrap"><svg id="chart" role="img" aria-label="Rates over time chart" viewBox="0 0 1800 470" preserveAspectRatio="none"></svg></div>
+      <section class="stats" aria-label="Race stats">
+        <article class="stat-card"><span>Your name</span><strong id="your-rank">izie · —</strong><small id="your-total">— total</small></article>
+        <article class="stat-card"><span>Speed</span><strong id="your-speed">—/s</strong><small id="your-speed-note">waiting for a second sample</small></article>
+        <article class="stat-card"><span>Next person above</span><strong id="next-name">—</strong><small id="next-gap">— ahead</small></article>
+        <article class="stat-card"><span>Time to pass them</span><strong id="next-eta">—</strong><small>based on your current speed</small></article>
+        <article class="stat-card"><span>Time to #1</span><strong id="first-eta">—</strong><small id="first-gap">— ahead</small></article>
+      </section>
+      <section class="leaderboard-panel">
+        <div class="section-heading"><h2>Leaderboard</h2><span id="leaderboard-updated">Waiting for data</span></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Total</th><th>Speed</th></tr></thead><tbody id="leaderboard"></tbody></table></div>
+      </section>
     </main>
-    <script src="app.js?v=7e89bd2"></script>
+    <script src="app.js?v=stats-1"></script>
   </body>
 </html>
