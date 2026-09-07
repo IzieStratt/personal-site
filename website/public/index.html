@@ -12,10 +12,11 @@
     </main>
     <script>
       const main = document.querySelector('main')
+      const pageUrl = window.location.href
       if (window.location.hostname === 'vs.izie.top') {
-        main.innerHTML = '<p>hiya! youre currently at vs.izie.top meoww</p><p>This folder is purely for vibe-slopped code that I want to host, none of it is tracked on hackatime!</p><ul><li><a href="/overview/">Rates over time dashboard</a></li><li><a href="/info.txt">The original notice as a text file</a></li></ul>'
+        main.innerHTML = `<p>hiya! youre currently at ${pageUrl} meoww</p><p>This folder is purely for vibe-slopped code that I want to host, none of it is tracked on hackatime!</p><ul><li><a href="${new URL('/overview/', pageUrl)}">Rates over time dashboard</a></li><li><a href="${new URL('/info.txt', pageUrl)}">The original notice as a text file</a></li></ul>`
       } else {
-        document.querySelector('#greeting').textContent = `hiya! youre currently at ${window.location.href} meoww`
+        document.querySelector('#greeting').textContent = `hiya! youre currently at ${pageUrl} meoww`
       }
     </script>
   </body>
