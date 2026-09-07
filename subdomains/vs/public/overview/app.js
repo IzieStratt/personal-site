@@ -124,6 +124,39 @@ function renderStats() {
   }));
   document.querySelector('#leaderboard-updated').textContent = `updated ${new Date().toLocaleTimeString()}`;
 }
+function matchingNames(query) {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return players.slice(0, 8);
+  return players
+    .filter(player => player.username.toLowerCase().includes(needle))
+    .sort((a, b) => {
+      const aStarts = a.username.toLowerCase().startsWith(needle);
+      const bStarts = b.username.toLowerCase().startsWith(needle);
+      return Number(bStarts) - Number(aStarts) || b.total - a.total;
+    })
+    .slice(0, 8);
+}
+function renderSuggestions(query) {
+  const box = document.querySelector('#name-suggestions');
+  const matches = matchingNames(query);
+  box.replaceChildren(...matches.map(player => {
+    const option = document.createElement('button');
+    option.type = 'button';
+    option.role = 'option';
+    option.dataset.name = player.username;
+    option.textContent = player.username;
+    return option;
+  }));
+  box.hidden = !matches.length || document.activeElement !== document.querySelector('#name-input');
+}
+function chooseName(name) {
+  profileName = name;
+  const input = document.querySelector('#name-input');
+  input.value = name;
+  document.querySelector('#name-suggestions').hidden = true;
+  saveClientState();
+  if (players.length) renderStats();
+}
 async function load() {
   const response = await fetch('/api/leaderboard', { cache: 'no-store' });
   if (!response.ok) throw new Error(`leaderboard returned HTTP ${response.status}`);
@@ -180,5 +213,26 @@ document.querySelector('#name-input').value = profileName;
 document.querySelector('#name-input').addEventListener('input', event => {
   profileName = event.target.value.trim() || 'izie';
   saveClientState();
+  renderSuggestions(event.target.value);
   if (players.length) renderStats();
+});
+document.querySelector('#name-input').addEventListener('focus', event => renderSuggestions(event.target.value));
+document.querySelector('#name-input').addEventListener('keydown', event => {
+  const options = [...document.querySelectorAll('#name-suggestions button')];
+  if (!options.length) return;
+  const current = options.indexOf(document.activeElement);
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    options[(current + (event.key === 'ArrowDown' ? 1 : options.length - 1)) % options.length].focus();
+  } else if (event.key === 'Enter' || event.key === 'Tab') {
+    event.preventDefault();
+    chooseName(options[0].dataset.name);
+  }
+});
+document.querySelector('#name-suggestions').addEventListener('click', event => {
+  const option = event.target.closest('button[data-name]');
+  if (option) chooseName(option.dataset.name);
+});
+document.addEventListener('click', event => {
+  if (!event.target.closest('.name-picker')) document.querySelector('#name-suggestions').hidden = true;
 });
