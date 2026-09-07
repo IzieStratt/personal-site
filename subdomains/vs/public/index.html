@@ -7,7 +7,7 @@
     <style>
       @font-face { font-family: "xkcd Script"; src: url("https://github.com/ipython/xkcd-font/raw/refs/heads/master/xkcd-script/font/xkcd-script.woff") format("woff"); font-display: swap; }
       :root { color: #222; background: #fffdf7; font: 1.25rem/1.5 "xkcd Script", cursive; }
-      body { max-width: 46rem; margin: 12vh auto; padding: 0 1.5rem; }
+      body { width: min(46rem, calc(100% - 3rem)); margin: 12vh auto; padding: 0; overflow-wrap: anywhere; }
       h1 { margin: 0 0 1.5rem; font-size: clamp(2rem, 8vw, 4rem); font-weight: normal; }
       p { margin: 0 0 1.5rem; }
       ul { margin: 0; padding-left: 1.5rem; }
@@ -18,7 +18,6 @@
     <main>
       <h1>hiya!</h1>
       <p>This folder is purely for vibe-slopped code that I want to host, none of it is tracked on hackatime!</p>
-      <p>Thanks!</p>
       <ul>
         <li><a href="/overview/">Rates over time dashboard</a></li>
         <li><a href="/info.txt">The original notice as a text file</a></li>
