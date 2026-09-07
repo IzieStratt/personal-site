@@ -5,7 +5,7 @@ export default {
     const prefix = match ? `/__subdomains/${match[1]}` : null
 
     if (prefix) {
-      url.pathname = url.pathname === '/' ? `${prefix}-index.html` : `${prefix}${url.pathname}`
+      url.pathname = url.pathname === '/' ? `${prefix}/index.html` : `${prefix}${url.pathname}`
       const response = await env.ASSETS.fetch(new Request(url, request))
       const location = response.headers.get('Location')
 
