@@ -163,10 +163,17 @@ async function load() {
   const body = await response.json();
   if (!Array.isArray(body.data)) throw new Error('invalid leaderboard response');
   players = body.data;
+  // The upstream leaderboard is cached for ~30s, so 15s polls often return the same
+  // snapshot twice. Key samples to the server's snapshot time (body.ts) and skip
+  // repeat snapshots; otherwise rates flicker between a real value and 0/s, and the
+  // nonzero readings come out doubled because the increment covers two intervals.
+  const sampleTime = Number.isFinite(body.ts) ? Math.round(body.ts * 1000) : Date.now();
   players.forEach(player => {
-    const samples = history.get(player.username) || Array.from({ length: 4 }, (_, index) => ({ ...player, _time: Date.now() - (4 - index) * 15_000 }));
-    samples.push({ ...player, _time: Date.now() });
-    history.set(player.username, samples.slice(-60));
+    const samples = history.get(player.username) || Array.from({ length: 4 }, (_, index) => ({ ...player, _time: sampleTime - (4 - index) * 15_000 }));
+    if (samples[samples.length - 1]?._time < sampleTime) {
+      samples.push({ ...player, _time: sampleTime });
+      history.set(player.username, samples.slice(-60));
+    }
   });
   saveClientState();
   renderPlayers();
