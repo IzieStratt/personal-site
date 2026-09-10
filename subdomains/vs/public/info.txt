@@ -1,4 +1,0 @@
-Hello! If you are viewing this file then either you're a reviewer or just someone looking at my code on Github (if so DM me ":neocat_nom_burger:" on slack!... and maybe drop a follow :3).
-This folder is purely for vibe-slopped code that I want to host, none of it is tracked on hackatime!
-
-Thanks!

@@ -5,10 +5,7 @@ if test -z "$message"
   set message "update personal site"
 end
 
-node scripts/sync-subdomains.mjs
-or exit 1
-
-git add worker.js wrangler.jsonc scripts website/public/__subdomains subdomains
+git add worker.js wrangler.jsonc scripts website/public/__subdomains
 or exit 1
 
 git commit -m "$message"
