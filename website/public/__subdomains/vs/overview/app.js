@@ -106,11 +106,11 @@ function renderStats() {
     const values = [
       rowIndex + 1,
       player.username,
+      number(player.total),
       number(valueFor(player, 'cap-default')),
       number(valueFor(player, 'cf-turnstile')),
       number(valueFor(player, 'vercel-botid-basic')),
       number(valueFor(player, 'hcaptcha')),
-      number(player.total),
       rateText(rate),
     ];
     values.forEach(value => {
@@ -118,7 +118,7 @@ function renderStats() {
       cell.textContent = value;
       row.append(cell);
     });
-    [2, 3, 4, 5, 6].forEach(index => { row.children[index].title = `${rateText(speedFor(player.username, ['cap-default', 'cf-turnstile', 'vercel-botid-basic', 'hcaptcha', 'total'][index - 2]))} per second`; });
+    [2, 3, 4, 5, 6].forEach(index => { row.children[index].title = `${rateText(speedFor(player.username, ['total', 'cap-default', 'cf-turnstile', 'vercel-botid-basic', 'hcaptcha'][index - 2]))} per second`; });
     row.children[7].title = `${rateText(rate)} ${metric} per second`;
     return row;
   }));
