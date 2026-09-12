@@ -11,7 +11,20 @@ let profileName = 'izie';
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
 const rateText = value => Number.isFinite(value) && value >= 0 ? `${value.toFixed(2)}/s` : '—/s';
-const etaText = seconds => Number.isFinite(seconds) && seconds >= 0 ? `${Math.ceil(seconds / 60)}m` : '—';
+const etaMinutes = seconds => Number.isFinite(seconds) && seconds >= 0 ? Math.ceil(seconds / 60) : null;
+const etaText = minutes => {
+  if (minutes == null) return '—';
+  const d = Math.floor(minutes / 1440), h = Math.floor((minutes % 1440) / 60), m = minutes % 60;
+  if (d > 0) return `${d}d ${h}h`;
+  if (h > 0) return `${h}h ${m}m`;
+  return `${m}m`;
+};
+const setEta = (selector, seconds) => {
+  const el = document.querySelector(selector);
+  const minutes = etaMinutes(seconds);
+  el.textContent = etaText(minutes);
+  el.title = minutes == null ? '' : `${number(minutes)} minute${minutes === 1 ? '' : 's'}`;
+};
 function restoreClientState() {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -96,8 +109,9 @@ function renderStats() {
   document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
   document.querySelector('#next-name').textContent = above?.username || 'Already #1';
   document.querySelector('#next-gap').textContent = nextGap == null ? '—' : `${number(nextGap)} ahead`;
-  document.querySelector('#next-eta').textContent = nextGap != null && speed > 0 ? etaText(nextGap / speed) : '—';
-  document.querySelector('#first-eta').textContent = firstGap != null && speed > 0 ? etaText(firstGap / speed) : '—';
+  setEta('#next-eta', nextGap != null && speed > 0 ? nextGap / speed : NaN);
+  setEta('#first-eta', firstGap != null && speed > 0 ? firstGap / speed : NaN);
+  document.querySelector('#next-eta-gap').textContent = nextGap == null ? '—' : `${number(nextGap)} ahead`;
   document.querySelector('#first-gap').textContent = firstGap == null ? '—' : `${number(firstGap)} ahead`;
   const body = document.querySelector('#leaderboard');
   body.replaceChildren(...players.slice(0, 15).map((player, rowIndex) => {
