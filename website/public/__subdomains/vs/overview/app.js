@@ -1,7 +1,9 @@
 const svg = document.querySelector('#chart');
 const W = 1800, H = 470, left = 72, right = 12, chartTop = 22, bottom = 45;
 const allPlayersColor = '#e5ebf3';
-const playerColors = Array.from({ length: 32 }, (_, index) => `hsl(${Math.round(index * 137.508) % 360} 72% 66%)`);
+// The leaderboard has hundreds of players, so the palette must grow without
+// bound: wrapping the collision walk modulo a fixed palette deadlocks the page.
+const playerColorAt = index => `hsl(${Math.round(index * 137.508) % 360} 72% 66%)`;
 const playerColorByName = new Map();
 const assignPlayerColors = () => {
   playerColorByName.clear();
@@ -9,10 +11,10 @@ const assignPlayerColors = () => {
   [...players].sort((a, b) => a.username.localeCompare(b.username)).forEach(player => {
     let hash = 2166136261;
     for (const character of player.username) hash = Math.imul(hash ^ character.codePointAt(0), 16777619);
-    let index = (hash >>> 0) % playerColors.length;
-    while (used.has(index)) index = (index + 1) % playerColors.length;
+    let index = (hash >>> 0) % 32;
+    while (used.has(index)) index += 1;
     used.add(index);
-    playerColorByName.set(player.username, playerColors[index]);
+    playerColorByName.set(player.username, playerColorAt(index));
   });
 };
 const colorForPlayer = name => playerColorByName.get(name) || allPlayersColor;
