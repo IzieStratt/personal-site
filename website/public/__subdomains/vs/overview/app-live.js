@@ -22,7 +22,7 @@ const oklchToSrgbHex = (lightness, chroma, hueDegrees) => {
 const colorCandidates = [];
 for (const lightness of [0.82, 0.72, 0.62]) {
   for (const chroma of [0.13, 0.17]) {
-    for (let hue = 0; hue < 360; hue += 12) {
+    for (let hue = 0; hue < 360; hue += 6) {
       const radians = (hue * Math.PI) / 180;
       colorCandidates.push({
         css: oklchToSrgbHex(lightness, chroma, hue),
@@ -35,7 +35,11 @@ const colorDistance2 = (p, q) => (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2]
 const playerColorByName = new Map();
 const assignedColorLabs = [];
 const assignPlayerColors = () => {
-  [...players].sort((a, b) => a.username.localeCompare(b.username)).forEach(player => {
+  // Leaderboard (rank) order, not alphabetical: the greedy pick spends the
+  // widest-spaced candidates on the top-ranked players, since those are the
+  // chips and lines people actually compare. Late arrivals and the long tail
+  // of one-off names get whatever remains.
+  players.forEach(player => {
     if (playerColorByName.has(player.username)) return;
     let best = colorCandidates[0], bestScore = -1;
     for (const candidate of colorCandidates) {
