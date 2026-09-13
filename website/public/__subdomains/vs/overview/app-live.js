@@ -222,7 +222,7 @@ function renderStats() {
   document.querySelector('#your-speed').textContent = rateText(speed);
   document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
   document.querySelector('#next-name').textContent = above?.username || 'Already #1';
-  document.querySelector('#next-gap').textContent = above ? `${number(above.total)} total ● ${rateText(speedFor(above.username, key))}` : '—';
+  document.querySelector('#next-gap').textContent = above ? `${number(above.total)} total • ${rateText(speedFor(above.username, key))}` : '—';
   setEta('#next-eta', nextGap != null && speed > 0 ? nextGap / speed : NaN);
   setEta('#first-eta', firstGap != null && speed > 0 ? firstGap / speed : NaN);
   document.querySelector('#next-eta-gap').textContent = nextGap == null ? '—' : `${number(nextGap)} ahead`;
