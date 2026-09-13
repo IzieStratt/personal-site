@@ -66,9 +66,10 @@ function renderChart() {
   const aggregate = selected.includes('all');
   const names = aggregate ? players : players.filter(player => selected.includes(player.username));
   const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
+  const shown = aggregate ? [] : (names.length ? names : players).slice(0, 4);
   const series = aggregate
     ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
-    : (names.length ? names : players).slice(0, 4).map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []);
+    : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []);
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
@@ -80,6 +81,12 @@ function renderChart() {
     if (path) markup += `<path class="line" d="${path}" stroke="${colors[index]}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${colors[index]}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
   });
   svg.innerHTML = markup;
+  document.querySelectorAll('.chips .chip').forEach(chip => {
+    const swatch = chip.querySelector('i');
+    if (!swatch) return;
+    const index = chip.dataset.player === 'all' ? (aggregate ? 0 : -1) : shown.findIndex(player => player.username === chip.dataset.player);
+    swatch.style.background = index >= 0 ? colors[index] : '';
+  });
 }
 function renderPlayers() {
   const container = document.querySelector('.chips');
