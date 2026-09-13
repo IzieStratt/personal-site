@@ -55,6 +55,7 @@ const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'ver
 const history = new Map();
 const storageKey = 'vs-overview-state';
 let metric = 'Cap';
+let view = 'rate';
 let players = [];
 let profileName = 'izie';
 
@@ -64,6 +65,12 @@ const compact = value => {
   const v = Number(value) || 0;
   if (v >= 1e6) return `${Math.round(v / 1e6)}M`;
   if (v >= 1e3) return `${Math.round(v / 1e3)}k`;
+  return String(Math.round(v));
+};
+const rateCompact = value => {
+  const v = Number(value) || 0;
+  if (v < 10) return v.toFixed(2);
+  if (v < 100) return v.toFixed(1);
   return String(Math.round(v));
 };
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
@@ -86,6 +93,7 @@ function restoreClientState() {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
     if (typeof saved.name === 'string' && saved.name.trim()) profileName = saved.name.trim();
+    if (saved.view === 'rate' || saved.view === 'cumulative') view = saved.view;
     for (const [name, samples] of Object.entries(saved.history || {})) {
       if (!Array.isArray(samples)) continue;
       const valid = samples.filter(sample => Number.isFinite(sample?._time)).slice(-60);
@@ -98,7 +106,7 @@ function restoreClientState() {
 function saveClientState() {
   try {
     const savedHistory = Object.fromEntries([...history].map(([name, samples]) => [name, samples.slice(-60)]));
-    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, history: savedHistory }));
+    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, view, history: savedHistory }));
   } catch {
     // Persistence is an enhancement; the live dashboard still works without it.
   }
@@ -118,15 +126,32 @@ function renderChart() {
   const names = aggregate ? players : players.filter(player => selected.includes(player.username));
   const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
   const shown = aggregate ? [] : (names.length ? names : players).slice(0, 4);
-  const series = aggregate
-    ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
-    : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []);
+  // Botting speed between each pair of consecutive samples; dt<=0 pairs are skipped
+  // and negative deltas clamp to 0 so a reset counter never dips the line.
+  const ratesFor = name => {
+    const samples = history.get(name) || [];
+    const rates = [];
+    for (let i = 1; i < samples.length; i++) {
+      const seconds = (samples[i]._time - samples[i - 1]._time) / 1000;
+      if (seconds <= 0) continue;
+      rates.push(Math.max(0, valueFor(samples[i], key) - valueFor(samples[i - 1], key)) / seconds);
+    }
+    return rates;
+  };
+  const series = view === 'rate'
+    ? (aggregate
+      ? [Array.from({ length: Math.max(1, sampleCount - 1) }, (_, index) => players.reduce((sum, player) => sum + (ratesFor(player.username)[index] || 0), 0))]
+      : shown.map(player => ratesFor(player.username)))
+    : (aggregate
+      ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
+      : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []));
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
   const y = value => chartTop + H - chartTop - bottom - (value / max) * (H - chartTop - bottom);
   let markup = '';
-  [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${compact(max * fraction)}</text>`; });
+  const axisValue = view === 'rate' ? rateCompact : compact;
+  [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${axisValue(max * fraction)}</text>`; });
   series.forEach((values, index) => {
     const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
     if (path) {
@@ -279,7 +304,10 @@ async function load() {
   renderPlayers();
   renderChart();
   renderStats();
-  document.querySelector('#subtitle').textContent = `${metric} totals · updated ${new Date().toLocaleTimeString()}`;
+  renderSubtitle();
+}
+function renderSubtitle() {
+  document.querySelector('#subtitle').textContent = `${metric} ${view === 'rate' ? 'per second' : 'totals'} · updated ${new Date().toLocaleTimeString()}`;
 }
 document.addEventListener('click', event => {
   const button = event.target.closest('button');
@@ -292,6 +320,13 @@ document.addEventListener('click', event => {
     metric = button.dataset.metric;
     renderPlayers();
     renderChart();
+    if (players.length) renderSubtitle();
+  }
+  if (group.classList.contains('views')) {
+    view = button.dataset.view;
+    saveClientState();
+    renderChart();
+    if (players.length) renderSubtitle();
   }
 });
 document.querySelector('.chips').addEventListener('click', event => {
@@ -312,6 +347,7 @@ load().catch(error => { document.querySelector('#subtitle').textContent = `Unabl
 setInterval(() => load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; }), 15000);
 window.addEventListener('error', event => { document.querySelector('#subtitle').textContent = `Dashboard error: ${event.message}`; });
 restoreClientState();
+document.querySelectorAll('.views button').forEach(button => button.classList.toggle('active', button.dataset.view === view));
 document.querySelector('#name-input').value = profileName;
 document.querySelector('#name-input').addEventListener('input', event => {
   profileName = event.target.value.trim() || 'izie';
