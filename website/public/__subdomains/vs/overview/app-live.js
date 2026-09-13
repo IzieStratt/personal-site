@@ -9,6 +9,12 @@ let players = [];
 let profileName = 'izie';
 
 const number = value => Math.round(Number(value) || 0).toLocaleString();
+const compact = value => {
+  const v = Number(value) || 0;
+  if (v >= 1e6) return `${+(v / 1e6).toFixed(1)}M`;
+  if (v >= 1e3) return `${+(v / 1e3).toFixed(1)}k`;
+  return String(Math.round(v));
+};
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
 const rateText = value => Number.isFinite(value) && value >= 0 ? `${value.toFixed(2)}/s` : '—/s';
 const etaMinutes = seconds => Number.isFinite(seconds) && seconds >= 0 ? Math.ceil(seconds / 60) : null;
@@ -68,7 +74,7 @@ function renderChart() {
   const x = i => left + (i / (n - 1)) * (W - left - right);
   const y = value => chartTop + H - chartTop - bottom - (value / max) * (H - chartTop - bottom);
   let markup = '';
-  [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${number(max * fraction)}</text>`; });
+  [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${compact(max * fraction)}</text>`; });
   series.forEach((values, index) => {
     const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
     if (path) markup += `<path class="line" d="${path}" stroke="${colors[index]}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${colors[index]}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
