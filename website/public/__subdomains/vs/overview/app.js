@@ -121,19 +121,19 @@ function renderStats() {
       rowIndex + 1,
       player.username,
       number(player.total),
+      rateText(rate),
       number(valueFor(player, 'cap-default')),
       number(valueFor(player, 'cf-turnstile')),
       number(valueFor(player, 'vercel-botid-basic')),
       number(valueFor(player, 'hcaptcha')),
-      rateText(rate),
     ];
     values.forEach(value => {
       const cell = document.createElement('td');
       cell.textContent = value;
       row.append(cell);
     });
-    [2, 3, 4, 5, 6].forEach(index => { row.children[index].title = `${rateText(speedFor(player.username, ['total', 'cap-default', 'cf-turnstile', 'vercel-botid-basic', 'hcaptcha'][index - 2]))} per second`; });
-    row.children[7].title = `${rateText(rate)} ${metric} per second`;
+    Object.entries({ 2: 'total', 4: 'cap-default', 5: 'cf-turnstile', 6: 'vercel-botid-basic', 7: 'hcaptcha' }).forEach(([index, key]) => { row.children[index].title = `${rateText(speedFor(player.username, key))} per second`; });
+    row.children[3].title = `${rateText(rate)} ${metric} per second`;
     return row;
   }));
   document.querySelector('#leaderboard-updated').textContent = `updated ${new Date().toLocaleTimeString()}`;
