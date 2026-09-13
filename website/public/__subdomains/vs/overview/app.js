@@ -11,8 +11,8 @@ let profileName = 'izie';
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const compact = value => {
   const v = Number(value) || 0;
-  if (v >= 1e6) return `${+(v / 1e6).toFixed(1)}M`;
-  if (v >= 1e3) return `${+(v / 1e3).toFixed(1)}k`;
+  if (v >= 1e6) return `${Math.round(v / 1e6)}M`;
+  if (v >= 1e3) return `${Math.round(v / 1e3)}k`;
   return String(Math.round(v));
 };
 const valueFor = (player, key) => key === 'total' ? player.total : player.by_type?.[key] || 0;
