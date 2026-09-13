@@ -1,6 +1,21 @@
 const svg = document.querySelector('#chart');
 const W = 1800, H = 470, left = 72, right = 12, chartTop = 22, bottom = 45;
-const colors = ['#e5ebf3','#4d8ce4','#ce6332','#4da574'];
+const allPlayersColor = '#e5ebf3';
+const playerColors = Array.from({ length: 32 }, (_, index) => `hsl(${Math.round(index * 137.508) % 360} 72% 66%)`);
+const playerColorByName = new Map();
+const assignPlayerColors = () => {
+  playerColorByName.clear();
+  const used = new Set();
+  [...players].sort((a, b) => a.username.localeCompare(b.username)).forEach(player => {
+    let hash = 2166136261;
+    for (const character of player.username) hash = Math.imul(hash ^ character.codePointAt(0), 16777619);
+    let index = (hash >>> 0) % playerColors.length;
+    while (used.has(index)) index = (index + 1) % playerColors.length;
+    used.add(index);
+    playerColorByName.set(player.username, playerColors[index]);
+  });
+};
+const colorForPlayer = name => playerColorByName.get(name) || allPlayersColor;
 const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
 const history = new Map();
 const storageKey = 'vs-overview-state';
@@ -78,14 +93,15 @@ function renderChart() {
   [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${compact(max * fraction)}</text>`; });
   series.forEach((values, index) => {
     const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
-    if (path) markup += `<path class="line" d="${path}" stroke="${colors[index]}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${colors[index]}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
+    if (path) markup += `<path class="line" d="${path}" stroke="${aggregate ? allPlayersColor : colorForPlayer(shown[index].username)}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${aggregate ? allPlayersColor : colorForPlayer(shown[index].username)}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
   });
   svg.innerHTML = markup;
   document.querySelectorAll('.chips .chip').forEach(chip => {
     const swatch = chip.querySelector('i');
     if (!swatch) return;
-    const index = chip.dataset.player === 'all' ? (aggregate ? 0 : -1) : shown.findIndex(player => player.username === chip.dataset.player);
-    swatch.style.background = index >= 0 ? colors[index] : '';
+    swatch.style.background = chip.dataset.player === 'all'
+      ? allPlayersColor
+      : colorForPlayer(chip.dataset.player);
   });
 }
 function renderPlayers() {
@@ -190,6 +206,7 @@ async function load() {
   const body = await response.json();
   if (!Array.isArray(body.data)) throw new Error('invalid leaderboard response');
   players = body.data;
+  assignPlayerColors();
   // The upstream leaderboard is cached for ~30s, so 15s polls often return the same
   // snapshot twice. Key samples to the server's snapshot time (body.ts) and skip
   // repeat snapshots; otherwise rates flicker between a real value and 0/s, and the
