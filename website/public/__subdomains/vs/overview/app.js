@@ -58,6 +58,7 @@ let metric = 'Cap';
 let players = [];
 let profileName = 'izie';
 
+const escapeHtml = text => String(text).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 const number = value => Math.round(Number(value) || 0).toLocaleString();
 const compact = value => {
   const v = Number(value) || 0;
@@ -128,7 +129,12 @@ function renderChart() {
   [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${compact(max * fraction)}</text>`; });
   series.forEach((values, index) => {
     const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
-    if (path) markup += `<path class="line" d="${path}" stroke="${aggregate ? allPlayersColor : colorForPlayer(shown[index].username)}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${aggregate ? allPlayersColor : colorForPlayer(shown[index].username)}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
+    if (path) {
+      const color = aggregate ? allPlayersColor : colorForPlayer(shown[index].username);
+      const label = aggregate ? 'All players (sum)' : shown[index].username;
+      markup += `<path class="line" d="${path}" stroke="${color}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${color}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
+      markup += `<path class="hit" d="${path}" data-name="${escapeHtml(label)}"/>`;
+    }
   });
   svg.innerHTML = markup;
   document.querySelectorAll('.chips .chip').forEach(chip => {
@@ -138,7 +144,22 @@ function renderChart() {
       ? allPlayersColor
       : colorForPlayer(chip.dataset.player);
   });
+  hideTooltip();
 }
+const tooltip = document.querySelector('#chart-tooltip');
+function hideTooltip() {
+  if (tooltip) tooltip.hidden = true;
+}
+svg.addEventListener('mousemove', event => {
+  const hit = event.target.closest('path.hit');
+  if (!hit || !tooltip) { hideTooltip(); return; }
+  tooltip.textContent = hit.dataset.name;
+  const wrap = svg.closest('.chart-wrap').getBoundingClientRect();
+  tooltip.style.left = `${event.clientX - wrap.left}px`;
+  tooltip.style.top = `${event.clientY - wrap.top}px`;
+  tooltip.hidden = false;
+});
+svg.addEventListener('mouseleave', hideTooltip);
 function renderPlayers() {
   const container = document.querySelector('.chips');
   const all = document.createElement('button');
