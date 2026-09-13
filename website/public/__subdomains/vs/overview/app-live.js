@@ -1,20 +1,53 @@
 const svg = document.querySelector('#chart');
 const W = 1800, H = 470, left = 72, right = 12, chartTop = 22, bottom = 45;
 const allPlayersColor = '#e5ebf3';
-// The leaderboard has hundreds of players, so the palette must grow without
-// bound: wrapping the collision walk modulo a fixed palette deadlocks the page.
-const playerColorAt = index => `hsl(${Math.round(index * 137.508) % 360} 72% 66%)`;
+// Player colors must stay tell-apart: pick each new player's color from a
+// candidate pool by maximizing the minimum OKLab (perceptual) distance to every
+// color already handed out. Greedy and incremental, so colors stay put across
+// reloads and the palette still grows unbounded without the old collision walk.
+const oklchToSrgbHex = (lightness, chroma, hueDegrees) => {
+  const hue = (hueDegrees * Math.PI) / 180;
+  const a = chroma * Math.cos(hue), b = chroma * Math.sin(hue);
+  const l_ = lightness + 0.3963377774 * a + 0.2158037573 * b;
+  const m_ = lightness - 0.1055613458 * a - 0.0638541728 * b;
+  const s_ = lightness - 0.0894841775 * a - 1.291485548 * b;
+  const l3 = l_ ** 3, m3 = m_ ** 3, s3 = s_ ** 3;
+  const channel = value => {
+    const linear = Math.min(1, Math.max(0, value));
+    const srgb = linear <= 0.0031308 ? 12.92 * linear : 1.055 * linear ** (1 / 2.4) - 0.055;
+    return Math.round(Math.min(1, Math.max(0, srgb)) * 255).toString(16).padStart(2, '0');
+  };
+  return `#${channel(4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3)}${channel(-1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3)}${channel(-0.0041960863 * l3 - 0.7034186147 * m3 + 1.707614701 * s3)}`;
+};
+const colorCandidates = [];
+for (const lightness of [0.82, 0.72, 0.62]) {
+  for (const chroma of [0.13, 0.17]) {
+    for (let hue = 0; hue < 360; hue += 12) {
+      const radians = (hue * Math.PI) / 180;
+      colorCandidates.push({
+        css: oklchToSrgbHex(lightness, chroma, hue),
+        lab: [lightness, chroma * Math.cos(radians), chroma * Math.sin(radians)],
+      });
+    }
+  }
+}
+const colorDistance2 = (p, q) => (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2;
 const playerColorByName = new Map();
+const assignedColorLabs = [];
 const assignPlayerColors = () => {
-  playerColorByName.clear();
-  const used = new Set();
   [...players].sort((a, b) => a.username.localeCompare(b.username)).forEach(player => {
-    let hash = 2166136261;
-    for (const character of player.username) hash = Math.imul(hash ^ character.codePointAt(0), 16777619);
-    let index = (hash >>> 0) % 32;
-    while (used.has(index)) index += 1;
-    used.add(index);
-    playerColorByName.set(player.username, playerColorAt(index));
+    if (playerColorByName.has(player.username)) return;
+    let best = colorCandidates[0], bestScore = -1;
+    for (const candidate of colorCandidates) {
+      let score = Infinity;
+      for (const lab of assignedColorLabs) {
+        const distance = colorDistance2(candidate.lab, lab);
+        if (distance < score) score = distance;
+      }
+      if (score > bestScore) { bestScore = score; best = candidate; }
+    }
+    assignedColorLabs.push(best.lab);
+    playerColorByName.set(player.username, best.css);
   });
 };
 const colorForPlayer = name => playerColorByName.get(name) || allPlayersColor;
