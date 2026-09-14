@@ -15,7 +15,10 @@
             <button class="active" data-view="rate">Per second</button><button data-view="cumulative">Totals</button>
           </nav>
           <nav class="segmented metrics" aria-label="Metric">
-            <button data-metric="Total">Total</button><button class="active" data-metric="Cap">Cap</button><button data-metric="Turnstile">Turnstile</button><button data-metric="BotID">BotID</button><button data-metric="hCaptcha">hCaptcha</button>
+            <button class="active" data-metric="Total">Total</button><button data-metric="Cap">Cap</button><button data-metric="Turnstile">Turnstile</button><button data-metric="BotID">BotID</button><button data-metric="hCaptcha">hCaptcha</button>
+          </nav>
+          <nav class="segmented ranges" aria-label="Time range">
+            <button data-range="hour">1h</button><button data-range="day">24h</button><button class="active" data-range="3day">3d</button><button data-range="7day">7d</button><button data-range="30day">30d</button><button data-range="all">All</button>
           </nav>
           <button class="clear-data" id="clear-data">Clear saved data</button>
         </div>

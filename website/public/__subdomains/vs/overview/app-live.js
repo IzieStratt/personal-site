@@ -58,8 +58,19 @@ const colorForPlayer = name => playerColorByName.get(name) || allPlayersColor;
 const metricNames = { Cap: 'cap-default', Turnstile: 'cf-turnstile', BotID: 'vercel-botid-basic', hCaptcha: 'hcaptcha', Total: 'total' };
 const history = new Map();
 const storageKey = 'vs-overview-state';
-let metric = 'Cap';
+let metric = 'Total';
 let view = 'rate';
+let range = '3day';
+// Windows offered by /api/graphs/user-solves. bucket=hour&range=30day returns
+// no labels upstream, so 30d and All use day buckets.
+const rangePresets = {
+  hour: { bucket: '5min', range: 'hour', label: 'past hour' },
+  day: { bucket: '5min', range: 'day', label: '24 hours' },
+  '3day': { bucket: '5min', range: '3day', label: '3 days' },
+  '7day': { bucket: 'hour', range: '7day', label: '7 days' },
+  '30day': { bucket: 'day', range: '30day', label: '30 days' },
+  all: { bucket: 'day', range: 'all', label: 'all time' },
+};
 let players = [];
 let profileName = 'izie';
 // Long-range solve history from the site's user-solves API: total solves per
@@ -67,6 +78,10 @@ let profileName = 'izie';
 // always shows total solves; the metric segmented only re-prices the chips.
 const solveSeries = new Map();
 let solveBucketSeconds = 300;
+let solveLabels = [];
+// Last rendered chart series + exact per-point lookup for hover tooltips.
+let lastSeries = [];
+let lastPointInfo = null;
 
 const escapeHtml = text => String(text).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 const number = value => Math.round(Number(value) || 0).toLocaleString();
@@ -103,6 +118,10 @@ function restoreClientState() {
     const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
     if (typeof saved.name === 'string' && saved.name.trim()) profileName = saved.name.trim();
     if (saved.view === 'rate' || saved.view === 'cumulative') view = saved.view;
+    if (typeof saved.range === 'string' && rangePresets[saved.range]) {
+      range = saved.range;
+      document.querySelectorAll('.segmented.ranges button').forEach(item => item.classList.toggle('active', item.dataset.range === range));
+    }
     for (const [name, samples] of Object.entries(saved.history || {})) {
       if (!Array.isArray(samples)) continue;
       const valid = samples.filter(sample => Number.isFinite(sample?._time)).slice(-60);
@@ -115,7 +134,7 @@ function restoreClientState() {
 function saveClientState() {
   try {
     const savedHistory = Object.fromEntries([...history].map(([name, samples]) => [name, samples.slice(-60)]));
-    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, view, history: savedHistory }));
+    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, view, range, history: savedHistory }));
   } catch {
     // Persistence is an enhancement; the live dashboard still works without it.
   }
@@ -130,22 +149,70 @@ function speedFor(name, key) {
 }
 function renderChart() {
   const selected = [...document.querySelectorAll('.chip.selected')].map(button => button.dataset.player);
+  const key = metricNames[metric];
   const aggregate = selected.includes('all');
   const names = aggregate ? players : players.filter(player => selected.includes(player.username));
   const shown = aggregate ? [] : (names.length ? names : players).slice(0, 4);
-  // Per-bucket totals from the user-solves API. Rate view divides each bucket's
-  // solves by the bucket length; totals view is the running sum over the window.
-  const countsFor = name => solveSeries.get(name) || [];
-  const rateFor = name => countsFor(name).map(count => count / solveBucketSeconds);
-  const cumulativeFor = name => {
-    let sum = 0;
-    return countsFor(name).map(count => (sum += count));
-  };
-  const valuesFor = name => view === 'rate' ? rateFor(name) : cumulativeFor(name);
-  const aggregateNames = players.map(player => player.username).filter(name => solveSeries.has(name));
-  const series = aggregate
-    ? [Array.from({ length: Math.max(1, ...aggregateNames.map(name => countsFor(name).length)) }, (_, index) => aggregateNames.reduce((sum, name) => sum + (valuesFor(name)[index] || 0), 0))]
-    : shown.map(player => valuesFor(player.username));
+  let series;
+  // Exact per-point text for hover tooltips: (seriesIndex, pointIndex) => string.
+  let pointInfo = null;
+  if (metric === 'Total') {
+    // Per-bucket totals from the user-solves API. Rate view divides each bucket's
+    // solves by the bucket length; totals view is the running sum over the window.
+    const countsFor = name => solveSeries.get(name) || [];
+    const rateFor = name => countsFor(name).map(count => count / solveBucketSeconds);
+    const cumulativeFor = name => {
+      let sum = 0;
+      return countsFor(name).map(count => (sum += count));
+    };
+    const valuesFor = name => view === 'rate' ? rateFor(name) : cumulativeFor(name);
+    const aggregateNames = players.map(player => player.username).filter(name => solveSeries.has(name));
+    series = aggregate
+      ? [Array.from({ length: Math.max(1, ...aggregateNames.map(name => countsFor(name).length)) }, (_, index) => aggregateNames.reduce((sum, name) => sum + (valuesFor(name)[index] || 0), 0))]
+      : shown.map(player => valuesFor(player.username));
+    pointInfo = (seriesIndex, pointIndex) => {
+      const at = solveLabels[pointIndex] ? `${solveLabels[pointIndex]} UTC` : '';
+      if (view === 'rate') {
+        const solves = aggregate
+          ? aggregateNames.reduce((sum, name) => sum + (countsFor(name)[pointIndex] || 0), 0)
+          : (countsFor(shown[seriesIndex]?.username)[pointIndex] || 0);
+        return `${at} · ${number(solves)} solves in bucket · ${rateText(solves / solveBucketSeconds)}`;
+      }
+      return `${at} · ${number(series[seriesIndex]?.[pointIndex])} solves`;
+    };
+  } else {
+    // Per-captcha-type graphs come from the live leaderboard samples: the solves
+    // API has no per-user type split. Same behavior the chart had before the API.
+    const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
+    // Botting speed between each pair of consecutive samples; dt<=0 pairs are skipped
+    // and negative deltas clamp to 0 so a reset counter never dips the line.
+    const ratesFor = name => {
+      const samples = history.get(name) || [];
+      const rates = [];
+      for (let i = 1; i < samples.length; i++) {
+        const seconds = (samples[i]._time - samples[i - 1]._time) / 1000;
+        if (seconds <= 0) continue;
+        rates.push(Math.max(0, valueFor(samples[i], key) - valueFor(samples[i - 1], key)) / seconds);
+      }
+      return rates;
+    };
+    series = view === 'rate'
+      ? (aggregate
+        ? [Array.from({ length: Math.max(1, sampleCount - 1) }, (_, index) => players.reduce((sum, player) => sum + (ratesFor(player.username)[index] || 0), 0))]
+        : shown.map(player => ratesFor(player.username)))
+      : (aggregate
+        ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
+        : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []));
+    pointInfo = (seriesIndex, pointIndex) => {
+      const samples = aggregate ? null : history.get(shown[seriesIndex]?.username);
+      const at = samples?.[Math.min(pointIndex + (view === 'rate' ? 1 : 0), Math.max(0, (samples?.length || 1) - 1))]?._time;
+      const time = at ? new Date(at).toLocaleTimeString() : '';
+      const value = series[seriesIndex]?.[pointIndex] || 0;
+      return view === 'rate' ? `${time} · ${rateText(value)}` : `${time} · ${number(value)}`;
+    };
+  }
+  lastSeries = series;
+  lastPointInfo = pointInfo;
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
@@ -159,7 +226,7 @@ function renderChart() {
       const color = aggregate ? allPlayersColor : colorForPlayer(shown[index].username);
       const label = aggregate ? 'All players (sum)' : shown[index].username;
       markup += `<path class="line" d="${path}" stroke="${color}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${color}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
-      markup += `<path class="hit" d="${path}" data-name="${escapeHtml(label)}"/>`;
+      markup += `<path class="hit" d="${path}" data-name="${escapeHtml(label)}" data-series="${index}"/>`;
     }
   });
   svg.innerHTML = markup;
@@ -179,7 +246,17 @@ function hideTooltip() {
 svg.addEventListener('mousemove', event => {
   const hit = event.target.closest('path.hit');
   if (!hit || !tooltip) { hideTooltip(); return; }
-  tooltip.textContent = hit.dataset.name;
+  const seriesIndex = Number(hit.dataset.series || 0);
+  const values = lastSeries[seriesIndex] || [];
+  let exact = '';
+  if (lastPointInfo && values.length) {
+    const rect = svg.getBoundingClientRect();
+    const svgX = ((event.clientX - rect.left) / Math.max(1, rect.width)) * W;
+    const count = Math.max(2, ...lastSeries.map(item => item.length));
+    const index = Math.max(0, Math.min(values.length - 1, Math.round(((svgX - left) / (W - left - right)) * (count - 1))));
+    exact = ` · ${lastPointInfo(seriesIndex, index)}`;
+  }
+  tooltip.textContent = `${hit.dataset.name}${exact}`;
   const wrap = svg.closest('.chart-wrap').getBoundingClientRect();
   tooltip.style.left = `${event.clientX - wrap.left}px`;
   tooltip.style.top = `${event.clientY - wrap.top}px`;
@@ -283,17 +360,20 @@ function chooseName(name) {
   if (players.length) renderStats();
 }
 async function loadSeries() {
-  const response = await fetch('/api/graphs/user-solves?bucket=5min&range=3day', { cache: 'no-store' });
+  const preset = rangePresets[range] || rangePresets['3day'];
+  const response = await fetch(`/api/graphs/user-solves?bucket=${preset.bucket}&range=${preset.range}`, { cache: 'no-store' });
   if (!response.ok) throw new Error(`user-solves returned HTTP ${response.status}`);
   const body = await response.json();
   if (!Array.isArray(body.series) || !Array.isArray(body.labels)) throw new Error('invalid user-solves response');
+  solveLabels = body.labels;
   solveSeries.clear();
   body.series.forEach(entry => {
     if (entry && typeof entry.name === 'string' && Array.isArray(entry.counts)) solveSeries.set(entry.name, entry.counts);
   });
   if (body.labels.length > 1) {
-    const first = Date.parse(`${body.labels[0].replace(' ', 'T')}Z`);
-    const second = Date.parse(`${body.labels[1].replace(' ', 'T')}Z`);
+    const toUtc = label => Date.parse(label.includes(':') ? `${label.replace(' ', 'T')}Z` : `${label}T00:00:00Z`);
+    const first = toUtc(body.labels[0]);
+    const second = toUtc(body.labels[1]);
     if (Number.isFinite(first) && Number.isFinite(second) && second > first) solveBucketSeconds = (second - first) / 1000;
   }
   renderChart();
@@ -325,7 +405,12 @@ async function load() {
   renderSubtitle();
 }
 function renderSubtitle() {
-  document.querySelector('#subtitle').textContent = `Total solves ${view === 'rate' ? 'per second' : '(cumulative)'} · 5-min buckets, 3 days · updated ${new Date().toLocaleTimeString()}`;
+  const preset = rangePresets[range] || rangePresets['3day'];
+  document.querySelector('#subtitle').textContent = metric === 'Total'
+    ? `Total solves ${view === 'rate' ? 'per second' : '(cumulative)'} · ${preset.label} · updated ${new Date().toLocaleTimeString()}`
+    : `${metric} ${view === 'rate' ? 'per second' : 'totals'} · live samples · updated ${new Date().toLocaleTimeString()}`;
+  // Time ranges only apply to the totals API; per-type graphs use live samples.
+  document.querySelector('.segmented.ranges')?.classList.toggle('disabled', metric !== 'Total');
 }
 document.addEventListener('click', event => {
   const button = event.target.closest('button');
@@ -345,6 +430,11 @@ document.addEventListener('click', event => {
     saveClientState();
     renderChart();
     if (players.length) renderSubtitle();
+  }
+  if (group.classList.contains('ranges')) {
+    range = button.dataset.range;
+    saveClientState();
+    loadSeries().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load solve history: ${error.message}`; });
   }
 });
 document.querySelector('.chips').addEventListener('click', event => {
