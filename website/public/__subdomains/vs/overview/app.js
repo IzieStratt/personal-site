@@ -73,6 +73,10 @@ const rangePresets = {
 };
 let players = [];
 let profileName = 'izie';
+// Chip selection ('all' plus usernames). Persisted; defaults to everything on
+// first run. The sum line is an independent toggle, not an exclusive mode.
+const selectedPlayers = new Set();
+let hasSavedSelection = false;
 // Long-range solve history from the site's user-solves API: total solves per
 // time bucket per user. The API does not split by captcha type, so the graph
 // always shows total solves; the metric segmented only re-prices the chips.
@@ -118,6 +122,10 @@ function restoreClientState() {
     const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
     if (typeof saved.name === 'string' && saved.name.trim()) profileName = saved.name.trim();
     if (saved.view === 'rate' || saved.view === 'cumulative') view = saved.view;
+    if (Array.isArray(saved.players)) {
+      hasSavedSelection = true;
+      saved.players.forEach(name => selectedPlayers.add(name));
+    }
     if (typeof saved.range === 'string' && rangePresets[saved.range]) {
       range = saved.range;
       document.querySelectorAll('.segmented.ranges button').forEach(item => item.classList.toggle('active', item.dataset.range === range));
@@ -134,7 +142,7 @@ function restoreClientState() {
 function saveClientState() {
   try {
     const savedHistory = Object.fromEntries([...history].map(([name, samples]) => [name, samples.slice(-60)]));
-    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, view, range, history: savedHistory }));
+    localStorage.setItem(storageKey, JSON.stringify({ name: profileName, view, range, players: [...selectedPlayers], history: savedHistory }));
   } catch {
     // Persistence is an enhancement; the live dashboard still works without it.
   }
@@ -148,42 +156,38 @@ function speedFor(name, key) {
   return seconds > 0 ? Math.max(0, valueFor(current, key) - valueFor(previous, key)) / seconds : 0;
 }
 function renderChart() {
-  const selected = [...document.querySelectorAll('.chip.selected')].map(button => button.dataset.player);
   const key = metricNames[metric];
-  const aggregate = selected.includes('all');
-  const names = aggregate ? players : players.filter(player => selected.includes(player.username));
-  const shown = aggregate ? [] : (names.length ? names : players).slice(0, 4);
-  let series;
+  const shown = players.filter(player => selectedPlayers.has(player.username));
+  const aggregate = selectedPlayers.has('all');
+  // Each line: { name, color, values } (+ counts in API mode). The sum line is
+  // a first-class entry so it can sit alongside any subset of players.
+  let lines = [];
   // Exact per-point text for hover tooltips: (seriesIndex, pointIndex) => string.
   let pointInfo = null;
   if (metric === 'Total') {
     // Per-bucket totals from the user-solves API. Rate view divides each bucket's
     // solves by the bucket length; totals view is the running sum over the window.
     const countsFor = name => solveSeries.get(name) || [];
-    const rateFor = name => countsFor(name).map(count => count / solveBucketSeconds);
-    const cumulativeFor = name => {
-      let sum = 0;
-      return countsFor(name).map(count => (sum += count));
-    };
-    const valuesFor = name => view === 'rate' ? rateFor(name) : cumulativeFor(name);
     const aggregateNames = players.map(player => player.username).filter(name => solveSeries.has(name));
-    series = aggregate
-      ? [Array.from({ length: Math.max(1, ...aggregateNames.map(name => countsFor(name).length)) }, (_, index) => aggregateNames.reduce((sum, name) => sum + (valuesFor(name)[index] || 0), 0))]
-      : shown.map(player => valuesFor(player.username));
+    const sumCounts = Array.from({ length: Math.max(0, ...aggregateNames.map(name => countsFor(name).length)) }, (_, index) => aggregateNames.reduce((sum, name) => sum + (countsFor(name)[index] || 0), 0));
+    const cumulativeFor = counts => {
+      let sum = 0;
+      return counts.map(count => (sum += count));
+    };
+    const toValues = counts => view === 'rate' ? counts.map(count => count / solveBucketSeconds) : cumulativeFor(counts);
+    lines = shown.map(player => ({ name: player.username, color: colorForPlayer(player.username), counts: countsFor(player.username) }));
+    if (aggregate) lines.unshift({ name: 'All players (sum)', color: allPlayersColor, counts: sumCounts });
+    lines.forEach(line => { line.values = toValues(line.counts); });
     pointInfo = (seriesIndex, pointIndex) => {
+      const line = lines[seriesIndex];
       const at = solveLabels[pointIndex] ? `${solveLabels[pointIndex]} UTC` : '';
-      if (view === 'rate') {
-        const solves = aggregate
-          ? aggregateNames.reduce((sum, name) => sum + (countsFor(name)[pointIndex] || 0), 0)
-          : (countsFor(shown[seriesIndex]?.username)[pointIndex] || 0);
-        return `${at} · ${number(solves)} solves in bucket · ${rateText(solves / solveBucketSeconds)}`;
-      }
-      return `${at} · ${number(series[seriesIndex]?.[pointIndex])} solves`;
+      if (!line) return at;
+      if (view === 'rate') return `${at} · ${number(line.counts[pointIndex] || 0)} solves in bucket · ${rateText((line.counts[pointIndex] || 0) / solveBucketSeconds)}`;
+      return `${at} · ${number(line.values[pointIndex] || 0)} solves`;
     };
   } else {
     // Per-captcha-type graphs come from the live leaderboard samples: the solves
     // API has no per-user type split. Same behavior the chart had before the API.
-    const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
     // Botting speed between each pair of consecutive samples; dt<=0 pairs are skipped
     // and negative deltas clamp to 0 so a reset counter never dips the line.
     const ratesFor = name => {
@@ -196,37 +200,36 @@ function renderChart() {
       }
       return rates;
     };
-    series = view === 'rate'
-      ? (aggregate
-        ? [Array.from({ length: Math.max(1, sampleCount - 1) }, (_, index) => players.reduce((sum, player) => sum + (ratesFor(player.username)[index] || 0), 0))]
-        : shown.map(player => ratesFor(player.username)))
-      : (aggregate
-        ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
-        : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []));
+    const totalsFor = name => (history.get(name) || []).map(sample => valueFor(sample, key));
+    const valuesArr = name => view === 'rate' ? ratesFor(name) : totalsFor(name);
+    lines = shown.map(player => ({ name: player.username, color: colorForPlayer(player.username), values: valuesArr(player.username) }));
+    if (aggregate) {
+      const length = Math.max(1, ...players.map(player => valuesArr(player.username).length));
+      lines.unshift({ name: 'All players (sum)', color: allPlayersColor, values: Array.from({ length }, (_, index) => players.reduce((sum, player) => sum + (valuesArr(player.username)[index] || 0), 0)) });
+    }
     pointInfo = (seriesIndex, pointIndex) => {
-      const samples = aggregate ? null : history.get(shown[seriesIndex]?.username);
+      const line = lines[seriesIndex];
+      const samples = line ? history.get(line.name) : null;
       const at = samples?.[Math.min(pointIndex + (view === 'rate' ? 1 : 0), Math.max(0, (samples?.length || 1) - 1))]?._time;
       const time = at ? new Date(at).toLocaleTimeString() : '';
-      const value = series[seriesIndex]?.[pointIndex] || 0;
+      const value = line?.values[pointIndex] || 0;
       return view === 'rate' ? `${time} · ${rateText(value)}` : `${time} · ${number(value)}`;
     };
   }
-  lastSeries = series;
+  lastSeries = lines.map(line => line.values);
   lastPointInfo = pointInfo;
-  const max = Math.max(1, ...series.flat());
-  const n = Math.max(2, ...series.map(values => values.length));
+  const max = Math.max(1, ...lines.flatMap(line => line.values));
+  const n = Math.max(2, ...lines.map(line => line.values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
   const y = value => chartTop + H - chartTop - bottom - (value / max) * (H - chartTop - bottom);
   let markup = '';
   const axisValue = view === 'rate' ? rateCompact : compact;
   [0, .333, .666, 1].forEach(fraction => { const yy = y(max * fraction); markup += `<line class="grid" x1="${left}" x2="${W-right}" y1="${yy}" y2="${yy}"/><text class="axis" x="0" y="${yy+7}">${axisValue(max * fraction)}</text>`; });
-  series.forEach((values, index) => {
-    const path = values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
+  lines.forEach((line, index) => {
+    const path = line.values.map((value, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(value).toFixed(1)}`).join(' ');
     if (path) {
-      const color = aggregate ? allPlayersColor : colorForPlayer(shown[index].username);
-      const label = aggregate ? 'All players (sum)' : shown[index].username;
-      markup += `<path class="line" d="${path}" stroke="${color}" stroke-width="${index ? 4 : 3}"/><circle class="dot" fill="${color}" cx="${x(values.length - 1)}" cy="${y(values[values.length - 1])}" r="6"/>`;
-      markup += `<path class="hit" d="${path}" data-name="${escapeHtml(label)}" data-series="${index}"/>`;
+      markup += `<path class="line" d="${path}" stroke="${line.color}" stroke-width="3"/><circle class="dot" fill="${line.color}" cx="${x(line.values.length - 1)}" cy="${y(line.values[line.values.length - 1])}" r="6"/>`;
+      markup += `<path class="hit" d="${path}" data-name="${escapeHtml(line.name)}" data-series="${index}"/>`;
     }
   });
   svg.innerHTML = markup;
@@ -264,14 +267,21 @@ svg.addEventListener('mousemove', event => {
 });
 svg.addEventListener('mouseleave', hideTooltip);
 function renderPlayers() {
+  if (!hasSavedSelection) {
+    // First run with no saved choice: select everything once. After this the
+    // user's picks persist across refreshes via localStorage.
+    selectedPlayers.add('all');
+    players.slice(0, 11).forEach(player => selectedPlayers.add(player.username));
+    hasSavedSelection = true;
+  }
   const container = document.querySelector('.chips');
   const all = document.createElement('button');
-  all.className = 'chip';
+  all.className = selectedPlayers.has('all') ? 'chip selected' : 'chip';
   all.dataset.player = 'all';
   all.innerHTML = `<i></i>All players (sum)<b>${number(players.reduce((sum, player) => sum + valueFor(player, metricNames[metric]), 0))}</b>`;
   container.replaceChildren(all, ...players.slice(0, 11).map((player) => {
     const button = document.createElement('button');
-    button.className = 'chip selected';
+    button.className = selectedPlayers.has(player.username) ? 'chip selected' : 'chip';
     button.dataset.player = player.username;
     button.innerHTML = '<i></i>';
     const label = document.createTextNode(`${player.username} `);
@@ -440,15 +450,11 @@ document.addEventListener('click', event => {
 document.querySelector('.chips').addEventListener('click', event => {
   const button = event.target.closest('.chip');
   if (!button) return;
-  const all = document.querySelector('[data-player="all"]');
-  if (button.dataset.player === 'all') {
-    document.querySelectorAll('.chips .chip').forEach(item => item.classList.remove('selected'));
-    button.classList.add('selected');
-  } else {
-    all.classList.remove('selected');
-    button.classList.toggle('selected');
-    if (!document.querySelector('.chips .chip.selected')) all.classList.add('selected');
-  }
+  const name = button.dataset.player;
+  if (selectedPlayers.has(name)) selectedPlayers.delete(name);
+  else selectedPlayers.add(name);
+  button.classList.toggle('selected', selectedPlayers.has(name));
+  saveClientState();
   renderChart();
 });
 load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; });
