@@ -62,6 +62,11 @@ let metric = 'Cap';
 let view = 'rate';
 let players = [];
 let profileName = 'izie';
+// Long-range solve history from the site's user-solves API: total solves per
+// time bucket per user. The API does not split by captcha type, so the graph
+// always shows total solves; the metric segmented only re-prices the chips.
+const solveSeries = new Map();
+let solveBucketSeconds = 300;
 
 const escapeHtml = text => String(text).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 const number = value => Math.round(Number(value) || 0).toLocaleString();
@@ -125,30 +130,22 @@ function speedFor(name, key) {
 }
 function renderChart() {
   const selected = [...document.querySelectorAll('.chip.selected')].map(button => button.dataset.player);
-  const key = metricNames[metric];
   const aggregate = selected.includes('all');
   const names = aggregate ? players : players.filter(player => selected.includes(player.username));
-  const sampleCount = Math.max(1, ...players.map(player => history.get(player.username)?.length || 0));
   const shown = aggregate ? [] : (names.length ? names : players).slice(0, 4);
-  // Botting speed between each pair of consecutive samples; dt<=0 pairs are skipped
-  // and negative deltas clamp to 0 so a reset counter never dips the line.
-  const ratesFor = name => {
-    const samples = history.get(name) || [];
-    const rates = [];
-    for (let i = 1; i < samples.length; i++) {
-      const seconds = (samples[i]._time - samples[i - 1]._time) / 1000;
-      if (seconds <= 0) continue;
-      rates.push(Math.max(0, valueFor(samples[i], key) - valueFor(samples[i - 1], key)) / seconds);
-    }
-    return rates;
+  // Per-bucket totals from the user-solves API. Rate view divides each bucket's
+  // solves by the bucket length; totals view is the running sum over the window.
+  const countsFor = name => solveSeries.get(name) || [];
+  const rateFor = name => countsFor(name).map(count => count / solveBucketSeconds);
+  const cumulativeFor = name => {
+    let sum = 0;
+    return countsFor(name).map(count => (sum += count));
   };
-  const series = view === 'rate'
-    ? (aggregate
-      ? [Array.from({ length: Math.max(1, sampleCount - 1) }, (_, index) => players.reduce((sum, player) => sum + (ratesFor(player.username)[index] || 0), 0))]
-      : shown.map(player => ratesFor(player.username)))
-    : (aggregate
-      ? [Array.from({ length: sampleCount }, (_, index) => players.reduce((sum, player) => sum + valueFor(history.get(player.username)?.[index] || player, key), 0))]
-      : shown.map(player => history.get(player.username)?.map(sample => valueFor(sample, key)) || []));
+  const valuesFor = name => view === 'rate' ? rateFor(name) : cumulativeFor(name);
+  const aggregateNames = players.map(player => player.username).filter(name => solveSeries.has(name));
+  const series = aggregate
+    ? [Array.from({ length: Math.max(1, ...aggregateNames.map(name => countsFor(name).length)) }, (_, index) => aggregateNames.reduce((sum, name) => sum + (valuesFor(name)[index] || 0), 0))]
+    : shown.map(player => valuesFor(player.username));
   const max = Math.max(1, ...series.flat());
   const n = Math.max(2, ...series.map(values => values.length));
   const x = i => left + (i / (n - 1)) * (W - left - right);
@@ -285,6 +282,23 @@ function chooseName(name) {
   saveClientState();
   if (players.length) renderStats();
 }
+async function loadSeries() {
+  const response = await fetch('/api/graphs/user-solves?bucket=5min&range=3day', { cache: 'no-store' });
+  if (!response.ok) throw new Error(`user-solves returned HTTP ${response.status}`);
+  const body = await response.json();
+  if (!Array.isArray(body.series) || !Array.isArray(body.labels)) throw new Error('invalid user-solves response');
+  solveSeries.clear();
+  body.series.forEach(entry => {
+    if (entry && typeof entry.name === 'string' && Array.isArray(entry.counts)) solveSeries.set(entry.name, entry.counts);
+  });
+  if (body.labels.length > 1) {
+    const first = Date.parse(`${body.labels[0].replace(' ', 'T')}Z`);
+    const second = Date.parse(`${body.labels[1].replace(' ', 'T')}Z`);
+    if (Number.isFinite(first) && Number.isFinite(second) && second > first) solveBucketSeconds = (second - first) / 1000;
+  }
+  renderChart();
+  renderSubtitle();
+}
 async function load() {
   const response = await fetch('/api/leaderboard', { cache: 'no-store' });
   if (!response.ok) throw new Error(`leaderboard returned HTTP ${response.status}`);
@@ -311,7 +325,7 @@ async function load() {
   renderSubtitle();
 }
 function renderSubtitle() {
-  document.querySelector('#subtitle').textContent = `${metric} ${view === 'rate' ? 'per second' : 'totals'} · updated ${new Date().toLocaleTimeString()}`;
+  document.querySelector('#subtitle').textContent = `Total solves ${view === 'rate' ? 'per second' : '(cumulative)'} · 5-min buckets, 3 days · updated ${new Date().toLocaleTimeString()}`;
 }
 document.addEventListener('click', event => {
   const button = event.target.closest('button');
@@ -349,6 +363,8 @@ document.querySelector('.chips').addEventListener('click', event => {
 });
 load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; });
 setInterval(() => load().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load leaderboard: ${error.message}`; }), 15000);
+loadSeries().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load solve history: ${error.message}`; });
+setInterval(() => loadSeries().catch(error => { document.querySelector('#subtitle').textContent = `Unable to load solve history: ${error.message}`; }), 60000);
 window.addEventListener('error', event => { document.querySelector('#subtitle').textContent = `Dashboard error: ${event.message}`; });
 restoreClientState();
 document.querySelectorAll('.views button').forEach(button => button.classList.toggle('active', button.dataset.view === view));

@@ -1,6 +1,13 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
+    if (url.pathname.startsWith('/api/graphs/')) {
+      const response = await fetch(`https://botme.idk.dunkirk.sh${url.pathname}${url.search}`, request)
+      const headers = new Headers(response.headers)
+      headers.set('cache-control', 'no-store')
+      headers.set('access-control-allow-origin', '*')
+      return new Response(response.body, { status: response.status, headers })
+    }
     if (url.pathname === '/api/leaderboard') {
       const response = await fetch('https://botme.idk.dunkirk.sh/api/leaderboard', request)
       const headers = new Headers(response.headers)
