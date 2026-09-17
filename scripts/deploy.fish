@@ -5,7 +5,7 @@ if test -z "$message"
   set message "update personal site"
 end
 
-git add worker.js wrangler.jsonc scripts website/public/__subdomains
+git add worker.js wrangler.jsonc scripts website/public
 or exit 1
 
 git commit -m "$message"
