@@ -15,7 +15,7 @@ body {
 
 main {
   width: min(42rem, calc(100% - 3rem));
-  margin: 20vh auto 0;
+  margin: 3rem auto 0;
 }
 
 .subtitle {
