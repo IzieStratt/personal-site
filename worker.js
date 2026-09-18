@@ -87,14 +87,46 @@ async function handleHmojiImage(request, env, id) {
   })
 }
 
-async function handleHmoji(request, env, pathname) {
-  const rest = pathname.slice('/hmojis/'.length)
-  if (rest === 'bootstrap') return handleHmojiBootstrap(request, env)
-  if (rest === 'plugin.js') return handleHmojiPlugin(request, env)
+// Taut's desktop app routes plugin fetch() calls through Electron's main
+// process, which corrupts binary bodies (forces them through a lossy UTF-8
+// string round-trip - fine for the JSON bootstrap response, not fine for
+// image bytes). The plugin fetches images with the page's own native
+// fetch() instead to avoid that, which means real CORS applies here, unlike
+// the bridge-routed calls.
+const HMOJI_CORS_HEADERS = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, PUT, OPTIONS',
+  'access-control-allow-headers': 'Authorization',
+  'access-control-max-age': '86400',
+}
 
-  const id = decodeURIComponent(rest)
-  if (!id || id.includes('/') || id.includes('..')) return HMOJI_NOT_FOUND()
-  return handleHmojiImage(request, env, id)
+function withHmojiCors(response) {
+  const headers = new Headers(response.headers)
+  for (const [key, value] of Object.entries(HMOJI_CORS_HEADERS)) {
+    headers.set(key, value)
+  }
+  return new Response(response.body, { status: response.status, headers })
+}
+
+async function handleHmoji(request, env, pathname) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: HMOJI_CORS_HEADERS })
+  }
+
+  const rest = pathname.slice('/hmojis/'.length)
+  let response
+  if (rest === 'bootstrap') {
+    response = await handleHmojiBootstrap(request, env)
+  } else if (rest === 'plugin.js') {
+    response = await handleHmojiPlugin(request, env)
+  } else {
+    const id = decodeURIComponent(rest)
+    response =
+      !id || id.includes('/') || id.includes('..')
+        ? HMOJI_NOT_FOUND()
+        : await handleHmojiImage(request, env, id)
+  }
+  return withHmojiCors(response)
 }
 
 export default {
