@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#171717"/>
+  <circle cx="400" cy="195" r="92" fill="#f48120"/>
+  <text x="400" y="355" fill="white" font-family="system-ui, sans-serif" font-size="38" text-anchor="middle">example CDN image</text>
+</svg>

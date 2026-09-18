@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "xkcd Script";
+  src: url("https://github.com/ipython/xkcd-font/raw/refs/heads/master/xkcd-script/font/xkcd-script.woff") format("woff");
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  background: #fffdf7;
+  color: #222;
+  font-family: "xkcd Script", cursive;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+main {
+  width: min(42rem, calc(100% - 3rem));
+  margin: 20vh auto 0;
+}

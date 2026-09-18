@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>izie</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <main>
+      <p id="greeting">hiya! youre currently at this page meoww</p>
+    </main>
+    <script>
+      const main = document.querySelector('main')
+      const pageUrl = window.location.href
+      if (window.location.hostname === 'vs.izie.top') {
+        main.innerHTML = `<p>hiya! youre currently at ${pageUrl} meoww</p><p>This folder is purely for vibe-slopped code that I want to host, none of it is tracked on hackatime!</p><ul><li><a href="${new URL('/overview/', pageUrl)}">Rates over time dashboard</a></li><li><a href="${new URL('/info.txt', pageUrl)}">The original notice as a text file</a></li></ul>`
+      } else {
+        document.querySelector('#greeting').textContent = `hiya! youre currently at ${pageUrl} meoww`
+      }
+    </script>
+  </body>
+</html>

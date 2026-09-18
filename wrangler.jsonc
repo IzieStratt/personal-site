@@ -1,0 +1,53 @@
+{
+  "name": "personal-site",
+  "main": "./worker.js",
+  "compatibility_date": "2026-09-01",
+  "routes": [
+    {
+      "pattern": "izie.top",
+      "custom_domain": true
+    },
+    {
+      "pattern": "*.izie.top/*",
+      "zone_name": "izie.top"
+    },
+    {
+      "pattern": "vs.izie.top/*",
+      "zone_name": "izie.top"
+    },
+    {
+      "pattern": "blog.izie.top/*",
+      "zone_name": "izie.top"
+    }
+  ],
+  "assets": {
+    "directory": "./website/public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "HMOJI_TOKENS",
+      "id": "68aaa050cda540c192ccb2e2a8b6a2a5"
+    },
+    {
+      "binding": "HMOJI_IMAGES",
+      "id": "15f66001961d4cddb411e51e9688297f"
+    },
+    {
+      "binding": "HMOJI_CONFIG",
+      "id": "3969b0a4e9d04ebdab758a52cb211657"
+    },
+    {
+      "binding": "HMOJI_ASSETS",
+      "id": "01baf867cd7c4e33b12416e851fab709"
+    }
+  ],
+  "vars": {
+    // set to "true" to let any hmoji token holder PUT /hmojis/<id> directly,
+    // not just you from scripts/hmoji.ts
+    "HMOJI_ALLOW_TOKEN_UPLOAD": "false"
+  }
+}
