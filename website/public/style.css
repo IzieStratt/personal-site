@@ -1,6 +1,6 @@
 @font-face {
   font-family: "xkcd Script";
-  src: url("https://github.com/ipython/xkcd-font/raw/refs/heads/master/xkcd-script/font/xkcd-script.woff") format("woff");
+  src: url("/cdn/xkcd-script.woff") format("woff");
   font-display: swap;
 }
 
