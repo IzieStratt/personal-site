@@ -18,6 +18,38 @@ main {
   margin: 20vh auto 0;
 }
 
+.subtitle {
+  margin-top: -0.5rem;
+}
+
+nav {
+  margin: 0 0 2.5rem;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid #222;
+  border-radius: 999px;
+  color: #222;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: #222;
+  color: #fffdf7;
+}
+
 .github-link {
   display: inline-flex;
   align-items: center;
@@ -42,4 +74,22 @@ main {
   width: 1.6rem;
   height: 1.6rem;
   flex: 0 0 auto;
+}
+
+.button-wall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.button-wall a {
+  display: block;
+  line-height: 0;
+}
+
+.button-wall img {
+  display: block;
+  width: 88px;
+  height: 31px;
+  object-fit: contain;
 }
