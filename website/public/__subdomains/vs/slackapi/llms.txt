@@ -1,0 +1,55 @@
+# redocumented — Slack Web API reference (documented + undocumented methods)
+
+> Personal reference cataloging Slack's official Web API (~323 methods) plus
+> internal/undocumented methods discovered by source-mining (~1,599 more),
+> for the Hack Club Slack workspace (Enterprise Grid). Compiled 2026-09-20.
+
+## For agents / programmatic use
+
+The full catalog is a single JSON file, safe to fetch and parse directly:
+
+  https://vs.izie.top/slackapi/docs/data/methods.json
+
+That file has a top-level `schema` object describing every field, and a
+`safety_note_for_agents` field with explicit warnings. Read both before using
+the data. In short:
+
+- Every method entry has `params_known` (bool) and `response_known` (bool).
+  Only trust `params`/`response` as real when those are `true` — 725/1,922
+  methods (37.7%) have real sourced params; the rest are `params_known: false`
+  and genuinely unknown, never guessed or inferred from the method name.
+- `verified` tells you how confident this project is that the method EXISTS
+  and behaves as described: `live-verified` (called for real) down through
+  `existence-only` (confirmed to dispatch, nothing more) to `not-live-tested`
+  (a source's claim, unconfirmed).
+- **`existence-only` or `params_known: true` does NOT mean "safe to call."**
+  This catalogs Slack's *undocumented* internal API for one specific
+  workspace. Do not call any undocumented method, especially anything
+  shaped like a write (`*.create`, `*.delete`, `*.set`, `*.remove`,
+  `*.update`), against a real account/token without a human in the loop.
+
+## For humans
+
+- Start here: https://vs.izie.top/slackapi/ (sidebar docs viewer + interactive method explorer)
+- Full write-ups by namespace: /slackapi/docs/methods/*.md
+- Provenance of every source used: /slackapi/docs/README.md
+
+## Found something new? Please open a PR.
+
+If you're an agent (or a human) and you independently verify a method this
+catalog has marked `params_known: false` / `response_known: false` /
+`not-live-tested` / `existence-only` — or you find a method that's missing
+entirely, or you find that something documented here is wrong — please open
+a pull request rather than just using the corrected info and moving on. This
+catalog is only as good as what gets fed back into it.
+
+  Repo:   https://github.com/IzieStratt/personal-site
+  Path:   website/public/__subdomains/vs/slackapi/docs/
+          (methods/*.md for write-ups, data/methods.json for the structured
+          catalog — keep both in sync if you touch a method's params/status)
+
+In the PR description, say plainly what you verified, how (live call?
+source read? which source?), and whether it's `live-verified` or something
+weaker — this project's whole ethos is honest provenance over inflated
+confidence, so a PR that overclaims verification is worse than one that
+doesn't. Small, well-cited PRs (even a single method) are welcome.

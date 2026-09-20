@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>redocumented — Slack Web API reference</title>
+    <meta name="description" content="Slack Web API reference: ~323 documented methods plus 1,500+ undocumented/internal methods, sourced and cross-referenced from multiple mining passes." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav id="sidebar" class="sidebar" aria-label="Documentation navigation">
+        <div class="sidebar-head">
+          <a href="/" class="brand">redocumented</a>
+          <div class="brand-sub">Slack Web API reference</div>
+        </div>
+        <div id="nav-list"></div>
+        <div class="sidebar-foot">
+          <a href="https://vs.izie.top/">← vs.izie.top</a>
+          <a href="docs/data/methods.json" target="_blank" rel="noreferrer">methods.json ↗</a>
+        </div>
+      </nav>
+      <main id="content" class="content">
+        <div id="doc-search-bar" class="doc-search-bar" hidden>
+          <input id="doc-search" type="search" placeholder="Filter this table by method name or text…" autocomplete="off" />
+          <span id="doc-search-count" class="doc-search-count"></span>
+        </div>
+        <article id="doc" class="doc">
+          <p class="loading">Loading…</p>
+        </article>
+        <div id="explorer-root" class="doc explorer" hidden></div>
+      </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
