@@ -128,7 +128,11 @@ async function loadDoc(path) {
     }
     window.scrollTo(0, 0);
   } catch (err) {
-    docEl.innerHTML = `<p class="error">Couldn't load <code>${path}</code>: ${err.message}</p>`;
+    docEl.replaceChildren();
+    const error = document.createElement("p");
+    error.className = "error";
+    error.textContent = `Couldn't load ${path}: ${err.message}`;
+    docEl.appendChild(error);
   }
 }
 

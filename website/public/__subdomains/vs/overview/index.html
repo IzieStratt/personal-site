@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rates over time</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -11,25 +12,25 @@
       <header class="topbar">
         <h1>RATES OVER TIME</h1>
         <div class="controls">
-          <nav class="segmented views" aria-label="Chart view">
+          <div class="segmented views" role="group" aria-label="Chart view">
             <button class="active" data-view="rate">Per second</button><button data-view="cumulative">Totals</button>
-          </nav>
-          <nav class="segmented metrics" aria-label="Metric">
+          </div>
+          <div class="segmented metrics" role="group" aria-label="Metric">
             <button class="active" data-metric="Total">Total</button><button data-metric="Cap">Cap</button><button data-metric="Turnstile">Turnstile</button><button data-metric="BotID">BotID</button><button data-metric="hCaptcha">hCaptcha</button>
-          </nav>
-          <nav class="segmented ranges" aria-label="Time range">
+          </div>
+          <div class="segmented ranges" role="group" aria-label="Time range">
             <button data-range="hour">1h</button><button data-range="day">24h</button><button class="active" data-range="3day">3d</button><button data-range="7day">7d</button><button data-range="30day">30d</button><button data-range="all">All</button>
-          </nav>
+          </div>
           <button class="clear-data" id="clear-data">Clear saved data</button>
         </div>
       </header>
       <p class="subtitle" id="subtitle">Cap.js totals · live leaderboard</p>
       <section class="chips" aria-label="Players">
-      <button class="chip selected" data-player="all"><i></i>All players (sum)<b>—</b></button>
+      <button class="chip selected" data-player="all" aria-pressed="true"><span class="chip-swatch" aria-hidden="true"></span><span>All players (sum)</span><b>—</b></button>
       </section>
       <div class="chart-wrap"><svg id="chart" role="img" aria-label="Rates over time chart" viewBox="0 0 1800 470" preserveAspectRatio="none"></svg><div id="chart-tooltip" hidden></div></div>
       <section class="stats" aria-label="Race stats">
-        <article class="stat-card"><label for="name-input">Your name</label><div class="name-picker"><input id="name-input" value="izie" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="name-suggestions"><div id="name-suggestions" class="suggestions" role="listbox" hidden></div></div><strong id="your-rank">Rank —</strong><small id="your-total">— total</small></article>
+        <article class="stat-card"><label for="name-input">Your name</label><div class="name-picker"><input id="name-input" value="izie" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="name-suggestions"><div id="name-suggestions" class="suggestions" role="listbox" aria-label="Name suggestions" hidden></div></div><strong id="your-rank">Rank —</strong><small id="your-total">— total</small></article>
         <article class="stat-card"><span>Speed</span><strong id="your-speed">—/s</strong><small id="your-speed-note">waiting for a second sample</small></article>
         <article class="stat-card"><span>Next person above</span><strong id="next-name">—</strong><small id="next-gap">— ahead</small></article>
         <article class="stat-card"><span>Time to pass them</span><strong id="next-eta">—</strong><small id="next-eta-gap">— ahead</small></article>
@@ -37,7 +38,7 @@
       </section>
       <section class="leaderboard-panel">
         <div class="section-heading"><h2>Leaderboard</h2><span id="leaderboard-updated">Waiting for data</span></div>
-        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Total</th><th>Speed</th><th>Cap</th><th>Turnstile</th><th>BotID</th><th>hCaptcha</th></tr></thead><tbody id="leaderboard"></tbody></table></div>
+        <div class="table-wrap"><table><caption class="visually-hidden">Player leaderboard and solve rates</caption><thead><tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Total</th><th scope="col">Speed</th><th scope="col">Cap</th><th scope="col">Turnstile</th><th scope="col">BotID</th><th scope="col">hCaptcha</th></tr></thead><tbody id="leaderboard"></tbody></table></div>
       </section>
     </main>
     <dialog id="clear-dialog">

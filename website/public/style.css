@@ -13,6 +13,13 @@ body {
   line-height: 1.5;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #315f9d;
+  outline-offset: 3px;
+}
+
 main {
   width: min(42rem, calc(100% - 3rem));
   margin: 3rem auto 0;
@@ -98,4 +105,16 @@ nav a:focus-visible {
   width: 88px;
   height: 31px;
   object-fit: contain;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
