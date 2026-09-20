@@ -61,6 +61,28 @@ Practical rule of thumb we used: **try the team xoxc first; if you get
 scope, and no xoxc/xoxd combination will get through it (would need a proper
 xoxb/xoxp app token with the right scope, if the method is exposed to apps at all).
 
+## `admin.*` is not uniformly org-scoped
+
+**New this pass (2026-09-20), and a real exception to the team-vs-org split
+above.** Not every method in the `admin.*` namespace needs the enterprise
+xoxc, and passing the enterprise xoxc doesn't guarantee more access than the
+team one — `admin.apps.uninstall` got `ok:true` with the **team** xoxc +
+`team_id`, but `permission_denied` with the **enterprise** xoxc +
+`enterprise_id`, on the same account and the same app. Read this as: despite
+living in `admin.*`, uninstall is a workspace-level action, not an org-wide
+one.
+
+A separate, more important axis surfaced testing `admin.apps.approve` and
+`admin.apps.requests.cancel`: both returned `not_an_admin` regardless of
+which xoxc scope was used. This is not a token-scope problem at all — it's
+Slack stating plainly that **this account's identity lacks admin rights for
+that action**, independent of session scope. An "Organization"-level
+authenticated CLI session (`slack auth list`'s own authorization-level
+label) is not the same claim as "this account is an org admin," and the two
+need to be tested separately. Full writeup, including the
+`admin.apps.approved.list` interpretive trap and the `bots.info`
+install-state alternative: `methods/admin-write-scope-2026-09.md`.
+
 ## Errors specifically about token/auth class
 
 See `errors.md` for the full glossary; the ones that matter for choosing a token:

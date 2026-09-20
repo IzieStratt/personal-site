@@ -1323,8 +1323,8 @@
     {
       "name": "admin.apps.approve",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-tested 2026-09-20 with app_id, request_id, team_id, and enterprise_id in various combinations, both team- and enterprise-scoped xoxc: every combination returned either team_not_found or not_an_admin, never ok:true. not_an_admin is the interesting one -- a plain statement that this account, despite an Organization-level authenticated CLI session, is not an actual admin for this governance action. Contrast with admin.apps.uninstall, which succeeded for the same account. See methods/admin-write-scope-2026-09.md.",
+      "verified": "docs-only (live-tested 2026-09-20, only error paths observed)",
       "purpose": "Approve an app for installation on a workspace.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -1373,8 +1373,8 @@
     {
       "name": "admin.apps.approved.list",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-20 with the enterprise-scoped xoxc: ok:true, real data returned matching the documented response shape. Important interpretive nuance: this only lists apps going through the org-wide Admin App Approval workflow (3 apps in the tested org), not \"every app installed anywhere in the workspace\" -- an app installed before that policy existed, or never routed through it, will not appear here even though it's actively installed. Don't use this as a general install-state check; see methods/admin-write-scope-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "List approved apps for an org or workspace.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2120,8 +2120,8 @@
     {
       "name": "admin.apps.requests.cancel",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-tested 2026-09-20 with request_id + team_id and request_id + enterprise_id, both xoxc scopes: not_an_admin every time, same as admin.apps.approve. See methods/admin-write-scope-2026-09.md.",
+      "verified": "docs-only (live-tested 2026-09-20, not_an_admin on every combination)",
       "purpose": "Cancel app request for team",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2392,8 +2392,8 @@
     {
       "name": "admin.apps.uninstall",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-20: team-scoped xoxc + team_id (singular -- not the documented team_ids) got ok:true against a real app in this account's own workspace. Enterprise-scoped xoxc + enterprise_id got permission_denied on the same account/app -- a real per-identity permission check, distinct from the usual team_is_restricted/enterprise_is_restricted Grid-routing split (this account's enterprise xoxc works fine on other org-wide methods). See auth-and-tokens.md 'admin.* is not uniformly org-scoped' and methods/admin-write-scope-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Uninstall an app from one or many workspaces, or an entire enterprise organization.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2419,7 +2419,7 @@
         "ok": "true"
       },
       "response_known": true,
-      "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)"
+      "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified) -- confirmed live 2026-09-20, body was exactly {\"ok\": true}, no extra fields."
     },
     {
       "name": "admin.apps.updates.list",
@@ -11676,8 +11676,8 @@
     {
       "name": "bots.info",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-20: works with either the team- or enterprise-scoped xoxc (+ its paired d cookie), and team_id was NOT required with either token despite the docs saying it's 'required if org token is used' -- omitting it worked fine on this account. The response's deleted field is a clean, low-privilege signal for whether a bot/app is currently installed vs uninstalled (false = active, true = removed), without needing any admin.* scope at all. See methods/admin-write-scope-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Gets information about a bot user.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -41843,8 +41843,8 @@
     {
       "name": "team.integrationLogs",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-tested 2026-09-20 with app_id filter, both team- and enterprise-scoped xoxc: not_allowed_token_type both times -- session tokens are categorically not permitted to call this one, independent of Grid scope (same failure class as chat.scheduleMessage in auth-and-tokens.md). Untested whether a real xoxb/xoxp app token with the right OAuth scope can reach it. Also note: the documented change_type enum is added/removed/enabled/disabled/updated -- not app_installed/app_enabled, which the method's install-detection use case might suggest by analogy to other admin.* naming. See methods/admin-write-scope-2026-09.md.",
+      "verified": "docs-only (live-tested 2026-09-20, not_allowed_token_type on both token scopes)",
       "purpose": "Gets the integration logs for the current team.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
