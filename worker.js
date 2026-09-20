@@ -158,8 +158,10 @@ export default {
     }
     const match = url.hostname.match(/^([a-z0-9-]+)\.izie\.top$/)
     const prefix = match ? `/__subdomains/${match[1]}` : null
+    // shared root assets (fonts, buttons, favicon) are served as-is on every subdomain
+    const sharedAsset = url.pathname.startsWith('/cdn/') || url.pathname === '/favicon.svg'
 
-    if (prefix) {
+    if (prefix && !sharedAsset) {
       url.pathname = `${prefix}${url.pathname}`
       const response = await env.ASSETS.fetch(new Request(url, request))
       const location = response.headers.get('Location')
