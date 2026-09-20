@@ -11676,7 +11676,7 @@
     {
       "name": "bots.info",
       "status": "documented",
-      "tokens": "Live-verified 2026-09-20: works with either the team- or enterprise-scoped xoxc (+ its paired d cookie), and team_id was NOT required with either token despite the docs saying it's 'required if org token is used' -- omitting it worked fine on this account. The response's deleted field is a clean, low-privilege signal for whether a bot/app is currently installed vs uninstalled (false = active, true = removed), without needing any admin.* scope at all. See methods/admin-write-scope-2026-09.md.",
+      "tokens": "Live-verified 2026-09-20. team_id was NOT required despite the docs saying it's 'required if org token is used' -- omitting it worked fine, with either xoxc scope. Correction from testing a second app the same day: which xoxc scope can actually see a given bot is NOT uniform -- one app's bot only resolved via the team-scoped xoxc, a second app's bot only resolved via the enterprise-scoped one (bot_not_found on the wrong scope either way). Try both, don't assume either is universal. The response's deleted field is a clean, low-privilege signal for whether a bot/app is currently installed vs uninstalled (false = active, true = removed), without needing any admin.* scope at all. See methods/admin-write-scope-2026-09.md.",
       "verified": "live-verified",
       "purpose": "Gets information about a bot user.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",

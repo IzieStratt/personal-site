@@ -64,11 +64,19 @@ Don't use presence/absence here as a proxy for "installed or not."
 The thing that *does* answer "is this app currently active" cleanly, with no
 `admin.*` scope needed at all: `bots.info` with the app's `bot` (bot user)
 id. Its `deleted` field flips `false` -> `true` the moment the underlying
-app/bot is uninstalled, and back on reinstall. Live-verified this pass with
-both the team and enterprise xoxc (either worked, `team_id` was not required
-with either despite the docs saying it's "required if org token is used"
-— omitting it was fine on this account). This is the right tool for "is app
-X active right now," not `admin.apps.approved.list`.
+app/bot is uninstalled, and back on reinstall. `team_id` was not required
+despite the docs saying it's "required if org token is used" — omitting it
+was fine on this account, with either xoxc scope.
+
+**Correction, found testing a second app the same day:** which xoxc scope
+can actually see a given bot is *not* uniform, and testing only one app
+understated this. Instinct's bot resolved only with the **team**-scoped
+xoxc (`bot_not_found` with the enterprise one); a second app's bot resolved
+only with the **enterprise**-scoped xoxc (`bot_not_found` with the team
+one). Apparently depends on how/where the app was installed, not something
+to assume either way — try both scopes and only treat it as truly
+unreachable if `bot_not_found` comes back from each. This is the right tool
+for "is app X active right now," not `admin.apps.approved.list`.
 
 ## A live side-effect worth disclosing plainly
 
