@@ -34397,7 +34397,7 @@
       "tokens": "unknown - not live-tested",
       "verified": "existence-only",
       "purpose": "Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in the loop.",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested)",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested); deployor/hq-fishbowl (source read; trusted)",
       "params_known": true,
       "params": {
         "channel_id": {
@@ -34408,12 +34408,12 @@
         "regions": {
           "required": false,
           "type": "string",
-          "desc": "Chime media region to request, e.g. ap-southeast-2 (huddlefm default) or us-west-1 (huddlecast default)."
+          "desc": "Chime media region to request. Working clients use ap-southeast-2 (huddlefm), us-west-1 (huddlecast), us-east-2 (hq-fishbowl)."
         },
         "multidevice": {
           "required": false,
           "type": "string",
-          "desc": "\"true\" in huddlefm, \"false\" in huddlecast; meaning unconfirmed."
+          "desc": "Sent as \"true\" by huddlefm and \"false\" by huddlecast; omitted by deployor/hq-fishbowl, so not required. Meaning unconfirmed."
         },
         "token": {
           "required": true,
@@ -34421,7 +34421,7 @@
           "desc": "xoxc client token; also needs Cookie: d=<xoxd>. Host must be <workspace>.slack.com."
         }
       },
-      "params_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- 'required' is inferred from these clients always sending them",
+      "params_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- 'required' is inferred from these clients always sending them; deployor/hq-fishbowl (source read, commit c1619f1, 2025-08-06; trusted source): only channel_id, regions, token + Cookie header are sent, no _x_* fields",
       "response_known": true,
       "response": {
         "ok": "boolean",
