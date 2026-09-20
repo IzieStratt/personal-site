@@ -87,6 +87,9 @@ field or the published `llms.txt` for the same note in agent-facing form.
   sources) — full disclosure of what it is and how it was handled.
 - `methods/taut-client-internals.md` — why `jeremy46231/taut` (+ fork) turned
   out to be a dead end for new API methods, and what it confirmed instead.
+- `methods/huddles-and-chime.md` — huddles: the `rooms.*`/`screenhero.*` calls, the
+  realtime websocket events, and the AWS Chime media layer. Source-read only,
+  from `ingoau/huddlefm` and `LeafdTK/huddlecast` (not live-tested).
 - `methods/slack-undoc-client-2026.md` — the 31 new methods (with typed
   params) found cross-referencing `ImShyMike/slack-undoc-client`.
 - `methods/admin-write-scope-2026-09.md` — the fifth pass: live-testing

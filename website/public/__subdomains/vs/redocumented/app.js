@@ -24,6 +24,7 @@ const NAV = [
       { label: "conversations.*", path: "docs/methods/conversations.md" },
       { label: "drafts.*", path: "docs/methods/drafts.md" },
       { label: "files.*", path: "docs/methods/files.md" },
+      { label: "huddles, RTM & Chime", path: "docs/methods/huddles-and-chime.md" },
       { label: "search.*", path: "docs/methods/search.md" },
       { label: "team.*", path: "docs/methods/team.md" },
       { label: "users.*", path: "docs/methods/users.md" },
@@ -101,7 +102,7 @@ function showExplorer() {
     s.src = "explorer.js";
     document.body.appendChild(s);
   }
-  window.scrollTo(0, 0);
+  document.getElementById("content").scrollTo(0, 0);
 }
 
 async function loadDoc(path) {
@@ -120,13 +121,19 @@ async function loadDoc(path) {
     }
     marked.setOptions({ gfm: true, breaks: false });
     docEl.innerHTML = marked.parse(text);
+    for (const table of docEl.querySelectorAll("table")) {
+      const wrap = document.createElement("div");
+      wrap.className = "table-scroll";
+      table.replaceWith(wrap);
+      wrap.appendChild(table);
+    }
     // large tables (the master index, the internal-canvas namespace list) get a filter box
-    const rowCount = docEl.querySelectorAll("table tbody tr, table tr").length;
+    const rowCount = docEl.querySelectorAll("table tbody tr").length;
     if (rowCount > 40) {
       searchBar.hidden = false;
       setupTableFilter();
     }
-    window.scrollTo(0, 0);
+    document.getElementById("content").scrollTo(0, 0);
   } catch (err) {
     docEl.replaceChildren();
     const error = document.createElement("p");
@@ -136,19 +143,48 @@ async function loadDoc(path) {
   }
 }
 
+const TABLE_PAGE = 100;
+
+// Big tables keep every row detached in memory and only put a page of matches in
+// the DOM, so filtering and layout cost stays flat no matter how long the table is.
 function setupTableFilter() {
-  const rows = Array.from(docEl.querySelectorAll("table tbody tr"));
+  const tables = Array.from(docEl.querySelectorAll("table"))
+    .filter((t) => t.tBodies[0] && t.tBodies[0].rows.length > 40)
+    .map((table) => {
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      const hay = rows.map((r) => r.textContent.toLowerCase());
+      const more = document.createElement("button");
+      more.className = "show-more table-more";
+      more.hidden = true;
+      table.parentElement.after(more);
+      const t = { tbody, rows, hay, more, matches: rows, limit: TABLE_PAGE };
+      more.addEventListener("click", () => { t.limit += TABLE_PAGE * 2; draw(t); });
+      return t;
+    });
+  const total = tables.reduce((n, t) => n + t.rows.length, 0);
+
+  function draw(t) {
+    const shown = t.matches.slice(0, t.limit);
+    t.tbody.replaceChildren(...shown);
+    t.more.hidden = shown.length >= t.matches.length;
+    t.more.textContent = `Show more (${t.matches.length - shown.length} left)`;
+  }
+
   function apply() {
     const q = searchInput.value.trim().toLowerCase();
-    let shown = 0;
-    for (const row of rows) {
-      const match = !q || row.textContent.toLowerCase().includes(q);
-      row.classList.toggle("filtered-out", !match);
-      if (match) shown++;
+    let matched = 0;
+    for (const t of tables) {
+      t.matches = q ? t.rows.filter((_, i) => t.hay[i].includes(q)) : t.rows;
+      t.limit = TABLE_PAGE;
+      matched += t.matches.length;
+      draw(t);
     }
-    searchCount.textContent = q ? `${shown} / ${rows.length} rows` : `${rows.length} rows`;
+    searchCount.textContent = q ? `${matched} / ${total} rows` : `${total} rows`;
   }
-  searchInput.oninput = apply;
+
+  let timer;
+  searchInput.oninput = () => { clearTimeout(timer); timer = setTimeout(apply, 150); };
   apply();
 }
 
@@ -166,10 +202,25 @@ function route(path) {
 
 window.addEventListener("hashchange", () => route(pathFromHash()));
 
-navToggle.addEventListener("click", () => {
-  const open = sidebarEl.classList.toggle("open");
-  navToggle.setAttribute("aria-expanded", String(open));
-});
+const shellEl = document.querySelector(".shell");
+const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
+
+function setSidebar(show) {
+  if (isMobile()) {
+    sidebarEl.classList.toggle("open", show);
+  } else {
+    shellEl.classList.toggle("collapsed", !show);
+    try { localStorage.setItem("redoc-nav", show ? "open" : "closed"); } catch {}
+  }
+  navToggle.setAttribute("aria-expanded", String(show));
+}
+
+navToggle.addEventListener("click", () => setSidebar(true));
+document.getElementById("nav-collapse").addEventListener("click", () => setSidebar(false));
+
+try {
+  if (!isMobile() && localStorage.getItem("redoc-nav") === "closed") setSidebar(false);
+} catch {}
 
 buildNav();
 route(pathFromHash());

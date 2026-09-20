@@ -10,6 +10,7 @@ const state = {
   paramsFilter: "all", // all | known | unknown
   sortKey: "name",
   sortDir: 1,
+  limit: 50,
 };
 
 const els = {
@@ -58,6 +59,13 @@ function renderStats() {
 }
 
 function applyFilters() {
+  if (!state.data.methods._prepped) {
+    state.data.methods.forEach((m, i) => {
+      m._idx = i;
+      m._hay = `${m.name}\n${m.purpose || ""}\n${m.source || ""}`.toLowerCase();
+    });
+    state.data.methods._prepped = true;
+  }
   const q = state.query.trim().toLowerCase();
   state.filtered = state.data.methods.filter((m) => {
     if (state.status !== "all" && m.status !== state.status) return false;
@@ -65,9 +73,7 @@ function applyFilters() {
     if (state.paramsFilter === "unknown" && m.params_known) return false;
     if (!q) return true;
     return (
-      m.name.toLowerCase().includes(q) ||
-      (m.purpose || "").toLowerCase().includes(q) ||
-      (m.source || "").toLowerCase().includes(q)
+      m._hay.includes(q)
     );
   });
   state.filtered.sort((a, b) => {
@@ -81,25 +87,26 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+const PAGE_SIZE = 50;
+
 function renderTable() {
   const rows = state.filtered
-    .slice(0, 500)
+    .slice(0, state.limit)
     .map((m, i) => {
       const p = paramsSummary(m);
       const r = responseSummary(m);
       return `
-      <tr class="method-row" data-idx="${state.data.methods.indexOf(m)}">
+      <tr class="method-row" data-idx="${m._idx}">
         <td><code>${escapeHtml(m.name)}</code></td>
         <td><span class="tag tag-${m.status}">${m.status}</span></td>
         <td><span class="tag tag-verified">${escapeHtml(m.verified)}</span></td>
         <td><span class="tag ${p.cls}">${p.text}</span></td>
         <td><span class="tag ${r.cls}">${r.text}</span></td>
         <td class="src-cell">${escapeHtml(m.source || "")}</td>
-      </tr>
-      <tr class="detail-row" data-detail-for="${state.data.methods.indexOf(m)}" hidden><td colspan="6"></td></tr>`;
+      </tr>`;
     })
     .join("");
-  const truncated = state.filtered.length > 500;
+  const truncated = state.filtered.length > state.limit;
   return `
     <table class="explorer-table">
       <thead>
@@ -114,7 +121,8 @@ function renderTable() {
       </thead>
       <tbody>${rows}</tbody>
     </table>
-    <p class="result-count">${state.filtered.length} method${state.filtered.length === 1 ? "" : "s"} matched${truncated ? " (showing first 500 — narrow your filter)" : ""}.</p>`;
+    <p class="result-count">Showing ${Math.min(state.limit, state.filtered.length)} of ${state.filtered.length} method${state.filtered.length === 1 ? "" : "s"}.
+      ${truncated ? `<button id="show-more" class="show-more">Show more</button>` : ""}</p>`;
 }
 
 function renderDetail(m) {
@@ -147,20 +155,28 @@ function renderDetail(m) {
 }
 
 function attachRowHandlers() {
+  const more = els.root.querySelector("#show-more");
+  if (more) more.addEventListener("click", () => {
+    const wrap = els.root.querySelector("#explorer-table-wrap");
+    const top = wrap.scrollTop;
+    state.limit += PAGE_SIZE * 2;
+    renderAll();
+    wrap.scrollTop = top;
+  });
   for (const row of els.root.querySelectorAll(".method-row")) {
     row.addEventListener("click", () => {
-      const idx = row.dataset.idx;
-      const detailRow = els.root.querySelector(`.detail-row[data-detail-for="${idx}"]`);
-      const isOpen = !detailRow.hidden;
-      // close any other open detail rows
-      for (const dr of els.root.querySelectorAll(".detail-row")) dr.hidden = true;
+      const wasOpen = row.classList.contains("row-open");
+      for (const dr of els.root.querySelectorAll(".detail-row")) dr.remove();
       for (const r of els.root.querySelectorAll(".method-row")) r.classList.remove("row-open");
-      if (!isOpen) {
-        const m = state.data.methods[idx];
-        detailRow.querySelector("td").innerHTML = renderDetail(m);
-        detailRow.hidden = false;
-        row.classList.add("row-open");
-      }
+      if (wasOpen) return;
+      const detailRow = document.createElement("tr");
+      detailRow.className = "detail-row";
+      const td = document.createElement("td");
+      td.colSpan = 6;
+      td.innerHTML = renderDetail(state.data.methods[row.dataset.idx]);
+      detailRow.appendChild(td);
+      row.after(detailRow);
+      row.classList.add("row-open");
     });
   }
   for (const th of els.root.querySelectorAll("th[data-sort]")) {
@@ -168,6 +184,7 @@ function attachRowHandlers() {
       const key = th.dataset.sort;
       if (state.sortKey === key) state.sortDir *= -1;
       else { state.sortKey = key; state.sortDir = 1; }
+      state.limit = PAGE_SIZE;
       applyFilters();
       renderAll();
     });
@@ -178,6 +195,8 @@ function renderAll() {
   els.root.querySelector("#explorer-table-wrap").innerHTML = renderTable();
   attachRowHandlers();
 }
+
+let searchTimer;
 
 async function init() {
   els.root.innerHTML = '<p class="loading">Loading method catalog…</p>';
@@ -193,6 +212,9 @@ async function init() {
   els.root.innerHTML = `
     ${renderStats()}
     <p class="safety-note"><b>Safety note (from the catalog's own metadata):</b> ${escapeHtml(state.data.schema?.safety_note_for_agents || "")}</p>
+    <p class="contribute-note"><b>Know something this catalog doesn't?</b> If you've verified a method marked <i>unknown</i> / <i>existence-only</i> / <i>not-live-tested</i>, found a missing method, or spotted something wrong, please
+      <a href="https://github.com/IzieStratt/personal-site/tree/main/website/public/__subdomains/vs/redocumented/docs" target="_blank" rel="noreferrer">open a PR</a>
+      or email <a href="mailto:ReDocumented@izie.top">ReDocumented@izie.top</a>. Say how you verified it (live call, source read, which source).</p>
     <div class="explorer-controls">
       <input id="explorer-search" type="search" placeholder="Filter by method name, purpose, or source…" autocomplete="off" />
       <select id="explorer-status">
@@ -209,16 +231,18 @@ async function init() {
     <div id="explorer-table-wrap"></div>`;
   document.getElementById("explorer-search").addEventListener("input", (e) => {
     state.query = e.target.value;
-    applyFilters();
-    renderAll();
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => { state.limit = PAGE_SIZE; applyFilters(); renderAll(); }, 120);
   });
   document.getElementById("explorer-status").addEventListener("change", (e) => {
     state.status = e.target.value;
+    state.limit = PAGE_SIZE;
     applyFilters();
     renderAll();
   });
   document.getElementById("explorer-params").addEventListener("change", (e) => {
     state.paramsFilter = e.target.value;
+    state.limit = PAGE_SIZE;
     applyFilters();
     renderAll();
   });
