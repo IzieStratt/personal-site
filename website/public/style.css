@@ -13,6 +13,14 @@ body {
   line-height: 1.5;
 }
 
+code {
+  padding: 0.08em 0.35em;
+  border-radius: 0.35em;
+  background: #eee9dc;
+  color: #594733;
+  font: inherit;
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
