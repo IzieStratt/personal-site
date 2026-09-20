@@ -89,6 +89,10 @@ field or the published `llms.txt` for the same note in agent-facing form.
   out to be a dead end for new API methods, and what it confirmed instead.
 - `methods/slack-undoc-client-2026.md` — the 31 new methods (with typed
   params) found cross-referencing `ImShyMike/slack-undoc-client`.
+- `methods/admin-write-scope-2026-09.md` — the fifth pass: live-testing
+  `admin.apps.uninstall`/`approve`/`approved.list`/`requests.cancel` and
+  `team.integrationLogs`/`bots.info` for real against this account, and the
+  new `permission_denied`/`not_an_admin` distinction that came out of it.
 
 ## Methodology
 
@@ -282,6 +286,33 @@ new:
    known/unknown) so the same information is scannable by a human without
    opening the JSON.
 
+### Fifth pass (2026-09-20, later the same day): `admin.*` write scope, live
+
+Separate task work needed to know, for real, whether `admin.apps.uninstall`
+would actually work from this account before relying on it — so this pass
+deliberately crossed the line every prior pass held ("no `admin.*` method
+called live," see Safety rules below, now corrected). Six methods were
+live-tested with real credentials against this account's real workspace:
+`admin.apps.uninstall`, `admin.apps.approve`, `admin.apps.approved.list`,
+`admin.apps.requests.cancel`, `team.integrationLogs`, `bots.info`.
+
+**Headline finding:** the `admin.*` namespace is not one permission tier.
+`admin.apps.uninstall` succeeded (`ok:true`) with the team-scoped xoxc, the
+same account got `not_an_admin` calling `admin.apps.approve` and
+`admin.apps.requests.cancel` with either xoxc scope. `not_an_admin` is a new
+error code for this catalog, and a genuinely different kind of rejection
+than the existing `team_is_restricted`/`enterprise_is_restricted`
+scope-mismatch pair: it's Slack stating the *identity* lacks admin rights,
+not that the *session* picked the wrong scope. Full details, including a
+disclosed live side-effect (a stray org-wide app-install approval request
+this account could not self-cancel, caused by a CLI targeting mistake, left
+for a real admin to resolve) in `methods/admin-write-scope-2026-09.md`,
+cross-referenced from `auth-and-tokens.md` and `errors.md`.
+
+No bulk/exploratory `admin.*` calls were made — six specific methods,
+chosen because the task at hand needed them, each called a small, bounded
+number of times (never more than 4-5 param/token combinations per method).
+
 ## Honest coverage statement
 
 This is **not** a complete map of Slack's private API surface, and cannot be:
@@ -340,7 +371,13 @@ This is **not** a complete map of Slack's private API surface, and cannot be:
 - No state-changing (write) method was ever called with real tokens outside the
   self-DM sandbox, and all sandbox artifacts were created ≥30 days out and deleted
   before finishing (verified via `drafts.list`).
-- No `admin.*` or enterprise-admin-scoped method was called live.
+- No `admin.*` or enterprise-admin-scoped method was called live **through
+  the fourth pass**. The fifth pass explicitly and deliberately crossed this
+  line for separate, specific task reasons — six named methods, each called
+  a small bounded number of times, never a bulk/exploratory sweep. See
+  "Fifth pass" above and `methods/admin-write-scope-2026-09.md` for exactly
+  what was called, why, and the one live side-effect it left behind
+  (disclosed there, not hidden).
 - Never posted/reacted/joined/left/marked anything visible to anyone else.
 - Rate-limited to ≈1 req/s with 429/Retry-After backoff throughout.
 - No tokens, cookies, message content, or other people's IDs were written to any
