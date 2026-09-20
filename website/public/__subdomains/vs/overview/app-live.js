@@ -260,10 +260,25 @@ svg.addEventListener('mousemove', event => {
     exact = ` · ${lastPointInfo(seriesIndex, index)}`;
   }
   tooltip.textContent = `${hit.dataset.name}${exact}`;
-  const wrap = svg.closest('.chart-wrap').getBoundingClientRect();
-  tooltip.style.left = `${event.clientX - wrap.left}px`;
-  tooltip.style.top = `${event.clientY - wrap.top}px`;
   tooltip.hidden = false;
+
+  const wrap = svg.closest('.chart-wrap').getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const viewportPadding = 8;
+  const pointerGap = 10;
+  const maxViewportLeft = Math.max(viewportPadding, window.innerWidth - tooltipRect.width - viewportPadding);
+  const maxViewportTop = Math.max(viewportPadding, window.innerHeight - tooltipRect.height - viewportPadding);
+  const unclampedLeft = event.clientX - tooltipRect.width / 2;
+  const unclampedTop = event.clientY - tooltipRect.height - pointerGap;
+  const flippedTop = event.clientY + pointerGap;
+  const viewportLeft = Math.min(maxViewportLeft, Math.max(viewportPadding, unclampedLeft));
+  const viewportTop = Math.min(
+    maxViewportTop,
+    Math.max(viewportPadding, unclampedTop < viewportPadding ? flippedTop : unclampedTop)
+  );
+
+  tooltip.style.left = `${viewportLeft - wrap.left}px`;
+  tooltip.style.top = `${viewportTop - wrap.top}px`;
 });
 svg.addEventListener('mouseleave', hideTooltip);
 function renderPlayers() {
