@@ -202,10 +202,34 @@ available to a huddle client; what Slack *permits* an attendee to do is
 governed by the `Capabilities` object on the attendee, which we have not seen
 populated.
 
+## Additional sources (second look)
+
+Status column: **read** = we opened the file and the claim below comes from it.
+**UNCHECKED** = found via search, only skimmed or read through a search
+summary, not cross-checked against anything else. Per this project's rules,
+anything not from `3kh0`, the `slack-go` project or another source the maintainer has explicitly marked trusted (`hq-fishbowl`) is marked UNCHECKED and
+should not be relied on until someone verifies it.
+
+| Source | Status | What it adds |
+|---|---|---|
+| [`3kh0/super-platinum`](https://github.com/3kh0/super-platinum), `crates/super-platinum-core/src/slack/realtime.rs` | read | A second independent client of the realtime gateway. Simpler URL: `wss://wss-primary.slack.com/?token=<xoxc>&flannel=3&gateway_server=<team_id>-1` (the gateway is called "flannel"). Test fixtures show `sh_room_join` / `sh_room_leave` / `sh_room_update` payloads: `{"type":"sh_room_join","user":"U…","huddle":{"channel_id":"C…"},"room":{"id":"R…","call_family":"huddle","channels":["C…"],"created_by":"U…","has_ended":false,"huddle_link":"https://app.slack.com/huddle/E…/C…","participants":["U…"],"media_backend_type":"free_willy"}}`. **This is the first place `free_willy` appears as a `media_backend_type` value**, tying that name to huddles. Room ids start with `R`. The fixtures may be synthetic; the shape is what matters. |
+| [`slack-go/slack`](https://github.com/slack-go/slack), `examples/rtm_call_events/rtm_call_events.go`, `websocket_managed_conn.go` | read (example only; struct fields not yet extracted) | Typed `SHRoomJoinEvent`, `SHRoomLeaveEvent`, `SHRoomUpdateEvent`; the example connects with a **bot token (`xoxb`) over classic RTM** and prints them. If that works as documented, ordinary RTM bots receive huddle room events, not only browser-session identities. Room fields used: `ID`, `Name`, `Channels`, `Participants`, `CallFamily`. **We have not run this.** |
+| [`anaisbetts/trickline`](https://github.com/anaisbetts/trickline), `src/lib/models/event-type.ts` | UNCHECKED (old client, likely stale) | Event-name list with a "calls (screenhero)" group: `screenhero_invite`, `screenhero_invite_response`, `screenhero_invite_cancel` (initiate/cancel a call), `sh_room_join`, `sh_room_leave`, `sh_room_update` ("update the client room model", not rendered in a channel), and message subtypes `sh_room_created`, `sh_room_shared`. |
+| [`rusq/slackdump`](https://github.com/rusq/slackdump), `internal/edge/` | UNCHECKED, not read | Has an Edge API client and a captured `client.userBoot.json` containing `huddle_invite`. Candidate source for Edge API shapes. |
+| [`wee-slack/wee-slack`](https://github.com/wee-slack/wee-slack), [`emacs-slack/emacs-slack`](https://github.com/emacs-slack/emacs-slack) | UNCHECKED, not read | Long-lived third-party RTM clients that reference `sh_room_*` and the `wss-primary.slack.com` gateway. |
+| [`tarik02/huddlewire`](https://github.com/tarik02/huddlewire) | UNCHECKED, skimmed | Controls the desktop Slack app through its Chrome DevTools port (`--remote-debugging-port`) and publishes mute/in-huddle state to MQTT. DOM/CDP based; no Web API or Chime details. |
+| [`QuantGeekDev/slack-huddle-copilot`](https://github.com/QuantGeekDev/slack-huddle-copilot) (a 2021 "Spotify Huddle" monorepo) | UNCHECKED, skimmed | Puppeteer drives real Slack to join/leave huddles and a virtual audio device carries the music. Shows the pre-API approach; no API details. |
+| [AWS blog, "Customers like Slack choose the Amazon Chime SDK for real-time communications"](https://aws.amazon.com/blogs/business-productivity/customers-like-slack-choose-the-amazon-chime-sdk-for-real-time-communications/) (2020-06-04) | UNCHECKED (read via a summarizer, not directly) | First-party statement that Slack embeds the Chime SDK for calls: audio/video/screen share, "Slack can control the security posture of the media session", global coverage. Does not name Huddles specifically or list regions. |
+| [`deployor/hq-fishbowl`](https://github.com/deployor/hq-fishbowl) (commit `c1619f1`, 2025-08-06, Hack Club HQ's 24/7 "fishbowl" huddle bot, MIT) | read; trusted source (per the maintainer) | **Oldest and simplest known `rooms.join` client**, so the reference for what is minimally required. `huddleUtils.js` POSTs multipart to `https://hackclub.slack.com/api/rooms.join` with only `channel_id`, `regions` (`us-east-2` here, so the region is a free choice, not just Slack's default), and `token` (an xoxc, env `SLACK_ROOM_TOKEN`), plus a raw `Cookie` header from env (`SLACK_COOKIE`), an optional extra-headers JSON (`HEADERS`) and a `User-Agent` of `insomnia/11.2.0`. **No `_x_*` fields and no `multidevice`**, so those are not required (at least in Aug 2025). Reads `call.free_willy.meeting`, `call.free_willy.attendee` and `huddle.thread_root_ts`. Its README says joining via the API and AWS directly, instead of automating the Slack web app, avoids captchas and security checks. It runs the Chime SDK in Firefox and streams arbitrary video+audio as a **content share**: `enableSVCForContentShare(true)`, `chooseVideoInputQuality(1920,1080,15,2000)`, `setVideoMaxBandwidthKbps(2000)`, `setContentShareVideoCodecPreferences([...])`, `startContentShare(stream)`, and `realtimeMuteLocalAudio()`. Also a normal Slack app on the side (Socket Mode; bot scopes `calls:read`, `calls:write`, `chat:write`, `channels:read`, `users:read`; events `app_mention`, `message.channels`) for chat control, while the join itself uses the browser-session identity. |
+| `heidi-fi` repo | UNCHECKED, **not found** | Requested as a lead; no GitHub user/org/repo by that name resolved (404s). Need the exact URL. |
+
+Blog search: a web search for reverse-engineering write-ups on Slack
+huddles / `free_willy` / `rooms.join` found **no such blog**. The only
+first-party material is the AWS post above.
+
 ## Open questions (not answered by these sources)
 
-- Values and meaning of `media_backend_type`, `media_server`, `regions`
-  choices Slack accepts, and the `multidevice` flag.
+- Values of `media_backend_type` other than `free_willy` (seen in the `super-platinum` fixtures), the `media_server` field, which `regions` values Slack accepts (`us-east-2`, `us-west-1`, `ap-southeast-2` all appear in working clients), and what `multidevice` does (present in huddlefm, absent in hq-fishbowl).
 - The accept value for `rooms.inviteResponse`, and the exact params for
   `rooms.request`, `rooms.notifyMember`, `rooms.getLink`,
   `rooms.sendHuddleInvite`, `huddles.knock`, `huddles.knockResponse`.
