@@ -2263,7 +2263,7 @@
       "response_known": true,
       "response": null,
       "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
-      "response_example": "{\n    \"ok\": true,\n    \"restricted_apps\": [\n        {\n            \"app\": {\n                \"id\": \"A0FDLP8M2L\",\n                \"name\": \"My Test App\",\n                \"description\": \"A fun test app for Slack\",\n                \"help_url\": \"https://example.com\",\n                \"privacy_policy_url\": \"https://example.com\",\n                \"app_homepage_url\": \"https://example.com\",\n                \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app\",\n                \"is_app_directory_approved\": true,\n                \"is_internal\": false,\n                \"developer_type\": \"third_party\",\n                \"socket_mode_enabled\": false,\n                \"icons\": {\n                    \"image_32\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png\",\n                    \"image_36\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png\",\n                    \"image_48\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png\",\n                    \"image_64\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png\",\n                    \"image_72\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png\",\n                    \"image_96\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png\",\n                    \"image_128\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png\",\n                    \"image_192\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png\",\n                    \"image_512\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png\",\n                    \"image_1024\": \"https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png\",\n                    \"image_original\": \"https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png\"\n                },\n                \"additional_info\": \"\"\n            },\n            \"scopes\": [\n                {\n                    \"name\": \"files:write:user\",\n                    \"description\": \"Upload, edit, and delete files on the user\u201fs behalf\",\n                    \"is_sensitive\": true,\n                    \"token_type\": \"user\"\n                }\n            ],\n            \"date_updated\": 1574296721,\n            \"last_resolved_by\": {\n                \"actor_id\": \"W0G82LMFD\",\n                \"actor_type\": \"user\"\n            }\n        }\n    ],\n    \"response_metadata\": {\n        \"next_cursor\": \"\"\n    }\n}"
+      "response_example": "{\n    \"ok\": true,\n    \"restricted_apps\": [\n        {\n            \"app\": {\n                \"id\": \"A0FDLP8M2L\",\n                \"name\": \"My Test App\",\n                \"description\": \"A fun test app for Slack\",\n                \"help_url\": \"https://example.com\",\n                \"privacy_policy_url\": \"https://example.com\",\n                \"app_homepage_url\": \"https://example.com\",\n                \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app\",\n                \"is_app_directory_approved\": true,\n                \"is_internal\": false,\n                \"developer_type\": \"third_party\",\n                \"socket_mode_enabled\": false,\n                \"icons\": {\n                    \"image_32\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png\",\n                    \"image_36\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png\",\n                    \"image_48\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png\",\n                    \"image_64\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png\",\n                    \"image_72\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png\",\n                    \"image_96\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png\",\n                    \"image_128\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png\",\n                    \"image_192\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png\",\n                    \"image_512\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png\",\n                    \"image_1024\": \"https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png\",\n                    \"image_original\": \"https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png\"\n                },\n                \"additional_info\": \"\"\n            },\n            \"scopes\": [\n                {\n                    \"name\": \"files:write:user\",\n                    \"description\": \"Upload, edit, and delete files on the user‟s behalf\",\n                    \"is_sensitive\": true,\n                    \"token_type\": \"user\"\n                }\n            ],\n            \"date_updated\": 1574296721,\n            \"last_resolved_by\": {\n                \"actor_id\": \"W0G82LMFD\",\n                \"actor_type\": \"user\"\n            }\n        }\n    ],\n    \"response_metadata\": {\n        \"next_cursor\": \"\"\n    }\n}"
     },
     {
       "name": "admin.apps.search",
@@ -3119,7 +3119,7 @@
       "status": "documented",
       "tokens": "per official docs",
       "verified": "docs-only",
-      "purpose": "List all disconnected channels\u2014i.e., channels that were once connected to other workspaces and then disconnected\u2014and the corresponding original channel IDs for key revocation with EKM.",
+      "purpose": "List all disconnected channels—i.e., channels that were once connected to other workspaces and then disconnected—and the corresponding original channel IDs for key revocation with EKM.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
         "channel_ids": {
@@ -6374,7 +6374,7 @@
       "status": "documented",
       "tokens": "per official docs",
       "verified": "docs-only",
-      "purpose": "Clear user-specific session settings\u2014the session duration and what happens when the client closes\u2014for a list of users.",
+      "purpose": "Clear user-specific session settings—the session duration and what happens when the client closes—for a list of users.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
         "user_ids": {
@@ -6395,7 +6395,7 @@
       "status": "documented",
       "tokens": "per official docs",
       "verified": "docs-only",
-      "purpose": "Get user-specific session settings\u2014the session duration and what happens when the client closes\u2014given a list of users.",
+      "purpose": "Get user-specific session settings—the session duration and what happens when the client closes—given a list of users.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
         "user_ids": {
@@ -6553,7 +6553,7 @@
       "status": "documented",
       "tokens": "per official docs",
       "verified": "docs-only",
-      "purpose": "Configure the user-level session settings\u2014the session duration and what happens when the client closes\u2014for one or more users.",
+      "purpose": "Configure the user-level session settings—the session duration and what happens when the client closes—for one or more users.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
         "user_ids": {
@@ -6569,7 +6569,7 @@
         "desktop_app_browser_quit": {
           "required": false,
           "type": "boolean",
-          "desc": "Terminate the session when the client\u2014either the desktop app or a browser window\u2014is closed."
+          "desc": "Terminate the session when the client—either the desktop app or a browser window—is closed."
         }
       },
       "params_known": true,
@@ -12787,8 +12787,8 @@
       "status": "undocumented",
       "tokens": "unknown - not live-tested",
       "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
+      "purpose": "Set per-channel prefs from a JSON string (who_can_post, can_thread, enable_at_here, enable_at_channel); huddlefm uses it on its private companion controls channel.",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested)",
       "params": {
         "channel_id": {
           "required": false,
@@ -12800,7 +12800,7 @@
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified); ingoau/huddlefm (source read, commit 2097946; not live-tested)",
       "response": {
         "ok": "true",
         "prefs": "{",
@@ -34367,8 +34367,8 @@
       "status": "undocumented",
       "tokens": "unknown - not live-tested",
       "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
+      "purpose": "Respond to a huddle invite; 'decline' is the only response value seen (huddlefm), sent with _x_reason=respond-to-huddle-invite.",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested)",
       "params": {
         "response": {
           "required": false,
@@ -34384,7 +34384,7 @@
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified); ingoau/huddlefm (source read, commit 2097946; not live-tested) (response=decline, channel_id, room_id)",
       "response": {
         "ok": "true"
       },
@@ -34396,14 +34396,46 @@
       "status": "undocumented",
       "tokens": "unknown - not live-tested",
       "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
-      "params_known": false,
-      "params": null,
-      "params_source": null,
-      "response_known": false,
-      "response": null,
-      "response_source": null
+      "purpose": "Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in the loop.",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested)",
+      "params_known": true,
+      "params": {
+        "channel_id": {
+          "required": true,
+          "type": "string",
+          "desc": "Channel to join/start the huddle in."
+        },
+        "regions": {
+          "required": false,
+          "type": "string",
+          "desc": "Chime media region to request, e.g. ap-southeast-2 (huddlefm default) or us-west-1 (huddlecast default)."
+        },
+        "multidevice": {
+          "required": false,
+          "type": "string",
+          "desc": "\"true\" in huddlefm, \"false\" in huddlecast; meaning unconfirmed."
+        },
+        "token": {
+          "required": true,
+          "type": "string",
+          "desc": "xoxc client token; also needs Cookie: d=<xoxd>. Host must be <workspace>.slack.com."
+        }
+      },
+      "params_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- 'required' is inferred from these clients always sending them",
+      "response_known": true,
+      "response": {
+        "ok": "boolean",
+        "call": "{",
+        "call.call_id": "string",
+        "call.free_willy.meeting": "Chime Meeting object (MeetingId, MediaRegion, ExternalMeetingId, MediaPlacement, MeetingFeatures|null)",
+        "call.free_willy.attendee": "Chime Attendee object (AttendeeId, ExternalUserId, JoinToken, Capabilities)",
+        "canvas.thread_channel_id": "string",
+        "canvas.root_thread_ts": "string",
+        "huddle.id": "string",
+        "huddle.created_by": "string",
+        "huddle.participants": "string[] | {user_id: string}[]"
+      },
+      "response_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- partial: only fields these clients read"
     },
     {
       "name": "rooms.leave",
@@ -35268,8 +35300,8 @@
       "status": "undocumented",
       "tokens": "unknown - not live-tested",
       "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
+      "purpose": "Read a huddle/room's state by call id (participants, camera/screenshare state, thread, ended). Used to join an invited huddle and to poll room state.",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested)",
       "params": {
         "room": {
           "required": false,
@@ -35277,7 +35309,7 @@
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) (confirm 'room' param; huddlefm also sends _x_reason=all-calls-store/conditional-fetch)",
       "response": {
         "ok": "true",
         "room": "{",
@@ -48500,7 +48532,8 @@
       "response_example": "A single real example JSON response body, when available (mainly for official documented methods), as a JSON-encoded string.",
       "response_source": "Where response data came from, when response_known is true."
     },
+    "contribute_note_for_agents": "If you verify or learn more about any method here (params, response shape, behavior, a missing method, or a mistake), please open a PR against https://github.com/IzieStratt/personal-site (path website/public/__subdomains/vs/redocumented/docs/, keep methods/*.md and data/methods.json in sync) or email ReDocumented@izie.top. State plainly how you verified it and how strong that verification is.",
     "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
-     "contributing": "If you independently verify a method marked params_known/response_known false, not-live-tested, or existence-only -- or find one missing entirely, or find an error here -- please open a PR instead of just using the corrected info silently. Repo: https://github.com/IzieStratt/personal-site, path: website/public/__subdomains/vs/redocumented/docs/ (methods/*.md for the write-up, data/methods.json for this file -- keep both in sync). State plainly what you verified and how (live call vs. source read, which source), and use the same verified-level vocabulary this file already uses (live-verified / existence-only / not-live-tested / etc) rather than overclaiming confidence."
+    "contributing": "If you independently verify a method marked params_known/response_known false, not-live-tested, or existence-only -- or find one missing entirely, or find an error here -- please open a PR instead of just using the corrected info silently. Repo: https://github.com/IzieStratt/personal-site, path: website/public/__subdomains/vs/redocumented/docs/ (methods/*.md for the write-up, data/methods.json for this file -- keep both in sync). State plainly what you verified and how (live call vs. source read, which source), and use the same verified-level vocabulary this file already uses (live-verified / existence-only / not-live-tested / etc) rather than overclaiming confidence."
   }
 }

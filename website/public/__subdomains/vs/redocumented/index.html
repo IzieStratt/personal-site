@@ -10,15 +10,17 @@
   </head>
   <body>
     <div class="shell">
-      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Show navigation" aria-expanded="false"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 1v10h3.5V3H2zm4.5 0v10H14V3H6.5z"/></svg></button>
       <nav id="sidebar" class="sidebar" aria-label="Documentation navigation">
         <div class="sidebar-head">
+          <button id="nav-collapse" class="nav-collapse" aria-label="Hide navigation" title="Hide sidebar"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 1v10h3.5V3H2zm4.5 0v10H14V3H6.5z"/></svg></button>
            <a href="/" class="brand">ReDocumented</a>
           <div class="brand-sub">Slack Web API reference</div>
         </div>
         <div id="nav-list"></div>
         <div class="sidebar-foot">
           <a href="https://vs.izie.top/">← vs.izie.top</a>
+          <a href="mailto:ReDocumented@izie.top">Contribute / contact ✉</a>
           <a href="docs/data/methods.json" target="_blank" rel="noreferrer">methods.json ↗</a>
         </div>
       </nav>
