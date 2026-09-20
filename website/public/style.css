@@ -70,21 +70,30 @@ nav a:focus-visible {
   gap: 1.5rem;
 }
 
+/* The link itself never moves: it is the stable hover target (with a little
+   invisible padding so a cursor resting on the edge stays inside it). Only the
+   inner .github-face lifts and tilts, so the hover can't move out from under
+   the cursor and flicker. */
 .github-link {
+  display: inline-block;
+  padding: 6px;
+  margin: calc(0.8rem - 6px) -6px -6px;
+  color: #222;
+  text-decoration: none;
+}
+
+.github-face {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-top: 0.8rem;
   padding: 0.55rem 0.85rem 0.55rem 0.65rem;
   border: 2px solid #222;
   border-radius: 0.75rem;
-  color: #222;
-  text-decoration: none;
-  transition: transform 150ms ease, background-color 150ms ease;
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
 }
 
-.github-link:hover,
-.github-link:focus-visible {
+.github-link:hover .github-face,
+.github-link:focus-visible .github-face {
   background: #222;
   color: #fffdf7;
   transform: translateY(-2px) rotate(-1deg);
