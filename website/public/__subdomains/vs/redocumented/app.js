@@ -1,4 +1,4 @@
-// redocumented docs viewer -- fetches markdown from docs/ and renders it
+// ReDocumented docs viewer -- fetches markdown from docs/ and renders it
 // client-side, plus routes to the interactive method explorer (explorer.js).
 // No build step; this is meant to stay a plain static folder.
 
@@ -137,9 +137,7 @@ async function loadDoc(path) {
 }
 
 function setupTableFilter() {
-  const rows = Array.from(docEl.querySelectorAll("table tr")).filter(
-    (r) => r.parentElement.tagName !== "THEAD"
-  );
+  const rows = Array.from(docEl.querySelectorAll("table tbody tr"));
   function apply() {
     const q = searchInput.value.trim().toLowerCase();
     let shown = 0;

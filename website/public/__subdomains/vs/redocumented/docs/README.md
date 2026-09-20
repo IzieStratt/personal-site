@@ -1,7 +1,7 @@
-# redocumented — Slack Web API, including undocumented/internal methods
+# ReDocumented — Slack Web API, including undocumented/internal methods
 
 **Personal reference for izie (Hack Club workspace, `hackclub.slack.com`, Enterprise Grid).**
-Compiled 2026-09-20. Published at [vs.izie.top/slackapi](https://vs.izie.top/slackapi).
+Compiled 2026-09-20. Published at [vs.izie.top/redocumented](https://vs.izie.top/redocumented).
 Contains no secrets (see Safety below) — every credential-shaped value in this
 project is a placeholder (`xoxc-REDACTED`, `C0XXXXXXXX`, etc), never a real one.
 
@@ -61,7 +61,7 @@ methodology" below.
 catalog doesn't know** (params for a `params_known: false` method, a missing
 method, a correction) — **please open a PR** against
 [`IzieStratt/personal-site`](https://github.com/IzieStratt/personal-site)
-(this content is published at `website/public/__subdomains/vs/slackapi/docs/`
+(this content is published at `website/public/__subdomains/vs/redocumented/docs/`
 in that repo) rather than just using what you found and moving on. Say
 plainly what you verified and how, and use this project's existing
 verified-level vocabulary (`live-verified`/`existence-only`/`not-live-tested`/

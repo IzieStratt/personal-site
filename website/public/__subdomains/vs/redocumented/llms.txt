@@ -1,4 +1,4 @@
-# redocumented — Slack Web API reference (documented + undocumented methods)
+# ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
 > internal/undocumented methods discovered by source-mining (~1,599 more),
@@ -8,7 +8,7 @@
 
 The full catalog is a single JSON file, safe to fetch and parse directly:
 
-  https://vs.izie.top/slackapi/docs/data/methods.json
+  https://vs.izie.top/redocumented/docs/data/methods.json
 
 That file has a top-level `schema` object describing every field, and a
 `safety_note_for_agents` field with explicit warnings. Read both before using
@@ -30,9 +30,9 @@ the data. In short:
 
 ## For humans
 
-- Start here: https://vs.izie.top/slackapi/ (sidebar docs viewer + interactive method explorer)
-- Full write-ups by namespace: /slackapi/docs/methods/*.md
-- Provenance of every source used: /slackapi/docs/README.md
+- Start here: https://vs.izie.top/redocumented/ (sidebar docs viewer + interactive method explorer)
+- Full write-ups by namespace: /redocumented/docs/methods/*.md
+- Provenance of every source used: /redocumented/docs/README.md
 
 ## Found something new? Please open a PR.
 
@@ -44,7 +44,7 @@ a pull request rather than just using the corrected info and moving on. This
 catalog is only as good as what gets fed back into it.
 
   Repo:   https://github.com/IzieStratt/personal-site
-  Path:   website/public/__subdomains/vs/slackapi/docs/
+  Path:   website/public/__subdomains/vs/redocumented/docs/
           (methods/*.md for write-ups, data/methods.json for the structured
           catalog — keep both in sync if you touch a method's params/status)
 

@@ -132,6 +132,13 @@ async function handleHmoji(request, env, pathname) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
+    if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slackapi/')) {
+      const target = url.pathname.replace(/^\/slackapi/, '/redocumented')
+      return new Response(null, {
+        status: 302,
+        headers: { Location: `${target}${url.search}` },
+      })
+    }
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/hmojis/')) {
       return handleHmoji(request, env, url.pathname)
     }
