@@ -10,9 +10,21 @@ const textSize = document.querySelector('#text-size')
 const opacity = document.querySelector('#opacity')
 const overlayOpacity = document.querySelector('#overlay-opacity')
 const textColor = document.querySelector('#text-color')
+const coverOriginal = document.querySelector('#cover-original')
+const coverColor = document.querySelector('#cover-color')
 
 let baseImage = null
 let overlayImage = null
+
+function loadBuiltInImage() {
+  const image = new Image()
+  image.onload = () => {
+    baseImage = image
+    status.textContent = 'Built-in Googer image loaded. Add an overlay or message.'
+    render()
+  }
+  image.src = 'goog-image.png'
+}
 
 function loadImage(file) {
   return new Promise((resolve, reject) => {
@@ -45,6 +57,15 @@ function render() {
     ctx.globalAlpha = Number(overlayOpacity.value) / 100
     ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height)
     ctx.globalAlpha = 1
+  }
+
+  if (coverOriginal.checked && messageInput.value.trim()) {
+    const size = Number(textSize.value)
+    const padding = Math.max(12, size * .55)
+    const lines = messageInput.value.split('\n')
+    const coverHeight = padding + lines.length * size * 1.2 + padding * .4
+    ctx.fillStyle = coverColor.value
+    ctx.fillRect(0, canvas.height - coverHeight, canvas.width, coverHeight)
   }
 
   const size = Number(textSize.value)
@@ -80,7 +101,7 @@ async function acceptFile(input, kind) {
 
 baseInput.addEventListener('change', () => acceptFile(baseInput, 'base'))
 overlayInput.addEventListener('change', () => acceptFile(overlayInput, 'overlay'))
-;[messageInput, textSize, opacity, overlayOpacity, textColor].forEach(input => input.addEventListener('input', () => {
+;[messageInput, textSize, opacity, overlayOpacity, textColor, coverOriginal, coverColor].forEach(input => input.addEventListener('input', () => {
   if (input === textSize) input.nextElementSibling.value = `${input.value}px`
   if (input === opacity || input === overlayOpacity) input.nextElementSibling.value = `${input.value}%`
   render()
@@ -105,10 +126,10 @@ document.querySelector('#clear').addEventListener('click', () => {
   overlayImage = null
   baseInput.value = ''
   overlayInput.value = ''
-  baseName.textContent = 'No file selected'
+  baseName.textContent = 'Built-in Googer image'
   overlayName.textContent = 'Optional'
-  status.textContent = 'Choose a base image to begin.'
-  render()
+  status.textContent = 'Built-in Googer image restored.'
+  loadBuiltInImage()
 })
 
 document.querySelector('#download').addEventListener('click', () => {
@@ -123,4 +144,4 @@ document.querySelector('#download').addEventListener('click', () => {
   status.textContent = 'PNG exported locally.'
 })
 
-render()
+loadBuiltInImage()
