@@ -21,7 +21,7 @@
             <span>Base image or GIF</span>
             <input id="base-file" type="file" accept="image/*">
             <b class="file-button">Choose file</b>
-            <small id="base-name">Built-in Googer image</small>
+            <small id="base-name">Built-in Goog image</small>
           </label>
           <label class="dropzone compact">
             <span>Overlay image or GIF</span>
@@ -29,19 +29,19 @@
             <b class="file-button">Choose file</b>
             <small id="overlay-name">Optional</small>
           </label>
-          <label>Message<textarea id="message" rows="3" placeholder="Type something to overlay...">Made on https://vs.izie.top/googer</textarea></label>
+          <label>Message<textarea id="message" rows="3" placeholder="Type something to overlay...">Goog</textarea></label>
           <div class="two-up">
-            <label>Text size<input id="text-size" type="range" min="2" max="96" value="18"><output for="text-size">18px</output></label>
+            <label>Text size<input id="text-size" type="range" min="2" max="96" value="28"><output for="text-size">28px</output></label>
             <label>Opacity<input id="opacity" type="range" min="0" max="100" value="100"><output for="opacity">100%</output></label>
           </div>
           <div class="two-up">
-            <label>Text color<input id="text-color" type="color" value="#ffffff"></label>
+            <label>Text color<input id="text-color" type="color" value="#000000"></label>
             <label>Overlay opacity<input id="overlay-opacity" type="range" min="0" max="100" value="85"><output for="overlay-opacity">85%</output></label>
           </div>
+          <label>Screenshot crust<input id="crust-passes" type="range" min="0" max="5" value="2"><output for="crust-passes">2 passes</output></label>
           <fieldset class="cover-options">
             <legend>Cover original title</legend>
             <label class="check"><input id="cover-original" type="checkbox" checked> Paint over the original title before adding text</label>
-            <label>Cover color<input id="cover-color" type="color" value="#ffffff"></label>
           </fieldset>
           <div class="actions">
             <button id="clear" type="button" class="secondary">Clear</button>
@@ -55,6 +55,6 @@
         </div>
       </section>
     </main>
-    <script src="app.js"></script>
+    <script src="app.js?v=20260921-3"></script>
   </body>
 </html>
