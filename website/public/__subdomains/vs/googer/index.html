@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Googer</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main>
+      <header class="masthead">
+        <p class="eyebrow"><a href="/">vs.izie.top</a> / local image lab</p>
+        <h1>Googer</h1>
+        <p class="lede">Drop in an image or GIF, add another image, type a message, and export the composition. Everything stays in your browser.</p>
+      </header>
+
+      <section class="editor" aria-label="Image overlay editor">
+        <aside class="controls">
+          <label class="dropzone" id="base-dropzone">
+            <span>Base image or GIF</span>
+            <input id="base-file" type="file" accept="image/*">
+            <small id="base-name">No file selected</small>
+          </label>
+          <label class="dropzone compact">
+            <span>Overlay image or GIF</span>
+            <input id="overlay-file" type="file" accept="image/*">
+            <small id="overlay-name">Optional</small>
+          </label>
+          <label>Message<textarea id="message" rows="3" placeholder="Type something to overlay...">Made on https://vs.izie.top/googer</textarea></label>
+          <div class="two-up">
+            <label>Text size<input id="text-size" type="range" min="10" max="96" value="28"><output for="text-size">28px</output></label>
+            <label>Opacity<input id="opacity" type="range" min="0" max="100" value="100"><output for="opacity">100%</output></label>
+          </div>
+          <div class="two-up">
+            <label>Text color<input id="text-color" type="color" value="#ffe0b8"></label>
+            <label>Overlay opacity<input id="overlay-opacity" type="range" min="0" max="100" value="85"><output for="overlay-opacity">85%</output></label>
+          </div>
+          <div class="actions">
+            <button id="clear" type="button" class="secondary">Clear</button>
+            <button id="download" type="button">Export PNG</button>
+          </div>
+          <p class="status" id="status" role="status">Choose a base image to begin.</p>
+        </aside>
+        <div class="preview-wrap">
+          <div class="checkerboard"><canvas id="preview" aria-label="Overlay preview"></canvas></div>
+          <p class="hint">GIFs can be loaded as inputs. PNG export captures the currently displayed frame.</p>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
