@@ -35,6 +35,28 @@ function loadImage(file) {
   })
 }
 
+function wrapLines(text, maxWidth) {
+  const lines = []
+  text.split('\n').forEach(paragraph => {
+    if (!paragraph) {
+      lines.push('')
+      return
+    }
+    let line = ''
+    paragraph.split(/\s+/).forEach(word => {
+      const candidate = line ? `${line} ${word}` : word
+      if (ctx.measureText(candidate).width > maxWidth && line) {
+        lines.push(line)
+        line = word
+      } else {
+        line = candidate
+      }
+    })
+    lines.push(line)
+  })
+  return lines
+}
+
 function render() {
   if (!baseImage) {
     canvas.width = 640
@@ -69,14 +91,27 @@ function render() {
   }
 
   const size = Number(textSize.value)
-  const padding = Math.max(12, size * .55)
+  const padding = Math.max(3, size * .55)
+  const maxWidth = canvas.width - padding * 2
+  ctx.font = `700 ${size}px ui-monospace, monospace`
+  const lines = wrapLines(messageInput.value, maxWidth)
+  const lineHeight = size * 1.2
+  const textWidth = Math.min(maxWidth, Math.max(...lines.map(line => ctx.measureText(line).width), 0))
+  const coverHeight = lines.length * lineHeight + padding * .8
+  const coverWidth = textWidth + padding * 1.5
+  const coverX = padding * .4
+  const coverY = canvas.height - coverHeight - padding * .2
+
+  if (coverOriginal.checked && messageInput.value.trim()) {
+    ctx.fillStyle = coverColor.value
+    ctx.fillRect(coverX, coverY, coverWidth, coverHeight)
+  }
+
   ctx.globalAlpha = Number(opacity.value) / 100
   ctx.fillStyle = textColor.value
-  ctx.font = `700 ${size}px ui-monospace, monospace`
   ctx.textAlign = 'left'
-  ctx.textBaseline = 'bottom'
-  const lines = messageInput.value.split('\n')
-  lines.forEach((line, index) => ctx.fillText(line, padding, canvas.height - padding - (lines.length - index - 1) * size * 1.2))
+  ctx.textBaseline = 'top'
+  lines.forEach((line, index) => ctx.fillText(line, padding, coverY + padding * .4 + index * lineHeight))
   ctx.globalAlpha = 1
 }
 
