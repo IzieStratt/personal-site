@@ -111,11 +111,44 @@ const etaText = minutes => {
   if (h > 0) return `${h}h ${m}m`;
   return `${m}m`;
 };
-const setEta = (selector, seconds) => {
-  const el = document.querySelector(selector);
+const etaDetails = seconds => {
   const minutes = etaMinutes(seconds);
-  el.textContent = etaText(minutes);
-  el.title = minutes == null ? '' : `${number(minutes)} minute${minutes === 1 ? '' : 's'}`;
+  return {
+    text: etaText(minutes),
+    title: minutes == null ? '' : `${number(minutes)} minute${minutes === 1 ? '' : 's'}`,
+  };
+};
+const passEtas = (gap, yourRate, theirRate) => ({
+  relative: gap != null && yourRate > theirRate ? gap / (yourRate - theirRate) : NaN,
+  static: gap != null && yourRate > 0 ? gap / yourRate : NaN,
+});
+const setPassEta = (selector, gapSelector, gap, yourRate, theirRate) => {
+  const relative = etaDetails(passEtas(gap, yourRate, theirRate).relative);
+  const staticEta = etaDetails(passEtas(gap, yourRate, theirRate).static);
+  const canCatch = Number.isFinite(passEtas(gap, yourRate, theirRate).relative);
+  const el = document.querySelector(selector);
+  el.textContent = canCatch ? relative.text : (gap == null ? '—' : 'Not catching up');
+  el.title = canCatch ? `At both current rates: ${relative.title}` : '';
+  const gapEl = document.querySelector(gapSelector);
+  gapEl.textContent = gap == null ? '—' : `If they stop: ${staticEta.text} • ${number(gap)} ahead`;
+  gapEl.title = staticEta.title ? `If their total stays flat: ${staticEta.title}` : '';
+};
+const passEtaCell = (gap, yourRate, theirRate) => {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'pass-eta';
+  if (gap == null) {
+    wrapper.textContent = '—';
+    return wrapper;
+  }
+  const estimates = passEtas(gap, yourRate, theirRate);
+  const relative = etaDetails(estimates.relative);
+  const staticEta = etaDetails(estimates.static);
+  const primary = document.createElement('strong');
+  primary.textContent = Number.isFinite(estimates.relative) ? relative.text : 'Not catching up';
+  const secondary = document.createElement('small');
+  secondary.textContent = `If they stop: ${staticEta.text}`;
+  wrapper.append(primary, secondary);
+  return wrapper;
 };
 function restoreClientState() {
   try {
@@ -322,10 +355,8 @@ function renderStats() {
   document.querySelector('#your-speed-note').textContent = `${metric} counted between updates`;
   document.querySelector('#next-name').textContent = above?.username || 'Already #1';
   document.querySelector('#next-gap').textContent = above ? `${number(above.total)} total • ${rateText(speedFor(above.username, key))}` : '—';
-  setEta('#next-eta', nextGap != null && speed > 0 ? nextGap / speed : NaN);
-  setEta('#first-eta', firstGap != null && speed > 0 ? firstGap / speed : NaN);
-  document.querySelector('#next-eta-gap').textContent = nextGap == null ? '—' : `${number(nextGap)} ahead`;
-  document.querySelector('#first-gap').textContent = firstGap == null ? '—' : `${number(firstGap)} ahead`;
+  setPassEta('#next-eta', '#next-eta-gap', nextGap, speed, above ? speedFor(above.username, key) : 0);
+  setPassEta('#first-eta', '#first-gap', firstGap, speed, players[0] ? speedFor(players[0].username, key) : 0);
   const body = document.querySelector('#leaderboard');
   body.replaceChildren(...players.slice(0, 15).map((player, rowIndex) => {
     const rate = speedFor(player.username, key);
@@ -345,6 +376,10 @@ function renderStats() {
       cell.textContent = value;
       row.append(cell);
     });
+    const etaCell = document.createElement('td');
+    const gap = izie && rowIndex < index ? Math.max(0, player.total - izie.total + 1) : null;
+    etaCell.append(passEtaCell(gap, speed, rate));
+    row.append(etaCell);
     Object.entries({ 2: 'total', 4: 'cap-default', 5: 'cf-turnstile', 6: 'vercel-botid-basic', 7: 'hcaptcha' }).forEach(([index, key]) => { row.children[index].title = `${rateText(speedFor(player.username, key))} per second`; });
     row.children[3].title = `${rateText(rate)} ${metric} per second`;
     return row;
