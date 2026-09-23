@@ -2,7 +2,7 @@
 # Installs the HiddenEmojis Taut plugin (macOS/Linux).
 #
 # Usage:
-#   HMOJI_TOKEN=<your token> bash -c "$(curl -fsSL https://vs.izie.top/hmojis-install/install.sh)"
+#   HMOJI_TOKEN=<your token> bash -c "$(curl -fsSL https://vs.izie.top/slack/hmojis-install/install.sh)"
 #
 # This only ever touches your own machine, and only your user-plugins
 # folder: it downloads the plugin build there. It does not touch
@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-SERVER="https://vs.izie.top/hmojis"
+SERVER="https://vs.izie.top/slack/hmojis"
 TOKEN="${HMOJI_TOKEN:-${1:-}}"
 
 if [ -z "$TOKEN" ]; then

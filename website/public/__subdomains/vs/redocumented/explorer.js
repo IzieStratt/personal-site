@@ -87,6 +87,19 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+// Renders one of the callout banners with a dismiss button. Once dismissed,
+// the choice sticks in localStorage so the table gets the room back.
+function callout(cls, hideKey, inner) {
+  let dismissed = false;
+  try { dismissed = localStorage.getItem(hideKey) === "1"; } catch {}
+  if (dismissed) return "";
+  return `
+    <div class="${cls}" data-hide="${hideKey}">
+      <button type="button" class="callout-dismiss" aria-label="Dismiss" title="Dismiss this note">✕</button>
+      <span>${inner}</span>
+    </div>`;
+}
+
 const PAGE_SIZE = 50;
 
 function renderTable() {
@@ -211,10 +224,10 @@ async function init() {
   applyFilters();
   els.root.innerHTML = `
     ${renderStats()}
-    <p class="safety-note"><b>Safety note (from the catalog's own metadata):</b> ${escapeHtml(state.data.schema?.safety_note_for_agents || "")}</p>
-    <p class="contribute-note"><b>Know something this catalog doesn't?</b> If you've verified a method marked <i>unknown</i> / <i>existence-only</i> / <i>not-live-tested</i>, found a missing method, or spotted something wrong, please
+    ${callout("safety-note", "redoc.hide.safety", `<b>Safety note (from the catalog's own metadata):</b> ${escapeHtml(state.data.schema?.safety_note_for_agents || "")}`)}
+    ${callout("contribute-note", "redoc.hide.contribute", `<b>Know something this catalog doesn't?</b> If you've verified a method marked <i>unknown</i> / <i>existence-only</i> / <i>not-live-tested</i>, found a missing method, or spotted something wrong, please
       <a href="https://github.com/IzieStratt/personal-site/tree/main/website/public/__subdomains/vs/redocumented/docs" target="_blank" rel="noreferrer">open a PR</a>
-      or email <a href="mailto:ReDocumented@izie.top">ReDocumented@izie.top</a>. Say how you verified it (live call, source read, which source).</p>
+      or email <a href="mailto:ReDocumented@izie.top">ReDocumented@izie.top</a>. Say how you verified it (live call, source read, which source).`)}
     <div class="explorer-controls">
       <input id="explorer-search" type="search" placeholder="Filter by method name, purpose, or source…" autocomplete="off" />
       <select id="explorer-status">
@@ -229,6 +242,12 @@ async function init() {
       </select>
     </div>
     <div id="explorer-table-wrap"></div>`;
+  for (const el of els.root.querySelectorAll("[data-hide]")) {
+    el.querySelector(".callout-dismiss").addEventListener("click", () => {
+      try { localStorage.setItem(el.dataset.hide, "1"); } catch {}
+      el.remove();
+    });
+  }
   document.getElementById("explorer-search").addEventListener("input", (e) => {
     state.query = e.target.value;
     clearTimeout(searchTimer);
