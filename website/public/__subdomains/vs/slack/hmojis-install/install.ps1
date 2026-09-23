@@ -1,7 +1,7 @@
 # Installs the HiddenEmojis Taut plugin (Windows).
 #
 # Usage:
-#   $env:HMOJI_TOKEN="<your token>"; iwr -useb https://vs.izie.top/hmojis-install/install.ps1 | iex
+#   $env:HMOJI_TOKEN="<your token>"; iwr -useb https://vs.izie.top/slack/hmojis-install/install.ps1 | iex
 #
 # This only ever touches your own machine, and only your user-plugins
 # folder: it downloads the plugin build there. It does not touch
@@ -16,7 +16,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$Server = "https://vs.izie.top/hmojis"
+$Server = "https://vs.izie.top/slack/hmojis"
 
 if ([string]::IsNullOrEmpty($Token)) {
   Write-Error 'no token given. set $env:HMOJI_TOKEN before running this, or pass -Token <your token>.'

@@ -287,6 +287,30 @@ input:focus-visible {
   margin: 0 0 1.25rem;
 }
 
+.safety-note,
+.contribute-note {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.callout-dismiss {
+  flex: 0 0 auto;
+  margin-left: auto;
+  border: none;
+  background: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.3rem;
+}
+.callout-dismiss:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .explorer-controls {
   display: flex;
   flex-wrap: wrap;
@@ -421,6 +445,39 @@ input:focus-visible {
 
 /* author display rules (flex/grid) were beating the [hidden] attribute */
 [hidden] { display: none !important; }
+
+/* ---- GitHub "repo" button (copied from the main site's style.css) ---- */
+.github-link {
+  display: inline-block;
+  padding: 6px;
+  margin: calc(0.8rem - 6px) -6px -6px;
+  color: #222;
+  text-decoration: none;
+}
+
+.github-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem 0.55rem 0.65rem;
+  border: 2px solid #222;
+  border-radius: 0.75rem;
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.github-link:hover .github-face,
+.github-link:focus-visible .github-face {
+  background: #222;
+  color: #fffdf7;
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.github-icon {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  flex: 0 0 auto;
+}
 
 .show-more {
   margin-left: 0.75rem;

@@ -1,3 +1,5 @@
+import { handleQuicklinks } from './quicklinks.js'
+
 // Extension -> content-type for hmoji images. Add more if you upload other formats.
 const HMOJI_CONTENT_TYPES = {
   png: 'image/png',
@@ -113,7 +115,7 @@ async function handleHmoji(request, env, pathname) {
     return new Response(null, { status: 204, headers: HMOJI_CORS_HEADERS })
   }
 
-  const rest = pathname.slice('/hmojis/'.length)
+  const rest = pathname.slice('/slack/hmojis/'.length)
   let response
   if (rest === 'bootstrap') {
     response = await handleHmojiBootstrap(request, env)
@@ -132,6 +134,20 @@ async function handleHmoji(request, env, pathname) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
+    const quicklinksResponse = handleQuicklinks(url)
+    if (quicklinksResponse) return quicklinksResponse
+    if (url.hostname === 'izie.top' && ['/redoc', '/redoc/'].includes(url.pathname)) {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: `https://vs.izie.top/redocumented${url.search}` },
+      })
+    }
+    if (url.hostname === 'vs.izie.top' && ['/redoc', '/redoc/'].includes(url.pathname)) {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: `/redocumented${url.search}` },
+      })
+    }
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slackapi/')) {
       const target = url.pathname.replace(/^\/slackapi/, '/redocumented')
       return new Response(null, {
@@ -139,7 +155,7 @@ export default {
         headers: { Location: `${target}${url.search}` },
       })
     }
-    if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/hmojis/')) {
+    if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, url.pathname)
     }
     if (url.pathname.startsWith('/api/graphs/')) {
