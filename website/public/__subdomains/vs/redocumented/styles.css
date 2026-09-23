@@ -256,8 +256,12 @@ input:focus-visible {
 /* ---- Method explorer ---- */
 
 .explorer { max-width: 88rem; }
-.explorer:not([hidden]) { display: flex; flex-direction: column; height: 100%; padding-bottom: 1rem; }
-#explorer-table-wrap { flex: 1; min-height: 0; overflow: auto; border: 1px solid var(--border); border-radius: 0.6rem; }
+/* The whole pane scrolls: stats, both notes, and filters sit above the table instead of
+   squeezing it into whatever height they leave. The table box is capped at one screen
+   tall, so once you scroll down to it, it fills the window and keeps its sticky header
+   row and sideways scroll for the wide columns. */
+.explorer:not([hidden]) { display: block; height: auto; padding-bottom: 2rem; }
+#explorer-table-wrap { max-height: calc(100dvh - 2rem); overflow: auto; border: 1px solid var(--border); border-radius: 0.6rem; }
 #explorer-table-wrap .explorer-table th { position: sticky; top: 0; background: var(--bg-alt); z-index: 1; }
 .result-count { padding: 0 0.75rem 0.75rem; }
 
@@ -425,7 +429,7 @@ input:focus-visible {
 
   /* explorer: let the whole pane scroll normally; only the table scrolls sideways */
   .explorer:not([hidden]) { display: block; height: auto; padding-top: 4rem; }
-  #explorer-table-wrap { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch; }
+  #explorer-table-wrap { max-height: none; overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch; }
   .stats-row { gap: 0.5rem; }
   .stat { min-width: calc(50% - 0.25rem); padding: 0.5rem 0.75rem; }
   .stat b { font-size: 1.1rem; }
