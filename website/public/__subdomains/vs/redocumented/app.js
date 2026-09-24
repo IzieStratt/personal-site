@@ -39,6 +39,7 @@ const NAV = [
       { label: "Internal Canvas cross-ref", path: "docs/methods/internal-canvas-2026.md" },
       { label: "slack-undoc-client cross-ref", path: "docs/methods/slack-undoc-client-2026.md" },
       { label: "Taut client internals (dead end)", path: "docs/methods/taut-client-internals.md" },
+      { label: "Web client internals: emoji UI, menus", path: "docs/methods/web-client-internals-2026-09.md" },
     ],
   },
   {
