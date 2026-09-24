@@ -55,3 +55,30 @@ one undocumented method (`chat.command`).
   the command). Response: `{"ok": true, "response": "..."}` for commands that
   answer inline (e.g. `/who`); most slash commands instead just post their
   output into the channel and `response` is absent.
+
+## `chat.postMessage` with Block Kit: review-card gotchas (documented method)
+
+- **Docs:** https://docs.slack.dev/reference/methods/chat.postMessage
+- **What it's from:** the HMojis submission review cards, which a bot posts
+  into a review channel with approve and decline buttons. Observed on the
+  Hack Club workspace on 2026-09-23 and 2026-09-24.
+- **`action_id` must be unique within a message.** Four buttons sharing one
+  `action_id` (with the verb carried in `value`) make Slack reject the
+  entire message. Give each button its own id, for example
+  `hm_review:yes` and `hm_review:no`.
+- **Image blocks only render PNG, JPEG and GIF.** For other types (WebP was
+  the case hit), post a section with a link instead, or convert the image
+  first.
+- **Linking an image you also show makes Slack show it twice.** The card's
+  text linked the same URL the image block used, and Slack unfurled that
+  link as a second copy. Two fixes, both now used:
+  - keep the URL out of the text
+  - pass `unfurl_links=false` and `unfurl_media=false`
+- **Image URLs are fetched with no auth headers.** An `image_url` has to be
+  reachable without an `Authorization` header, so a private image needs a
+  capability in the URL instead: a random, per-image `?cap=` value written
+  only into the card and checked by the server.
+- **Posting to a user id as the bot.** `chat.postMessage` with
+  `channel=U…` (bot token, `chat:write`) delivers to the bot's DM with that
+  user, with no `conversations.open` step needed.
+

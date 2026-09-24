@@ -87,6 +87,10 @@ field or the published `llms.txt` for the same note in agent-facing form.
   sources) — full disclosure of what it is and how it was handled.
 - `methods/taut-client-internals.md` — why `jeremy46231/taut` (+ fork) turned
   out to be a dead end for new API methods, and what it confirmed instead.
+- `methods/web-client-internals-2026-09.md` — Slack web client component and
+  thunk names for the emoji hover card, emoji picker, `:` autocomplete and
+  right-click member menu, read from the desktop app's cached bundle (not API
+  methods; what client mods hook into).
 - `methods/huddles-and-chime.md` — huddles: the `rooms.*`/`screenhero.*` calls, the
   realtime websocket events, and the AWS Chime media layer. Source-read only,
   from `ingoau/huddlefm` and `LeafdTK/huddlecast` (not live-tested).

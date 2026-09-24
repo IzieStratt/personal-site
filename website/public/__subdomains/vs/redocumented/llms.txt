@@ -37,6 +37,8 @@ the data. In short:
 - Full write-ups by namespace: /redocumented/docs/methods/*.md
 - Huddles, the realtime websocket and the AWS Chime media layer: /redocumented/docs/methods/huddles-and-chime.md
   (source-read from ingoau/huddlefm + LeafdTK/huddlecast; not live-tested)
+- Slack web client internals (emoji hover card, picker, autocomplete, member right-click menu): /redocumented/docs/methods/web-client-internals-2026-09.md
+  (component/thunk names read from the desktop app's cached bundle; not Web API methods)
 - Provenance of every source used: /redocumented/docs/README.md
 
 ## Found something new? Please open a PR.
