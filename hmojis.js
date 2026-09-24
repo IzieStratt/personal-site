@@ -609,7 +609,8 @@ async function describe(env, rec, sec, extra = {}) {
     ownerSlackId: rec.slackUserId,
     identity: rec.identity,
     canInvite: canInvite(rec),
-    quota: { max: rec.quota ?? sec.defaultQuota, outstanding },
+    // admins are never quota-limited (handleInviteCreate): max null = no limit
+    quota: { max: rec.identity === 'admin' ? null : (rec.quota ?? sec.defaultQuota), outstanding },
     invitedBySlackId: rec.invitedBy?.slackUserId ?? null,
     activatedAt: rec.activatedAt ?? null,
     devices: rec.devices.map((d) => ({ keyId: d.keyId, addedAt: d.addedAt })),
@@ -1065,7 +1066,7 @@ async function handleInviteCreate(request, env, ctx, url, bodyText) {
     id: child.id,
     token: newToken,
     expiresAt: child.expiresAt,
-    quota: { max: quota, outstanding: outstanding + 1 },
+    quota: { max: admin ? null : quota, outstanding: outstanding + 1 },
   })
 }
 
@@ -1104,7 +1105,10 @@ async function handleInvites(request, env, ctx, url) {
   return json(200, {
     ok: true,
     outstanding: listed.keys.map((k) => k.name.split(':')[2]),
-    quota: { max: auth.rec.quota ?? sec.defaultQuota, outstanding: listed.keys.length },
+    quota: {
+      max: auth.rec.identity === 'admin' ? null : (auth.rec.quota ?? sec.defaultQuota),
+      outstanding: listed.keys.length,
+    },
   })
 }
 
