@@ -273,14 +273,15 @@ async function slackCall(env, method, params = {}) {
   }
   if (res.status === 429) throw new SlackError('slack_rate_limited')
   const data = await res.json().catch(() => null)
-  if (!data?.ok) throw new SlackError(data?.error ?? 'slack_error')
+  if (!data?.ok) throw new SlackError(data?.error ?? 'slack_error', data?.errors ?? null)
   return data
 }
 
 class SlackError extends Error {
-  constructor(code) {
+  constructor(code, detail = null) {
     super(code)
     this.code = code
+    this.detail = detail
   }
 }
 
@@ -1173,6 +1174,18 @@ function reviewBlocks(review) {
       deny: { type: 'plain_text', text: 'Cancel' },
     },
   })
+  // Slack's image blocks only render png/jpeg/gif; the plugin normalises WebP
+  // to PNG client-side, but for anything else serve a clickable link instead
+  // so the card still posts and can be decided.
+  const imageBlock = /^(png|jpeg|gif)$/.test(review.ext)
+    ? { type: 'image', image_url: preview, alt_text: review.name }
+    : {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `${review.imgType ?? review.ext} preview (click to view): <${preview}|open>`,
+        },
+      }
   return [
     { type: 'header', text: { type: 'plain_text', text: 'New HMojis submission' } },
     {
@@ -1182,7 +1195,7 @@ function reviewBlocks(review) {
         text: `<@${review.submitterSlackId}> wants to add <${preview}|::${review.name}::>`,
       },
     },
-    { type: 'image', image_url: preview, alt_text: review.name },
+    imageBlock,
     {
       type: 'section',
       text: { type: 'mrkdwn', text: `trigger \`::${review.name}::\`  ·  decoy ${review.decoy}` },
@@ -1301,7 +1314,11 @@ async function handleSubmit(request, env, ctx, url) {
       )
     } catch (err) {
       ctx.waitUntil(
-        logEvent(env, rec.id, 'emoji_submit_post_failed', { review: id, error: err.code ?? 'slack' })
+        logEvent(env, rec.id, 'emoji_submit_post_failed', {
+          review: id,
+          error: err.code ?? 'slack',
+          detail: Array.isArray(err.detail) ? err.detail.slice(0, 5) : err.detail ?? undefined,
+        })
       )
     }
   }
