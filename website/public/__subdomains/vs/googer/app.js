@@ -12,6 +12,7 @@ const overlayOpacity = document.querySelector('#overlay-opacity')
 const textColor = document.querySelector('#text-color')
 const coverOriginal = document.querySelector('#cover-original')
 const crustPasses = document.querySelector('#crust-passes')
+const addEllipsis = document.querySelector('#add-ellipsis')
 
 let baseImage = null
 let overlayImage = null
@@ -38,7 +39,8 @@ function loadImage(file) {
 
 function messageWithEllipsis() {
   const value = messageInput.value.replace(/\.+$/, '').trim()
-  return value ? `${value}...` : ''
+  if (!value) return ''
+  return addEllipsis.checked ? `${value}...` : value
 }
 
 function findAlphaBounds(imageData) {
@@ -203,7 +205,7 @@ async function acceptFile(input, kind) {
 
 baseInput.addEventListener('change', () => acceptFile(baseInput, 'base'))
 overlayInput.addEventListener('change', () => acceptFile(overlayInput, 'overlay'))
-;[messageInput, textSize, opacity, overlayOpacity, textColor, coverOriginal, crustPasses].forEach(input => input.addEventListener('input', () => {
+;[messageInput, textSize, opacity, overlayOpacity, textColor, coverOriginal, crustPasses, addEllipsis].forEach(input => input.addEventListener('input', () => {
   if (input === textSize) input.nextElementSibling.value = `${input.value}px`
   if (input === opacity || input === overlayOpacity) input.nextElementSibling.value = `${input.value}%`
   if (input === crustPasses) input.nextElementSibling.value = `${input.value} passes`
