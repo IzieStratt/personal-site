@@ -1,4 +1,4 @@
-// Server side of the hmojis (Hidden Emojis) Taut plugin, served at
+// Server side of the hmojis (HMojis) Taut plugin, served at
 // https://vs.izie.top/slack/hmojis/*. Public repo: nothing secret lives here.
 // The only secret is the Slack bot token, a Cloudflare secret named
 // HMOJI_SLACK_BOT_TOKEN. Everything else is in KV.
@@ -24,7 +24,11 @@
 //   ~ev:<tid>:<time>:<rand>    audit log entry, 90 day TTL
 //   ~rl:<scope>:<key>:<window> rate limit counters
 //   ~cfg:bot                   cached bot user id
-// HMOJI_CONFIG: "config" (group key + emoji catalog) and "security" (knobs).
+//   ~banned:<slackUserId>      permanently barred account (no TTL)
+//   ~removed:<slackUserId>     barred until the operator clears the key (no TTL)
+// HMOJI_CONFIG: "config" (group key + emoji catalog), "security" (knobs), and
+// "review:<id>" (pending emoji submissions, 7 day TTL - the image bytes are in
+// HMOJI_IMAGES under ~review:<id> until the submission is decided).
 
 const HMOJI_CONTENT_TYPES = {
   png: 'image/png',
@@ -36,8 +40,18 @@ const HMOJI_CONTENT_TYPES = {
 }
 
 const HMOJI_MAX_UPLOAD_BYTES = 5 * 1024 * 1024
+const HMOJI_MAX_SUBMIT_BYTES = 5 * 1024 * 1024
 const MAX_BODY_BYTES = 4096
+const REVIEW_TTL_SEC = 7 * 86400
 const DAY = 86400_000
+// Where the review-channel preview images live; the worker is always served
+// under this origin (see worker.js), so there is no need to discover it.
+const HMOJI_ORIGIN = 'https://vs.izie.top'
+const DEFAULT_DECOY = ':neocat-ohno:'
+const SUBMIT_NAME_RE = /^[A-Za-z0-9_-]{1,40}$/
+const DECOY_RE = /^:[A-Za-z0-9_+-]+:$/
+const REVIEW_ID_RE = /^[0-9a-f]{8}$/
+const REVIEW_VERBS = new Set(['yes', 'no', 'ban', 'remove'])
 
 const DEFAULT_SECURITY = {
   // false: legacy tokens that never registered a device keep working unsigned
@@ -48,6 +62,8 @@ const DEFAULT_SECURITY = {
   maxDevices: 3,
   maxSkewSec: 90,
   operatorSlackId: null,
+  // channel id (like C0C4279MKTL) where member-submitted emojis go for review
+  reviewChannel: null,
   notifyOwners: false,
 }
 
@@ -600,13 +616,49 @@ const canInvite = (rec) =>
   rec.devices.length > 0 &&
   (rec.identity === 'verified' || rec.identity === 'admin')
 
+const canSubmit = (rec) =>
+  rec.status === 'active' &&
+  !!rec.slackUserId &&
+  rec.devices.length > 0 &&
+  (rec.identity === 'verified' || rec.identity === 'admin')
+
+async function readGroupConfig(env) {
+  const raw = await env.HMOJI_CONFIG.get('config')
+  if (!raw) return { groupKey: undefined, emojis: {} }
+  try {
+    const parsed = JSON.parse(raw)
+    return { groupKey: parsed.groupKey, emojis: parsed.emojis ?? {} }
+  } catch {
+    return { groupKey: undefined, emojis: {} }
+  }
+}
+
 async function handleWhoami(request, env, ctx, url) {
   const ci = clientInfo(request, env)
   const token = bearer(request)
   if (!token) return unknownToken(env, ctx, ci)
   if (!(await hit(env, 'whoami', ci.ip, 60, 60))) return tooMany()
   const rec = await getRecord(env, token)
-  if (!rec || rec.status === 'revoked') return unknownToken(env, ctx, ci)
+  if (!rec || rec.status === 'revoked') {
+    // Only the friendly whoami route says why; every other route returns the
+    // uniform 404 so a guessed token learns nothing. Saying it here is safe:
+    // whoever holds the token already possessed it, and the plugin needs the
+    // signal to tell a removed/banned person why their plugin is dead.
+    if (rec?.slackUserId) {
+      const barred =
+        (await env.HMOJI_TOKENS.get(`~banned:${rec.slackUserId}`)) ??
+        (await env.HMOJI_TOKENS.get(`~removed:${rec.slackUserId}`))
+      if (barred) {
+        return json(403, {
+          ok: false,
+          state: 'removed',
+          error: 'access_removed',
+          serverTime: Date.now(),
+        })
+      }
+    }
+    return unknownToken(env, ctx, ci)
+  }
   const sec = await getSecurity(env)
   const now = Date.now()
 
@@ -810,6 +862,20 @@ async function handleVerifyConfirm(request, env, ctx, url, bodyText) {
 
 async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
   const sec = await getSecurity(env)
+  // A barred account can never re-verify, even if a fresh invite token exists.
+  if (author) {
+    const barred =
+      (await env.HMOJI_TOKENS.get(`~banned:${author}`)) ??
+      (await env.HMOJI_TOKENS.get(`~removed:${author}`))
+    if (barred) {
+      let kind = 'blocked'
+      try {
+        kind = JSON.parse(barred).kind ?? kind
+      } catch {}
+      ctx.waitUntil(logEvent(env, rec.id, 'verify_blocked', { author, kind, ip: ci.ip, asn: ci.asn }))
+      return fail(403, 'access_removed')
+    }
+  }
   const now = Date.now()
   const device = {
     keyId: ch.keyId,
@@ -948,7 +1014,8 @@ async function handleInviteCreate(request, env, ctx, url, bodyText) {
   const { rec, ci } = auth
   const sec = await getSecurity(env)
   if (!canInvite(rec)) return fail(403, 'cannot_invite')
-  if (!(await hit(env, 'invite', rec.id, 10, 86400))) return tooMany()
+  const admin = rec.identity === 'admin'
+  if (!admin && !(await hit(env, 'invite', rec.id, 10, 86400))) return tooMany()
 
   let body = {}
   try {
@@ -962,7 +1029,7 @@ async function handleInviteCreate(request, env, ctx, url, bodyText) {
 
   const quota = rec.quota ?? sec.defaultQuota
   const outstanding = await countInvites(env, rec.id)
-  if (outstanding >= quota) return fail(429, 'quota_exceeded', { quota, outstanding })
+  if (!admin && outstanding >= quota) return fail(429, 'quota_exceeded', { quota, outstanding })
 
   const now = Date.now()
   const ttlSec = Math.round(sec.inviteTtlDays * 86400)
@@ -1032,9 +1099,412 @@ async function handleInvites(request, env, ctx, url) {
   })
 }
 
+// ---------------------------------------------------------------- review channel
+//
+// Any verified member can submit a new hidden emoji. It is not published: the
+// image bytes and a "review:<id>" record are parked, and the bot posts a
+// message with the preview + four buttons to whatever channel `security
+// reviewChannel` points at. Only the operator (security.operatorSlackId,
+// checked against the acting Slack user) can decide:
+//   yes     -> published to the catalog for everyone
+//   no      -> declined, submitter is told
+//   ban     -> the submitter's ORIGINAL token(s) and everyone they invited are
+//              revoked, and the Slack account is permanently barred
+//   remove  -> only the submitter's own tokens are revoked (people they invited
+//              keep working), and the account can't verify again until the
+//              operator clears the ~removed marker (CLI: kv delete)
+// The buttons are Slack block actions POSTed to /slack/hmojis/review. Slack
+// button styles only support primary (green) and danger (red), so "ban" and
+// "remove" are default-styled with a leading emoji rather than the blue/purple
+// a full palette would allow. The same decisions exist on the CLI
+// (bun scripts/hmoji.ts review <id> <yes|no|ban|remove>), which needs no
+// Slack interactive request URL at all.
+
+function sniffImage(bytes) {
+  if (
+    bytes.byteLength >= 8 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47 &&
+    bytes[4] === 0x0d &&
+    bytes[5] === 0x0a &&
+    bytes[6] === 0x1a &&
+    bytes[7] === 0x0a
+  ) {
+    return { ext: 'png', mime: 'image/png' }
+  }
+  if (bytes.byteLength >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8) {
+    return { ext: 'jpg', mime: 'image/jpeg' }
+  }
+  if (
+    bytes.byteLength >= 6 &&
+    bytes[0] === 0x47 &&
+    bytes[1] === 0x49 &&
+    bytes[2] === 0x46 &&
+    bytes[3] === 0x38
+  ) {
+    return { ext: 'gif', mime: 'image/gif' }
+  }
+  if (
+    bytes.byteLength >= 12 &&
+    bytes[0] === 0x52 &&
+    bytes[1] === 0x49 &&
+    bytes[2] === 0x46 &&
+    bytes[3] === 0x46 &&
+    bytes[8] === 0x57 &&
+    bytes[9] === 0x45 &&
+    bytes[10] === 0x42 &&
+    bytes[11] === 0x50
+  ) {
+    return { ext: 'webp', mime: 'image/webp' }
+  }
+  return null
+}
+
+function reviewBlocks(review) {
+  const preview = `${HMOJI_ORIGIN}/slack/hmojis/review-image/${review.id}`
+  const confirm = (title, text) => ({
+    confirm: {
+      title: { type: 'plain_text', text: title },
+      text: { type: 'plain_text', text },
+      style: 'danger',
+      confirm: { type: 'plain_text', text: 'Confirm' },
+      deny: { type: 'plain_text', text: 'Cancel' },
+    },
+  })
+  return [
+    { type: 'header', text: { type: 'plain_text', text: 'New HMojis submission' } },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `<@${review.submitterSlackId}> wants to add <${preview}|::${review.name}::>`,
+      },
+    },
+    { type: 'image', image_url: preview, alt_text: review.name },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `trigger \`::${review.name}::\`  ·  decoy ${review.decoy}` },
+    },
+    {
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✅ Yes · approve', emoji: true },
+          style: 'primary',
+          value: `${review.id}:yes`,
+          action_id: 'hm_review',
+        },
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '❌ No · decline', emoji: true },
+          style: 'danger',
+          value: `${review.id}:no`,
+          action_id: 'hm_review',
+        },
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '🚫 Ban', emoji: true },
+          value: `${review.id}:ban`,
+          action_id: 'hm_review',
+          ...confirm('Ban this person?', 'Revokes their tokens and everyone they invited, and bars the account permanently.'),
+        },
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '♻️ Remove', emoji: true },
+          value: `${review.id}:remove`,
+          action_id: 'hm_review',
+          ...confirm('Remove this person?', 'Revokes only their own tokens. People they invited keep working, but the plugin on their computer stops working and the account cannot verify again.'),
+        },
+      ],
+    },
+  ]
+}
+
+async function handleSubmit(request, env, ctx, url) {
+  // The image arrives base64-encoded inside JSON, so the body can be a few MB:
+  // read it raw instead of through readBody's 4 KiB cap, and cap the decoded
+  // image. The signature covers the whole body, so nothing can be swapped.
+  const raw = await request.text()
+  if (raw.length > HMOJI_MAX_SUBMIT_BYTES * 2) return fail(413, 'too_large')
+  const auth = await authenticate(request, env, ctx, url, raw, { allowGrace: false })
+  if (auth.res) return auth.res
+  const { rec } = auth
+  const sec = await getSecurity(env)
+  if (!canSubmit(rec)) return fail(403, 'cannot_submit')
+  if (!sec.reviewChannel) return fail(409, 'review_not_configured')
+  if (!(await hit(env, 'submit', rec.id, 5, 3600))) return tooMany()
+
+  let body = {}
+  try {
+    body = JSON.parse(raw)
+  } catch {
+    return fail(400, 'bad_json')
+  }
+  const name = typeof body.name === 'string' ? body.name.trim() : ''
+  const decoy = typeof body.decoy === 'string' ? body.decoy.trim() : ''
+  if (!SUBMIT_NAME_RE.test(name)) return fail(400, 'bad_name')
+  if (decoy && !DECOY_RE.test(decoy)) return fail(400, 'bad_decoy')
+  let bytes
+  try {
+    bytes = unb64u(typeof body.image === 'string' ? body.image : '')
+  } catch {
+    return fail(400, 'bad_image')
+  }
+  if (!bytes?.byteLength) return fail(400, 'bad_image')
+  if (bytes.byteLength > HMOJI_MAX_SUBMIT_BYTES) return fail(413, 'too_large')
+  const sniff = sniffImage(bytes)
+  if (!sniff) return fail(400, 'unsupported_image')
+
+  const group = await readGroupConfig(env)
+  if (!group.groupKey) return fail(409, 'not_ready')
+  if (group.emojis[name]) return fail(409, 'name_taken')
+
+  const now = Date.now()
+  // 8 hex chars: matches REVIEW_ID_RE everywhere (preview route, callback, CLI).
+  const id = randomHex(4)
+  const review = {
+    id,
+    tid: rec.id,
+    name,
+    decoy: decoy || DEFAULT_DECOY,
+    ext: sniff.ext,
+    imgType: sniff.mime,
+    submitterSlackId: rec.slackUserId,
+    submitterName: String(rec.name ?? 'someone'),
+    status: 'pending',
+    createdAt: now,
+  }
+  await env.HMOJI_IMAGES.put(`~review:${id}`, bytes)
+  await env.HMOJI_CONFIG.put(`review:${id}`, JSON.stringify(review), {
+    expirationTtl: REVIEW_TTL_SEC,
+  })
+  ctx.waitUntil(logEvent(env, rec.id, 'emoji_submitted', { review: id, name }))
+
+  // Post the review-card to Slack. If that fails the submission still exists
+  // (the operator can decide it with the CLI), we just tell the client no.
+  let posted = false
+  if (env.HMOJI_SLACK_BOT_TOKEN) {
+    try {
+      const message = await slackCall(env, 'chat.postMessage', {
+        channel: sec.reviewChannel,
+        blocks: JSON.stringify(reviewBlocks(review)),
+        text: `HMojis review: ::${name}:: from <@${rec.slackUserId}>`,
+      })
+      posted = true
+      await env.HMOJI_CONFIG.put(
+        `review:${id}`,
+        JSON.stringify({ ...review, posted: true, channel: message.channel, messageTs: message.ts }),
+        { expirationTtl: REVIEW_TTL_SEC }
+      )
+    } catch (err) {
+      ctx.waitUntil(
+        logEvent(env, rec.id, 'emoji_submit_post_failed', { review: id, error: err.code ?? 'slack' })
+      )
+    }
+  }
+  return json(201, { ok: true, id, status: 'pending', posted })
+}
+
+/** Public by design: it is exactly what Slack renders inside the review card. */
+async function handleReviewImage(request, env, ctx, url, id) {
+  if (!REVIEW_ID_RE.test(id)) return NOT_FOUND()
+  const ci = clientInfo(request, env)
+  if (!(await hit(env, 'reviewimg', ci.ip, 120, 300))) return tooMany()
+  const metaRaw = await env.HMOJI_CONFIG.get(`review:${id}`)
+  const image = await env.HMOJI_IMAGES.get(`~review:${id}`, 'arrayBuffer')
+  if (!image || !metaRaw) return NOT_FOUND()
+  let mime = 'image/png'
+  try {
+    mime = JSON.parse(metaRaw).imgType || mime
+  } catch {}
+  return new Response(image, {
+    headers: { 'content-type': mime, 'cache-control': 'private, max-age=300' },
+  })
+}
+
+/** Slack interactive callback: /slack/hmojis/review (form field "payload"). */
+async function handleReviewCallback(request, env, ctx, url) {
+  if (request.method !== 'POST') return NOT_FOUND()
+  const text = await request.text()
+  let payload = null
+  try {
+    payload = JSON.parse(new URLSearchParams(text).get('payload') ?? '')
+  } catch {}
+  if (!payload || payload.type !== 'block_actions') {
+    return new Response('ignored', { status: 200 })
+  }
+  const action = Array.isArray(payload.actions) ? payload.actions[0] : null
+  const [id, verb] = String(action?.value ?? '').split(':')
+  if (!action || action.action_id !== 'hm_review' || !REVIEW_ID_RE.test(id) || !REVIEW_VERBS.has(verb)) {
+    return new Response('ignored', { status: 200 })
+  }
+  const sec = await getSecurity(env)
+  const actor = payload.user?.id
+  if (!actor || actor !== sec.operatorSlackId) {
+    ctx.waitUntil(logEvent(env, id, 'review_nonoperator', { actor: actor ?? 'unknown', verb }))
+    return new Response('Only the operator can act on reviews', { status: 200 })
+  }
+  const review = await env.HMOJI_CONFIG.get(`review:${id}`, 'json')
+  if (!review) return new Response('This review is no longer pending', { status: 200 })
+  if (review.status !== 'pending') return new Response('Already decided', { status: 200 })
+  if (review.messageTs && payload.message?.ts && payload.message.ts !== review.messageTs) {
+    return new Response('Message mismatch', { status: 200 })
+  }
+  try {
+    await decideReview(env, ctx, sec, review, verb, actor)
+  } catch (err) {
+    console.error('hmojis review decide failed', err?.stack ?? err)
+  }
+  // Slack needs a fast ack; any failure above already leaves the review pending.
+  return new Response('ok', { status: 200 })
+}
+
+async function decideReview(env, ctx, sec, review, verb, actor) {
+  const outcome = await applyDecision(env, ctx, review, verb, actor)
+  const summary = `Review #${review.id} (\`::${review.name}::\`) decided by <@${actor}>: ${outcome.title}`
+  if (review.channel && review.messageTs && env.HMOJI_SLACK_BOT_TOKEN) {
+    try {
+      await slackCall(env, 'chat.update', {
+        channel: review.channel,
+        ts: review.messageTs,
+        blocks: JSON.stringify(
+          [
+            { type: 'section', text: { type: 'mrkdwn', text: summary } },
+            outcome.extra
+              ? { type: 'section', text: { type: 'mrkdwn', text: outcome.extra } }
+              : null,
+          ].filter(Boolean)
+        ),
+        text: summary,
+      })
+    } catch {}
+  }
+}
+
+async function applyDecision(env, ctx, review, verb, actor) {
+  const decidedAt = Date.now()
+  if (verb === 'yes') {
+    const image = await env.HMOJI_IMAGES.get(`~review:${review.id}`, 'arrayBuffer')
+    if (!image) {
+      await env.HMOJI_CONFIG.put(
+        `review:${review.id}`,
+        JSON.stringify({ ...review, status: 'failed', decidedBy: actor, decidedAt }),
+        { expirationTtl: REVIEW_TTL_SEC }
+      )
+      return { title: 'failed (image is gone)', extra: null }
+    }
+    const group = await readGroupConfig(env)
+    if (group.emojis[review.name]) {
+      await env.HMOJI_CONFIG.put(
+        `review:${review.id}`,
+        JSON.stringify({ ...review, status: 'conflict', decidedBy: actor, decidedAt }),
+        { expirationTtl: REVIEW_TTL_SEC }
+      )
+      return { title: 'conflict (::name:: already published)', extra: null }
+    }
+    const finalId = `${review.name}.${review.ext}`
+    await env.HMOJI_IMAGES.put(finalId, image)
+    group.emojis[review.name] = { id: finalId, decoy: review.decoy }
+    await env.HMOJI_CONFIG.put('config', JSON.stringify(group))
+    await env.HMOJI_IMAGES.delete(`~review:${review.id}`)
+    await env.HMOJI_CONFIG.put(
+      `review:${review.id}`,
+      JSON.stringify({ ...review, status: 'approved', decidedBy: actor, decidedAt }),
+      { expirationTtl: REVIEW_TTL_SEC }
+    )
+    ctx.waitUntil(logEvent(env, review.tid, 'emoji_approved', { review: review.id, name: review.name, by: actor }))
+    ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your ::${review.name}:: hmoji was approved and is live.`))
+    return { title: '✅ approved', extra: `::${review.name}:: is now live for everyone in the group.` }
+  }
+  if (verb === 'no') {
+    await env.HMOJI_CONFIG.delete(`review:${review.id}`)
+    await env.HMOJI_IMAGES.delete(`~review:${review.id}`)
+    ctx.waitUntil(logEvent(env, review.tid, 'emoji_declined', { review: review.id, name: review.name, by: actor }))
+    ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your ::${review.name}:: hmoji submission was declined.`))
+    return { title: '❌ declined', extra: null }
+  }
+  // ban vs remove both revoke; ban cascades down the invite subtree and is final.
+  const banned = verb === 'ban'
+  await revokeForSlack(env, ctx, {
+    slackUserId: review.submitterSlackId,
+    rootTid: review.tid,
+    cascade: banned,
+    kind: banned ? 'banned' : 'removed',
+  })
+  await env.HMOJI_CONFIG.put(
+    `review:${review.id}`,
+    JSON.stringify({ ...review, status: verb, decidedBy: actor, decidedAt }),
+    { expirationTtl: REVIEW_TTL_SEC }
+  )
+  ctx.waitUntil(logEvent(env, review.tid, banned ? 'member_banned' : 'member_removed', { review: review.id, by: actor }))
+  ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your HMojis access was ${banned ? 'removed and your account is banned' : 'removed'}.`))
+  return {
+    title: banned ? '🚫 banned' : '♻️ removed',
+    extra: banned
+      ? 'Their tokens and everyone they invited were revoked; the account cannot verify again.'
+      : 'Only their own tokens were revoked; people they invited keep working.',
+  }
+}
+
+/**
+ * Revokes token(s). Called with cascade=true the whole invite subtree under
+ * rootTid goes too. The Slack account gets a permanent marker so a fresh
+ * invite can never re-verify it (see applyProof).
+ */
+async function revokeForSlack(env, ctx, { slackUserId, rootTid, cascade, kind }) {
+  const marker = kind === 'banned' ? `~banned:${slackUserId}` : `~removed:${slackUserId}`
+  await env.HMOJI_TOKENS.put(
+    marker,
+    JSON.stringify({ kind, at: Date.now(), root: rootTid ?? null })
+  )
+  const doomed = new Map() // tid -> token
+  const frontier = new Set(rootTid ? [rootTid] : [])
+  let cursor
+  do {
+    const page = await env.HMOJI_TOKENS.list({ limit: 1000, cursor })
+    let added = false
+    for (const key of page.keys) {
+      if (!TOKEN_RE.test(key.name)) continue
+      const rec = await getRecord(env, key.name)
+      if (!rec || rec.status !== 'active' || doomed.has(rec.id)) continue
+      if (rec.slackUserId === slackUserId || (cascade && frontier.has(rec.invitedBy?.id))) {
+        doomed.set(rec.id, key.name)
+        frontier.add(rec.id)
+        added = true
+      }
+    }
+    if (!added) break
+    cursor = page.cursor
+  } while (cursor)
+  for (const [tid, token] of doomed) {
+    const rec = await getRecord(env, token)
+    await putRecord(env, token, {
+      ...rec,
+      status: 'revoked',
+      revokedAt: Date.now(),
+      revokedReason: kind,
+    })
+    const ownerKey = rec.slackUserId ? `~owner:${rec.slackUserId}` : null
+    if (ownerKey && (await env.HMOJI_TOKENS.get(ownerKey)) === token) {
+      await env.HMOJI_TOKENS.delete(ownerKey)
+    }
+    for (const prefix of [`~inv:${tid}:`, `~devreq:${tid}:`]) {
+      const markers = await env.HMOJI_TOKENS.list({ prefix })
+      for (const m of markers.keys) await env.HMOJI_TOKENS.delete(m.name)
+    }
+    ctx.waitUntil(logEvent(env, tid, kind, { by: 'review' }))
+  }
+}
+
 // ---------------------------------------------------------------- api router
 
 async function handleApi(request, env, ctx, url, name) {
+  // Submissions carry a base64 image, far beyond readBody's 4 KiB cap; the
+  // handler reads the raw body itself (the signed body is still verified).
+  if (name === 'emoji/submit') return handleSubmit(request, env, ctx, url)
   const body = await readBody(request)
   if (body === null) return fail(413, 'too_large')
   switch (`${request.method} ${name}`) {
@@ -1086,6 +1556,13 @@ export async function handleHmoji(request, env, ctx, pathname) {
       response = await handleBootstrap(request, env, ctx, url)
     } else if (rest === 'plugin.js') {
       response = await handlePlugin(env)
+    } else if (rest === 'review') {
+      // Slack interactive-callback POST (form-encoded "payload"). Non-POST
+      // requests already get NOT_FOUND from the handler.
+      response = await handleReviewCallback(request, env, ctx, url)
+    } else if (rest.startsWith('review-image/')) {
+      if (request.method !== 'GET') response = NOT_FOUND()
+      else response = await handleReviewImage(request, env, ctx, url, rest.slice('review-image/'.length))
     } else if (rest.startsWith('api/')) {
       response = await handleApi(request, env, ctx, url, rest.slice(4))
     } else {

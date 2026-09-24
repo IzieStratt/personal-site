@@ -1,4 +1,4 @@
-# Installs the HiddenEmojis Taut plugin (Windows).
+# Installs the HMojis Taut plugin (Windows).
 #
 # Usage:
 #   $env:HMOJI_TOKEN="<your token>"; iwr -useb https://vs.izie.top/slack/hmojis-install/install.ps1 | iex
@@ -6,7 +6,7 @@
 # The token comes from an invite (a DM from a friend who already uses Hidden
 # Emojis) or from whoever runs the server. It does nothing until you verify:
 # the first time the plugin starts it asks to post a one-time code from your
-# Slack account in a DM with the Hidden Emojis bot, and ties the token to this
+# Slack account in a DM with the HMojis bot, and ties the token to this
 # computer. It works on one computer.
 #
 # This only ever touches your own machine, and only your user-plugins
@@ -36,17 +36,17 @@ New-Item -ItemType Directory -Force -Path $PluginDir | Out-Null
 
 Write-Host "fetching plugin build..."
 Invoke-WebRequest -UseBasicParsing -Uri "$Server/plugin.js" `
-  -OutFile (Join-Path $PluginDir "HiddenEmojis.js")
-Write-Host "saved to $PluginDir\HiddenEmojis.js"
+  -OutFile (Join-Path $PluginDir "HMojis.js")
+Write-Host "saved to $PluginDir\HMojis.js"
 
 Write-Host ""
-Write-Host "now open Slack, go to Preferences > Taut, and enable 'Hidden Emojis'."
+Write-Host "now open Slack, go to Preferences > Taut, and enable 'HMojis'."
 Write-Host "then edit its config and set:"
 Write-Host ""
 Write-Host "  `"authToken`": `"$Token`""
 Write-Host ""
 Write-Host "(serverUrl already defaults to $Server)"
 Write-Host ""
-Write-Host "the first time it starts, Hidden Emojis asks you to verify your Slack account:"
+Write-Host "the first time it starts, HMojis asks you to verify your Slack account:"
 Write-Host "click 'Verify now' and it posts a one-time code for you in a DM with the"
-Write-Host "Hidden Emojis bot. the token then works on this computer only."
+Write-Host "HMojis bot. the token then works on this computer only."
