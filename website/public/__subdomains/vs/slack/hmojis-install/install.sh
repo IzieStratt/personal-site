@@ -4,6 +4,12 @@
 # Usage:
 #   HMOJI_TOKEN=<your token> bash -c "$(curl -fsSL https://vs.izie.top/slack/hmojis-install/install.sh)"
 #
+# The token comes from an invite (a DM from a friend who already uses Hidden
+# Emojis) or from whoever runs the server. It does nothing until you verify:
+# the first time the plugin starts it asks to post a one-time code from your
+# Slack account in a DM with the Hidden Emojis bot, and ties the token to this
+# computer. It works on one computer.
+#
 # This only ever touches your own machine, and only your user-plugins
 # folder: it downloads the plugin build there. It does not touch
 # config.jsonc - Taut's own JSONC parser handles inserting plugin config
@@ -39,7 +45,7 @@ PLUGIN_DIR="$CONFIG_DIR/user-plugins"
 mkdir -p "$PLUGIN_DIR"
 
 echo "fetching plugin build..."
-curl -fsSL -H "Authorization: Bearer $TOKEN" "$SERVER/plugin.js" -o "$PLUGIN_DIR/HiddenEmojis.js"
+curl -fsSL "$SERVER/plugin.js" -o "$PLUGIN_DIR/HiddenEmojis.js"
 echo "saved to $PLUGIN_DIR/HiddenEmojis.js"
 
 echo ""
@@ -49,3 +55,7 @@ echo ""
 echo "  \"authToken\": \"$TOKEN\""
 echo ""
 echo "(serverUrl already defaults to $SERVER)"
+echo ""
+echo "the first time it starts, Hidden Emojis asks you to verify your Slack account:"
+echo "click 'Verify now' and it posts a one-time code for you in a DM with the"
+echo "Hidden Emojis bot. the token then works on this computer only."

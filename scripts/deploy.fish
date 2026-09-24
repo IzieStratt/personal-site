@@ -5,7 +5,7 @@ if test -z "$message"
   set message "update personal site"
 end
 
-git add worker.js wrangler.jsonc quicklinks.js scripts website/public
+git add worker.js hmojis.js wrangler.jsonc quicklinks.js scripts website/public
 or exit 1
 
 git commit -m "$message"
