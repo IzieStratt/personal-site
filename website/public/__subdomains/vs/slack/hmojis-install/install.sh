@@ -30,16 +30,26 @@ fi
 
 case "$(uname -s)" in
   Darwin)
-    CONFIG_DIR="$HOME/Library/Application Support/taut"
+    CONFIG_DIR="$HOME/Library/Application Support/Taut"
     ;;
   Linux)
-    CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/taut"
+    CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/Taut"
     ;;
   *)
     echo "unrecognized OS: $(uname -s). this script supports macOS and Linux; use install.ps1 on Windows." >&2
     exit 1
     ;;
 esac
+
+# Taut's folder is "Taut" with a capital T (app.getPath('appData')/Taut). On a
+# case-sensitive disk (Linux, or a case-sensitive APFS volume) a lowercase
+# "taut" folder is a different folder that Taut never reads - older versions
+# of this script used that name.
+LEGACY_DIR="$(dirname "$CONFIG_DIR")/taut"
+if [ -d "$LEGACY_DIR" ] && ! [ "$LEGACY_DIR" -ef "$CONFIG_DIR" ]; then
+  echo "note: found an old lowercase folder, $LEGACY_DIR - Taut ignores it."
+  echo "      installing into $CONFIG_DIR instead (you can delete the old one)."
+fi
 
 PLUGIN_DIR="$CONFIG_DIR/user-plugins"
 mkdir -p "$PLUGIN_DIR"
