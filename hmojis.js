@@ -98,6 +98,14 @@ async function sha256(input) {
 const toHex = (bytes) =>
   [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('')
 
+/** Constant-time equality for short secrets (compares SHA-256 digests). */
+async function sameSecret(a, b) {
+  const [x, y] = await Promise.all([sha256(a), sha256(b)])
+  let diff = 0
+  for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i]
+  return diff === 0
+}
+
 async function tidOf(token) {
   return `t_${toHex(await sha256(token)).slice(0, 10)}`
 }
@@ -1164,7 +1172,7 @@ function sniffImage(bytes) {
 }
 
 function reviewBlocks(review) {
-  const preview = `${HMOJI_ORIGIN}/slack/hmojis/review-image/${review.id}`
+  const preview = `${HMOJI_ORIGIN}/slack/hmojis/review-image/${review.id}?cap=${review.cap}`
   const confirm = (title, text) => ({
     confirm: {
       title: { type: 'plain_text', text: title },
@@ -1192,7 +1200,8 @@ function reviewBlocks(review) {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `<@${review.submitterSlackId}> wants to add <${preview}|::${review.name}::>`,
+        // plain text, not a link: a link to the image made Slack unfurl a second copy
+        text: `<@${review.submitterSlackId}> wants to add \`::${review.name}::\``,
       },
     },
     imageBlock,
@@ -1283,6 +1292,7 @@ async function handleSubmit(request, env, ctx, url) {
     tid: rec.id,
     name,
     decoy: decoy || DEFAULT_DECOY,
+    cap: randomHex(8),
     ext: sniff.ext,
     imgType: sniff.mime,
     submitterSlackId: rec.slackUserId,
@@ -1305,6 +1315,9 @@ async function handleSubmit(request, env, ctx, url) {
         channel: sec.reviewChannel,
         blocks: JSON.stringify(reviewBlocks(review)),
         text: `HMojis review: ::${name}:: from <@${rec.slackUserId}>`,
+        // the image block already shows it; never unfurl the capability link
+        unfurl_links: 'false',
+        unfurl_media: 'false',
       })
       posted = true
       await env.HMOJI_CONFIG.put(
@@ -1325,18 +1338,27 @@ async function handleSubmit(request, env, ctx, url) {
   return json(201, { ok: true, id, status: 'pending', posted })
 }
 
-/** Public by design: it is exactly what Slack renders inside the review card. */
+/**
+ * The image inside a review card. Slack fetches it without any header, so it is
+ * gated by a per-review capability in the URL (?cap=, random, only ever written
+ * into the review card) instead of a token. Without the right cap, or for a
+ * review created before caps existed, it is the uniform 404.
+ */
 async function handleReviewImage(request, env, ctx, url, id) {
   if (!REVIEW_ID_RE.test(id)) return NOT_FOUND()
   const ci = clientInfo(request, env)
   if (!(await hit(env, 'reviewimg', ci.ip, 120, 300))) return tooMany()
   const metaRaw = await env.HMOJI_CONFIG.get(`review:${id}`)
-  const image = await env.HMOJI_IMAGES.get(`~review:${id}`, 'arrayBuffer')
-  if (!image || !metaRaw) return NOT_FOUND()
-  let mime = 'image/png'
+  if (!metaRaw) return NOT_FOUND()
+  let meta = {}
   try {
-    mime = JSON.parse(metaRaw).imgType || mime
+    meta = JSON.parse(metaRaw) ?? {}
   } catch {}
+  const cap = url.searchParams.get('cap') ?? ''
+  if (typeof meta.cap !== 'string' || !(await sameSecret(cap, meta.cap))) return NOT_FOUND()
+  const image = await env.HMOJI_IMAGES.get(`~review:${id}`, 'arrayBuffer')
+  if (!image) return NOT_FOUND()
+  const mime = meta.imgType || 'image/png'
   return new Response(image, {
     headers: { 'content-type': mime, 'cache-control': 'private, max-age=300' },
   })
