@@ -1208,27 +1208,27 @@ function reviewBlocks(review) {
           text: { type: 'plain_text', text: '✅ Yes · approve', emoji: true },
           style: 'primary',
           value: `${review.id}:yes`,
-          action_id: 'hm_review',
+          action_id: 'hm_review:yes',
         },
         {
           type: 'button',
           text: { type: 'plain_text', text: '❌ No · decline', emoji: true },
           style: 'danger',
           value: `${review.id}:no`,
-          action_id: 'hm_review',
+          action_id: 'hm_review:no',
         },
         {
           type: 'button',
           text: { type: 'plain_text', text: '🚫 Ban', emoji: true },
           value: `${review.id}:ban`,
-          action_id: 'hm_review',
+          action_id: 'hm_review:ban',
           ...confirm('Ban this person?', 'Revokes their tokens and everyone they invited, and bars the account permanently.'),
         },
         {
           type: 'button',
           text: { type: 'plain_text', text: '♻️ Remove', emoji: true },
           value: `${review.id}:remove`,
-          action_id: 'hm_review',
+          action_id: 'hm_review:remove',
           ...confirm('Remove this person?', 'Revokes only their own tokens. People they invited keep working, but the plugin on their computer stops working and the account cannot verify again.'),
         },
       ],
@@ -1355,7 +1355,12 @@ async function handleReviewCallback(request, env, ctx, url) {
   }
   const action = Array.isArray(payload.actions) ? payload.actions[0] : null
   const [id, verb] = String(action?.value ?? '').split(':')
-  if (!action || action.action_id !== 'hm_review' || !REVIEW_ID_RE.test(id) || !REVIEW_VERBS.has(verb)) {
+  if (
+    !action ||
+    action.action_id !== `hm_review:${verb}` ||
+    !REVIEW_ID_RE.test(id) ||
+    !REVIEW_VERBS.has(verb)
+  ) {
     return new Response('ignored', { status: 200 })
   }
   const sec = await getSecurity(env)
