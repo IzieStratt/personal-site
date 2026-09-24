@@ -29,7 +29,7 @@ if ([string]::IsNullOrEmpty($Token)) {
   exit 1
 }
 
-$ConfigDir = Join-Path $env:APPDATA "taut"
+$ConfigDir = Join-Path $env:APPDATA "Taut"  # Taut's own folder name (case matters on case-sensitive setups)
 $PluginDir = Join-Path $ConfigDir "user-plugins"
 
 New-Item -ItemType Directory -Force -Path $PluginDir | Out-Null
