@@ -4,7 +4,7 @@
     "documented": 323,
     "undocumented": 1599,
     "total": 1922,
-    "live_verified_undocumented": 19
+    "live_verified_undocumented": 21
   },
   "methods": [
     {
@@ -11331,9 +11331,9 @@
     {
       "name": "blocks.actions",
       "status": "undocumented",
-      "tokens": "unknown",
-      "verified": "existence-only (sample-checked)",
-      "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+      "tokens": "enterprise xoxc only. Team xoxc: team_is_restricted on every host. Enterprise xoxc when not a member of the channel: invalid_container. Live-tested 2026-09-25; see methods/block-actions-and-modals-2026-09.md.",
+      "verified": "live-verified",
+      "purpose": "Clicks a Block Kit button in an app's message as the user; Slack forwards a block_actions payload (with trigger_id) to the app. Response is just ok:true; any modal the app opens arrives as an RTM view_opened event.",
       "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
       "params": {
         "service_id": {
@@ -34510,8 +34510,8 @@
     {
       "name": "rtm.connect",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "team xoxc works (connect with the d= cookie header); enterprise xoxc returns enterprise_is_restricted. Live-tested 2026-09-25; see methods/block-actions-and-modals-2026-09.md.",
+      "verified": "docs + live-tested",
       "purpose": "Starts a Real Time Messaging session.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -46548,9 +46548,9 @@
     {
       "name": "views.submit",
       "status": "undocumented",
-      "tokens": "unknown - not live-tested",
-      "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+      "tokens": "enterprise xoxc returned ok:true (team xoxc not tried). Live-tested 2026-09-25; see methods/block-actions-and-modals-2026-09.md.",
+      "verified": "live-verified",
+      "purpose": "Submits an open modal as the user: view_id from the RTM view_opened event, state={\"values\":{block_id:{action_id:{type,value}}}}, fresh client_token.",
       "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
       "params": {
         "client_token": {
