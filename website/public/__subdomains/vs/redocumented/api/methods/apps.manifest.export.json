@@ -1,0 +1,52 @@
+{
+ "name": "apps.manifest.export",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Export an app manifest from an existing app. When called with a manager app token, this method can only export apps that were created by that manager app.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "app_id": {
+   "required": true,
+   "type": "string",
+   "desc": "The ID of the app whose configuration you want to export as a manifest."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "manifest": "{",
+  "display_information": "{",
+  "name": "string",
+  "description": "string",
+  "background_color": "string",
+  "long_description": "string",
+  "features": "{",
+  "app_home": "{",
+  "home_tab_enabled": "boolean",
+  "messages_tab_enabled": "boolean",
+  "messages_tab_read_only_enabled": "boolean",
+  "bot_user": "{",
+  "display_name": "string",
+  "always_online": "boolean",
+  "unfurl_domains": "string[]",
+  "rich_previews": "{",
+  "is_active": "boolean",
+  "oauth_config": "{",
+  "redirect_urls": "string[]",
+  "scopes": "{",
+  "user": "string[]",
+  "bot": "string[]",
+  "settings": "{",
+  "org_deploy_enabled": "boolean",
+  "socket_mode_enabled": "boolean",
+  "token_rotation_enabled": "boolean",
+  "allowed_ip_address_ranges": "string[]"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/apps.manifest.export.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

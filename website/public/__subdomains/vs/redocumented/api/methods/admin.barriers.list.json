@@ -1,0 +1,29 @@
+{
+ "name": "admin.barriers.list",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Get all Information Barriers for your organization",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "limit": {
+   "required": false,
+   "type": "integer",
+   "desc": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+  },
+  "cursor": {
+   "required": false,
+   "type": "string",
+   "desc": "Set cursor to next_cursor returned by the previous call to list items in the next page."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"barriers\": [\n        {\n            \"id\": \"Ba03T70KB2H3\",\n            \"enterprise_id\": \"E03055H6DAS\",\n            \"primary_usergroup\": {\n                \"id\": \"S03TZK4A9H6\",\n                \"name\": \"Company That Pays Contracting Teams\"\n            },\n            \"barriered_from_usergroups\": [\n                {\n                    \"id\": \"S03TNHF56UR\",\n                    \"name\": \"External Contracting Team\"\n                },\n                {\n                    \"id\": \"S03TNHGAUGZ\",\n                    \"name\": \"Another External Contracting Team\"\n                }\n            ],\n            \"restricted_subjects\": [\n                \"im\",\n                \"mpim\",\n                \"call\"\n            ],\n            \"date_update\": 1660224825\n        }\n    ]\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.barriers.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

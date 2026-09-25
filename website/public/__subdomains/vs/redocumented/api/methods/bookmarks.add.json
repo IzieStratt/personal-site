@@ -1,0 +1,79 @@
+{
+ "name": "bookmarks.add",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Add bookmark to a channel.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "channel_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Channel to add bookmark in. Required for public channels."
+  },
+  "title": {
+   "required": true,
+   "type": "string",
+   "desc": "Title for the bookmark."
+  },
+  "link": {
+   "required": false,
+   "type": "string",
+   "desc": "Link to bookmark."
+  },
+  "type": {
+   "required": true,
+   "type": "string",
+   "desc": "Type of the bookmark i.e link."
+  },
+  "emoji": {
+   "required": false,
+   "type": "string",
+   "desc": "Emoji tag to apply to the link."
+  },
+  "entity_id": {
+   "required": false,
+   "type": "string",
+   "desc": "ID of the entity being bookmarked. Only applies to message and file types."
+  },
+  "access_level": {
+   "required": false,
+   "type": "enum",
+   "desc": "The level that we are setting the file's permission to (read or write)."
+  },
+  "parent_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Id of this bookmark's parent."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "bookmark": "{",
+  "id": "string",
+  "channel_id": "string",
+  "title": "string",
+  "link": "string",
+  "icon_url": "null",
+  "type": "string",
+  "date_created": "number",
+  "date_updated": "number",
+  "rank": "string",
+  "last_updated_by_user_id": "string",
+  "last_updated_by_team_id": "string",
+  "shortcut_id": "string",
+  "app_id": "string",
+  "app_action_id": "string",
+  "image_url": "null",
+  "date_create": "number",
+  "date_update": "number",
+  "parent_id": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/bookmarks.add.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

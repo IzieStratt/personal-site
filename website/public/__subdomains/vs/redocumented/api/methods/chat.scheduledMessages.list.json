@@ -1,0 +1,49 @@
+{
+ "name": "chat.scheduledMessages.list",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Returns a list of scheduled messages.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "channel": {
+   "required": false,
+   "type": "channel",
+   "desc": "The channel of the scheduled messages."
+  },
+  "cursor": {
+   "required": false,
+   "type": "string",
+   "desc": "For pagination purposes, this is the cursor value returned from a previous call to chat.scheduledmessages.list indicating where you want to start this call from."
+  },
+  "latest": {
+   "required": false,
+   "type": "timestamp",
+   "desc": "A Unix timestamp of the latest value in the time range."
+  },
+  "limit": {
+   "required": false,
+   "type": "integer",
+   "desc": "Maximum number of original entries to return."
+  },
+  "oldest": {
+   "required": false,
+   "type": "timestamp",
+   "desc": "A Unix timestamp of the oldest value in the time range."
+  },
+  "team_id": {
+   "required": false,
+   "type": "string",
+   "desc": "encoded team id to list channels in, required if org token is used."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"scheduled_messages\": [\n        {\n            \"id\": 1298393284,\n            \"channel_id\": \"C1H9RESGL\",\n            \"post_at\": 1551991428,\n            \"date_created\": 1551891734,\n            \"text\": \"Here's a message for you in the future\"\n        }\n    ],\n    \"response_metadata\": {\n        \"next_cursor\": \"\"\n    }\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/chat.scheduledMessages.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

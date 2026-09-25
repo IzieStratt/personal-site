@@ -1,0 +1,39 @@
+{
+ "name": "conversations.inviteShared",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Sends an invitation to a Slack Connect channel",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "channel": {
+   "required": true,
+   "type": "channel",
+   "desc": "ID of the channel on your team that you'd like to share."
+  },
+  "emails": {
+   "required": false,
+   "type": "array",
+   "desc": "Optional email to receive this invite. Either emails or user_ids must be provided. Only one email or one user ID may be invited at a time."
+  },
+  "user_ids": {
+   "required": false,
+   "type": "array",
+   "desc": "Optional user_id to receive this invite. Either emails or user_ids must be provided. Only one email or one user ID may be invited at a time."
+  },
+  "external_limited": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Optional boolean on whether invite is to an external limited member. Defaults to true."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"invite_id\": \"I02UKAJ6RJA\",\n    \"is_legacy_shared_channel\": false\n}",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/conversations.inviteShared.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

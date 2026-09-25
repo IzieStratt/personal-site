@@ -1,0 +1,42 @@
+{
+ "name": "team.accessLogs",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Gets the access logs for the current team.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "before": {
+   "required": false,
+   "type": [
+    "string",
+    "string"
+   ],
+   "desc": "End of time range of logs to include in results (inclusive)."
+  },
+  "cursor": {
+   "required": false,
+   "type": "string",
+   "desc": "Parameter for pagination. Set cursor equal to the next_cursor attribute returned by the previous request's response_metadata. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See pagination for more details."
+  },
+  "limit": {
+   "required": false,
+   "type": "integer",
+   "desc": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. If specified, result is returned using a cursor-based approach instead of a classic one."
+  },
+  "team_id": {
+   "required": false,
+   "type": "string",
+   "desc": "encoded team id to get logs from, required if org token is used."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"logins\": [\n        {\n            \"user_id\": \"U45678\",\n            \"username\": \"alice\",\n            \"date_first\": 1422922864,\n            \"date_last\": 1422922864,\n            \"count\": 1,\n            \"ip\": \"127.0.0.1\",\n            \"user_agent\": \"SlackWeb Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.35 Safari/537.36\",\n            \"isp\": \"BigCo ISP\",\n            \"country\": \"US\",\n            \"region\": \"CA\"\n        },\n        {\n            \"user_id\": \"U12345\",\n            \"username\": \"white_rabbit\",\n            \"date_first\": 1422922493,\n            \"date_last\": 1422922493,\n            \"count\": 1,\n            \"ip\": \"127.0.0.1\",\n            \"user_agent\": \"SlackWeb Mozilla/5.0 (iPhone; CPU iPhone OS 8_1_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B466 Safari/600.1.4\",\n            \"isp\": \"BigCo ISP\",\n            \"country\": \"US\",\n            \"region\": \"CA\"\n        }\n    ],\n    \"paging\": {\n        \"count\": 100,\n        \"total\": 2,\n        \"page\": 1,\n        \"pages\": 1\n    }\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/team.accessLogs.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

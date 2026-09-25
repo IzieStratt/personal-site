@@ -1,0 +1,33 @@
+{
+ "name": "apps.auth.external.delete",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Delete external auth tokens only on the Slack side",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "app_id": {
+   "required": false,
+   "type": "string",
+   "desc": "The id of the app whose tokens you want to delete."
+  },
+  "provider_key": {
+   "required": false,
+   "type": "string",
+   "desc": "The provider key of the provider whose tokens you want to delete."
+  },
+  "external_token_id": {
+   "required": false,
+   "type": "string",
+   "desc": "The id of the token that you want to delete."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": false,
+ "response": null,
+ "response_source": null,
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/apps.auth.external.delete.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

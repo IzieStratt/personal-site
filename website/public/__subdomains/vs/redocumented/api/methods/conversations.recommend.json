@@ -1,0 +1,62 @@
+{
+ "name": "conversations.recommend",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "existence-only",
+ "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+ "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+ "params": {
+  "query": {
+   "required": false,
+   "type": "string"
+  },
+  "source": {
+   "required": false,
+   "type": "string"
+  },
+  "channels_info": {
+   "required": false,
+   "type": "boolean"
+  },
+  "limit": {
+   "required": false,
+   "type": "number"
+  }
+ },
+ "params_known": true,
+ "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "response": {
+  "ok": "true",
+  "channel_ids": "string[]",
+  "channels": "Array<{",
+  "id": "string",
+  "created": "number",
+  "creator": "string",
+  "is_org_shared": "boolean",
+  "is_im": "boolean",
+  "context_team_id": "string",
+  "updated": "number",
+  "name": "string",
+  "name_normalized": "string",
+  "is_channel": "boolean",
+  "is_group": "boolean",
+  "is_mpim": "boolean",
+  "is_private": "boolean",
+  "is_archived": "boolean",
+  "is_general": "boolean",
+  "is_shared": "boolean",
+  "is_ext_shared": "boolean",
+  "unlinked": "number",
+  "is_pending_ext_shared": "boolean",
+  "pending_shared": "unknown[]",
+  "parent_conversation": "null",
+  "shared_team_ids": "string[]",
+  "pending_connected_team_ids": "unknown[]",
+  "previous_names": "unknown[]"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/conversations.recommend.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

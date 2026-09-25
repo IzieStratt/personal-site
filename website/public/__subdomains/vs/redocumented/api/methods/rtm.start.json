@@ -1,0 +1,54 @@
+{
+ "name": "rtm.start",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Deprecated: Starts a Real Time Messaging session. Use rtm.connect instead.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "simple_latest": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Return timestamp only for latest message object of each channel (improves performance)."
+  },
+  "no_unreads": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Skip unread counts for each channel (improves performance)."
+  },
+  "mpim_aware": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Returns MPIMs to the client in the API response."
+  },
+  "presence_sub": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Only deliver presence events when requested by subscription. See presence subscriptions."
+  },
+  "batch_presence_aware": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Batch presence deliveries via subscription. Enabling changes the shape of presence_change events. See batch presence."
+  },
+  "no_latest": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Exclude latest timestamps for channels, groups, mpims, and ims. Automatically sets no_unreads to 1."
+  },
+  "include_locale": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Set this to true to receive the locale for users and channels. Defaults to false."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/rtm.start.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

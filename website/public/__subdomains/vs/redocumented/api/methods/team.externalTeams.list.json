@@ -1,0 +1,54 @@
+{
+ "name": "team.externalTeams.list",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Returns a list of all the external teams connected and details about the connection.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "limit": {
+   "required": false,
+   "type": "integer",
+   "desc": "The maximum number of items to return per page."
+  },
+  "cursor": {
+   "required": false,
+   "type": "string",
+   "desc": "Paginate through collections of data by setting parameter to the team_id attribute returned by a previous request's response_metadata. If not provided, the first page of the collection is returned. See pagination for more detail."
+  },
+  "sort_field": {
+   "required": false,
+   "type": "enum",
+   "desc": "Name of the parameter that we are sorting by."
+  },
+  "sort_direction": {
+   "required": false,
+   "type": "enum",
+   "desc": "Direction to sort in asc or desc."
+  },
+  "slack_connect_pref_filter": {
+   "required": false,
+   "type": "array",
+   "desc": "Filters connected orgs by Slack Connect pref override(s). Value can be: approved_orgs_only allow_sc_file_uploads profile_visibility away_team_sc_invite_permissions accept_sc_invites sc_mpdm_to_private require_sc_channel_for_sc_dm external_awareness_context_bar."
+  },
+  "workspace_filter": {
+   "required": false,
+   "type": "array",
+   "desc": "Shows connected orgs which are connected on a specified encoded workspace ID."
+  },
+  "connection_status_filter": {
+   "required": false,
+   "type": "enum",
+   "desc": "Status of the connected team."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"organizations\": [\n        {\n            \"team_id\": \"T123ABC456\",\n            \"team_name\": \"Sandra Inc.\",\n            \"team_domain\": \"sandra\",\n            \"public_channel_count\": 1,\n            \"private_channel_count\": 1,\n            \"im_channel_count\": 1,\n            \"mpim_channel_count\": 1,\n            \"connected_workspaces\": {\n                \"workspace_id\": \"Jesse Inc\",\n                \"workspace_name\": \"E123ABC456\"\n            },\n            \"slack_connect_prefs\": {},\n            \"connection_status\": \"CONNECTED\",\n            \"last_active_timestamp\": 1718656058,\n            \"is_sponsored\": false,\n            \"canvas\": {\n                \"total_count\": 1,\n                \"ownership_details\": [\n                    {\n                        \"team_id\": \"T123ABC456\"\n                    },\n                    {\n                        \"count\": 1\n                    }\n                ]\n            },\n            \"lists\": {\n                \"total_count\": 1,\n                \"ownership_details\": [\n                    {\n                        \"team_id\": \"T123ABC456\"\n                    },\n                    {\n                        \"count\": 1\n                    }\n                ]\n            }\n        }\n    ],\n    \"total_count\": 1,\n    \"response_metadata\": {\n        \"next_cursor\": \"T123ABC999\"\n    }\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/team.externalTeams.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

@@ -1,0 +1,55 @@
+{
+ "name": "im.list",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "existence-only",
+ "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+ "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+ "params": {
+  "get_latest": {
+   "required": false,
+   "type": "boolean"
+  },
+  "get_read_state": {
+   "required": false,
+   "type": "boolean"
+  }
+ },
+ "params_known": true,
+ "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "response": {
+  "ok": "true",
+  "ims": "Array<{",
+  "id": "string",
+  "created": "number",
+  "is_frozen": "boolean",
+  "is_archived": "boolean",
+  "is_im": "boolean",
+  "is_org_shared": "boolean",
+  "context_team_id": "string",
+  "updated": "number",
+  "is_shared": "boolean",
+  "user": "string",
+  "last_read": "string",
+  "is_open": "boolean",
+  "latest": "string",
+  "priority": "number",
+  "properties": "{",
+  "tabs": "Array<{",
+  "type": "string",
+  "label": "string",
+  "data": "{",
+  "file_id": "string",
+  "shared_ts": "string",
+  "tabz": "Array<{",
+  "meeting_notes": "{",
+  "is_dormant": "boolean",
+  "response_metadata": "{",
+  "next_cursor": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/im.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

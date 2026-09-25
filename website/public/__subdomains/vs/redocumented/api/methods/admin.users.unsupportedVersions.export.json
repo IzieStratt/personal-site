@@ -1,0 +1,29 @@
+{
+ "name": "admin.users.unsupportedVersions.export",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Ask Slackbot to send you an export listing all workspace members using unsupported software, presented as a zipped CSV file.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "date_sessions_started": {
+   "required": false,
+   "type": "integer",
+   "desc": "Unix timestamp of a date to start looking for user sessions. If not provided will start six months ago."
+  },
+  "date_end_of_support": {
+   "required": false,
+   "type": "integer",
+   "desc": "Unix timestamp of the date of past or upcoming end of support cycles. If not provided will include all announced end of support cycles."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.users.unsupportedVersions.export.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

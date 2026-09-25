@@ -1,0 +1,24 @@
+{
+ "name": "users.lookupByEmail",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Find a user with an email address.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "email": {
+   "required": true,
+   "type": "string",
+   "desc": "An email address belonging to a user in the workspace."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"user\": {\n        \"id\": \"W012A3CDE\",\n        \"team_id\": \"T012AB3C4\",\n        \"name\": \"spengler\",\n        \"deleted\": false,\n        \"color\": \"9f69e7\",\n        \"real_name\": \"Egon Spengler\",\n        \"tz\": \"America/Los_Angeles\",\n        \"tz_label\": \"Pacific Daylight Time\",\n        \"tz_offset\": -25200,\n        \"profile\": {\n            \"avatar_hash\": \"ge3b51ca72de\",\n            \"status_text\": \"Print is dead\",\n            \"status_emoji\": \":books:\",\n            \"real_name\": \"Egon Spengler\",\n            \"display_name\": \"spengler\",\n            \"real_name_normalized\": \"Egon Spengler\",\n            \"display_name_normalized\": \"spengler\",\n            \"email\": \"spengler@ghostbusters.example.com\",\n            \"image_24\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"image_32\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"image_48\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"image_72\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"image_192\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"image_512\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n            \"team\": \"T012AB3C4\"\n        },\n        \"is_admin\": true,\n        \"is_owner\": false,\n        \"is_primary_owner\": false,\n        \"is_restricted\": false,\n        \"is_ultra_restricted\": false,\n        \"is_bot\": false,\n        \"updated\": 1502138686,\n        \"is_app_user\": false,\n        \"has_2fa\": false\n    }\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/users.lookupByEmail.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

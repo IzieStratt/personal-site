@@ -1,0 +1,76 @@
+{
+ "name": "admin.analytics.getAppsAnalytics",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "existence-only",
+ "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+ "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+ "params": {
+  "sort_direction": {
+   "required": false,
+   "type": "string"
+  },
+  "sort_column": {
+   "required": false,
+   "type": "string"
+  },
+  "team_id": {
+   "required": false,
+   "type": "string"
+  },
+  "date_range": {
+   "required": false,
+   "type": "string"
+  }
+ },
+ "params_known": true,
+ "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "response": {
+  "ok": "true",
+  "num_found": "number",
+  "apps_analytics": "Array<{",
+  "id": "string",
+  "name": "string",
+  "type": "unknown[]",
+  "categories": "string[]",
+  "source": "string",
+  "icons": "{",
+  "image_32": "string",
+  "image_48": "string",
+  "image_64": "string",
+  "image_72": "string",
+  "first_message_sent_date": "number",
+  "last_message_sent_date": "number",
+  "first_active_date": "number",
+  "last_active_date": "number",
+  "first_automation_date": "number",
+  "last_automation_date": "number",
+  "member_reads": "{",
+  "avg": "number",
+  "min": "number",
+  "max": "number",
+  "min_observed_start_date": "string",
+  "min_observed_end_date": "string",
+  "max_observed_start_date": "string",
+  "max_observed_end_date": "string",
+  "active_users": "{",
+  "messages_read": "{",
+  "actions_taken": "{",
+  "member_automations": "{",
+  "messages_sent": "{",
+  "automations_executed": "{",
+  "messages_consumed": "{",
+  "messages_consumed_web": "{",
+  "messages_consumed_discovery": "{",
+  "messages_consumed_events": "{",
+  "messages_consumed_real_time_search": "{",
+  "messages_consumed_admin_oversight": "{",
+  "files_consumed": "{",
+  "next_cursor_mark": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.analytics.getAppsAnalytics.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

@@ -1,0 +1,88 @@
+# api.features
+
+- status: undocumented
+- verified: live-verified
+- tokens: team xoxc/xoxd
+- write-shaped name: no
+- source: first pass -- see methods/*.md and undocumented/INDEX.md for per-method citation
+- call: POST https://slack.com/api/api.features
+
+Feature-gate flags for calling client
+
+## Params
+
+| name | required | type | description |
+|---|---|---|---|
+| `platform` | no | string |  |
+| `force_cold_boot` | no | number |  |
+
+Source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)
+
+## Response
+
+| field | type |
+|---|---|
+| `ok` | true |
+| `features` | { |
+| `feature_builder_story_step` | boolean |
+| `feature_olug_remove_required_workspace_setting` | boolean |
+| `feature_file_threads` | boolean |
+| `feature_broadcast_indicator` | boolean |
+| `feature_sonic_emoji` | boolean |
+| `feature_attachments_inline` | boolean |
+| `feature_desktop_symptom_events` | boolean |
+| `feature_gdpr_user_join_tos` | boolean |
+| `feature_user_invite_tos_april_2018` | boolean |
+| `feature_channel_mgmt_message_count` | boolean |
+| `feature_channel_exports` | boolean |
+| `feature_allow_intra_word_formatting` | boolean |
+| `feature_slim_scrollbar` | boolean |
+| `feature_edge_upload_proxy_check` | boolean |
+| `feature_set_tz_automatically` | boolean |
+| `feature_attachments_v2` | boolean |
+| `feature_beacon_js_errors` | boolean |
+| `feature_user_app_disable_speed_bump` | boolean |
+| `feature_apps_manage_permissions_scope_changes` | boolean |
+| `feature_ia_member_profile` | boolean |
+| `feature_desktop_reload_on_generic_error` | boolean |
+| `feature_desktop_extend_app_menu` | boolean |
+| `feature_desktop_restart_service_worker` | boolean |
+| `feature_wta_stop_creation` | boolean |
+| `feature_admin_email_change_confirm` | boolean |
+| `feature_improved_email_rendering` | boolean |
+| `feature_recent_desktop_files` | boolean |
+| `feature_cea_allowlist_changes` | boolean |
+| `feature_cea_channel_management` | boolean |
+| `feature_cea_admin_controls` | boolean |
+| `feature_cea_allowlist_changes_plus` | boolean |
+| `feature_ia_layout` | boolean |
+| `feature_threaded_call_block` | boolean |
+| `feature_enterprise_mobile_device_check` | boolean |
+| `feature_trace_jq_init` | boolean |
+| `feature_seven_days_email_update` | boolean |
+| `feature_channel_sections` | boolean |
+| `feature_show_email_forwarded_by` | boolean |
+| `feature_mpdm_audience_expansion` | boolean |
+| `feature_remove_email_preview_link` | boolean |
+| `feature_desktop_enable_tslog` | boolean |
+| `feature_email_determine_charset` | boolean |
+| `feature_no_deprecation_in_updater` | boolean |
+| `feature_pea_domain_allowlist` | boolean |
+| `feature_composer_auth_admin` | boolean |
+| `feature_atlassian_offer` | boolean |
+| `feature_esc_grid_migrations_format_translate` | boolean |
+| `feature_vitess_grpc` | boolean |
+| `feature_rel_notes_product_updates` | boolean |
+| `feature_users_count_latest_cache` | boolean |
+| `feature_users_count_latest_cache_compare` | boolean |
+| `feature_workflows_grid_migrations` | boolean |
+| `feature_builder_block_kit` | boolean |
+| `feature_cea_empty_pref_to_null` | boolean |
+| `feature_phase3_languages` | boolean |
+| `feature_bot_user_id_lookup_for_app_profiles` | boolean |
+| `config_version_ts` | number |
+
+Source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)
+
+---
+JSON: https://vs.izie.top/redocumented/api/methods/api.features.json · Full catalog: https://vs.izie.top/redocumented/llms.txt

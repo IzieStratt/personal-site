@@ -1,0 +1,29 @@
+{
+ "name": "admin.teams.settings.setDefaultChannels",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Set the default channels of a workspace.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "team_id": {
+   "required": true,
+   "type": "string",
+   "desc": "ID for the workspace to set the default channel for."
+  },
+  "channel_ids": {
+   "required": true,
+   "type": "array",
+   "desc": "An array of channel IDs."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true\n}",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.teams.settings.setDefaultChannels.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

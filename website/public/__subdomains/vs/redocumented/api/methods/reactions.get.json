@@ -1,0 +1,44 @@
+{
+ "name": "reactions.get",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Gets reactions for an item.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "channel": {
+   "required": false,
+   "type": "channel",
+   "desc": "Channel where the message to get reactions for was posted."
+  },
+  "file": {
+   "required": false,
+   "type": "file",
+   "desc": "File to get reactions for."
+  },
+  "file_comment": {
+   "required": false,
+   "type": "string",
+   "desc": "File comment to get reactions for."
+  },
+  "full": {
+   "required": false,
+   "type": "boolean",
+   "desc": "If true always return the complete reaction list."
+  },
+  "timestamp": {
+   "required": false,
+   "type": "string",
+   "desc": "Timestamp of the message to get reactions for."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"type\": \"message\",\n    \"message\": {\n        \"type\": \"message\",\n        \"text\": \"Hi there!\",\n        \"user\": \"W123456\",\n        \"ts\": \"1648602352.215969\",\n        \"team\": \"T123456\",\n        \"reactions\": [\n            {\n                \"name\": \"grinning\",\n                \"users\": [\n                    \"W222222\"\n                ],\n                \"count\": 1\n            },\n            {\n                \"name\": \"question\",\n                \"users\": [\n                    \"W333333\"\n                ],\n                \"count\": 1\n            }\n        ],\n        \"permalink\": \"https://xxx.slack.com/archives/C123456/p1648602352215969\"\n    },\n    \"channel\": \"C123ABC456\"\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/reactions.get.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

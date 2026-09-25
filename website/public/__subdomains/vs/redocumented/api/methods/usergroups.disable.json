@@ -1,0 +1,34 @@
+{
+ "name": "usergroups.disable",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Disable an existing User Group.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "include_count": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Include the number of users in the User Group."
+  },
+  "team_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Encoded target team id where the user group is, required if org token is used."
+  },
+  "usergroup": {
+   "required": true,
+   "type": "string",
+   "desc": "The encoded ID of the User Group to disable."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true\n}",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/usergroups.disable.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

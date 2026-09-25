@@ -1,0 +1,78 @@
+{
+ "name": "users.profile.set",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Set a user's profile information, including custom status.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "name": {
+   "required": false,
+   "type": "string",
+   "desc": "Name of a single key to set. Usable only if profile is not passed."
+  },
+  "profile": {
+   "required": false,
+   "type": "string",
+   "desc": "Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters."
+  },
+  "user": {
+   "required": false,
+   "type": "user",
+   "desc": "ID of user to change. This argument may only be specified by admins on paid teams."
+  },
+  "value": {
+   "required": false,
+   "type": "string",
+   "desc": "Value to set a single key to. Usable only if profile is not passed."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "profile": "{",
+  "title": "string",
+  "phone": "string",
+  "skype": "string",
+  "real_name": "string",
+  "real_name_normalized": "string",
+  "display_name": "string",
+  "display_name_normalized": "string",
+  "fields": "Record<ProfileFieldId, {",
+  "value": "string",
+  "alt": "string",
+  "status_text": "string",
+  "status_emoji": "string",
+  "status_emoji_display_info": "Array<{",
+  "display_url": "string",
+  "unicode": "string",
+  "status_expiration": "number",
+  "avatar_hash": "string",
+  "start_date": "string",
+  "ooo_message": "string",
+  "guest_invited_by": "string",
+  "image_original": "string",
+  "is_custom_image": "boolean",
+  "pronouns": "string",
+  "who_can_share_contact_card": "string",
+  "huddle_state": "string",
+  "huddle_state_expiration_ts": "number",
+  "first_name": "string",
+  "last_name": "string",
+  "image_24": "string",
+  "image_32": "string",
+  "image_48": "string",
+  "image_72": "string",
+  "image_192": "string",
+  "image_512": "string",
+  "image_1024": "string",
+  "status_text_canonical": "string",
+  "username": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/users.profile.set.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

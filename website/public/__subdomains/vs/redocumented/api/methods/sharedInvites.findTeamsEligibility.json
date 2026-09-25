@@ -1,0 +1,17 @@
+{
+ "name": "sharedInvites.findTeamsEligibility",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "existence-only",
+ "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+ "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+ "params_known": false,
+ "params": null,
+ "params_source": null,
+ "response_known": false,
+ "response": null,
+ "response_source": null,
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/sharedInvites.findTeamsEligibility.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

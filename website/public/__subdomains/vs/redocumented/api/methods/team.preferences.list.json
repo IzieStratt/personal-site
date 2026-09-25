@@ -1,0 +1,18 @@
+{
+ "name": "team.preferences.list",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Retrieve a list of a workspace's team preferences.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {},
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"display_real_names\": false,\n    \"disable_file_uploads\": \"disable_all\",\n    \"msg_edit_window_mins\": 25,\n    \"who_can_post_general\": \"everyone\"\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/team.preferences.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

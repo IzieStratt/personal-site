@@ -1,0 +1,156 @@
+{
+ "name": "search.modules.triggers",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "not-live-tested (source-only, typed but unverified)",
+ "purpose": "params per slack-undoc-client generated types: module?: string; query?: string; page?: number; client_req_id?: string; browse_session_id?: string; extracts?: number; highlight?: number; extra_message_data?: number; no_user_profile?: number; count?: number; file_title_only?: boolean; query_rewrite_disabled?: boolean; include_files_shares?: number; browse?: string; search_context?: string; max_filter_suggestions?: number; sort?: string; sort_dir?: string; search_only_my_apps?: boolean; strict_exposure_rules?: number; trigger_types?: string;",
+ "source": "ImShyMike/slack-undoc-client (generated types); see methods/slack-undoc-client-2026.md",
+ "params": {
+  "module": {
+   "required": false,
+   "type": "string"
+  },
+  "query": {
+   "required": false,
+   "type": "string"
+  },
+  "page": {
+   "required": false,
+   "type": "number"
+  },
+  "client_req_id": {
+   "required": false,
+   "type": "string"
+  },
+  "browse_session_id": {
+   "required": false,
+   "type": "string"
+  },
+  "extracts": {
+   "required": false,
+   "type": "number"
+  },
+  "highlight": {
+   "required": false,
+   "type": "number"
+  },
+  "extra_message_data": {
+   "required": false,
+   "type": "number"
+  },
+  "no_user_profile": {
+   "required": false,
+   "type": "number"
+  },
+  "count": {
+   "required": false,
+   "type": "number"
+  },
+  "file_title_only": {
+   "required": false,
+   "type": "boolean"
+  },
+  "query_rewrite_disabled": {
+   "required": false,
+   "type": "boolean"
+  },
+  "include_files_shares": {
+   "required": false,
+   "type": "number"
+  },
+  "browse": {
+   "required": false,
+   "type": "string"
+  },
+  "search_context": {
+   "required": false,
+   "type": "string"
+  },
+  "max_filter_suggestions": {
+   "required": false,
+   "type": "number"
+  },
+  "sort": {
+   "required": false,
+   "type": "string"
+  },
+  "sort_dir": {
+   "required": false,
+   "type": "string"
+  },
+  "search_only_my_apps": {
+   "required": false,
+   "type": "boolean"
+  },
+  "strict_exposure_rules": {
+   "required": false,
+   "type": "number"
+  },
+  "trigger_types": {
+   "required": false,
+   "type": "string"
+  }
+ },
+ "params_known": true,
+ "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "response": {
+  "ok": "true",
+  "items": "Array<{",
+  "id": "string",
+  "inputs": "Record<WorkflowTriggerId, {",
+  "value": "string",
+  "locked": "boolean",
+  "hidden": "boolean",
+  "outputs": "Record<string, {",
+  "type": "string",
+  "name": "string",
+  "title": "string",
+  "is_required": "boolean",
+  "description": "string",
+  "available_data": "Record<string, {",
+  "date_created": "number",
+  "date_updated": "number",
+  "owning_team_id": "string",
+  "subtype": "string",
+  "share_url": "string",
+  "channel_ids": "string[]",
+  "workflow": "{",
+  "callback_id": "string",
+  "input_parameters": "Array<{",
+  "output_parameters": "unknown[]",
+  "product_level_availability": "{",
+  "is_available": "boolean",
+  "available_to": "string",
+  "category_id": "string",
+  "category_label": "string",
+  "app_id": "string",
+  "app": "{",
+  "icons": "{",
+  "image_32": "string",
+  "image_48": "string",
+  "image_64": "string",
+  "image_72": "string",
+  "is_workflow_app": "boolean",
+  "sales_home_workflow_app_type": "number",
+  "date_released": "number",
+  "date_deleted": "number",
+  "form_enabled": "boolean",
+  "workflow_id": "string",
+  "filter": "{",
+  "root": "{",
+  "statement": "string",
+  "version": "number",
+  "pagination": "{",
+  "total_count": "number",
+  "page": "number",
+  "per_page": "number",
+  "page_count": "number",
+  "first": "number",
+  "last": "number"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/search.modules.triggers.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

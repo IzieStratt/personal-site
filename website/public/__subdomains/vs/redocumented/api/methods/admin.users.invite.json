@@ -1,0 +1,69 @@
+{
+ "name": "admin.users.invite",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Invite a user to a workspace.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "team_id": {
+   "required": true,
+   "type": "string",
+   "desc": "The ID (T1234) of the workspace."
+  },
+  "email": {
+   "required": true,
+   "type": "string",
+   "desc": "The email address of the person to invite."
+  },
+  "channel_ids": {
+   "required": true,
+   "type": "string",
+   "desc": "A comma-separated list of channel_ids for this user to join. At least one channel is required."
+  },
+  "custom_message": {
+   "required": false,
+   "type": "string",
+   "desc": "An optional message to send to the user in the invite email."
+  },
+  "real_name": {
+   "required": false,
+   "type": "string",
+   "desc": "Full name of the user."
+  },
+  "resend": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Allow this invite to be resent in the future if a user has not signed up yet. Resending can only be done via the UI and has no expiration. (default: false)."
+  },
+  "is_restricted": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Is this user a multi-channel guest user? (default: false)."
+  },
+  "is_ultra_restricted": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Is this user a single channel guest user? (default: false)."
+  },
+  "guest_expiration_ts": {
+   "required": false,
+   "type": "string",
+   "desc": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date."
+  },
+  "email_password_policy_enabled": {
+   "required": false,
+   "type": "boolean",
+   "desc": "Allow invited user to sign in via email and password. Only available for Enterprise org teams via admin invite."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true\n}",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.users.invite.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

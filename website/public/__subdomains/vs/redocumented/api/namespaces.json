@@ -1,0 +1,3074 @@
+{
+ "activity": [
+  "activity.archive",
+  "activity.clearAll",
+  "activity.clearBefore",
+  "activity.feed",
+  "activity.getEntries",
+  "activity.markAllRead",
+  "activity.markRead",
+  "activity.markUnread",
+  "activity.unarchive",
+  "activity.views"
+ ],
+ "activity.feed": [
+  "activity.feed.scoreEntries"
+ ],
+ "activity.prefs": [
+  "activity.prefs.update"
+ ],
+ "activity.views": [
+  "activity.views.create",
+  "activity.views.delete",
+  "activity.views.hide",
+  "activity.views.unhide",
+  "activity.views.update"
+ ],
+ "admin.accountType.permissions": [
+  "admin.accountType.permissions.add",
+  "admin.accountType.permissions.list",
+  "admin.accountType.permissions.remove",
+  "admin.accountType.permissions.set"
+ ],
+ "admin.accountType.permissions.orgEnforcements": [
+  "admin.accountType.permissions.orgEnforcements.add",
+  "admin.accountType.permissions.orgEnforcements.remove"
+ ],
+ "admin.activity.logs": [
+  "admin.activity.logs.list"
+ ],
+ "admin.advisor.recommendations": [
+  "admin.advisor.recommendations.archive",
+  "admin.advisor.recommendations.list",
+  "admin.advisor.recommendations.unarchive"
+ ],
+ "admin.ai.connectorResources": [
+  "admin.ai.connectorResources.list"
+ ],
+ "admin.analytics": [
+  "admin.analytics.export",
+  "admin.analytics.getAppsAnalytics",
+  "admin.analytics.getAvailableDateRange",
+  "admin.analytics.getCanvasAnalytics",
+  "admin.analytics.getChannelAnalytics",
+  "admin.analytics.getClipAnalytics",
+  "admin.analytics.getFile",
+  "admin.analytics.getHuddleAnalytics",
+  "admin.analytics.getListAnalytics",
+  "admin.analytics.getMemberAnalytics",
+  "admin.analytics.getWorkflowAnalytics"
+ ],
+ "admin.analytics.ai": [
+  "admin.analytics.ai.getAnalytics",
+  "admin.analytics.ai.getAvailableDateRange"
+ ],
+ "admin.analytics.messages": [
+  "admin.analytics.messages.activity",
+  "admin.analytics.messages.metadata"
+ ],
+ "admin.analytics.slackbot": [
+  "admin.analytics.slackbot.dashboard"
+ ],
+ "admin.apps": [
+  "admin.apps.approve",
+  "admin.apps.bulkApprove",
+  "admin.apps.bulkRestrict",
+  "admin.apps.clearResolution",
+  "admin.apps.getAiPrefs",
+  "admin.apps.lookup",
+  "admin.apps.restrict",
+  "admin.apps.search",
+  "admin.apps.setAiPrefs",
+  "admin.apps.uninstall"
+ ],
+ "admin.apps.activities": [
+  "admin.apps.activities.list"
+ ],
+ "admin.apps.allowlist.scopesRating": [
+  "admin.apps.allowlist.scopesRating.configure",
+  "admin.apps.allowlist.scopesRating.list"
+ ],
+ "admin.apps.allowlistAutomation.rules": [
+  "admin.apps.allowlistAutomation.rules.create",
+  "admin.apps.allowlistAutomation.rules.delete",
+  "admin.apps.allowlistAutomation.rules.list",
+  "admin.apps.allowlistAutomation.rules.reorder",
+  "admin.apps.allowlistAutomation.rules.update"
+ ],
+ "admin.apps.approved": [
+  "admin.apps.approved.list"
+ ],
+ "admin.apps.certified": [
+  "admin.apps.certified.list"
+ ],
+ "admin.apps.config": [
+  "admin.apps.config.lookup",
+  "admin.apps.config.set"
+ ],
+ "admin.apps.domainWideAuth": [
+  "admin.apps.domainWideAuth.addDomain",
+  "admin.apps.domainWideAuth.enable"
+ ],
+ "admin.apps.domainWideAuth.google": [
+  "admin.apps.domainWideAuth.google.getAdminInstallUrl",
+  "admin.apps.domainWideAuth.google.getAuthorizeUrl"
+ ],
+ "admin.apps.installed": [
+  "admin.apps.installed.list"
+ ],
+ "admin.apps.internal": [
+  "admin.apps.internal.list"
+ ],
+ "admin.apps.mcp.servers": [
+  "admin.apps.mcp.servers.list"
+ ],
+ "admin.apps.mcp.servers.permissions": [
+  "admin.apps.mcp.servers.permissions.list",
+  "admin.apps.mcp.servers.permissions.set"
+ ],
+ "admin.apps.permissions": [
+  "admin.apps.permissions.add",
+  "admin.apps.permissions.list",
+  "admin.apps.permissions.remove",
+  "admin.apps.permissions.set"
+ ],
+ "admin.apps.productivity": [
+  "admin.apps.productivity.getBanner",
+  "admin.apps.productivity.list"
+ ],
+ "admin.apps.recommend": [
+  "admin.apps.recommend.add",
+  "admin.apps.recommend.list",
+  "admin.apps.recommend.remove"
+ ],
+ "admin.apps.requests": [
+  "admin.apps.requests.bulkCancel",
+  "admin.apps.requests.cancel",
+  "admin.apps.requests.list"
+ ],
+ "admin.apps.restricted": [
+  "admin.apps.restricted.list"
+ ],
+ "admin.apps.teamAccess": [
+  "admin.apps.teamAccess.getConfig",
+  "admin.apps.teamAccess.grant",
+  "admin.apps.teamAccess.revoke",
+  "admin.apps.teamAccess.setConfig"
+ ],
+ "admin.apps.updates": [
+  "admin.apps.updates.list"
+ ],
+ "admin.assistant": [
+  "admin.assistant.chat"
+ ],
+ "admin.audit.anomaly.allow": [
+  "admin.audit.anomaly.allow.getItem",
+  "admin.audit.anomaly.allow.updateItem"
+ ],
+ "admin.audit.anomalyResponse.allow": [
+  "admin.audit.anomalyResponse.allow.list",
+  "admin.audit.anomalyResponse.allow.set"
+ ],
+ "admin.auth.policy": [
+  "admin.auth.policy.assignEntities",
+  "admin.auth.policy.checkEntities",
+  "admin.auth.policy.getEntities",
+  "admin.auth.policy.removeEntities"
+ ],
+ "admin.barriers": [
+  "admin.barriers.create",
+  "admin.barriers.delete",
+  "admin.barriers.list",
+  "admin.barriers.update"
+ ],
+ "admin.billing.settings": [
+  "admin.billing.settings.boot"
+ ],
+ "admin.canvases": [
+  "admin.canvases.publishTemplate",
+  "admin.canvases.unpublishTemplate"
+ ],
+ "admin.conversations": [
+  "admin.conversations.archive",
+  "admin.conversations.bulkArchive",
+  "admin.conversations.bulkDelete",
+  "admin.conversations.bulkMove",
+  "admin.conversations.bulkSetExcludeFromSlackAi",
+  "admin.conversations.bulkSetProperties",
+  "admin.conversations.convertExternalLimited",
+  "admin.conversations.convertToPrivate",
+  "admin.conversations.convertToPublic",
+  "admin.conversations.create",
+  "admin.conversations.createForObjects",
+  "admin.conversations.delete",
+  "admin.conversations.disconnectShared",
+  "admin.conversations.export",
+  "admin.conversations.getConversationPrefs",
+  "admin.conversations.getCustomRetention",
+  "admin.conversations.getFileCountByType",
+  "admin.conversations.getTeams",
+  "admin.conversations.invite",
+  "admin.conversations.kick",
+  "admin.conversations.linkObjects",
+  "admin.conversations.listOrgWide",
+  "admin.conversations.lookup",
+  "admin.conversations.remove",
+  "admin.conversations.removeCustomRetention",
+  "admin.conversations.rename",
+  "admin.conversations.search",
+  "admin.conversations.setConversationPrefs",
+  "admin.conversations.setCustomRetention",
+  "admin.conversations.setProperties",
+  "admin.conversations.setTeams",
+  "admin.conversations.unarchive",
+  "admin.conversations.unlinkObjects"
+ ],
+ "admin.conversations.ekm": [
+  "admin.conversations.ekm.listOriginalConnectedChannelInfo"
+ ],
+ "admin.conversations.restrictAccess": [
+  "admin.conversations.restrictAccess.addGroup",
+  "admin.conversations.restrictAccess.listGroups",
+  "admin.conversations.restrictAccess.removeGroup"
+ ],
+ "admin.deprecations": [
+  "admin.deprecations.getByAppId",
+  "admin.deprecations.list"
+ ],
+ "admin.developers": [
+  "admin.developers.list"
+ ],
+ "admin.developers.sandboxRequests": [
+  "admin.developers.sandboxRequests.approve",
+  "admin.developers.sandboxRequests.deny",
+  "admin.developers.sandboxRequests.list"
+ ],
+ "admin.dlp.rules": [
+  "admin.dlp.rules.create",
+  "admin.dlp.rules.deactivate",
+  "admin.dlp.rules.edit",
+  "admin.dlp.rules.info",
+  "admin.dlp.rules.list",
+  "admin.dlp.rules.reactivate"
+ ],
+ "admin.dlp.systemDetectors": [
+  "admin.dlp.systemDetectors.list"
+ ],
+ "admin.dlp.violations": [
+  "admin.dlp.violations.archive",
+  "admin.dlp.violations.delete",
+  "admin.dlp.violations.info",
+  "admin.dlp.violations.list",
+  "admin.dlp.violations.restore",
+  "admin.dlp.violations.unarchive"
+ ],
+ "admin.emailDomains": [
+  "admin.emailDomains.count",
+  "admin.emailDomains.export"
+ ],
+ "admin.emoji": [
+  "admin.emoji.add",
+  "admin.emoji.addAlias",
+  "admin.emoji.list",
+  "admin.emoji.remove",
+  "admin.emoji.rename"
+ ],
+ "admin.enterpriseSearch.connectors": [
+  "admin.enterpriseSearch.connectors.deleteConfig",
+  "admin.enterpriseSearch.connectors.list",
+  "admin.enterpriseSearch.connectors.setConfig",
+  "admin.enterpriseSearch.connectors.setEnabled"
+ ],
+ "admin.enterpriseSearch.connectors.email": [
+  "admin.enterpriseSearch.connectors.email.setRenderDomains"
+ ],
+ "admin.enterpriseSearch.searchApps": [
+  "admin.enterpriseSearch.searchApps.list",
+  "admin.enterpriseSearch.searchApps.setEnabled"
+ ],
+ "admin.features": [
+  "admin.features.list"
+ ],
+ "admin.features.permissions": [
+  "admin.features.permissions.list"
+ ],
+ "admin.files": [
+  "admin.files.transferOwnership"
+ ],
+ "admin.functions": [
+  "admin.functions.list"
+ ],
+ "admin.functions.permissions": [
+  "admin.functions.permissions.bulkSet",
+  "admin.functions.permissions.lookup",
+  "admin.functions.permissions.set"
+ ],
+ "admin.functions.settings": [
+  "admin.functions.settings.lookup",
+  "admin.functions.settings.set"
+ ],
+ "admin.home.attritionStatus": [
+  "admin.home.attritionStatus.get"
+ ],
+ "admin.home.posts": [
+  "admin.home.posts.list"
+ ],
+ "admin.inviteRequests": [
+  "admin.inviteRequests.approve",
+  "admin.inviteRequests.deny",
+  "admin.inviteRequests.list"
+ ],
+ "admin.inviteRequests.approved": [
+  "admin.inviteRequests.approved.list"
+ ],
+ "admin.inviteRequests.denied": [
+  "admin.inviteRequests.denied.list"
+ ],
+ "admin.legalHold.entities": [
+  "admin.legalHold.entities.add",
+  "admin.legalHold.entities.list",
+  "admin.legalHold.entities.remove"
+ ],
+ "admin.legalHold.policies": [
+  "admin.legalHold.policies.activate",
+  "admin.legalHold.policies.create",
+  "admin.legalHold.policies.info",
+  "admin.legalHold.policies.list",
+  "admin.legalHold.policies.release",
+  "admin.legalHold.policies.set"
+ ],
+ "admin.permissions": [
+  "admin.permissions.list"
+ ],
+ "admin.permissions.usergroups": [
+  "admin.permissions.usergroups.assign",
+  "admin.permissions.usergroups.list",
+  "admin.permissions.usergroups.remove"
+ ],
+ "admin.permissions.users": [
+  "admin.permissions.users.assign",
+  "admin.permissions.users.list",
+  "admin.permissions.users.remove"
+ ],
+ "admin.quip.migration": [
+  "admin.quip.migration.approveOrgMappingRequest",
+  "admin.quip.migration.deleteOrgMapping",
+  "admin.quip.migration.denyOrgMappingRequest",
+  "admin.quip.migration.getOrgMapping",
+  "admin.quip.migration.getOrgMappings",
+  "admin.quip.migration.tempDisableOrgMapping"
+ ],
+ "admin.roles": [
+  "admin.roles.addAssignments",
+  "admin.roles.addMembers",
+  "admin.roles.addUsergroups",
+  "admin.roles.create",
+  "admin.roles.delete",
+  "admin.roles.edit",
+  "admin.roles.editUsergroup",
+  "admin.roles.getMemberAssignments",
+  "admin.roles.getMembershipInfo",
+  "admin.roles.list",
+  "admin.roles.listAssignments",
+  "admin.roles.listMembers",
+  "admin.roles.listUsergroups",
+  "admin.roles.removeAssignments",
+  "admin.roles.removeMembers",
+  "admin.roles.removeUsergroup"
+ ],
+ "admin.roles.entity": [
+  "admin.roles.entity.listAssignments"
+ ],
+ "admin.roles.permissions": [
+  "admin.roles.permissions.list"
+ ],
+ "admin.sandboxes": [
+  "admin.sandboxes.archive",
+  "admin.sandboxes.delete",
+  "admin.sandboxes.extendArchiveDate",
+  "admin.sandboxes.list",
+  "admin.sandboxes.processSafeSignin",
+  "admin.sandboxes.setLimitAccess",
+  "admin.sandboxes.unarchive"
+ ],
+ "admin.sessions": [
+  "admin.sessions.accessLogs",
+  "admin.sessions.reset"
+ ],
+ "admin.settings": [
+  "admin.settings.export"
+ ],
+ "admin.teams": [
+  "admin.teams.create",
+  "admin.teams.list"
+ ],
+ "admin.teams.admins": [
+  "admin.teams.admins.list"
+ ],
+ "admin.teams.owners": [
+  "admin.teams.owners.list"
+ ],
+ "admin.teams.settings": [
+  "admin.teams.settings.info",
+  "admin.teams.settings.setDefaultChannels",
+  "admin.teams.settings.setDescription",
+  "admin.teams.settings.setDiscoverability",
+  "admin.teams.settings.setIcon",
+  "admin.teams.settings.setName"
+ ],
+ "admin.usergroups": [
+  "admin.usergroups.addChannels",
+  "admin.usergroups.addTeams",
+  "admin.usergroups.addUsers",
+  "admin.usergroups.create",
+  "admin.usergroups.delete",
+  "admin.usergroups.fetch",
+  "admin.usergroups.listChannels",
+  "admin.usergroups.removeChannels",
+  "admin.usergroups.removeTeams",
+  "admin.usergroups.removeUsers",
+  "admin.usergroups.update",
+  "admin.usergroups.uploadUsers"
+ ],
+ "admin.users": [
+  "admin.users.assign",
+  "admin.users.getExpiration",
+  "admin.users.invite",
+  "admin.users.list",
+  "admin.users.remove",
+  "admin.users.removeFromAllExternalLimitedConversations",
+  "admin.users.search",
+  "admin.users.sendEmailToPending",
+  "admin.users.setAdmin",
+  "admin.users.setExpiration",
+  "admin.users.setOwner",
+  "admin.users.setRegular"
+ ],
+ "admin.users.conversations": [
+  "admin.users.conversations.counts",
+  "admin.users.conversations.search"
+ ],
+ "admin.users.externalUsers": [
+  "admin.users.externalUsers.disconnect",
+  "admin.users.externalUsers.removeFromAllConversations"
+ ],
+ "admin.users.session": [
+  "admin.users.session.clearSettings",
+  "admin.users.session.getSettings",
+  "admin.users.session.info",
+  "admin.users.session.invalidate",
+  "admin.users.session.list",
+  "admin.users.session.reset",
+  "admin.users.session.resetBulk",
+  "admin.users.session.setSettings"
+ ],
+ "admin.users.unsupportedVersions": [
+  "admin.users.unsupportedVersions.export"
+ ],
+ "admin.workflows": [
+  "admin.workflows.search",
+  "admin.workflows.unpublish"
+ ],
+ "admin.workflows.collaborators": [
+  "admin.workflows.collaborators.add",
+  "admin.workflows.collaborators.remove"
+ ],
+ "admin.workflows.permissions": [
+  "admin.workflows.permissions.lookup"
+ ],
+ "admin.workflows.responses": [
+  "admin.workflows.responses.export"
+ ],
+ "admin.workflows.triggers.types": [
+  "admin.workflows.triggers.types.list"
+ ],
+ "admin.workflows.triggers.types.permissions": [
+  "admin.workflows.triggers.types.permissions.lookup",
+  "admin.workflows.triggers.types.permissions.set"
+ ],
+ "admin.workflows.triggers.types.permissionsWithStepRestrictions": [
+  "admin.workflows.triggers.types.permissionsWithStepRestrictions.lookup",
+  "admin.workflows.triggers.types.permissionsWithStepRestrictions.set"
+ ],
+ "agents.sessions": [
+  "agents.sessions.rename",
+  "agents.sessions.setStatus"
+ ],
+ "agents.sunroof": [
+  "agents.sunroof.get"
+ ],
+ "agents.threads": [
+  "agents.threads.archive",
+  "agents.threads.pin",
+  "agents.threads.unpin"
+ ],
+ "ai.agents.channelAgent": [
+  "ai.agents.channelAgent.configure",
+  "ai.agents.channelAgent.getConfiguration"
+ ],
+ "ai.alpha": [
+  "ai.alpha.getChannelJoinReason"
+ ],
+ "ai.alpha.agents": [
+  "ai.alpha.agents.diveDeeper",
+  "ai.alpha.agents.stop"
+ ],
+ "ai.alpha.agents.channels": [
+  "ai.alpha.agents.channels.list"
+ ],
+ "ai.alpha.agents.sessions": [
+  "ai.alpha.agents.sessions.list"
+ ],
+ "ai.alpha.agents.threads": [
+  "ai.alpha.agents.threads.list"
+ ],
+ "ai.alpha.analyze": [
+  "ai.alpha.analyze.startThread"
+ ],
+ "ai.alpha.answer": [
+  "ai.alpha.answer.previewShare",
+  "ai.alpha.answer.share"
+ ],
+ "ai.alpha.audio": [
+  "ai.alpha.audio.boot",
+  "ai.alpha.audio.transcribe",
+  "ai.alpha.audio.transcribeChunk"
+ ],
+ "ai.alpha.canvas": [
+  "ai.alpha.canvas.computeDraftDiff",
+  "ai.alpha.canvas.createContent",
+  "ai.alpha.canvas.getTopicSuggestions",
+  "ai.alpha.canvas.refineContent",
+  "ai.alpha.canvas.reviseContentWithSources"
+ ],
+ "ai.alpha.digest": [
+  "ai.alpha.digest.addToDigest",
+  "ai.alpha.digest.info",
+  "ai.alpha.digest.list",
+  "ai.alpha.digest.listDigestChannelIds",
+  "ai.alpha.digest.markComplete",
+  "ai.alpha.digest.markUnread",
+  "ai.alpha.digest.removeFromDigest",
+  "ai.alpha.digest.triggerDigest"
+ ],
+ "ai.alpha.focus": [
+  "ai.alpha.focus.summary"
+ ],
+ "ai.alpha.internal": [
+  "ai.alpha.internal.feedbackDatasets"
+ ],
+ "ai.alpha.search": [
+  "ai.alpha.search.getNoResultsPrompts"
+ ],
+ "ai.alpha.sidekicks": [
+  "ai.alpha.sidekicks.create",
+  "ai.alpha.sidekicks.delete",
+  "ai.alpha.sidekicks.getOrCreateMemoryCanvas",
+  "ai.alpha.sidekicks.rewritePrompt",
+  "ai.alpha.sidekicks.testPrompt",
+  "ai.alpha.sidekicks.update"
+ ],
+ "ai.alpha.slackbot": [
+  "ai.alpha.slackbot.createSlackbotInitiatedThread"
+ ],
+ "ai.alpha.slackbot.automationGroups": [
+  "ai.alpha.slackbot.automationGroups.delete",
+  "ai.alpha.slackbot.automationGroups.list",
+  "ai.alpha.slackbot.automationGroups.setActive"
+ ],
+ "ai.alpha.slackbot.searchAnswerThreads": [
+  "ai.alpha.slackbot.searchAnswerThreads.create"
+ ],
+ "ai.alpha.slackbot.skillSets": [
+  "ai.alpha.slackbot.skillSets.addToLibrary",
+  "ai.alpha.slackbot.skillSets.listEnabled",
+  "ai.alpha.slackbot.skillSets.removeFromLibrary"
+ ],
+ "ai.alpha.slackbot.skills": [
+  "ai.alpha.slackbot.skills.addToLibrary",
+  "ai.alpha.slackbot.skills.createShareLink",
+  "ai.alpha.slackbot.skills.getAggregateMetrics",
+  "ai.alpha.slackbot.skills.getBuiltinInfo",
+  "ai.alpha.slackbot.skills.listDiscoverable",
+  "ai.alpha.slackbot.skills.listEnabled",
+  "ai.alpha.slackbot.skills.listRecommended",
+  "ai.alpha.slackbot.skills.listSkillEnablementDetails",
+  "ai.alpha.slackbot.skills.previewShareLink",
+  "ai.alpha.slackbot.skills.publishToCatalog",
+  "ai.alpha.slackbot.skills.redeemShareLink",
+  "ai.alpha.slackbot.skills.removeFromLibrary",
+  "ai.alpha.slackbot.skills.revokeShareLinks",
+  "ai.alpha.slackbot.skills.search",
+  "ai.alpha.slackbot.skills.setAutoEnabled",
+  "ai.alpha.slackbot.skills.setCanvasAsSkill",
+  "ai.alpha.slackbot.skills.setDisabled",
+  "ai.alpha.slackbot.skills.unpublishFromCatalog",
+  "ai.alpha.slackbot.skills.unsetCanvasAsSkill",
+  "ai.alpha.slackbot.skills.updateMetadata"
+ ],
+ "ai.alpha.slackbotNuxCarousel": [
+  "ai.alpha.slackbotNuxCarousel.addMemory",
+  "ai.alpha.slackbotNuxCarousel.fetch",
+  "ai.alpha.slackbotNuxCarousel.recommendations"
+ ],
+ "ai.alpha.slackiversary": [
+  "ai.alpha.slackiversary.fetch"
+ ],
+ "ai.alpha.summarize": [
+  "ai.alpha.summarize.channelUnreads",
+  "ai.alpha.summarize.feedback",
+  "ai.alpha.summarize.thread",
+  "ai.alpha.summarize.unreadsSnapshot"
+ ],
+ "ai.alpha.surfaces": [
+  "ai.alpha.surfaces.getContent",
+  "ai.alpha.surfaces.getData"
+ ],
+ "ai.alpha.translate": [
+  "ai.alpha.translate.fileSummary",
+  "ai.alpha.translate.locales",
+  "ai.alpha.translate.message",
+  "ai.alpha.translate.promptSummary"
+ ],
+ "ai.alpha.widgets": [
+  "ai.alpha.widgets.info"
+ ],
+ "ai.channelKnowledge": [
+  "ai.channelKnowledge.disable",
+  "ai.channelKnowledge.refresh"
+ ],
+ "ai.composer": [
+  "ai.composer.invoke"
+ ],
+ "ai.crm": [
+  "ai.crm.draftEmail"
+ ],
+ "ai.crm.records": [
+  "ai.crm.records.create"
+ ],
+ "ai.evaluation": [
+  "ai.evaluation.requestSurveyEvaluation"
+ ],
+ "ai.feedback": [
+  "ai.feedback.request"
+ ],
+ "ai.savedPrompts": [
+  "ai.savedPrompts.addTrigger",
+  "ai.savedPrompts.create",
+  "ai.savedPrompts.delete",
+  "ai.savedPrompts.execute",
+  "ai.savedPrompts.list",
+  "ai.savedPrompts.update",
+  "ai.savedPrompts.updateTrigger"
+ ],
+ "ai.workflows.steps": [
+  "ai.workflows.steps.response"
+ ],
+ "aiApps": [
+  "aiApps.deletePhoto",
+  "aiApps.editProfile",
+  "aiApps.history",
+  "aiApps.list",
+  "aiApps.setPhoto"
+ ],
+ "analytics": [
+  "analytics.clogData"
+ ],
+ "api": [
+  "api.features",
+  "api.getFlannelHttpUrl",
+  "api.test"
+ ],
+ "app.uninstallTasks": [
+  "app.uninstallTasks.list"
+ ],
+ "apps": [
+  "apps.limit",
+  "apps.uninstall"
+ ],
+ "apps.actions": [
+  "apps.actions.listForResource",
+  "apps.actions.run"
+ ],
+ "apps.actions.v2": [
+  "apps.actions.v2.execute",
+  "apps.actions.v2.list"
+ ],
+ "apps.activities": [
+  "apps.activities.list"
+ ],
+ "apps.approvals.requests": [
+  "apps.approvals.requests.create"
+ ],
+ "apps.auth.external": [
+  "apps.auth.external.delete",
+  "apps.auth.external.get",
+  "apps.auth.external.getFunctionAuth",
+  "apps.auth.external.list",
+  "apps.auth.external.start"
+ ],
+ "apps.auth.external.authMapping": [
+  "apps.auth.external.authMapping.update"
+ ],
+ "apps.auth.external.userAuths": [
+  "apps.auth.external.userAuths.get"
+ ],
+ "apps.certified": [
+  "apps.certified.install",
+  "apps.certified.list"
+ ],
+ "apps.connections": [
+  "apps.connections.open"
+ ],
+ "apps.context": [
+  "apps.context.changed"
+ ],
+ "apps.datasources.external": [
+  "apps.datasources.external.add",
+  "apps.datasources.external.delete",
+  "apps.datasources.external.info",
+  "apps.datasources.external.list",
+  "apps.datasources.external.update"
+ ],
+ "apps.datasources.external.fieldreferences": [
+  "apps.datasources.external.fieldreferences.list"
+ ],
+ "apps.datasources.external.schema": [
+  "apps.datasources.external.schema.info",
+  "apps.datasources.external.schema.resync"
+ ],
+ "apps.datasources.external.schema.objects": [
+  "apps.datasources.external.schema.objects.list"
+ ],
+ "apps.datastore": [
+  "apps.datastore.bulkDelete",
+  "apps.datastore.bulkGet",
+  "apps.datastore.bulkPut",
+  "apps.datastore.count",
+  "apps.datastore.delete",
+  "apps.datastore.get",
+  "apps.datastore.put",
+  "apps.datastore.query",
+  "apps.datastore.update"
+ ],
+ "apps.event.authorizations": [
+  "apps.event.authorizations.list"
+ ],
+ "apps.home": [
+  "apps.home.dispatchOpenEvent",
+  "apps.home.open"
+ ],
+ "apps.icon": [
+  "apps.icon.set"
+ ],
+ "apps.index": [
+  "apps.index.list",
+  "apps.index.search"
+ ],
+ "apps.index.filters": [
+  "apps.index.filters.list"
+ ],
+ "apps.managed.permissions": [
+  "apps.managed.permissions.set"
+ ],
+ "apps.manifest": [
+  "apps.manifest.create",
+  "apps.manifest.delete",
+  "apps.manifest.export",
+  "apps.manifest.update",
+  "apps.manifest.validate"
+ ],
+ "apps.onboarding": [
+  "apps.onboarding.list"
+ ],
+ "apps.productivity": [
+  "apps.productivity.list"
+ ],
+ "apps.profile": [
+  "apps.profile.get",
+  "apps.profile.lookup"
+ ],
+ "apps.recommendations": [
+  "apps.recommendations.list"
+ ],
+ "apps.scopes": [
+  "apps.scopes.groupedInfo",
+  "apps.scopes.info"
+ ],
+ "apps.team.variables": [
+  "apps.team.variables.delete",
+  "apps.team.variables.get",
+  "apps.team.variables.set"
+ ],
+ "apps.user.connection": [
+  "apps.user.connection.status",
+  "apps.user.connection.submit",
+  "apps.user.connection.update"
+ ],
+ "assistant.search": [
+  "assistant.search.context",
+  "assistant.search.info"
+ ],
+ "assistant.threads": [
+  "assistant.threads.changeContext",
+  "assistant.threads.rename",
+  "assistant.threads.setStatus",
+  "assistant.threads.setSuggestedPrompts",
+  "assistant.threads.setTitle",
+  "assistant.threads.startThread"
+ ],
+ "audit": [
+  "audit.actions",
+  "audit.exportLogs",
+  "audit.logs"
+ ],
+ "auth": [
+  "auth.captcha",
+  "auth.emailToken",
+  "auth.enterpriseSignout",
+  "auth.findTeam",
+  "auth.loginMagic",
+  "auth.removePendingTeam",
+  "auth.revoke",
+  "auth.signin",
+  "auth.signout",
+  "auth.test"
+ ],
+ "auth.magicLogins": [
+  "auth.magicLogins.create"
+ ],
+ "auth.passkeys.register": [
+  "auth.passkeys.register.begin",
+  "auth.passkeys.register.complete",
+  "auth.passkeys.register.list"
+ ],
+ "auth.teams": [
+  "auth.teams.list"
+ ],
+ "auth.twofactor": [
+  "auth.twofactor.slackbotMessage"
+ ],
+ "avatars": [
+  "avatars.crop",
+  "avatars.upload"
+ ],
+ "bkb.ai": [
+  "bkb.ai.generate"
+ ],
+ "blocks": [
+  "blocks.actions",
+  "blocks.actionsPreview",
+  "blocks.format",
+  "blocks.suggestions",
+  "blocks.validate"
+ ],
+ "bookmarks": [
+  "bookmarks.add",
+  "bookmarks.edit",
+  "bookmarks.list",
+  "bookmarks.preview",
+  "bookmarks.remove",
+  "bookmarks.reorder"
+ ],
+ "bots": [
+  "bots.info"
+ ],
+ "calbootstrap": [
+  "calbootstrap.contactsList"
+ ],
+ "calendar": [
+  "calendar.disconnect",
+  "calendar.freebusy",
+  "calendar.getConnectedCalendars",
+  "calendar.getInstalledCalendars",
+  "calendar.getNotificationPrefs",
+  "calendar.meetingPrep",
+  "calendar.setNotificationPrefs"
+ ],
+ "calendar.alerts": [
+  "calendar.alerts.ack",
+  "calendar.alerts.list",
+  "calendar.alerts.snooze"
+ ],
+ "calendar.event": [
+  "calendar.event.copy",
+  "calendar.event.create",
+  "calendar.event.getByEventLinkId",
+  "calendar.event.info",
+  "calendar.event.list",
+  "calendar.event.listByDateRange",
+  "calendar.event.next",
+  "calendar.event.rsvp",
+  "calendar.event.setLocation"
+ ],
+ "calendar.user": [
+  "calendar.user.info",
+  "calendar.user.status",
+  "calendar.user.toggleOooStatusSync",
+  "calendar.user.toggleStatusSync"
+ ],
+ "calls": [
+  "calls.add",
+  "calls.end",
+  "calls.info",
+  "calls.reject",
+  "calls.request",
+  "calls.update"
+ ],
+ "calls.apps": [
+  "calls.apps.list"
+ ],
+ "calls.participants": [
+  "calls.participants.add",
+  "calls.participants.remove"
+ ],
+ "canvases": [
+  "canvases.create",
+  "canvases.delete",
+  "canvases.edit",
+  "canvases.getCannedTemplates",
+  "canvases.getEmbedToken",
+  "canvases.getTemplates",
+  "canvases.listHeaders",
+  "canvases.notificationSections"
+ ],
+ "canvases.access": [
+  "canvases.access.delete",
+  "canvases.access.set"
+ ],
+ "canvases.agents": [
+  "canvases.agents.list"
+ ],
+ "canvases.drafts": [
+  "canvases.drafts.get"
+ ],
+ "canvases.sections": [
+  "canvases.sections.lookup"
+ ],
+ "channelAudit.exports": [
+  "channelAudit.exports.start"
+ ],
+ "channelSections": [
+  "channelSections.recommend"
+ ],
+ "channelSections.channels": [
+  "channelSections.channels.recommend"
+ ],
+ "channelSuggestions.fileCollaborators": [
+  "channelSuggestions.fileCollaborators.info"
+ ],
+ "channels.prefs": [
+  "channels.prefs.get",
+  "channels.prefs.set"
+ ],
+ "chat": [
+  "chat.action",
+  "chat.appendStream",
+  "chat.attachmentAction",
+  "chat.attachmentSuggestion",
+  "chat.command",
+  "chat.delete",
+  "chat.deleteAttachment",
+  "chat.deleteBulkJoinLeave",
+  "chat.deleteScheduledMessage",
+  "chat.getPermalink",
+  "chat.meMessage",
+  "chat.postEphemeral",
+  "chat.postMessage",
+  "chat.refreshUnfurl",
+  "chat.removeFile",
+  "chat.removeUnfurlLink",
+  "chat.scheduleMessage",
+  "chat.shareMessage",
+  "chat.slugifyUrl",
+  "chat.startStream",
+  "chat.stopStream",
+  "chat.unfurl",
+  "chat.unfurlContact",
+  "chat.unfurlLink",
+  "chat.update"
+ ],
+ "chat.scheduledMessages": [
+  "chat.scheduledMessages.list"
+ ],
+ "client": [
+  "client.appCommands",
+  "client.boot",
+  "client.channels",
+  "client.counts",
+  "client.dms",
+  "client.extras",
+  "client.gantryBoot",
+  "client.getWebSocketURL",
+  "client.init",
+  "client.shouldReload",
+  "client.userBoot"
+ ],
+ "client.codeChannels": [
+  "client.codeChannels.create",
+  "client.codeChannels.getBlockKitView",
+  "client.codeChannels.join"
+ ],
+ "codeChannels": [
+  "codeChannels.action",
+  "codeChannels.createAndStart",
+  "codeChannels.getDiff",
+  "codeChannels.getView",
+  "codeChannels.listSupportedApps"
+ ],
+ "commands": [
+  "commands.list"
+ ],
+ "compliance.exports": [
+  "compliance.exports.delete",
+  "compliance.exports.list",
+  "compliance.exports.listTokens",
+  "compliance.exports.reactivateTokens",
+  "compliance.exports.revokeAllTokens",
+  "compliance.exports.revokeTokens",
+  "compliance.exports.start"
+ ],
+ "connectInvites": [
+  "connectInvites.list"
+ ],
+ "connectableContacts": [
+  "connectableContacts.lookup"
+ ],
+ "contacts": [
+  "contacts.add"
+ ],
+ "conversations": [
+  "conversations.acceptSharedInvite",
+  "conversations.addTab",
+  "conversations.approveSharedInvite",
+  "conversations.archive",
+  "conversations.badgeCount",
+  "conversations.bulkArchive",
+  "conversations.bulkFetchMetadata",
+  "conversations.bulkJoin",
+  "conversations.bulkLeave",
+  "conversations.bulkReacjiTriggers",
+  "conversations.bulkRejoin",
+  "conversations.canCreateSharedInvite",
+  "conversations.canSetProperties",
+  "conversations.close",
+  "conversations.convertExternalLimited",
+  "conversations.convertToPrivate",
+  "conversations.convertToPublic",
+  "conversations.coreProdAIPrototype",
+  "conversations.create",
+  "conversations.createChild",
+  "conversations.createFromDmMpdm",
+  "conversations.declineSharedInvite",
+  "conversations.delete",
+  "conversations.disconnectShared",
+  "conversations.disconnectSharedTeam",
+  "conversations.export",
+  "conversations.findEligibleWorkspaces",
+  "conversations.genericInfo",
+  "conversations.getGeneral",
+  "conversations.getRetention",
+  "conversations.history",
+  "conversations.historyChanges",
+  "conversations.ignoreInvite",
+  "conversations.ignoreUser",
+  "conversations.info",
+  "conversations.invite",
+  "conversations.inviteShared",
+  "conversations.join",
+  "conversations.joinConnectedShared",
+  "conversations.joinContext",
+  "conversations.joinPendingShared",
+  "conversations.kick",
+  "conversations.leave",
+  "conversations.list",
+  "conversations.listConnectInvites",
+  "conversations.listPrefs",
+  "conversations.mark",
+  "conversations.members",
+  "conversations.moveTab",
+  "conversations.open",
+  "conversations.recommend",
+  "conversations.removeSharedLegacyRestriction",
+  "conversations.removeTab",
+  "conversations.rename",
+  "conversations.replies",
+  "conversations.revokeSharedInvite",
+  "conversations.revokeSharedInvitesBulk",
+  "conversations.searchLinks",
+  "conversations.setInviterJoinerProperties",
+  "conversations.setProperties",
+  "conversations.setPurpose",
+  "conversations.setRetention",
+  "conversations.setTeams",
+  "conversations.setTopic",
+  "conversations.sharedInviteAcceptanceEligibility",
+  "conversations.sharedInviteInfo",
+  "conversations.sharedInviteLinkCopied",
+  "conversations.suggestions",
+  "conversations.teamConnections",
+  "conversations.unarchive",
+  "conversations.updateDefaultState",
+  "conversations.updateTab",
+  "conversations.validateName",
+  "conversations.view"
+ ],
+ "conversations.archive": [
+  "conversations.archive.recommendations"
+ ],
+ "conversations.canvases": [
+  "conversations.canvases.create"
+ ],
+ "conversations.channelPrefixes": [
+  "conversations.channelPrefixes.create",
+  "conversations.channelPrefixes.delete",
+  "conversations.channelPrefixes.list"
+ ],
+ "conversations.emailaddresses": [
+  "conversations.emailaddresses.create",
+  "conversations.emailaddresses.delete",
+  "conversations.emailaddresses.info",
+  "conversations.emailaddresses.update"
+ ],
+ "conversations.externalInvitePermissions": [
+  "conversations.externalInvitePermissions.set"
+ ],
+ "conversations.leave": [
+  "conversations.leave.recommendations"
+ ],
+ "conversations.meetingnotes": [
+  "conversations.meetingnotes.getLock"
+ ],
+ "conversations.pendingInvites": [
+  "conversations.pendingInvites.list"
+ ],
+ "conversations.permissions.accountTypes": [
+  "conversations.permissions.accountTypes.list",
+  "conversations.permissions.accountTypes.set"
+ ],
+ "conversations.requestSharedInvite": [
+  "conversations.requestSharedInvite.approve",
+  "conversations.requestSharedInvite.deny",
+  "conversations.requestSharedInvite.list"
+ ],
+ "conversations.sharedApprovals": [
+  "conversations.sharedApprovals.bulkApprove",
+  "conversations.sharedApprovals.bulkDecline",
+  "conversations.sharedApprovals.list"
+ ],
+ "dataResidency": [
+  "dataResidency.backfillStatus",
+  "dataResidency.status"
+ ],
+ "developer.appdirectory.submissions": [
+  "developer.appdirectory.submissions.cancel",
+  "developer.appdirectory.submissions.checks",
+  "developer.appdirectory.submissions.info",
+  "developer.appdirectory.submissions.publish",
+  "developer.appdirectory.submissions.submit",
+  "developer.appdirectory.submissions.update"
+ ],
+ "developer.apps": [
+  "developer.apps.checkDuplicateName",
+  "developer.apps.disableDistribution",
+  "developer.apps.disableSocketMode",
+  "developer.apps.enableDistribution",
+  "developer.apps.enableSocketMode",
+  "developer.apps.info",
+  "developer.apps.update",
+  "developer.apps.updateIPWhitelist"
+ ],
+ "developer.apps.a2a": [
+  "developer.apps.a2a.setCard"
+ ],
+ "developer.apps.actions": [
+  "developer.apps.actions.delete"
+ ],
+ "developer.apps.actions.v2": [
+  "developer.apps.actions.v2.create",
+  "developer.apps.actions.v2.delete",
+  "developer.apps.actions.v2.list",
+  "developer.apps.actions.v2.save",
+  "developer.apps.actions.v2.update"
+ ],
+ "developer.apps.appLevelTokens": [
+  "developer.apps.appLevelTokens.create",
+  "developer.apps.appLevelTokens.getTokenString",
+  "developer.apps.appLevelTokens.list",
+  "developer.apps.appLevelTokens.revoke"
+ ],
+ "developer.apps.apphome": [
+  "developer.apps.apphome.edit"
+ ],
+ "developer.apps.assistant": [
+  "developer.apps.assistant.update"
+ ],
+ "developer.apps.beta": [
+  "developer.apps.beta.create",
+  "developer.apps.beta.info"
+ ],
+ "developer.apps.botusers": [
+  "developer.apps.botusers.edit"
+ ],
+ "developer.apps.commands": [
+  "developer.apps.commands.add",
+  "developer.apps.commands.clearToken",
+  "developer.apps.commands.createToken",
+  "developer.apps.commands.delete",
+  "developer.apps.commands.edit",
+  "developer.apps.commands.promoteToken"
+ ],
+ "developer.apps.config": [
+  "developer.apps.config.createToolingToken",
+  "developer.apps.config.getFunction",
+  "developer.apps.config.listFunctions",
+  "developer.apps.config.listInstalledScopes",
+  "developer.apps.config.listSelectableAppCategories",
+  "developer.apps.config.setAppIcon",
+  "developer.apps.config.setDeveloperContactInfo",
+  "developer.apps.config.setInstallPrefs",
+  "developer.apps.config.setListingPageDescription",
+  "developer.apps.config.setListingPageLinks"
+ ],
+ "developer.apps.credentials": [
+  "developer.apps.credentials.info"
+ ],
+ "developer.apps.events.subscriptions": [
+  "developer.apps.events.subscriptions.updateSubs",
+  "developer.apps.events.subscriptions.verifyURL"
+ ],
+ "developer.apps.mcp": [
+  "developer.apps.mcp.add",
+  "developer.apps.mcp.edit",
+  "developer.apps.mcp.remove",
+  "developer.apps.mcp.updateToolsSnapshot"
+ ],
+ "developer.apps.mcp.oauth": [
+  "developer.apps.mcp.oauth.discover"
+ ],
+ "developer.apps.migration": [
+  "developer.apps.migration.convertToGranularBotApp",
+  "developer.apps.migration.enablePkce",
+  "developer.apps.migration.enableTokenManagement",
+  "developer.apps.migration.orgReady",
+  "developer.apps.migration.tokenRotationReady",
+  "developer.apps.migration.usersTranslate"
+ ],
+ "developer.apps.oauth": [
+  "developer.apps.oauth.addRedirectUrls",
+  "developer.apps.oauth.getAppStatus",
+  "developer.apps.oauth.getTokens",
+  "developer.apps.oauth.tokensRevoke",
+  "developer.apps.oauth.validateRedirectUrl"
+ ],
+ "developer.apps.owners": [
+  "developer.apps.owners.add",
+  "developer.apps.owners.list",
+  "developer.apps.owners.remove"
+ ],
+ "developer.apps.ratelimits": [
+  "developer.apps.ratelimits.list"
+ ],
+ "developer.apps.scope": [
+  "developer.apps.scope.list",
+  "developer.apps.scope.update"
+ ],
+ "developer.apps.screenshots": [
+  "developer.apps.screenshots.delete",
+  "developer.apps.screenshots.upload"
+ ],
+ "developer.apps.secret": [
+  "developer.apps.secret.regenerate"
+ ],
+ "developer.apps.securityCompliance": [
+  "developer.apps.securityCompliance.update"
+ ],
+ "developer.apps.suggestions": [
+  "developer.apps.suggestions.delete",
+  "developer.apps.suggestions.update"
+ ],
+ "developer.apps.workObjects": [
+  "developer.apps.workObjects.update"
+ ],
+ "dialog": [
+  "dialog.get",
+  "dialog.notifyCancel",
+  "dialog.open",
+  "dialog.selectSuggestion",
+  "dialog.submit"
+ ],
+ "directory": [
+  "directory.disconnect"
+ ],
+ "directory.token": [
+  "directory.token.hasScopes"
+ ],
+ "directory.users": [
+  "directory.users.list"
+ ],
+ "dnd": [
+  "dnd.endDnd",
+  "dnd.endSnooze",
+  "dnd.info",
+  "dnd.setSnooze",
+  "dnd.teamInfo"
+ ],
+ "domains": [
+  "domains.create",
+  "domains.delete",
+  "domains.list",
+  "domains.verify"
+ ],
+ "dotcom.templates": [
+  "dotcom.templates.search"
+ ],
+ "drafts": [
+  "drafts.bulkDelete",
+  "drafts.create",
+  "drafts.delete",
+  "drafts.info",
+  "drafts.list",
+  "drafts.listActive",
+  "drafts.update"
+ ],
+ "ekm.backfill": [
+  "ekm.backfill.info"
+ ],
+ "email": [
+  "email.digest"
+ ],
+ "email.affiliations": [
+  "email.affiliations.info"
+ ],
+ "email.domains": [
+  "email.domains.create",
+  "email.domains.delete",
+  "email.domains.list",
+  "email.domains.updateExternalAccess",
+  "email.domains.verify"
+ ],
+ "email.threads": [
+  "email.threads.share"
+ ],
+ "emailConnectorSelfServe": [
+  "emailConnectorSelfServe.info"
+ ],
+ "emails": [
+  "emails.info"
+ ],
+ "emoji": [
+  "emoji.add",
+  "emoji.addCollection",
+  "emoji.adminList",
+  "emoji.getInfo",
+  "emoji.list",
+  "emoji.remove",
+  "emoji.removeCollection",
+  "emoji.rename"
+ ],
+ "emoji.collections": [
+  "emoji.collections.list"
+ ],
+ "enterprise": [
+  "enterprise.adminMembersStore_makeRegular",
+  "enterprise.browserInfo",
+  "enterprise.changeInfo",
+  "enterprise.info",
+  "enterprise.nameTaken",
+  "enterprise.setPhoto"
+ ],
+ "enterprise.apps": [
+  "enterprise.apps.listAllTeams",
+  "enterprise.apps.listTeams",
+  "enterprise.apps.search",
+  "enterprise.apps.searchInstallable"
+ ],
+ "enterprise.auth.idpconfig": [
+  "enterprise.auth.idpconfig.apply",
+  "enterprise.auth.idpconfig.list",
+  "enterprise.auth.idpconfig.remove",
+  "enterprise.auth.idpconfig.set",
+  "enterprise.auth.idpconfig.setEma"
+ ],
+ "enterprise.auth.password": [
+  "enterprise.auth.password.reset"
+ ],
+ "enterprise.auth.saml.authnSigningCerts": [
+  "enterprise.auth.saml.authnSigningCerts.get"
+ ],
+ "enterprise.auth.session": [
+  "enterprise.auth.session.set"
+ ],
+ "enterprise.auth.sso": [
+  "enterprise.auth.sso.get",
+  "enterprise.auth.sso.rebind",
+  "enterprise.auth.sso.set"
+ ],
+ "enterprise.auth.twofactor": [
+  "enterprise.auth.twofactor.disable",
+  "enterprise.auth.twofactor.disableForOrgUser",
+  "enterprise.auth.twofactor.enable"
+ ],
+ "enterprise.channels": [
+  "enterprise.channels.createShared",
+  "enterprise.channels.listShared",
+  "enterprise.channels.setShared"
+ ],
+ "enterprise.channels.admin": [
+  "enterprise.channels.admin.listDefault",
+  "enterprise.channels.admin.removeDefault",
+  "enterprise.channels.admin.removeMandatory",
+  "enterprise.channels.admin.setDefault",
+  "enterprise.channels.admin.setMandatory"
+ ],
+ "enterprise.ekm": [
+  "enterprise.ekm.getClearCacheTs",
+  "enterprise.ekm.setClearCacheTs",
+  "enterprise.ekm.status"
+ ],
+ "enterprise.groups": [
+  "enterprise.groups.createShared"
+ ],
+ "enterprise.migrations": [
+  "enterprise.migrations.add",
+  "enterprise.migrations.approve",
+  "enterprise.migrations.approveIntent",
+  "enterprise.migrations.createIntent",
+  "enterprise.migrations.decline",
+  "enterprise.migrations.declineIntent",
+  "enterprise.migrations.declineScheduledTime",
+  "enterprise.migrations.exportInconsistencies",
+  "enterprise.migrations.fetchIntents",
+  "enterprise.migrations.getAvailableTimes",
+  "enterprise.migrations.getDetailedStatus",
+  "enterprise.migrations.getHistory",
+  "enterprise.migrations.getStatus",
+  "enterprise.migrations.markIntentChecklistItemComplete"
+ ],
+ "enterprise.mobile.versions": [
+  "enterprise.mobile.versions.list"
+ ],
+ "enterprise.payments": [
+  "enterprise.payments.companyGet",
+  "enterprise.payments.contactsList"
+ ],
+ "enterprise.prefs": [
+  "enterprise.prefs.get",
+  "enterprise.prefs.set",
+  "enterprise.prefs.setAndLock",
+  "enterprise.prefs.unlock"
+ ],
+ "enterprise.premigrations.preferences": [
+  "enterprise.premigrations.preferences.acknowledge",
+  "enterprise.premigrations.preferences.list"
+ ],
+ "enterprise.premigrations.users": [
+  "enterprise.premigrations.users.bulkUndoEmailUpdates",
+  "enterprise.premigrations.users.bulkUpdateResolution",
+  "enterprise.premigrations.users.emailUpdates",
+  "enterprise.premigrations.users.export",
+  "enterprise.premigrations.users.info",
+  "enterprise.premigrations.users.updateResolution"
+ ],
+ "enterprise.retention": [
+  "enterprise.retention.get"
+ ],
+ "enterprise.security.alerts": [
+  "enterprise.security.alerts.list"
+ ],
+ "enterprise.signup": [
+  "enterprise.signup.checkDomain",
+  "enterprise.signup.checkPassword",
+  "enterprise.signup.complete"
+ ],
+ "enterprise.stats": [
+  "enterprise.stats.listTeams"
+ ],
+ "enterprise.teams": [
+  "enterprise.teams.create",
+  "enterprise.teams.directory",
+  "enterprise.teams.info",
+  "enterprise.teams.join",
+  "enterprise.teams.leave",
+  "enterprise.teams.nameValidation"
+ ],
+ "enterprise.teams.creationrequests": [
+  "enterprise.teams.creationrequests.create"
+ ],
+ "enterprise.teams.joinrequests": [
+  "enterprise.teams.joinrequests.create"
+ ],
+ "enterprise.teams.prefs": [
+  "enterprise.teams.prefs.get"
+ ],
+ "enterprise.tos.admin": [
+  "enterprise.tos.admin.create",
+  "enterprise.tos.admin.deactivate",
+  "enterprise.tos.admin.get"
+ ],
+ "enterprise.usergroups.teams": [
+  "enterprise.usergroups.teams.add",
+  "enterprise.usergroups.teams.get",
+  "enterprise.usergroups.teams.remove",
+  "enterprise.usergroups.teams.setProvisioning"
+ ],
+ "enterprise.users.admin": [
+  "enterprise.users.admin.addUser",
+  "enterprise.users.admin.bulkInviteOwners",
+  "enterprise.users.admin.fetchPendingInvites",
+  "enterprise.users.admin.reactivateUsers",
+  "enterprise.users.admin.removeUser",
+  "enterprise.users.admin.setAdmin",
+  "enterprise.users.admin.setOwner",
+  "enterprise.users.admin.setRegular",
+  "enterprise.users.admin.setRestricted",
+  "enterprise.users.admin.setStatus",
+  "enterprise.users.admin.setUltraRestricted"
+ ],
+ "enterprise.users.profile": [
+  "enterprise.users.profile.set"
+ ],
+ "enterpriseSearch": [
+  "enterpriseSearch.getConnectorFilters",
+  "enterpriseSearch.getConnectors",
+  "enterpriseSearch.getEmailConnectorStatus",
+  "enterpriseSearch.getEntity",
+  "enterpriseSearch.listConnectorActions",
+  "enterpriseSearch.searchFilterResults"
+ ],
+ "entities.refs": [
+  "entities.refs.add",
+  "entities.refs.list",
+  "entities.refs.remove"
+ ],
+ "entity": [
+  "entity.acknowledgeCommentAction",
+  "entity.presentComments",
+  "entity.presentDetails"
+ ],
+ "experiments": [
+  "experiments.getByUser",
+  "experiments.getConfigById"
+ ],
+ "export.configuration": [
+  "export.configuration.list",
+  "export.configuration.set"
+ ],
+ "export.partners": [
+  "export.partners.list"
+ ],
+ "externalWorkspaces": [
+  "externalWorkspaces.kick"
+ ],
+ "externalWorkspaces.invites": [
+  "externalWorkspaces.invites.accept",
+  "externalWorkspaces.invites.info",
+  "externalWorkspaces.invites.revokeBulk"
+ ],
+ "feature.usage": [
+  "feature.usage.info"
+ ],
+ "features.access.policies": [
+  "features.access.policies.list"
+ ],
+ "features.app_home": [
+  "features.app_home.home_tab_enabled",
+  "features.app_home.messages_tab_enabled",
+  "features.app_home.messages_tab_read_only_enabled"
+ ],
+ "features.bot_user": [
+  "features.bot_user.always_online"
+ ],
+ "features.rich_previews": [
+  "features.rich_previews.entity_types"
+ ],
+ "feedback": [
+  "feedback.submitEnterpriseSearchFeedback",
+  "feedback.submitFeedback",
+  "feedback.submitPilotFeedback",
+  "feedback.submitSalesforceFeedback",
+  "feedback.submitSlackWrappedFeedback",
+  "feedback.submitUserFeedback"
+ ],
+ "files": [
+  "files.acceptPermissionRequest",
+  "files.canSee",
+  "files.canShare",
+  "files.canUndelete",
+  "files.close",
+  "files.completeUpload",
+  "files.completeUploadExternal",
+  "files.completeUploadForFileStore",
+  "files.createCanvas",
+  "files.createExternal",
+  "files.createSkillCanvas",
+  "files.delete",
+  "files.disableCrossWorkspaceLinkSharing",
+  "files.disableRestrictedSharing",
+  "files.edit",
+  "files.embedWithPermissions",
+  "files.enableCrossWorkspaceLinkSharing",
+  "files.enableRestrictedSharing",
+  "files.generateAltText",
+  "files.generateProviderTokenForFileStore",
+  "files.generateThumbnails",
+  "files.getMetadata",
+  "files.getOverview",
+  "files.getProviderPreviewUrlForFileStore",
+  "files.getShares",
+  "files.getUploadURL",
+  "files.getUploadURLExternal",
+  "files.getUploadURLForFileStore",
+  "files.hasShares",
+  "files.ignorePermissionRequest",
+  "files.importFromExternalURL",
+  "files.info",
+  "files.isAccessRequestedByUser",
+  "files.list",
+  "files.markRead",
+  "files.open",
+  "files.ping",
+  "files.readStatus",
+  "files.recentlyDeleted",
+  "files.refresh",
+  "files.requestPermission",
+  "files.retranscribe",
+  "files.revokePermission",
+  "files.revokePublicURL",
+  "files.setExcludeFromSlackAi",
+  "files.share",
+  "files.sharedPublicURL",
+  "files.undelete",
+  "files.unlock",
+  "files.unshare",
+  "files.updatePermission",
+  "files.upload",
+  "files.uploadExternal"
+ ],
+ "files.collections": [
+  "files.collections.create",
+  "files.collections.delete",
+  "files.collections.list",
+  "files.collections.reorder",
+  "files.collections.update"
+ ],
+ "files.comments": [
+  "files.comments.delete"
+ ],
+ "files.docs": [
+  "files.docs.create",
+  "files.docs.fetchAccessLevelForUsers",
+  "files.docs.setEditor",
+  "files.docs.setNonOwnerEditability",
+  "files.docs.unsetEditor"
+ ],
+ "files.external": [
+  "files.external.checkPermission",
+  "files.external.getOrCreate",
+  "files.external.getProviders",
+  "files.external.preview",
+  "files.external.searchConnector"
+ ],
+ "files.favorites": [
+  "files.favorites.add",
+  "files.favorites.list",
+  "files.favorites.remove"
+ ],
+ "files.remote": [
+  "files.remote.add",
+  "files.remote.info",
+  "files.remote.list",
+  "files.remote.remove",
+  "files.remote.share",
+  "files.remote.update"
+ ],
+ "files.suggestions": [
+  "files.suggestions.list"
+ ],
+ "folders": [
+  "folders.create",
+  "folders.update"
+ ],
+ "folders.items": [
+  "folders.items.add",
+  "folders.items.remove",
+  "folders.items.reorder"
+ ],
+ "functions": [
+  "functions.completeError",
+  "functions.completeSuccess",
+  "functions.get",
+  "functions.list"
+ ],
+ "functions.categories.steps": [
+  "functions.categories.steps.list"
+ ],
+ "functions.distributions.permissions": [
+  "functions.distributions.permissions.add",
+  "functions.distributions.permissions.list",
+  "functions.distributions.permissions.remove",
+  "functions.distributions.permissions.set"
+ ],
+ "functions.shortcuts": [
+  "functions.shortcuts.copy"
+ ],
+ "functions.workflows": [
+  "functions.workflows.create",
+  "functions.workflows.delete",
+  "functions.workflows.export",
+  "functions.workflows.findWorkflowForBotUsers",
+  "functions.workflows.get",
+  "functions.workflows.getIsRestricted",
+  "functions.workflows.getLatest",
+  "functions.workflows.import",
+  "functions.workflows.list",
+  "functions.workflows.publish",
+  "functions.workflows.restoreFromVersion",
+  "functions.workflows.unpublish",
+  "functions.workflows.update"
+ ],
+ "functions.workflows.collaborators": [
+  "functions.workflows.collaborators.add",
+  "functions.workflows.collaborators.remove"
+ ],
+ "functions.workflows.executions": [
+  "functions.workflows.executions.confirmDelivery",
+  "functions.workflows.executions.resume"
+ ],
+ "functions.workflows.permissions.copy": [
+  "functions.workflows.permissions.copy.list",
+  "functions.workflows.permissions.copy.set"
+ ],
+ "functions.workflows.steps": [
+  "functions.workflows.steps.add",
+  "functions.workflows.steps.aiFilePrecheck",
+  "functions.workflows.steps.delete",
+  "functions.workflows.steps.list",
+  "functions.workflows.steps.move",
+  "functions.workflows.steps.run",
+  "functions.workflows.steps.update"
+ ],
+ "functions.workflows.steps.inputs.dynamicOptions": [
+  "functions.workflows.steps.inputs.dynamicOptions.get",
+  "functions.workflows.steps.inputs.dynamicOptions.validate"
+ ],
+ "functions.workflows.steps.responses": [
+  "functions.workflows.steps.responses.export"
+ ],
+ "functions.workflows.steps.variables.schema": [
+  "functions.workflows.steps.variables.schema.get"
+ ],
+ "gif": [
+  "gif.featured",
+  "gif.search"
+ ],
+ "google.auth": [
+  "google.auth.disable"
+ ],
+ "google.directory.groups": [
+  "google.directory.groups.list"
+ ],
+ "help.issues": [
+  "help.issues.ticketStats"
+ ],
+ "help.productHelpCard": [
+  "help.productHelpCard.list"
+ ],
+ "helpcenter": [
+  "helpcenter.getWhatsNew",
+  "helpcenter.postFeedback",
+  "helpcenter.track"
+ ],
+ "helpdesk": [
+  "helpdesk.categories",
+  "helpdesk.get",
+  "helpdesk.getArticle",
+  "helpdesk.getSectionsAndArticlesByCategory"
+ ],
+ "huddles": [
+  "huddles.cancelKnock",
+  "huddles.get",
+  "huddles.getIndirectHuddle",
+  "huddles.getTrackUrls",
+  "huddles.history",
+  "huddles.knock",
+  "huddles.knockResponse",
+  "huddles.listBackgrounds",
+  "huddles.readiness",
+  "huddles.update"
+ ],
+ "huddles.external": [
+  "huddles.external.generate",
+  "huddles.external.new"
+ ],
+ "huddles.recording": [
+  "huddles.recording.auditLog",
+  "huddles.recording.cancel",
+  "huddles.recording.setLanguage",
+  "huddles.recording.start"
+ ],
+ "huddles.scheduled": [
+  "huddles.scheduled.new"
+ ],
+ "i18n.translations": [
+  "i18n.translations.get"
+ ],
+ "idpgroups": [
+  "idpgroups.list"
+ ],
+ "im": [
+  "im.list"
+ ],
+ "imports": [
+  "imports.listByService"
+ ],
+ "inprodsurveys": [
+  "inprodsurveys.get"
+ ],
+ "insights": [
+  "insights.messageStats"
+ ],
+ "insights.messageStats": [
+  "insights.messageStats.export"
+ ],
+ "instantSlack": [
+  "instantSlack.moveSession"
+ ],
+ "lab": [
+  "lab.features"
+ ],
+ "links": [
+  "links.disconnectApps",
+  "links.getDomains",
+  "links.getInterstitialFields",
+  "links.getTransferPayload"
+ ],
+ "lists": [
+  "lists.addToList",
+  "lists.create",
+  "lists.duplicate",
+  "lists.getApprovalReviewPending",
+  "lists.getMyItems",
+  "lists.getOrCreateTaskList",
+  "lists.getThreadsForRecord",
+  "lists.import",
+  "lists.open",
+  "lists.setupTodos",
+  "lists.templates",
+  "lists.update",
+  "lists.updateApproval",
+  "lists.updateMyItemReminder",
+  "lists.upsertToTaskList"
+ ],
+ "lists.cells": [
+  "lists.cells.update"
+ ],
+ "lists.columns": [
+  "lists.columns.create",
+  "lists.columns.delete",
+  "lists.columns.revert",
+  "lists.columns.update"
+ ],
+ "lists.edits": [
+  "lists.edits.getLastForCell",
+  "lists.edits.list"
+ ],
+ "lists.history": [
+  "lists.history.list",
+  "lists.history.load"
+ ],
+ "lists.records": [
+  "lists.records.archive",
+  "lists.records.count",
+  "lists.records.create",
+  "lists.records.delete",
+  "lists.records.deleteMultiple",
+  "lists.records.info",
+  "lists.records.infoBatch",
+  "lists.records.list",
+  "lists.records.open",
+  "lists.records.reorder",
+  "lists.records.updateDeletion"
+ ],
+ "lists.records.subscriptions": [
+  "lists.records.subscriptions.add",
+  "lists.records.subscriptions.get",
+  "lists.records.subscriptions.remove"
+ ],
+ "lists.views": [
+  "lists.views.create",
+  "lists.views.delete",
+  "lists.views.update"
+ ],
+ "mc.deprecations": [
+  "mc.deprecations.getByAppId",
+  "mc.deprecations.list"
+ ],
+ "mc.enterprise.retention": [
+  "mc.enterprise.retention.get"
+ ],
+ "media.progress": [
+  "media.progress.update"
+ ],
+ "media.reactions": [
+  "media.reactions.add",
+  "media.reactions.get",
+  "media.reactions.remove"
+ ],
+ "meetings": [
+  "meetings.list",
+  "meetings.processRecording",
+  "meetings.resolve",
+  "meetings.transcribeChunk",
+  "meetings.update",
+  "meetings.usersetdata"
+ ],
+ "meetings.channel": [
+  "meetings.channel.getOrCreate"
+ ],
+ "megaphone": [
+  "megaphone.executeEvent",
+  "megaphone.setNotificationAsSeen"
+ ],
+ "megaphone.notifications": [
+  "megaphone.notifications.list"
+ ],
+ "megaphone.visualizer.notifications": [
+  "megaphone.visualizer.notifications.get",
+  "megaphone.visualizer.notifications.list"
+ ],
+ "megaphone.visualizer.reducers": [
+  "megaphone.visualizer.reducers.get",
+  "megaphone.visualizer.reducers.list"
+ ],
+ "megaphone.visualizer.spaces": [
+  "megaphone.visualizer.spaces.get",
+  "megaphone.visualizer.spaces.list"
+ ],
+ "messages": [
+  "messages.list"
+ ],
+ "messages.sent": [
+  "messages.sent.list"
+ ],
+ "migration": [
+  "migration.exchange"
+ ],
+ "moderation.flags": [
+  "moderation.flags.assignFlag",
+  "moderation.flags.conversationReplies",
+  "moderation.flags.create",
+  "moderation.flags.dashboardDismiss",
+  "moderation.flags.dashboardModerate",
+  "moderation.flags.export",
+  "moderation.flags.getReviewers",
+  "moderation.flags.info",
+  "moderation.flags.list",
+  "moderation.flags.restoreContent",
+  "moderation.flags.unassignFlag"
+ ],
+ "moderation.flags.comments": [
+  "moderation.flags.comments.create",
+  "moderation.flags.comments.delete",
+  "moderation.flags.comments.set"
+ ],
+ "moderation.flags.history": [
+  "moderation.flags.history.list"
+ ],
+ "moderation.locks": [
+  "moderation.locks.create",
+  "moderation.locks.remove"
+ ],
+ "moderation.thread": [
+  "moderation.thread.hide"
+ ],
+ "mpim": [
+  "mpim.list"
+ ],
+ "oauth": [
+  "oauth.access"
+ ],
+ "oauth.v2": [
+  "oauth.v2.access",
+  "oauth.v2.beginShortTokenRotation",
+  "oauth.v2.completeShortTokenRotation",
+  "oauth.v2.exchange"
+ ],
+ "oauth.v2.user": [
+  "oauth.v2.user.access"
+ ],
+ "onboarding": [
+  "onboarding.fetch",
+  "onboarding.updateTeam",
+  "onboarding.updateUser"
+ ],
+ "openid.connect": [
+  "openid.connect.token",
+  "openid.connect.userInfo"
+ ],
+ "payments.billing.addresses": [
+  "payments.billing.addresses.get",
+  "payments.billing.addresses.locations",
+  "payments.billing.addresses.validateAndSet"
+ ],
+ "payments.billing.history": [
+  "payments.billing.history.list"
+ ],
+ "payments.checkout": [
+  "payments.checkout.cancelPlan",
+  "payments.checkout.config",
+  "payments.checkout.downgradeToFree"
+ ],
+ "payments.status": [
+  "payments.status.get"
+ ],
+ "payments.stripe.config": [
+  "payments.stripe.config.get"
+ ],
+ "payments.stripe.customer": [
+  "payments.stripe.customer.create",
+  "payments.stripe.customer.get"
+ ],
+ "payments.stripe.paymentMethod": [
+  "payments.stripe.paymentMethod.get",
+  "payments.stripe.paymentMethod.list"
+ ],
+ "payments.stripe.setupIntent": [
+  "payments.stripe.setupIntent.create"
+ ],
+ "pins": [
+  "pins.add",
+  "pins.list",
+  "pins.remove"
+ ],
+ "platform.requests": [
+  "platform.requests.create"
+ ],
+ "polls": [
+  "polls.create",
+  "polls.vote"
+ ],
+ "presence": [
+  "presence.set"
+ ],
+ "productui.bulk": [
+  "productui.bulk.clone",
+  "productui.bulk.delete",
+  "productui.bulk.get"
+ ],
+ "productui.cms": [
+  "productui.cms.create",
+  "productui.cms.delete",
+  "productui.cms.get",
+  "productui.cms.update"
+ ],
+ "productui.static": [
+  "productui.static.get"
+ ],
+ "productui.ui": [
+  "productui.ui.archive",
+  "productui.ui.clone",
+  "productui.ui.create",
+  "productui.ui.delete",
+  "productui.ui.export",
+  "productui.ui.get",
+  "productui.ui.publish",
+  "productui.ui.search",
+  "productui.ui.translate",
+  "productui.ui.unpublish",
+  "productui.ui.update"
+ ],
+ "profiling": [
+  "profiling.addJSTrace",
+  "profiling.addLogging"
+ ],
+ "promo.campaigns": [
+  "promo.campaigns.eligibilityInfo",
+  "promo.campaigns.optOut",
+  "promo.campaigns.redeem"
+ ],
+ "promo.codes": [
+  "promo.codes.redeem"
+ ],
+ "quip": [
+  "quip.cloneCanvas",
+  "quip.getCanvasBulkSectionIdsData",
+  "quip.getMentions",
+  "quip.lookupFileId",
+  "quip.lookupThreadIds",
+  "quip.unfurl",
+  "quip.updateRootComment"
+ ],
+ "quip.history": [
+  "quip.history.getVersions",
+  "quip.history.restoreVersion"
+ ],
+ "quip.thread": [
+  "quip.thread.archive",
+  "quip.thread.archiveAll",
+  "quip.thread.mark",
+  "quip.thread.synchronize",
+  "quip.thread.unarchive"
+ ],
+ "reactions": [
+  "reactions.add",
+  "reactions.get",
+  "reactions.list",
+  "reactions.remove"
+ ],
+ "recordChannels": [
+  "recordChannels.create",
+  "recordChannels.digest",
+  "recordChannels.info",
+  "recordChannels.link",
+  "recordChannels.open",
+  "recordChannels.requestAccess",
+  "recordChannels.unlink"
+ ],
+ "recordChannels.configs": [
+  "recordChannels.configs.delete",
+  "recordChannels.configs.getObjectTypes",
+  "recordChannels.configs.info",
+  "recordChannels.configs.list",
+  "recordChannels.configs.set"
+ ],
+ "recordChannels.limitedAccess": [
+  "recordChannels.limitedAccess.set"
+ ],
+ "recordChannels.objectTypes": [
+  "recordChannels.objectTypes.getDefaultVisibility",
+  "recordChannels.objectTypes.getNamingFields",
+  "recordChannels.objectTypes.getRelatedLists",
+  "recordChannels.objectTypes.list"
+ ],
+ "recordChannels.relatedConversations": [
+  "recordChannels.relatedConversations.list"
+ ],
+ "records": [
+  "records.getTeamMembers",
+  "records.previewShare",
+  "records.share"
+ ],
+ "records.relationships": [
+  "records.relationships.list"
+ ],
+ "reminders": [
+  "reminders.add",
+  "reminders.addFromMessage",
+  "reminders.complete",
+  "reminders.delete",
+  "reminders.info",
+  "reminders.list"
+ ],
+ "retail": [
+  "retail.cost",
+  "retail.getAvailablePlans",
+  "retail.plans"
+ ],
+ "rooms": [
+  "rooms.getLink",
+  "rooms.inviteResponse",
+  "rooms.join",
+  "rooms.leave",
+  "rooms.notifyMember",
+  "rooms.request",
+  "rooms.startTranscription",
+  "rooms.stopTranscription"
+ ],
+ "rooms.appOptions": [
+  "rooms.appOptions.list"
+ ],
+ "rtm": [
+  "rtm.connect",
+  "rtm.start"
+ ],
+ "salesHome.admin": [
+  "salesHome.admin.addMembers",
+  "salesHome.admin.addOrg",
+  "salesHome.admin.addValidatedMembers",
+  "salesHome.admin.disconnectOrg",
+  "salesHome.admin.exportMembers",
+  "salesHome.admin.getAccessInfo",
+  "salesHome.admin.getConfig",
+  "salesHome.admin.getSuggestedListViews",
+  "salesHome.admin.listMembers",
+  "salesHome.admin.listOrgs",
+  "salesHome.admin.removeMembers",
+  "salesHome.admin.setConfig",
+  "salesHome.admin.setDatasourceId",
+  "salesHome.admin.setObjectMappings",
+  "salesHome.admin.setSuggestedListViews",
+  "salesHome.admin.validateEmails"
+ ],
+ "salesHome.auth": [
+  "salesHome.auth.list"
+ ],
+ "salesHome.dealWinCelebrations": [
+  "salesHome.dealWinCelebrations.get"
+ ],
+ "salesHome.insights": [
+  "salesHome.insights.get",
+  "salesHome.insights.set"
+ ],
+ "salesHome.listViews": [
+  "salesHome.listViews.getAdminSuggested"
+ ],
+ "salesHome.notifications": [
+  "salesHome.notifications.formatShare",
+  "salesHome.notifications.list",
+  "salesHome.notifications.share"
+ ],
+ "salesHome.notifications.mutePrefs": [
+  "salesHome.notifications.mutePrefs.list",
+  "salesHome.notifications.mutePrefs.update"
+ ],
+ "salesHome.salesforceOrgs": [
+  "salesHome.salesforceOrgs.getAdminConfig",
+  "salesHome.salesforceOrgs.setDefault"
+ ],
+ "salesHome.workflows": [
+  "salesHome.workflows.get",
+  "salesHome.workflows.list",
+  "salesHome.workflows.update"
+ ],
+ "saved": [
+  "saved.add",
+  "saved.bulkDelete",
+  "saved.bulkUpdate",
+  "saved.clearCompleted",
+  "saved.delete",
+  "saved.get",
+  "saved.list",
+  "saved.markCompleted",
+  "saved.update"
+ ],
+ "schemaless": [
+  "schemaless.getClientLock"
+ ],
+ "screenhero.rooms": [
+  "screenhero.rooms.create",
+  "screenhero.rooms.info",
+  "screenhero.rooms.invite",
+  "screenhero.rooms.join",
+  "screenhero.rooms.proxyLogs",
+  "screenhero.rooms.proxyMeetingEvents",
+  "screenhero.rooms.rename",
+  "screenhero.rooms.userEvent"
+ ],
+ "search": [
+  "search.all",
+  "search.appDirectory",
+  "search.autocomplete",
+  "search.delete",
+  "search.enterprise",
+  "search.feedback",
+  "search.files",
+  "search.inline",
+  "search.messages",
+  "search.precache",
+  "search.save",
+  "search.team"
+ ],
+ "search.autocomplete": [
+  "search.autocomplete.files",
+  "search.autocomplete.intentModel",
+  "search.autocomplete.model",
+  "search.autocomplete.offlineFeatures",
+  "search.autocomplete.tags",
+  "search.autocomplete.topEmojis",
+  "search.autocomplete.topEngagedFiles",
+  "search.autocomplete.triggers"
+ ],
+ "search.modules": [
+  "search.modules.ai",
+  "search.modules.channels",
+  "search.modules.dms",
+  "search.modules.external",
+  "search.modules.files",
+  "search.modules.messages",
+  "search.modules.people",
+  "search.modules.topResults",
+  "search.modules.triggers",
+  "search.modules.workObjects"
+ ],
+ "search.saved": [
+  "search.saved.create",
+  "search.saved.delete",
+  "search.saved.list"
+ ],
+ "searchQueryAudit.exports": [
+  "searchQueryAudit.exports.start"
+ ],
+ "sessions": [
+  "sessions.checkRecent"
+ ],
+ "sfdc": [
+  "sfdc.checkUiApiCompatibility",
+  "sfdc.getContactDetails",
+  "sfdc.getContactListInfo",
+  "sfdc.getFrontdoorUrl",
+  "sfdc.getGlobalActions",
+  "sfdc.getImportObjectAvailableFields",
+  "sfdc.getImportObjectCSVSample",
+  "sfdc.getListViews",
+  "sfdc.getListViewsV2",
+  "sfdc.getObjectFields",
+  "sfdc.getObjectsOfType",
+  "sfdc.getOpportunity",
+  "sfdc.getOwnerChangeOptions",
+  "sfdc.getPicklistValuesV2",
+  "sfdc.getRecordLayoutDetails",
+  "sfdc.getRelatedListRecords",
+  "sfdc.getRelatedLists",
+  "sfdc.getReportAggregates",
+  "sfdc.getReportAggregatesMetadata",
+  "sfdc.orgInfo",
+  "sfdc.searchObjects",
+  "sfdc.shareSalesTracker",
+  "sfdc.startCSVImport",
+  "sfdc.updateRecord",
+  "sfdc.uploadCSVFile",
+  "sfdc.userInfo"
+ ],
+ "sfdc.activities": [
+  "sfdc.activities.create",
+  "sfdc.activities.getActionLayout",
+  "sfdc.activities.getActivityTrackedObjects",
+  "sfdc.activities.list",
+  "sfdc.activities.listForUser",
+  "sfdc.activities.update"
+ ],
+ "sfdc.admin.configs": [
+  "sfdc.admin.configs.get",
+  "sfdc.admin.configs.set"
+ ],
+ "sfdc.agentforce": [
+  "sfdc.agentforce.add",
+  "sfdc.agentforce.feedback",
+  "sfdc.agentforce.getSlackbotPrefs",
+  "sfdc.agentforce.list",
+  "sfdc.agentforce.listGroupedScopes",
+  "sfdc.agentforce.listInstalled",
+  "sfdc.agentforce.provisionCka",
+  "sfdc.agentforce.setSlackbotEnabled",
+  "sfdc.agentforce.setSlackbotPref"
+ ],
+ "sfdc.agentforce.admin": [
+  "sfdc.agentforce.admin.deleteMcpServers",
+  "sfdc.agentforce.admin.enableMcpServer",
+  "sfdc.agentforce.admin.getMcpServerDetails",
+  "sfdc.agentforce.admin.listMcpServers",
+  "sfdc.agentforce.admin.updateMcpServerConfig"
+ ],
+ "sfdc.agentforce.channelAgent": [
+  "sfdc.agentforce.channelAgent.configure",
+  "sfdc.agentforce.channelAgent.requestHelp",
+  "sfdc.agentforce.channelAgent.tokenCount"
+ ],
+ "sfdc.approvals": [
+  "sfdc.approvals.getApprovalProgress"
+ ],
+ "sfdc.autoStarter.integration.admin": [
+  "sfdc.autoStarter.integration.admin.addMembers",
+  "sfdc.autoStarter.integration.admin.getLicensedMembers",
+  "sfdc.autoStarter.integration.admin.removeMembers",
+  "sfdc.autoStarter.integration.admin.updateMemberProfile"
+ ],
+ "sfdc.captchaKeys": [
+  "sfdc.captchaKeys.create",
+  "sfdc.captchaKeys.list"
+ ],
+ "sfdc.domainVerification": [
+  "sfdc.domainVerification.activate",
+  "sfdc.domainVerification.create",
+  "sfdc.domainVerification.delete",
+  "sfdc.domainVerification.get",
+  "sfdc.domainVerification.list"
+ ],
+ "sfdc.eacConfigs": [
+  "sfdc.eacConfigs.disconnect",
+  "sfdc.eacConfigs.get",
+  "sfdc.eacConfigs.init"
+ ],
+ "sfdc.emailToCaseConfigs": [
+  "sfdc.emailToCaseConfigs.create",
+  "sfdc.emailToCaseConfigs.delete",
+  "sfdc.emailToCaseConfigs.get",
+  "sfdc.emailToCaseConfigs.notifyCopy",
+  "sfdc.emailToCaseConfigs.resendVerification"
+ ],
+ "sfdc.emails": [
+  "sfdc.emails.history",
+  "sfdc.emails.send"
+ ],
+ "sfdc.emails.composer": [
+  "sfdc.emails.composer.defaults"
+ ],
+ "sfdc.events": [
+  "sfdc.events.list"
+ ],
+ "sfdc.fields": [
+  "sfdc.fields.create",
+  "sfdc.fields.edit",
+  "sfdc.fields.listEligible",
+  "sfdc.fields.updateVisibility"
+ ],
+ "sfdc.files": [
+  "sfdc.files.download",
+  "sfdc.files.list",
+  "sfdc.files.upload"
+ ],
+ "sfdc.integration": [
+  "sfdc.integration.authUser",
+  "sfdc.integration.disconnectUser",
+  "sfdc.integration.listOrgs",
+  "sfdc.integration.setCurrentOrg"
+ ],
+ "sfdc.integration.admin": [
+  "sfdc.integration.admin.activateOrg",
+  "sfdc.integration.admin.addMembers",
+  "sfdc.integration.admin.addValidatedMembers",
+  "sfdc.integration.admin.checkProvisioningEligibility",
+  "sfdc.integration.admin.disconnectOrg",
+  "sfdc.integration.admin.exportUserMappings",
+  "sfdc.integration.admin.listEligibleCkaOrgs",
+  "sfdc.integration.admin.listMembers",
+  "sfdc.integration.admin.listOrgs",
+  "sfdc.integration.admin.previewUsers",
+  "sfdc.integration.admin.requestConnection",
+  "sfdc.integration.admin.syncConnectionUpdate",
+  "sfdc.integration.admin.syncMemberPerms",
+  "sfdc.integration.admin.updateOrgConfig",
+  "sfdc.integration.admin.validateEmails"
+ ],
+ "sfdc.integration.auth": [
+  "sfdc.integration.auth.loginUrl"
+ ],
+ "sfdc.integration.elevateMigration": [
+  "sfdc.integration.elevateMigration.complete",
+  "sfdc.integration.elevateMigration.exportFailedUsers",
+  "sfdc.integration.elevateMigration.start",
+  "sfdc.integration.elevateMigration.startManual"
+ ],
+ "sfdc.layouts": [
+  "sfdc.layouts.info"
+ ],
+ "sfdc.licenses.approval": [
+  "sfdc.licenses.approval.list",
+  "sfdc.licenses.approval.myRequest",
+  "sfdc.licenses.approval.request",
+  "sfdc.licenses.approval.review"
+ ],
+ "sfdc.listViews": [
+  "sfdc.listViews.loadPreferences",
+  "sfdc.listViews.recommend",
+  "sfdc.listViews.savePreferences"
+ ],
+ "sfdc.objects": [
+  "sfdc.objects.list"
+ ],
+ "sfdc.records": [
+  "sfdc.records.changeOwner",
+  "sfdc.records.create",
+  "sfdc.records.delete",
+  "sfdc.records.listRecent",
+  "sfdc.records.performQuickAction",
+  "sfdc.records.undelete"
+ ],
+ "sfdc.salesTracker": [
+  "sfdc.salesTracker.convertLead",
+  "sfdc.salesTracker.getContent",
+  "sfdc.salesTracker.getSchema",
+  "sfdc.salesTracker.getStageSettings",
+  "sfdc.salesTracker.updateStageSettings"
+ ],
+ "sfdc.webToLeads": [
+  "sfdc.webToLeads.updateSettings"
+ ],
+ "share.prompts": [
+  "share.prompts.add",
+  "share.prompts.checkAttachedSkills",
+  "share.prompts.info",
+  "share.prompts.listInvokedSkills"
+ ],
+ "sharedInvites": [
+  "sharedInvites.accept",
+  "sharedInvites.canAccept",
+  "sharedInvites.canGetLink",
+  "sharedInvites.findTeamsEligibility",
+  "sharedInvites.get",
+  "sharedInvites.getLink",
+  "sharedInvites.ignoreInvite",
+  "sharedInvites.ignoreUser",
+  "sharedInvites.revoke",
+  "sharedInvites.sendDMRequest"
+ ],
+ "sharedWorkspaces.invites": [
+  "sharedWorkspaces.invites.sendByEmail"
+ ],
+ "sidebar": [
+  "sidebar.dms"
+ ],
+ "signin": [
+  "signin.confirmCode",
+  "signin.findWorkspaces"
+ ],
+ "signup": [
+  "signup.checkSignupDomains",
+  "signup.confirmEmail"
+ ],
+ "slackAi.permissions": [
+  "slackAi.permissions.getForUser"
+ ],
+ "slackConnect.domain": [
+  "slackConnect.domain.setPrimary"
+ ],
+ "slackLists": [
+  "slackLists.create",
+  "slackLists.update"
+ ],
+ "slackLists.access": [
+  "slackLists.access.delete",
+  "slackLists.access.set"
+ ],
+ "slackLists.download": [
+  "slackLists.download.get",
+  "slackLists.download.start"
+ ],
+ "slackLists.items": [
+  "slackLists.items.create",
+  "slackLists.items.delete",
+  "slackLists.items.deleteMultiple",
+  "slackLists.items.info",
+  "slackLists.items.list",
+  "slackLists.items.update"
+ ],
+ "slackbot": [
+  "slackbot.precache"
+ ],
+ "slackbot.mcp": [
+  "slackbot.mcp.callTool",
+  "slackbot.mcp.getToolResult",
+  "slackbot.mcp.list",
+  "slackbot.mcp.listResources",
+  "slackbot.mcp.listTools",
+  "slackbot.mcp.openLink",
+  "slackbot.mcp.readResource",
+  "slackbot.mcp.sendMessage"
+ ],
+ "slackbot.memories": [
+  "slackbot.memories.delete",
+  "slackbot.memories.import",
+  "slackbot.memories.list",
+  "slackbot.memories.updateSettings"
+ ],
+ "slackbot.responses": [
+  "slackbot.responses.add",
+  "slackbot.responses.delete",
+  "slackbot.responses.edit",
+  "slackbot.responses.list"
+ ],
+ "slackbot.suggestions": [
+  "slackbot.suggestions.list",
+  "slackbot.suggestions.listForDesktop"
+ ],
+ "slides": [
+  "slides.addAttachment",
+  "slides.update"
+ ],
+ "solutions": [
+  "solutions.create",
+  "solutions.delete",
+  "solutions.get",
+  "solutions.getTemplates",
+  "solutions.list",
+  "solutions.update"
+ ],
+ "solutions.collaborators": [
+  "solutions.collaborators.add",
+  "solutions.collaborators.get",
+  "solutions.collaborators.remove"
+ ],
+ "stars": [
+  "stars.add",
+  "stars.list",
+  "stars.remove"
+ ],
+ "subscriptions.thread": [
+  "subscriptions.thread.add",
+  "subscriptions.thread.clearAll",
+  "subscriptions.thread.get",
+  "subscriptions.thread.getTimestamps",
+  "subscriptions.thread.getView",
+  "subscriptions.thread.mark",
+  "subscriptions.thread.remove"
+ ],
+ "subteams": [
+  "subteams.info",
+  "subteams.validateHandle",
+  "subteams.validateName"
+ ],
+ "surveys": [
+  "surveys.submit"
+ ],
+ "tableau.embeds": [
+  "tableau.embeds.list"
+ ],
+ "team": [
+  "team.accessLogs",
+  "team.billableInfo",
+  "team.changeInfo",
+  "team.checkEmailDomains",
+  "team.counts",
+  "team.info",
+  "team.integrationLogs",
+  "team.listExternal",
+  "team.newHires",
+  "team.stateMachine",
+  "team.targetingCriteria"
+ ],
+ "team.admin.attachments": [
+  "team.admin.attachments.list"
+ ],
+ "team.admins": [
+  "team.admins.list"
+ ],
+ "team.approvedOrgs": [
+  "team.approvedOrgs.add",
+  "team.approvedOrgs.remove"
+ ],
+ "team.billing": [
+  "team.billing.addContact",
+  "team.billing.info",
+  "team.billing.removeContact"
+ ],
+ "team.billing.changes": [
+  "team.billing.changes.list"
+ ],
+ "team.bmau": [
+  "team.bmau.export",
+  "team.bmau.getAvailableDateRange"
+ ],
+ "team.connectedOrgs": [
+  "team.connectedOrgs.export",
+  "team.connectedOrgs.get",
+  "team.connectedOrgs.list"
+ ],
+ "team.emailDomains.allowed": [
+  "team.emailDomains.allowed.list",
+  "team.emailDomains.allowed.set"
+ ],
+ "team.emailDomains.restricted": [
+  "team.emailDomains.restricted.list",
+  "team.emailDomains.restricted.set"
+ ],
+ "team.externalTeams": [
+  "team.externalTeams.disconnect",
+  "team.externalTeams.list"
+ ],
+ "team.feature": [
+  "team.feature.getRequest",
+  "team.feature.request"
+ ],
+ "team.nav": [
+  "team.nav.get"
+ ],
+ "team.paidfeatures": [
+  "team.paidfeatures.get"
+ ],
+ "team.preferences": [
+  "team.preferences.list"
+ ],
+ "team.prefs": [
+  "team.prefs.get",
+  "team.prefs.set"
+ ],
+ "team.profile": [
+  "team.profile.get"
+ ],
+ "team.slackConnectGuidelines": [
+  "team.slackConnectGuidelines.create",
+  "team.slackConnectGuidelines.get",
+  "team.slackConnectGuidelines.list",
+  "team.slackConnectGuidelines.setEnabled"
+ ],
+ "team.slackConnectPrefs": [
+  "team.slackConnectPrefs.list",
+  "team.slackConnectPrefs.remove",
+  "team.slackConnectPrefs.set"
+ ],
+ "team.stats": [
+  "team.stats.export",
+  "team.stats.timeSeries"
+ ],
+ "teams.authorized.ip.range": [
+  "teams.authorized.ip.range.checkIp",
+  "teams.authorized.ip.range.list",
+  "teams.authorized.ip.range.set"
+ ],
+ "teams.company": [
+  "teams.company.info"
+ ],
+ "teams.selfReportedSegmentation": [
+  "teams.selfReportedSegmentation.create"
+ ],
+ "teams.trials": [
+  "teams.trials.info",
+  "teams.trials.usage"
+ ],
+ "templates": [
+  "templates.provision"
+ ],
+ "templates.admins": [
+  "templates.admins.list"
+ ],
+ "templates.integrations": [
+  "templates.integrations.get"
+ ],
+ "today": [
+  "today.focus",
+  "today.ignoreChannels",
+  "today.unignoreChannels"
+ ],
+ "today.items": [
+  "today.items.clear",
+  "today.items.delete",
+  "today.items.list",
+  "today.items.markRead",
+  "today.items.markUnread",
+  "today.items.update"
+ ],
+ "today.items.blocks": [
+  "today.items.blocks.dismiss"
+ ],
+ "tooling.tokens": [
+  "tooling.tokens.rotate"
+ ],
+ "transcripts": [
+  "transcripts.feedback"
+ ],
+ "ublockworkaround": [
+  "ublockworkaround.history"
+ ],
+ "unfurl.external": [
+  "unfurl.external.validateDomain"
+ ],
+ "unread": [
+  "unread.collapse",
+  "unread.expand",
+  "unread.markRead"
+ ],
+ "userAlerts": [
+  "userAlerts.ack"
+ ],
+ "usergroups": [
+  "usergroups.create",
+  "usergroups.disable",
+  "usergroups.enable",
+  "usergroups.list",
+  "usergroups.membership",
+  "usergroups.search",
+  "usergroups.update"
+ ],
+ "usergroups.users": [
+  "usergroups.users.list",
+  "usergroups.users.update"
+ ],
+ "users": [
+  "users.accessLogs",
+  "users.conversations",
+  "users.deletePhoto",
+  "users.getInviter",
+  "users.getPresence",
+  "users.identity",
+  "users.info",
+  "users.isEarlyJoiner",
+  "users.list",
+  "users.listIgnoredUsers",
+  "users.listOutgoingInvites",
+  "users.lookupByEmail",
+  "users.markAllRead",
+  "users.preparePhoto",
+  "users.recommend",
+  "users.removeUserBlock",
+  "users.setActive",
+  "users.setPhoto",
+  "users.setPresence",
+  "users.stateMachine"
+ ],
+ "users.admin": [
+  "users.admin.canAddUltraRestricted",
+  "users.admin.changeURAChannel",
+  "users.admin.createSharedInvite",
+  "users.admin.disable2FA",
+  "users.admin.fetchInvitesHistory",
+  "users.admin.fetchTeamUsers",
+  "users.admin.fetchTeamUsersCsv",
+  "users.admin.invite",
+  "users.admin.inviteBulk",
+  "users.admin.inviteSms",
+  "users.admin.profileDeidentify",
+  "users.admin.removeExpiration",
+  "users.admin.removeOwner",
+  "users.admin.resendInvitation",
+  "users.admin.sendSSOBind",
+  "users.admin.setAdmin",
+  "users.admin.setExpiration",
+  "users.admin.setInactive",
+  "users.admin.setOwner",
+  "users.admin.setRegular",
+  "users.admin.setRestricted",
+  "users.admin.setUltraRestricted",
+  "users.admin.updateSharedInvite"
+ ],
+ "users.channelSections": [
+  "users.channelSections.create",
+  "users.channelSections.createLink",
+  "users.channelSections.delete",
+  "users.channelSections.linkInfo",
+  "users.channelSections.list",
+  "users.channelSections.set",
+  "users.channelSections.validateShare"
+ ],
+ "users.channelSections.channels": [
+  "users.channelSections.channels.bulkUpdate",
+  "users.channelSections.channels.remove"
+ ],
+ "users.channelSections.entities": [
+  "users.channelSections.entities.update"
+ ],
+ "users.channelSuggestions": [
+  "users.channelSuggestions.list"
+ ],
+ "users.consent": [
+  "users.consent.add",
+  "users.consent.get",
+  "users.consent.remove"
+ ],
+ "users.customStatus": [
+  "users.customStatus.deleteScheduled",
+  "users.customStatus.hide",
+  "users.customStatus.list",
+  "users.customStatus.schedule"
+ ],
+ "users.discoverableContacts": [
+  "users.discoverableContacts.lookup"
+ ],
+ "users.emailVerificationStatus": [
+  "users.emailVerificationStatus.get"
+ ],
+ "users.emailtoken": [
+  "users.emailtoken.create",
+  "users.emailtoken.delete",
+  "users.emailtoken.get"
+ ],
+ "users.interactions": [
+  "users.interactions.list",
+  "users.interactions.set"
+ ],
+ "users.inviteRequests": [
+  "users.inviteRequests.create"
+ ],
+ "users.invites": [
+  "users.invites.addToChannelBulk",
+  "users.invites.resend"
+ ],
+ "users.permissions": [
+  "users.permissions.apps"
+ ],
+ "users.prefs": [
+  "users.prefs.get",
+  "users.prefs.set",
+  "users.prefs.setNotifications"
+ ],
+ "users.priority": [
+  "users.priority.add",
+  "users.priority.getRecommendations",
+  "users.priority.list",
+  "users.priority.remove"
+ ],
+ "users.profile": [
+  "users.profile.get",
+  "users.profile.getAdminSections",
+  "users.profile.getExtras",
+  "users.profile.getSections",
+  "users.profile.getTrailheadRank",
+  "users.profile.set",
+  "users.profile.setAdminSections",
+  "users.profile.setSections"
+ ],
+ "users.profile.relationships": [
+  "users.profile.relationships.getOrgChart"
+ ],
+ "users.sharedInvites": [
+  "users.sharedInvites.list",
+  "users.sharedInvites.renew",
+  "users.sharedInvites.revoke"
+ ],
+ "users.slackConnect": [
+  "users.slackConnect.orgInfo",
+  "users.slackConnect.orgList"
+ ],
+ "users.upgradeGuests": [
+  "users.upgradeGuests.request"
+ ],
+ "views": [
+  "views.close",
+  "views.get",
+  "views.open",
+  "views.publish",
+  "views.push",
+  "views.submit",
+  "views.submitPreview",
+  "views.update"
+ ],
+ "visits": [
+  "visits.list",
+  "visits.record"
+ ],
+ "wmp.components.usages": [
+  "wmp.components.usages.list"
+ ],
+ "wmp.contentLibrary": [
+  "wmp.contentLibrary.create",
+  "wmp.contentLibrary.delete",
+  "wmp.contentLibrary.list",
+  "wmp.contentLibrary.update"
+ ],
+ "wmp.documents": [
+  "wmp.documents.acquireLock",
+  "wmp.documents.create",
+  "wmp.documents.delete",
+  "wmp.documents.heartbeatLock",
+  "wmp.documents.info",
+  "wmp.documents.list",
+  "wmp.documents.listTags",
+  "wmp.documents.publish",
+  "wmp.documents.releaseLock",
+  "wmp.documents.save",
+  "wmp.documents.sendTranslation",
+  "wmp.documents.unpublish",
+  "wmp.documents.update"
+ ],
+ "wmp.documents.heartbeats": [
+  "wmp.documents.heartbeats.list"
+ ],
+ "wmp.icons": [
+  "wmp.icons.list"
+ ],
+ "wmp.media": [
+  "wmp.media.create",
+  "wmp.media.delete",
+  "wmp.media.getFormatDensityMatrix",
+  "wmp.media.info",
+  "wmp.media.list",
+  "wmp.media.listGrouped",
+  "wmp.media.replace",
+  "wmp.media.update"
+ ],
+ "wmp.media.folders": [
+  "wmp.media.folders.create",
+  "wmp.media.folders.list",
+  "wmp.media.folders.update"
+ ],
+ "wmp.media.memberships": [
+  "wmp.media.memberships.create",
+  "wmp.media.memberships.delete"
+ ],
+ "wmp.media.uploads": [
+  "wmp.media.uploads.config",
+  "wmp.media.uploads.presign"
+ ],
+ "wmp.routes": [
+  "wmp.routes.create",
+  "wmp.routes.info",
+  "wmp.routes.list",
+  "wmp.routes.update"
+ ],
+ "wmp.sitemap": [
+  "wmp.sitemap.list"
+ ],
+ "wmp.users": [
+  "wmp.users.create",
+  "wmp.users.delete",
+  "wmp.users.info",
+  "wmp.users.list",
+  "wmp.users.update"
+ ],
+ "workObjects": [
+  "workObjects.editComment",
+  "workObjects.editEntity",
+  "workObjects.getComments",
+  "workObjects.getEntity",
+  "workObjects.postComment",
+  "workObjects.publishEntity"
+ ],
+ "workflows": [
+  "workflows.createFromTemplate"
+ ],
+ "workflows.activity": [
+  "workflows.activity.export",
+  "workflows.activity.get",
+  "workflows.activity.list"
+ ],
+ "workflows.ai": [
+  "workflows.ai.create",
+  "workflows.ai.feedback",
+  "workflows.ai.generate"
+ ],
+ "workflows.channelOptIn": [
+  "workflows.channelOptIn.list",
+  "workflows.channelOptIn.set"
+ ],
+ "workflows.featured": [
+  "workflows.featured.add",
+  "workflows.featured.list",
+  "workflows.featured.remove",
+  "workflows.featured.set"
+ ],
+ "workflows.templates": [
+  "workflows.templates.create",
+  "workflows.templates.delete",
+  "workflows.templates.describe",
+  "workflows.templates.get",
+  "workflows.templates.getAsDecoratedWorkflow",
+  "workflows.templates.getBuiltinTemplate",
+  "workflows.templates.list",
+  "workflows.templates.listAsDecoratedWorkflows",
+  "workflows.templates.listForUser",
+  "workflows.templates.localize",
+  "workflows.templates.setStatus",
+  "workflows.templates.update",
+  "workflows.templates.validate"
+ ],
+ "workflows.templates.collaborators": [
+  "workflows.templates.collaborators.add",
+  "workflows.templates.collaborators.remove"
+ ],
+ "workflows.triggers": [
+  "workflows.triggers.create",
+  "workflows.triggers.delete",
+  "workflows.triggers.info",
+  "workflows.triggers.list",
+  "workflows.triggers.listRecentlyRunForUser",
+  "workflows.triggers.preview",
+  "workflows.triggers.summarize",
+  "workflows.triggers.trip",
+  "workflows.triggers.update"
+ ],
+ "workflows.triggers.auth.external": [
+  "workflows.triggers.auth.external.list"
+ ],
+ "workflows.triggers.permissions": [
+  "workflows.triggers.permissions.add",
+  "workflows.triggers.permissions.list",
+  "workflows.triggers.permissions.remove",
+  "workflows.triggers.permissions.set"
+ ],
+ "workflows.triggers.prefs": [
+  "workflows.triggers.prefs.get"
+ ],
+ "workflows.triggers.types": [
+  "workflows.triggers.types.list"
+ ]
+}

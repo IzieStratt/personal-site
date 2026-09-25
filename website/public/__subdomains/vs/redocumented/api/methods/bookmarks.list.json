@@ -1,0 +1,44 @@
+{
+ "name": "bookmarks.list",
+ "status": "undocumented",
+ "tokens": "session xoxc/xoxd",
+ "verified": "partial",
+ "purpose": "List channel bookmarks (also may be official)",
+ "source": "first pass -- see methods/*.md and undocumented/INDEX.md for per-method citation",
+ "params": {
+  "channel_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Channel to list bookmarks in. Required for public channels."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "bookmarks": "Array<{",
+  "id": "string",
+  "channel_id": "string",
+  "title": "string",
+  "link": "string",
+  "icon_url": "string",
+  "type": "string",
+  "date_created": "number",
+  "date_updated": "number",
+  "rank": "string",
+  "last_updated_by_user_id": "string",
+  "last_updated_by_team_id": "string",
+  "shortcut_id": "string",
+  "app_id": "string",
+  "app_action_id": "string",
+  "image_url": "string",
+  "date_create": "number",
+  "date_update": "number",
+  "parent_id": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/bookmarks.list.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

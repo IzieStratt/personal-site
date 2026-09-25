@@ -4,6 +4,26 @@
 > internal/undocumented methods discovered by source-mining (~1,599 more),
 > for the Hack Club Slack workspace (Enterprise Grid). Compiled 2026-09-20.
 
+## Quick start for agents (pick the smallest thing that answers your question)
+
+- One method:   https://vs.izie.top/redocumented/api/methods/chat.postMessage.json
+                (or .md for markdown; https://vs.izie.top/redocumented/chat.postMessage also works,
+                returning JSON, or markdown when you send `Accept: text/markdown`)
+- Find methods: https://vs.izie.top/redocumented/api/methods.txt   (one TSV line per method:
+                name, status, verified, params-known, write-shaped, purpose; ~250 KB, grep it)
+- Index JSON:   https://vs.izie.top/redocumented/api/index.json    (same data as JSON, no params)
+- Namespaces:   https://vs.izie.top/redocumented/api/namespaces.json (e.g. "chat" -> [method names])
+- OpenAPI 3.1:  https://vs.izie.top/redocumented/openapi.json      (only the params-known methods;
+                usable as tool definitions, each op carries x-verified and x-write-shaped)
+- Everything:   https://vs.izie.top/redocumented/llms-full.txt     (this file + every markdown doc)
+- Full catalog: https://vs.izie.top/redocumented/docs/data/methods.json (~1.9 MB, all fields)
+
+All of these are static, CORS-open (`Access-Control-Allow-Origin: *`), and need no auth or JS.
+A method missing from the catalog returns a JSON 404 with pointers. Missing means unknown to
+this catalog, not proof the method does not exist. `write_shaped: true` is a heuristic
+from the method's verb (create/delete/set/send/...). Treat it as "never call without a
+human", and don't assume a false value means the method is read-only.
+
 ## For agents / programmatic use
 
 The full catalog is a single JSON file, safe to fetch and parse directly:
@@ -57,7 +77,9 @@ catalog is only as good as what gets fed back into it.
   Repo:   https://github.com/IzieStratt/personal-site
   Path:   website/public/__subdomains/vs/redocumented/docs/
           (methods/*.md for write-ups, data/methods.json for the structured
-          catalog — keep both in sync if you touch a method's params/status)
+          catalog — keep both in sync if you touch a method's params/status,
+          then run `python3 scripts/build-redocumented-agent.py` to regenerate
+          api/, openapi.json and llms-full.txt)
 
 In the PR description, say plainly what you verified, how (live call?
 source read? which source?), and whether it's `live-verified` or something

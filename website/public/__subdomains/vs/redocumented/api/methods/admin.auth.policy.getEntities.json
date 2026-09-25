@@ -1,0 +1,39 @@
+{
+ "name": "admin.auth.policy.getEntities",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Fetch all the entities assigned to a particular authentication policy by name.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "policy_name": {
+   "required": true,
+   "type": "string",
+   "desc": "The name of the policy to fetch entities for. Currently, email_password is the only policy that may be used with this method."
+  },
+  "entity_type": {
+   "required": false,
+   "type": "string",
+   "desc": "The type of entity to assign to the policy. Currently, USER is supported."
+  },
+  "limit": {
+   "required": false,
+   "type": "integer",
+   "desc": "The maximum number of items to return. Must be between 1 and 1000, both inclusive."
+  },
+  "cursor": {
+   "required": false,
+   "type": "string",
+   "desc": "Set cursor to next_cursor returned by the previous call to list items in the next page."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"entities\": [\n        {\n            \"entity_type\": \"USER\",\n            \"entity_id\": \"U1234\",\n            \"date_added\": 1620836993\n        }\n    ],\n    \"entity_total_count\": 1\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/admin.auth.policy.getEntities.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

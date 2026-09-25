@@ -1,0 +1,39 @@
+{
+ "name": "payments.billing.addresses.locations",
+ "status": "undocumented",
+ "tokens": "unknown",
+ "verified": "existence-only",
+ "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+ "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+ "params": {
+  "checkout_step": {
+   "required": false,
+   "type": "string"
+  }
+ },
+ "params_known": true,
+ "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "response": {
+  "ok": "true",
+  "countries": "string[]",
+  "us_states": "Record<PaymentsBillingAddressesLocationsUsStatesName, PaymentsBillingAddressesLocationsUsStatesEntry>",
+  "canada_states": "{",
+  "Alberta": "string",
+  "Manitoba": "string",
+  "Nunavut": "string",
+  "Ontario": "string",
+  "Quebec": "string",
+  "Saskatchewan": "string",
+  "Yukon": "string",
+  "taxable_zipcodes": "Record<string, unknown>",
+  "vat_countries": "Record<PaymentsBillingAddressesLocationsVatCountriesName, PaymentsBillingAddressesLocationsVatCountriesEntry>",
+  "abn_countries": "{",
+  "Australia": "string",
+  "country_map": "Record<PaymentsBillingAddressesLocationsCountryMapName, PaymentsBillingAddressesLocationsCountryMapEntry>"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/payments.billing.addresses.locations.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

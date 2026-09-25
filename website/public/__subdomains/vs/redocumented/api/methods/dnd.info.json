@@ -1,0 +1,36 @@
+{
+ "name": "dnd.info",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Retrieves a user's current Do Not Disturb status.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "user": {
+   "required": false,
+   "type": "user",
+   "desc": "User to fetch status for (defaults to current user)."
+  },
+  "team_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Encoded team id where passed in user param belongs, required if org token is used. If no user param is passed, then a team which has access to the app should be passed."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "dnd_enabled": "boolean",
+  "next_dnd_start_ts": "number",
+  "next_dnd_end_ts": "number",
+  "snooze_enabled": "boolean",
+  "snooze_endtime": "number",
+  "snooze_remaining": "number"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/dnd.info.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

@@ -1,0 +1,53 @@
+{
+ "name": "files.remote.update",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Updates an existing remote file.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "external_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Creator defined GUID for the file."
+  },
+  "external_url": {
+   "required": false,
+   "type": "string",
+   "desc": "URL of the remote file."
+  },
+  "file": {
+   "required": false,
+   "type": "file",
+   "desc": "Specify a file by providing its ID."
+  },
+  "filetype": {
+   "required": false,
+   "type": "string",
+   "desc": "type of file."
+  },
+  "indexable_file_contents": {
+   "required": false,
+   "type": "string",
+   "desc": "File containing contents that can be used to improve searchability for the remote file."
+  },
+  "preview_image": {
+   "required": false,
+   "type": "string",
+   "desc": "Preview of the document via multipart/form-data."
+  },
+  "title": {
+   "required": false,
+   "type": "string",
+   "desc": "Title of the file being shared."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": false,
+ "response": null,
+ "response_source": null,
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/files.remote.update.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

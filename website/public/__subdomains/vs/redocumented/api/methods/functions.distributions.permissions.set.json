@@ -1,0 +1,57 @@
+{
+ "name": "functions.distributions.permissions.set",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Set the access type of a custom slack function and define the users, team or org ids to be granted access if permission_type is set to named_entities",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "function_id": {
+   "required": false,
+   "type": "string",
+   "desc": "The encoded ID of the function."
+  },
+  "function_callback_id": {
+   "required": false,
+   "type": "string",
+   "desc": "The callback ID defined in the function's definition file."
+  },
+  "function_app_id": {
+   "required": false,
+   "type": "string",
+   "desc": "The encoded ID of the app."
+  },
+  "permission_type": {
+   "required": false,
+   "type": "enum",
+   "desc": "The type of permission that defines how the function can be distributed."
+  },
+  "user_ids": {
+   "required": false,
+   "type": "array",
+   "desc": "List of encoded user IDs."
+  },
+  "team_ids": {
+   "required": false,
+   "type": "array",
+   "desc": "List of team IDs to allow for named_entities permission."
+  },
+  "org_ids": {
+   "required": false,
+   "type": "array",
+   "desc": "List of org IDs to allow for named_entities permission."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response": {
+  "ok": "true",
+  "distribution_type": "string",
+  "permission_type": "string"
+ },
+ "response_known": true,
+ "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/functions.distributions.permissions.set.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

@@ -1,0 +1,103 @@
+# conversations.open
+
+- status: documented
+- verified: docs-only
+- tokens: per official docs
+- write-shaped name: no
+- source: docs.slack.dev / slack-ruby/slack-api-ref mirror
+- call: POST https://slack.com/api/conversations.open
+
+Opens or resumes a direct message or multi-person direct message.
+
+## Params
+
+| name | required | type | description |
+|---|---|---|---|
+| `channel` | no | channel | Resume a conversation by supplying an im or mpim's ID. Or provide the users field instead. |
+| `return_im` | no | boolean | Boolean, indicates you want the full IM channel definition in the response. |
+| `users` | no | string | Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a channel when not supplying users. |
+| `prevent_creation` | no | boolean | Do not create a direct message or multi-person direct message. This is used to see if there is an existing dm or mpdm. |
+
+Source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)
+
+## Response
+
+| field | type |
+|---|---|
+| `ok` | true |
+| `no_op` | boolean |
+| `already_open` | boolean |
+| `channel` | { |
+| `id` | string |
+| `created` | number |
+| `is_frozen` | boolean |
+| `is_archived` | boolean |
+| `is_im` | boolean |
+| `is_org_shared` | boolean |
+| `context_team_id` | string |
+| `updated` | number |
+| `is_shared` | boolean |
+| `user` | string |
+| `last_read` | string |
+| `latest` | { |
+| `type` | string |
+| `ts` | string |
+| `bot_id` | string |
+| `app_id` | string |
+| `text` | string |
+| `team` | string |
+| `bot_profile` | { |
+| `deleted` | boolean |
+| `name` | string |
+| `user_id` | string |
+| `icons` | { |
+| `image_36` | string |
+| `image_48` | string |
+| `image_72` | string |
+| `team_id` | string |
+| `blocks` | Array<{ |
+| `block_id` | string |
+| `verbatim` | boolean |
+| `accessory` | { |
+| `action_id` | string |
+| `unread_count` | number |
+| `unread_count_display` | number |
+| `is_open` | boolean |
+| `priority` | number |
+| `is_channel` | boolean |
+| `is_group` | boolean |
+| `is_mpim` | boolean |
+| `is_private` | boolean |
+| `is_general` | boolean |
+| `unlinked` | number |
+| `name_normalized` | string |
+| `is_pending_ext_shared` | boolean |
+| `pending_shared` | unknown[] |
+| `parent_conversation` | null |
+| `creator` | string |
+| `is_read_only` | boolean |
+| `is_thread_only` | boolean |
+| `is_non_threadable` | boolean |
+| `is_moved` | number |
+| `is_ext_shared` | boolean |
+| `is_global_shared` | boolean |
+| `is_org_default` | boolean |
+| `is_org_mandatory` | boolean |
+| `shared_team_ids` | unknown[] |
+| `internal_team_ids` | unknown[] |
+| `connected_team_ids` | unknown[] |
+| `connected_limited_team_ids` | unknown[] |
+| `pending_connected_team_ids` | unknown[] |
+| `is_member` | boolean |
+| `members` | string[] |
+| `topic` | { |
+| `value` | string |
+| `last_set` | number |
+| `purpose` | { |
+| `properties` | { |
+| `is_dormant` | boolean |
+
+Source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)
+
+---
+JSON: https://vs.izie.top/redocumented/api/methods/conversations.open.json · Full catalog: https://vs.izie.top/redocumented/llms.txt

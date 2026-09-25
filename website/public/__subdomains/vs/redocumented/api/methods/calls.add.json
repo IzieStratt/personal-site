@@ -1,0 +1,58 @@
+{
+ "name": "calls.add",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Registers a new Call.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "external_unique_id": {
+   "required": true,
+   "type": "string",
+   "desc": "An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service."
+  },
+  "external_display_id": {
+   "required": false,
+   "type": "string",
+   "desc": "An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object."
+  },
+  "join_url": {
+   "required": true,
+   "type": "string",
+   "desc": "The URL required for a client to join the Call."
+  },
+  "desktop_app_join_url": {
+   "required": false,
+   "type": "string",
+   "desc": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL."
+  },
+  "date_start": {
+   "required": false,
+   "type": "integer",
+   "desc": "Unix timestamp of the call start time."
+  },
+  "title": {
+   "required": false,
+   "type": "string",
+   "desc": "The name of the Call."
+  },
+  "created_by": {
+   "required": false,
+   "type": "string",
+   "desc": "The valid Slack user ID of the user who created this Call. When this method is called with a user token, the created_by field is optional and defaults to the authed user of the token. Otherwise, the field is required."
+  },
+  "users": {
+   "required": false,
+   "type": "array",
+   "desc": "The list of users to register as participants in the Call. Read more on how to specify users here."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": false,
+ "response": null,
+ "response_source": null,
+ "write_shaped": true,
+ "url": "https://vs.izie.top/redocumented/api/methods/calls.add.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}

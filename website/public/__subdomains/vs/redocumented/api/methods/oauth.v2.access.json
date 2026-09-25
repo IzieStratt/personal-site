@@ -1,0 +1,59 @@
+{
+ "name": "oauth.v2.access",
+ "status": "documented",
+ "tokens": "per official docs",
+ "verified": "docs-only",
+ "purpose": "Exchanges a temporary OAuth verifier code for an access token.",
+ "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
+ "params": {
+  "client_id": {
+   "required": false,
+   "type": "string",
+   "desc": "Issued when you created your application. If possible, avoid sending client_id and client_secret as parameters in your request and instead supply the Client ID and Client Secret using the HTTP Basic authentication scheme."
+  },
+  "client_secret": {
+   "required": false,
+   "type": "string",
+   "desc": "Issued when you created your application. If possible, avoid sending client_id and client_secret as parameters in your request and instead supply the Client ID and Client Secret using the HTTP Basic authentication scheme."
+  },
+  "code": {
+   "required": false,
+   "type": "string",
+   "desc": "The code param returned via the OAuth callback."
+  },
+  "code_verifier": {
+   "required": false,
+   "type": "string",
+   "desc": "The code_verifier param used to generate the code_challenge originally. Used for PKCE."
+  },
+  "redirect_uri": {
+   "required": false,
+   "type": "string",
+   "desc": "This must match the originally submitted URI (if one was sent)."
+  },
+  "grant_type": {
+   "required": false,
+   "type": "string",
+   "desc": "The grant_type param as described in the OAuth spec."
+  },
+  "refresh_token": {
+   "required": false,
+   "type": "string",
+   "desc": "The refresh_token param as described in the OAuth spec."
+  },
+  "assertion": {
+   "required": false,
+   "type": "string",
+   "desc": "Identity assertion JWT authorization grant."
+  }
+ },
+ "params_known": true,
+ "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+ "response_known": true,
+ "response": null,
+ "response_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev response example)",
+ "response_example": "{\n    \"ok\": true,\n    \"access_token\": \"xoxb-EXAMPLE-FROM-SLACK-DOCS-REDACTED\",\n    \"token_type\": \"bot\",\n    \"scope\": \"commands,incoming-webhook\",\n    \"bot_user_id\": \"U0KRQLJ9H\",\n    \"app_id\": \"A0KRD7HC3\",\n    \"team\": {\n        \"name\": \"Slack Softball Team\",\n        \"id\": \"T9TK3CUKW\"\n    },\n    \"enterprise\": {\n        \"name\": \"slack-sports\",\n        \"id\": \"E12345678\"\n    },\n    \"authed_user\": {\n        \"id\": \"U1234\",\n        \"scope\": \"chat:write\",\n        \"access_token\": \"xoxp-1234\",\n        \"token_type\": \"user\"\n    }\n}",
+ "write_shaped": false,
+ "url": "https://vs.izie.top/redocumented/api/methods/oauth.v2.access.json",
+ "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
+}
