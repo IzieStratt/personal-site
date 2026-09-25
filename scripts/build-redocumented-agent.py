@@ -4,11 +4,10 @@
 Run after editing docs/data/methods.json or any docs/**/*.md:
   python3 scripts/build-redocumented-agent.py
 
-Writes (all generated, don't hand-edit):
+Writes (all generated, don't hand-edit). Per-method pages are served by worker.js
+straight from methods.json, not generated here.
   api/index.json              compact list of every method (no params/response)
   api/methods.txt             one line per method, greppable
-  api/methods/<name>.json     full entry for one method
-  api/methods/<name>.md       same entry as markdown
   api/namespaces.json         namespace -> method names
   openapi.json                OpenAPI 3.1 for methods with params_known: true
   llms-full.txt               llms.txt + every markdown doc, concatenated
@@ -29,13 +28,14 @@ safety = data.get('safety_note_for_agents') or data['schema'].get('safety_note_f
 
 if API.exists():
     shutil.rmtree(API)
-(API / 'methods').mkdir(parents=True)
+API.mkdir(parents=True)
 
 
 def write_json(path, obj):
     path.write_text(json.dumps(obj, indent=1, ensure_ascii=False) + '\n')
 
 
+# keep in sync with WRITE_VERBS in worker.js
 def is_write_shaped(name):
     verb = name.rsplit('.', 1)[-1].lower()
     return any(verb.startswith(v) for v in (
@@ -46,49 +46,12 @@ def is_write_shaped(name):
     ))
 
 
-def method_md(m):
-    lines = [f"# {m['name']}", '',
-             f"- status: {m['status']}",
-             f"- verified: {m['verified']}",
-             f"- tokens: {m.get('tokens') or 'unknown'}",
-             f"- write-shaped name: {'yes, do not call without a human in the loop' if m['write_shaped'] else 'no'}",
-             f"- source: {m.get('source') or 'unknown'}",
-             f"- call: POST https://slack.com/api/{m['name']}",
-             '']
-    if m.get('purpose'):
-        lines += [m['purpose'], '']
-    lines.append('## Params')
-    if m['params_known'] and m['params']:
-        lines += ['', '| name | required | type | description |', '|---|---|---|---|']
-        for k, v in m['params'].items():
-            desc = (v.get('desc') or '').replace('|', '\\|').replace('\n', ' ')
-            lines.append(f"| `{k}` | {'yes' if v.get('required') else 'no'} | {str(v.get('type', '')).replace('|', '/')} | {desc} |")
-        lines += ['', f"Source: {m.get('params_source')}"]
-    else:
-        lines += ['', 'Unknown. Nothing here is guessed; do not invent params for this method.']
-    lines += ['', '## Response']
-    if m.get('response'):
-        lines += ['', '| field | type |', '|---|---|']
-        lines += [f"| `{k}` | {str(v).replace('|', '/')} |" for k, v in m['response'].items()]
-    if m.get('response_example'):
-        lines += ['', '```json', m['response_example'], '```']
-    if not m['response_known']:
-        lines += ['', 'Unknown.']
-    elif m.get('response_source'):
-        lines += ['', f"Source: {m['response_source']}"]
-    lines += ['', '---', f"JSON: {BASE}/api/methods/{m['name']}.json · Full catalog: {BASE}/llms.txt", '']
-    return '\n'.join(lines)
-
-
 index, namespaces, txt = [], defaultdict(list), []
 for m in methods:
     m = dict(m, write_shaped=is_write_shaped(m['name']))
     name = m['name']
     ns = name.rsplit('.', 1)[0] if '.' in name else name
     namespaces[ns].append(name)
-    write_json(API / 'methods' / f'{name}.json', dict(
-        m, url=f"{BASE}/api/methods/{name}.json", safety_note_for_agents=safety))
-    (API / 'methods' / f'{name}.md').write_text(method_md(m))
     index.append({k: m.get(k) for k in (
         'name', 'status', 'verified', 'params_known', 'response_known', 'write_shaped', 'purpose')})
     txt.append('\t'.join([name, m['status'], m['verified'], 'params' if m['params_known'] else '-',

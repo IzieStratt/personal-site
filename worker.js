@@ -88,27 +88,16 @@ async function handleRedocumented(request, env, url) {
     path = wantsJson ? '/redocumented/api/index.json' : '/redocumented/llms.txt'
   }
   const isStaticFile = /\.(txt|json|md|js|css|html|svg|ico|png)$/.test(path)
-  const bareMethod = path.match(/^\/redocumented\/(?:api\/methods\/|m\/)?([A-Za-z][\w-]*(?:\.[\w-]+)+)$/)
-  if (bareMethod && !isStaticFile) {
-    path = `/redocumented/api/methods/${bareMethod[1]}${wantsMarkdown ? '.md' : '.json'}`
+  const method = path.match(/^\/redocumented\/(?:api\/methods\/|m\/)?([A-Za-z][\w-]*(?:\.[\w-]+)+?)(\.json|\.md)?$/)
+  if (method && (path.startsWith('/redocumented/api/methods/') || !isStaticFile)) {
+    return redocMethod(request, env, url, method[1], method[2] ? method[2] === '.md' : wantsMarkdown)
   }
 
   const target = new URL(url)
   target.pathname = `${REDOC_PREFIX}${path === '/redocumented' ? url.pathname : path}`
   let response = await env.ASSETS.fetch(new Request(target, request))
 
-  if (response.status === 404 && path.startsWith('/redocumented/api/')) {
-    const name = path.match(/methods\/([^/]+?)(?:\.json|\.md)?$/)?.[1]
-    response = Response.json({
-      ok: false,
-      error: name ? 'method_not_in_catalog' : 'not_found',
-      method: name || undefined,
-      hint: 'Method names are case-sensitive (e.g. chat.postMessage). A missing method is unknown to this catalog, not proof it does not exist.',
-      index: 'https://vs.izie.top/redocumented/api/index.json',
-      grep: 'https://vs.izie.top/redocumented/api/methods.txt',
-      docs: 'https://vs.izie.top/redocumented/llms.txt',
-    }, { status: 404 })
-  }
+  if (response.status === 404 && path.startsWith('/redocumented/api/')) response = redocNotFound()
 
   const headers = new Headers(response.headers)
   const location = headers.get('Location')
@@ -122,4 +111,79 @@ async function handleRedocumented(request, env, url) {
     headers.append('Link', '</redocumented/api/index.json>; rel="alternate"; type="application/json"')
   }
   return new Response(response.body, { status: response.status, headers })
+}
+
+const REDOC_BASE = 'https://vs.izie.top/redocumented'
+// keep in sync with is_write_shaped in scripts/build-redocumented-agent.py
+const WRITE_VERBS = ['create', 'delete', 'remove', 'set', 'update', 'add', 'post', 'send', 'invite',
+  'kick', 'archive', 'rename', 'leave', 'join', 'close', 'reset', 'revoke', 'upload',
+  'edit', 'mark', 'clear', 'disable', 'enable', 'assign', 'approve', 'deny', 'restrict',
+  'promote', 'demote', 'convert', 'move', 'save', 'unarchive', 'schedule', 'share']
+let redocCatalog = null
+
+async function loadRedocCatalog(env, url) {
+  if (!redocCatalog) {
+    const res = await env.ASSETS.fetch(new URL(`${REDOC_PREFIX}/redocumented/docs/data/methods.json`, url))
+    const data = await res.json()
+    const safety = data.safety_note_for_agents || data.schema?.safety_note_for_agents || ''
+    redocCatalog = { safety, byName: new Map(data.methods.map((m) => [m.name, m])) }
+  }
+  return redocCatalog
+}
+
+function redocNotFound(name) {
+  return Response.json({
+    ok: false,
+    error: name ? 'method_not_in_catalog' : 'not_found',
+    method: name,
+    hint: 'Method names are case-sensitive (e.g. chat.postMessage). A missing method is unknown to this catalog, not proof it does not exist.',
+    index: `${REDOC_BASE}/api/index.json`,
+    grep: `${REDOC_BASE}/api/methods.txt`,
+    docs: `${REDOC_BASE}/llms.txt`,
+  }, { status: 404, headers: { 'Access-Control-Allow-Origin': '*' } })
+}
+
+async function redocMethod(request, env, url, name, markdown) {
+  const { safety, byName } = await loadRedocCatalog(env, url)
+  const found = byName.get(name)
+  if (!found) return redocNotFound(name)
+  const verb = name.split('.').pop().toLowerCase()
+  const m = { ...found, write_shaped: WRITE_VERBS.some((v) => verb.startsWith(v)) }
+  const headers = { 'Access-Control-Allow-Origin': '*', 'Vary': 'Accept', 'Cache-Control': 'public, max-age=300' }
+  if (!markdown) {
+    return Response.json({ ...m, url: `${REDOC_BASE}/api/methods/${name}.json`, safety_note_for_agents: safety }, { headers })
+  }
+  return new Response(redocMethodMarkdown(m), { headers: { ...headers, 'Content-Type': 'text/markdown; charset=utf-8' } })
+}
+
+function redocMethodMarkdown(m) {
+  const cell = (v) => String(v ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ')
+  const lines = [`# ${m.name}`, '',
+    `- status: ${m.status}`,
+    `- verified: ${m.verified}`,
+    `- tokens: ${m.tokens || 'unknown'}`,
+    `- write-shaped name: ${m.write_shaped ? 'yes, do not call without a human in the loop' : 'no'}`,
+    `- source: ${m.source || 'unknown'}`,
+    `- call: POST https://slack.com/api/${m.name}`, '']
+  if (m.purpose) lines.push(m.purpose, '')
+  lines.push('## Params')
+  if (m.params_known && m.params) {
+    lines.push('', '| name | required | type | description |', '|---|---|---|---|')
+    for (const [k, v] of Object.entries(m.params)) {
+      lines.push(`| \`${k}\` | ${v.required ? 'yes' : 'no'} | ${cell(v.type)} | ${cell(v.desc)} |`)
+    }
+    lines.push('', `Source: ${m.params_source}`)
+  } else {
+    lines.push('', 'Unknown. Nothing here is guessed; do not invent params for this method.')
+  }
+  lines.push('', '## Response')
+  if (m.response) {
+    lines.push('', '| field | type |', '|---|---|')
+    for (const [k, v] of Object.entries(m.response)) lines.push(`| \`${k}\` | ${cell(v)} |`)
+  }
+  if (m.response_example) lines.push('', '```json', m.response_example, '```')
+  if (!m.response_known) lines.push('', 'Unknown.')
+  else if (m.response_source) lines.push('', `Source: ${m.response_source}`)
+  lines.push('', '---', `JSON: ${REDOC_BASE}/api/methods/${m.name}.json · Full catalog: ${REDOC_BASE}/llms.txt`, '')
+  return lines.join('\n')
 }
