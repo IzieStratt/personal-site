@@ -25,6 +25,8 @@ official docs (marked **docs**) relevant to the methods covered here.
 | `messages_tab_disabled` | The bot's app has no Messages tab, so it can't DM anyone. Enable `features.app_home.messages_tab_enabled`. **seen** | `chat.postMessage` to a DM, xoxb. |
 | `invalid_request_id` | The app request ID doesn't exist. **seen** | `admin.apps.restrict` with a made-up `request_id`, real admin xoxp. |
 | `bot_not_found` | No bot with that ID visible to this token — also what you get after an app is uninstalled from the whole org. **seen** | `bots.info` after an org-wide `admin.apps.uninstall`. |
+| `invalid_container` | `blocks.actions` with a well-formed `container` when the caller isn't a member of the channel. The same container works after joining. **seen** (see `methods/block-actions-and-modals-2026-09.md`) | `blocks.actions`, enterprise xoxc. |
+| `post_error` (with `message`) | `blocks.actions` was delivered to the app, but it didn't ack within 3s (for example, an `action_id` it doesn't handle). `message`: "App took too long to respond…". **seen** | `blocks.actions`, enterprise xoxc. |
 | `rate_limited` / HTTP 429 | Standard rate limiting; `Retry-After` header gives seconds to wait. **docs**, backoff implemented in `tools/probe.py` but never triggered at our ~1 req/s pace. Seen as `ratelimited` on `admin.apps.uninstall` in the sixth pass. | `admin.apps.uninstall` (see `methods/grid-admin-sandbox-2026-09.md`) |
 | `account_inactive` / `token_revoked` | Token/account no longer valid — treated as a hard-stop lockout signal in `tools/probe.py`, never encountered live. **docs**, not seen. | — |
 

@@ -39,12 +39,15 @@ your `xoxc` token is a team-level session or the enterprise/org-level session**:
   require the **enterprise** xoxc. Confirmed for: `drafts.list`, `drafts.delete`,
   `drafts.update`, `client.userBoot`, `client.counts`, `client.extras`,
   `client.shouldReload`, `search.modules.messages`, `saved.list`, `commands.list`,
-  `users.priority.list`, `users.channelSections.list`.
+  `users.priority.list`, `users.channelSections.list`, `blocks.actions`
+  (also `views.submit` works with it; see `methods/block-actions-and-modals-2026-09.md`).
 - Conversely, at least one method is **team-scoped** and rejects the **enterprise**
   token: `client.boot` returns `ok:true` with the **team** xoxc, but
   `enterprise_is_restricted` with the **enterprise** xoxc. Read it as: `client.boot`
   boots a single team's client state; `client.userBoot` boots the org-wide user
-  state and needs the org session.
+  state and needs the org session. `rtm.connect` is team-scoped too
+  (`enterprise_is_restricted` with the enterprise xoxc), so an app modal opened by
+  an enterprise-token `blocks.actions` click arrives on the **team** token's socket.
 - `drafts.create` is the odd one out: it works with **either** xoxc (team or
   enterprise) — creating a draft doesn't require org-wide session scope the way
   listing/deleting them apparently does.
