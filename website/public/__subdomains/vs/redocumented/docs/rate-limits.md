@@ -50,3 +50,12 @@ this pass:
 regardless of token/method, plus honors `Retry-After` on 429 with `time.sleep()`
 before retrying (max 3 attempts, then gives up rather than hammering). This was a
 safety choice for this task, not a measured Slack limit.
+
+## `admin.apps.uninstall` — observed (sixth pass)
+
+With a real admin xoxp on a Grid sandbox, roughly ten `admin.apps.uninstall`
+calls over a few minutes (each successful `enterprise_id` call preceded by a
+failed `team_ids` one) started returning `ratelimited`. Honouring
+`Retry-After` meant the next attempt went through after about a minute. So a
+bot that uninstalls things should retry on `Retry-After`, not give up. See
+`methods/grid-admin-sandbox-2026-09.md`.

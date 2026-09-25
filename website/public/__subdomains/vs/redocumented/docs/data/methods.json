@@ -1494,8 +1494,8 @@
     {
       "name": "admin.apps.clearResolution",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with a real admin xoxp: app_id + team_id ok, undoes admin.apps.restrict. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Clear an app resolution",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2151,8 +2151,8 @@
     {
       "name": "admin.apps.requests.list",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with a real admin xoxp + team_id: ok. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "List app requests for a team/workspace.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2192,8 +2192,8 @@
     {
       "name": "admin.apps.restrict",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with a real admin xoxp: app_id + team_id ok (shows up in admin.apps.restricted.list for that team). request_id + team_id is checked (invalid_request_id for a fake ID) -- this is how to deny a pending request. Doesn't stop admins installing the app. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Restrict an app for installation on a workspace.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2227,8 +2227,8 @@
     {
       "name": "admin.apps.restricted.list",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with a real admin xoxp: team_id lists workspace restrictions; enterprise_id returned an empty list even with a workspace restriction in place. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "List restricted apps for an org or workspace.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -2392,7 +2392,7 @@
     {
       "name": "admin.apps.uninstall",
       "status": "documented",
-      "tokens": "Live-verified 2026-09-20: team-scoped xoxc + team_id (singular -- not the documented team_ids) got ok:true against a real app in this account's own workspace. Enterprise-scoped xoxc + enterprise_id got permission_denied on the same account/app -- a real per-identity permission check, distinct from the usual team_is_restricted/enterprise_is_restricted Grid-routing split (this account's enterprise xoxc works fine on other org-wide methods). See auth-and-tokens.md 'admin.* is not uniformly org-scoped' and methods/admin-write-scope-2026-09.md.",
+      "tokens": "Live-verified 2026-09-20: team-scoped xoxc + team_id (singular -- not the documented team_ids) got ok:true against a real app in this account's own workspace. Enterprise-scoped xoxc + enterprise_id got permission_denied on the same account/app -- a real per-identity permission check, distinct from the usual team_is_restricted/enterprise_is_restricted Grid-routing split (this account's enterprise xoxc works fine on other org-wide methods). See auth-and-tokens.md 'admin.* is not uniformly org-scoped' and methods/admin-write-scope-2026-09.md. | Live-verified 2026-09-25 with a real admin xoxp (admin.apps:write) on a Grid sandbox: team_ids works for workspace-level installs, but an org-deployed app gives must_revoke_access; enterprise_id then succeeds (unlike the enterprise xoxc's permission_denied). Rate-limits after roughly ten calls in a few minutes. See methods/grid-admin-sandbox-2026-09.md.",
       "verified": "live-verified",
       "purpose": "Uninstall an app from one or many workspaces, or an entire enterprise organization.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
@@ -11676,7 +11676,7 @@
     {
       "name": "bots.info",
       "status": "documented",
-      "tokens": "Live-verified 2026-09-20. team_id was NOT required despite the docs saying it's 'required if org token is used' -- omitting it worked fine, with either xoxc scope. Correction from testing a second app the same day: which xoxc scope can actually see a given bot is NOT uniform -- one app's bot only resolved via the team-scoped xoxc, a second app's bot only resolved via the enterprise-scoped one (bot_not_found on the wrong scope either way). Try both, don't assume either is universal. The response's deleted field is a clean, low-privilege signal for whether a bot/app is currently installed vs uninstalled (false = active, true = removed), without needing any admin.* scope at all. See methods/admin-write-scope-2026-09.md.",
+      "tokens": "Live-verified 2026-09-20. team_id was NOT required despite the docs saying it's 'required if org token is used' -- omitting it worked fine, with either xoxc scope. Correction from testing a second app the same day: which xoxc scope can actually see a given bot is NOT uniform -- one app's bot only resolved via the team-scoped xoxc, a second app's bot only resolved via the enterprise-scoped one (bot_not_found on the wrong scope either way). Try both, don't assume either is universal. The response's deleted field is a clean, low-privilege signal for whether a bot/app is currently installed vs uninstalled (false = active, true = removed), without needing any admin.* scope at all. See methods/admin-write-scope-2026-09.md. | Addendum 2026-09-25: with an org-level xoxb (Grid, CLI install), team_id IS required (missing_argument, arg: team_id). After an org-wide admin.apps.uninstall it returns bot_not_found rather than deleted:true; the bot user still exists with profile.bot_id/api_app_id. See methods/grid-admin-sandbox-2026-09.md.",
       "verified": "live-verified",
       "purpose": "Gets information about a bot user.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
@@ -12311,8 +12311,8 @@
     {
       "name": "canvases.access.set",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with an xoxb: access_level=comment is accepted although docs only list read/write/owner; made-up values get invalid_arguments (must be a valid enum value). See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Sets the access level to a canvas for specified entities",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -12392,8 +12392,8 @@
     {
       "name": "canvases.delete",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with an xoxb: ok, but a channel tab for the canvas stays behind in conversations.info properties.tabs. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Deletes a canvas",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -12912,7 +12912,7 @@
     {
       "name": "chat.command",
       "status": "undocumented",
-      "tokens": "no token confirmed",
+      "tokens": "Live-tested 2026-09-25 with an xoxp: missing_scope, needed: post (the legacy scope modern apps can't request). See methods/grid-admin-sandbox-2026-09.md.",
       "verified": "not-live-tested",
       "purpose": "Run a slash command server-side",
       "source": "first pass -- see methods/*.md and undocumented/INDEX.md for per-method citation",
@@ -16052,8 +16052,8 @@
     {
       "name": "conversations.canvases.create",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with an xoxb: on a channel that already has canvas tabs it just adds another tab (no channel_canvas_already_exists). See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Create a channel canvas for a channel",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -17043,8 +17043,8 @@
     {
       "name": "conversations.info",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25 with an xoxb: canvas tabs are in channel.properties.tabs (type: canvas, data.file_id), plus a near-duplicate properties.tabz; no properties.canvas. See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Retrieve information about a conversation.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -17965,7 +17965,7 @@
     {
       "name": "conversations.removeTab",
       "status": "undocumented",
-      "tokens": "unknown",
+      "tokens": "Live-tested 2026-09-25 with an xoxb: not_allowed_token_type. App tokens can't remove channel tabs. See methods/grid-admin-sandbox-2026-09.md.",
       "verified": "existence-only",
       "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
       "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
@@ -43903,8 +43903,8 @@
     {
       "name": "usergroups.users.list",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25: with an org-level xoxb, team_id is required (missing_argument, arg: team_id). See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "List all users in a User Group.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -45350,8 +45350,8 @@
     {
       "name": "users.list",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "Live-verified 2026-09-25: with an org-level xoxb, team_id is required (missing_argument, arg: team_id). See methods/grid-admin-sandbox-2026-09.md.",
+      "verified": "live-verified",
       "purpose": "Lists all users in a Slack team.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
