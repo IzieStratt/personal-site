@@ -64,6 +64,9 @@ const DEFAULT_SECURITY = {
   operatorSlackId: null,
   // channel id (like C0C4279MKTL) where member-submitted emojis go for review
   reviewChannel: null,
+  // private channel id (like C0C2N9C8QA2) every new member is added to, by
+  // whoever invited them (their plugin, as them) - see queueChannelInvite
+  inviteChannel: null,
   notifyOwners: false,
 }
 
@@ -727,7 +730,14 @@ async function handleWhoami(request, env, ctx, url) {
     const bad = await checkSignature(request, env, url, '', device.jwk, keyId)
     if (bad) return sigResponse(bad)
     ctx.waitUntil(trackSeen(env, rec, keyId, ci))
-    return json(200, await describe(env, rec, sec, { state: 'active' }))
+    return json(
+      200,
+      await describe(env, rec, sec, {
+        state: 'active',
+        botUserId: env.HMOJI_SLACK_BOT_TOKEN ? await getBotUserId(env).catch(() => null) : null,
+        channelInvites: await channelInvitesFor(env, rec),
+      })
+    )
   }
 
   // no device registered (never, or reset by the operator): bind this one
@@ -906,6 +916,44 @@ async function handleVerifyConfirm(request, env, ctx, url, bodyText) {
   return applyProof(request, env, ctx, token, rec, ch, proof.author, ci)
 }
 
+// ---------------------------------------------------------------- channel invites
+//
+// New members are added to security.inviteChannel. The bot can't do it: a
+// private channel needs groups:write.invites, which the Hack Club org only
+// grants with admin approval. So the person who invited them does it, from
+// their own Slack: activation queues ~chinv:<inviteeTid>, the bot DMs the
+// inviter, and the inviter's plugin (which sees that DM arrive) runs
+// conversations.invite as them and reports back. Admins' plugins also pick up
+// anything left over (root members with no inviter, or an inviter who isn't in
+// the channel).
+
+async function queueChannelInvite(env, sec, { inviteeTid, slackUserId, inviter }) {
+  if (!sec.inviteChannel || !slackUserId) return
+  await env.HMOJI_TOKENS.put(
+    `~chinv:${inviteeTid}`,
+    JSON.stringify({
+      id: inviteeTid,
+      user: slackUserId,
+      channel: sec.inviteChannel,
+      inviterTid: inviter?.id ?? null,
+      inviterSlackId: inviter?.slackUserId ?? null,
+      createdAt: Date.now(),
+    }),
+    { expirationTtl: 30 * 86400 }
+  )
+}
+
+/** Queued channel invites this member's plugin should do: their own invitees, or all for admins. */
+async function channelInvitesFor(env, rec) {
+  const listed = await env.HMOJI_TOKENS.list({ prefix: '~chinv:', limit: 200 })
+  if (!listed.keys.length) return []
+  const items = await Promise.all(listed.keys.map((k) => env.HMOJI_TOKENS.get(k.name, 'json')))
+  return items
+    .filter(Boolean)
+    .filter((i) => rec.identity === 'admin' || i.inviterTid === rec.id)
+    .map((i) => ({ id: i.id, user: i.user, channel: i.channel }))
+}
+
 async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
   const sec = await getSecurity(env)
   // A barred account can never re-verify, even if a fresh invite token exists.
@@ -965,6 +1013,13 @@ async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
     await env.HMOJI_TOKENS.put(`~owner:${author}`, token)
     if (fresh.invitedBy) await env.HMOJI_TOKENS.delete(`~inv:${fresh.invitedBy.id}:${fresh.id}`)
     ctx.waitUntil(logEvent(env, fresh.id, 'activated', attempt))
+    await queueChannelInvite(env, sec, { inviteeTid: fresh.id, slackUserId: author, inviter: fresh.invitedBy })
+    if (fresh.invitedBy?.slackUserId) {
+      // also the signal the inviter's plugin reacts to (it adds them to the channel)
+      ctx.waitUntil(
+        notifySlack(env, fresh.invitedBy.slackUserId, `🎉 <@${author}> joined HMojis from your invite.`)
+      )
+    }
     if (fresh.invitedBy) {
       ctx.waitUntil(logEvent(env, fresh.invitedBy.id, 'invite_activated', { invitee: fresh.id, author, hint: fresh.hint ?? null }))
     }
@@ -998,6 +1053,7 @@ async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
       await env.HMOJI_TOKENS.put(`~owner:${author}`, token)
     }
     ctx.waitUntil(logEvent(env, fresh.id, 'bound', attempt))
+    await queueChannelInvite(env, sec, { inviteeTid: fresh.id, slackUserId: author, inviter: fresh.invitedBy ?? null })
     // A legacy token with no recorded owner goes to whoever verifies first. It
     // is accepted (nobody is locked out) but stands out for the operator.
     if (claimed) ctx.waitUntil(raiseFlag(env, fresh.id, 'legacy_claim', { author, ip: ci.ip, asn: ci.asn }, 'info'))
@@ -1131,6 +1187,37 @@ async function handleInviteCancel(request, env, ctx, url, bodyText) {
   await env.HMOJI_TOKENS.delete(marker)
   ctx.waitUntil(logEvent(env, auth.rec.id, 'invite_cancelled', { invitee: body.id }))
   return json(200, { ok: true })
+}
+
+/** The plugin reports a channel invite it did (or couldn't do) as this member. */
+async function handleChannelInviteDone(request, env, ctx, url, bodyText) {
+  const auth = await authenticate(request, env, ctx, url, bodyText, { allowGrace: false })
+  if (auth.res) return auth.res
+  let body
+  try {
+    body = JSON.parse(bodyText)
+  } catch {
+    return fail(400, 'bad_json')
+  }
+  if (typeof body?.id !== 'string' || !/^t_[0-9a-f]{10}$/.test(body.id)) return fail(400, 'bad_request')
+  const key = `~chinv:${body.id}`
+  const item = await env.HMOJI_TOKENS.get(key, 'json')
+  if (!item) return json(200, { ok: true, status: 'gone' })
+  if (auth.rec.identity !== 'admin' && item.inviterTid !== auth.rec.id) return fail(403, 'not_yours')
+  const result = String(body.result ?? '')
+  if (result === 'invited' || result === 'already_in_channel') {
+    await env.HMOJI_TOKENS.delete(key)
+    ctx.waitUntil(logEvent(env, item.id, 'channel_invited', { by: auth.rec.slackUserId, channel: item.channel, result }))
+    return json(200, { ok: true, status: 'done' })
+  }
+  // left queued: another try later, or an admin's plugin
+  ctx.waitUntil(
+    logEvent(env, item.id, 'channel_invite_failed', {
+      by: auth.rec.slackUserId,
+      error: String(body.error ?? '').slice(0, 80),
+    })
+  )
+  return json(200, { ok: true, status: 'kept' })
 }
 
 async function handleInvites(request, env, ctx, url) {
@@ -1405,18 +1492,60 @@ async function handleReviewImage(request, env, ctx, url, id) {
 }
 
 /** Slack interactive callback: /slack/hmojis/review (form field "payload"). */
+const VERB_LABEL = { yes: 'approving', no: 'declining', ban: 'banning', remove: 'removing' }
+
+/** Opens a small confirmation dialog with the click's trigger_id; true only for a real click on our app. */
+async function proveClickWithTrigger(env, payload) {
+  const trigger = payload?.trigger_id
+  if (typeof trigger !== 'string' || !trigger || !env.HMOJI_SLACK_BOT_TOKEN) return false
+  const [, verb] = String(payload?.actions?.[0]?.value ?? '').split(':')
+  try {
+    await slackCall(env, 'views.open', {
+      trigger_id: trigger,
+      view: JSON.stringify({
+        type: 'modal',
+        title: { type: 'plain_text', text: 'HMojis review' },
+        close: { type: 'plain_text', text: 'OK' },
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `On it: ${VERB_LABEL[verb] ?? 'deciding'}. The card updates in a moment, with a note in its thread.`,
+            },
+          },
+        ],
+      }),
+    })
+    return true
+  } catch (err) {
+    console.error('hmojis views.open refused the trigger:', err?.code)
+    return false
+  }
+}
+
 async function handleReviewCallback(request, env, ctx, url) {
   if (request.method !== 'POST') return NOT_FOUND()
   const text = await request.text()
-  const forged = await verifySlackRequest(request, text, env)
-  if (forged) {
-    console.error('hmojis review callback refused:', forged)
-    return new Response('Unauthorized', { status: 401 })
-  }
   let payload = null
   try {
     payload = JSON.parse(new URLSearchParams(text).get('payload') ?? '')
   } catch {}
+  const forged = await verifySlackRequest(request, text, env)
+  if (forged === 'signing_secret_not_configured') {
+    // No Signing Secret (Slack gives no API to read it for an existing app).
+    // Instead, prove the click is real with its trigger_id: Slack issues it
+    // to this app only, valid for 3 s, and views.open with our bot token
+    // fails for anything else. The dialog it opens doubles as the "got it".
+    const proven = await proveClickWithTrigger(env, payload)
+    if (!proven) {
+      console.error('hmojis review callback refused: no valid trigger_id')
+      return new Response('Unauthorized', { status: 401 })
+    }
+  } else if (forged) {
+    console.error('hmojis review callback refused:', forged)
+    return new Response('Unauthorized', { status: 401 })
+  }
   if (!payload || payload.type !== 'block_actions') {
     return new Response('ignored', { status: 200 })
   }
@@ -1630,6 +1759,8 @@ async function handleApi(request, env, ctx, url, name) {
       return handleVerifyConfirm(request, env, ctx, url, body)
     case 'POST invite/create':
       return handleInviteCreate(request, env, ctx, url, body)
+    case 'POST channel-invite/done':
+      return handleChannelInviteDone(request, env, ctx, url, body)
     case 'POST invite/cancel':
       return handleInviteCancel(request, env, ctx, url, body)
     default:
