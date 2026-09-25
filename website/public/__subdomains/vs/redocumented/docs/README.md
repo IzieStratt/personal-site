@@ -324,6 +324,9 @@ number of times (never more than 4-5 param/token combinations per method).
 
 This is **not** a complete map of Slack's private API surface, and cannot be:
 
+- `methods/grid-admin-sandbox-2026-09.md` — the sixth pass: real admin
+  OAuth tokens on an Enterprise Grid sandbox (org-level xoxb + admin xoxp):
+  `admin.apps.*` behaviour, `team_id` requirements, channel canvas tabs.
 - The existence oracle only covers methods routed through the standard
   `POST https://slack.com/api/<method>` (or `hackclub.slack.com/api/<method>`)
   dispatcher. Slack's web client also calls a structurally different **Edge API**
