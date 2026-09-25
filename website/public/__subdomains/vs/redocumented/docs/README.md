@@ -327,6 +327,10 @@ This is **not** a complete map of Slack's private API surface, and cannot be:
 - `methods/grid-admin-sandbox-2026-09.md` — the sixth pass: real admin
   OAuth tokens on an Enterprise Grid sandbox (org-level xoxb + admin xoxp):
   `admin.apps.*` behaviour, `team_id` requirements, channel canvas tabs.
+- `methods/block-actions-and-modals-2026-09.md` — live-tested: clicking an
+  app's Block Kit button as a user (`blocks.actions`), catching the modal it
+  opens (RTM `view_opened`) and submitting it (`views.submit`); which xoxc each
+  needs and what `invalid_container` / `post_error` mean.
 - The existence oracle only covers methods routed through the standard
   `POST https://slack.com/api/<method>` (or `hackclub.slack.com/api/<method>`)
   dispatcher. Slack's web client also calls a structurally different **Edge API**
