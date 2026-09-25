@@ -341,11 +341,47 @@ async function readProof(env, channel, code, sinceMs) {
 }
 
 /** Best-effort DM from the bot; needs chat:write, silently skipped without it. */
+/** DM from the bot. Returns null when sent, or why it wasn't. Never throws. */
 async function notifySlack(env, userId, text) {
-  if (!userId || !env.HMOJI_SLACK_BOT_TOKEN) return
+  if (!userId) return 'no_recipient'
+  if (!env.HMOJI_SLACK_BOT_TOKEN) return 'slack_not_configured'
   try {
     await slackCall(env, 'chat.postMessage', { channel: userId, text })
-  } catch {}
+    return null
+  } catch (err) {
+    return err?.code ?? 'slack_error'
+  }
+}
+
+/** Tells the submitter the outcome; logs and returns the failure, if any. */
+async function tellSubmitter(env, review, text) {
+  const failed = await notifySlack(env, review.submitterSlackId, text)
+  if (failed) await logEvent(env, review.tid, 'notify_failed', { review: review.id, error: failed })
+  return failed
+}
+
+/**
+ * Checks that a request really comes from Slack: an HMAC-SHA256 of
+ * "v0:<timestamp>:<raw body>" with the app's Signing Secret (Cloudflare secret
+ * HMOJI_SLACK_SIGNING_SECRET), timestamp within 5 minutes. Without the secret
+ * every request is refused. Returns null when valid, or the reason.
+ */
+async function verifySlackRequest(request, body, env) {
+  const secret = env.HMOJI_SLACK_SIGNING_SECRET
+  if (!secret) return 'signing_secret_not_configured'
+  const ts = request.headers.get('x-slack-request-timestamp') ?? ''
+  const sig = request.headers.get('x-slack-signature') ?? ''
+  if (!/^\d+$/.test(ts) || Math.abs(Date.now() / 1000 - Number(ts)) > 300) return 'stale_or_missing_timestamp'
+  if (!sig.startsWith('v0=')) return 'missing_signature'
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  )
+  const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(`v0:${ts}:${body}`))
+  return (await sameSecret(`v0=${toHex(new Uint8Array(mac))}`, sig)) ? null : 'bad_signature'
 }
 
 // ---------------------------------------------------------------- keys and signatures
@@ -1372,6 +1408,11 @@ async function handleReviewImage(request, env, ctx, url, id) {
 async function handleReviewCallback(request, env, ctx, url) {
   if (request.method !== 'POST') return NOT_FOUND()
   const text = await request.text()
+  const forged = await verifySlackRequest(request, text, env)
+  if (forged) {
+    console.error('hmojis review callback refused:', forged)
+    return new Response('Unauthorized', { status: 401 })
+  }
   let payload = null
   try {
     payload = JSON.parse(new URLSearchParams(text).get('payload') ?? '')
@@ -1401,34 +1442,56 @@ async function handleReviewCallback(request, env, ctx, url) {
   if (review.messageTs && payload.message?.ts && payload.message.ts !== review.messageTs) {
     return new Response('Message mismatch', { status: 200 })
   }
-  try {
-    await decideReview(env, ctx, sec, review, verb, actor)
-  } catch (err) {
-    console.error('hmojis review decide failed', err?.stack ?? err)
-  }
-  // Slack needs a fast ack; any failure above already leaves the review pending.
-  return new Response('ok', { status: 200 })
+  // Claim it first so a double click can't decide twice, then answer Slack at
+  // once (it wants a reply within 3 s) and do the work in the background.
+  await env.HMOJI_CONFIG.put(`review:${id}`, JSON.stringify({ ...review, status: 'deciding' }), {
+    expirationTtl: REVIEW_TTL_SEC,
+  })
+  ctx.waitUntil(
+    decideReview(env, ctx, sec, review, verb, actor).catch(async (err) => {
+      console.error('hmojis review decide failed', err?.stack ?? err)
+      // put it back so it can be decided again
+      await env.HMOJI_CONFIG.put(`review:${id}`, JSON.stringify(review), { expirationTtl: REVIEW_TTL_SEC })
+      await logEvent(env, review.tid, 'review_decide_failed', { review: id, verb, error: String(err?.message ?? err) })
+    })
+  )
+  return new Response('', { status: 200 })
 }
 
 async function decideReview(env, ctx, sec, review, verb, actor) {
   const outcome = await applyDecision(env, ctx, review, verb, actor)
   const summary = `Review #${review.id} (\`::${review.name}::\`) decided by <@${actor}>: ${outcome.title}`
-  if (review.channel && review.messageTs && env.HMOJI_SLACK_BOT_TOKEN) {
-    try {
-      await slackCall(env, 'chat.update', {
-        channel: review.channel,
-        ts: review.messageTs,
-        blocks: JSON.stringify(
-          [
-            { type: 'section', text: { type: 'mrkdwn', text: summary } },
-            outcome.extra
-              ? { type: 'section', text: { type: 'mrkdwn', text: outcome.extra } }
-              : null,
-          ].filter(Boolean)
-        ),
-        text: summary,
-      })
-    } catch {}
+  const toldLine =
+    outcome.told === undefined
+      ? null
+      : outcome.told
+        ? `⚠️ Couldn't DM <@${review.submitterSlackId}> about it (${outcome.told}).`
+        : `<@${review.submitterSlackId}> was told by DM.`
+  if (!review.channel || !review.messageTs || !env.HMOJI_SLACK_BOT_TOKEN) return
+  const lines = [outcome.extra, toldLine].filter(Boolean)
+  try {
+    // the card itself: buttons gone, outcome in their place
+    await slackCall(env, 'chat.update', {
+      channel: review.channel,
+      ts: review.messageTs,
+      blocks: JSON.stringify([
+        { type: 'section', text: { type: 'mrkdwn', text: summary } },
+        ...lines.map((text) => ({ type: 'section', text: { type: 'mrkdwn', text } })),
+      ]),
+      text: summary,
+    })
+  } catch (err) {
+    await logEvent(env, review.tid, 'review_card_update_failed', { review: review.id, error: err?.code })
+  }
+  try {
+    // and a reply in its thread, so the decision is also a message you see
+    await slackCall(env, 'chat.postMessage', {
+      channel: review.channel,
+      thread_ts: review.messageTs,
+      text: [summary, ...lines].join('\n'),
+    })
+  } catch (err) {
+    await logEvent(env, review.tid, 'review_reply_failed', { review: review.id, error: err?.code })
   }
 }
 
@@ -1464,15 +1527,15 @@ async function applyDecision(env, ctx, review, verb, actor) {
       { expirationTtl: REVIEW_TTL_SEC }
     )
     ctx.waitUntil(logEvent(env, review.tid, 'emoji_approved', { review: review.id, name: review.name, by: actor }))
-    ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your ::${review.name}:: hmoji was approved and is live.`))
-    return { title: '✅ approved', extra: `::${review.name}:: is now live for everyone in the group.` }
+    const told = await tellSubmitter(env, review, `Your ::${review.name}:: hmoji was approved and is live.`)
+    return { title: '✅ approved', extra: `::${review.name}:: is now live for everyone in the group.`, told }
   }
   if (verb === 'no') {
     await env.HMOJI_CONFIG.delete(`review:${review.id}`)
     await env.HMOJI_IMAGES.delete(`~review:${review.id}`)
     ctx.waitUntil(logEvent(env, review.tid, 'emoji_declined', { review: review.id, name: review.name, by: actor }))
-    ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your ::${review.name}:: hmoji submission was declined.`))
-    return { title: '❌ declined', extra: null }
+    const told = await tellSubmitter(env, review, `Your ::${review.name}:: hmoji submission was declined.`)
+    return { title: '❌ declined', extra: null, told }
   }
   // ban vs remove both revoke; ban cascades down the invite subtree and is final.
   const banned = verb === 'ban'
@@ -1488,8 +1551,9 @@ async function applyDecision(env, ctx, review, verb, actor) {
     { expirationTtl: REVIEW_TTL_SEC }
   )
   ctx.waitUntil(logEvent(env, review.tid, banned ? 'member_banned' : 'member_removed', { review: review.id, by: actor }))
-  ctx.waitUntil(notifySlack(env, review.submitterSlackId, `Your HMojis access was ${banned ? 'removed and your account is banned' : 'removed'}.`))
+  const told = await tellSubmitter(env, review, `Your HMojis access was ${banned ? 'removed and your account is banned' : 'removed'}.`)
   return {
+    told,
     title: banned ? '🚫 banned' : '♻️ removed',
     extra: banned
       ? 'Their tokens and everyone they invited were revoked; the account cannot verify again.'
