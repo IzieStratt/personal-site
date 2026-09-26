@@ -12081,7 +12081,7 @@
   {
    "name": "rooms.join",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
@@ -12090,7 +12090,7 @@
   {
    "name": "rooms.leave",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "ambiguous (live 2026-09-26: feature_not_enabled for a browser-session identity; leave via the Chime LEAVE frame instead, see methods/huddles-and-chime.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": true,

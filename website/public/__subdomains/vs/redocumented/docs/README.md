@@ -92,8 +92,14 @@ field or the published `llms.txt` for the same note in agent-facing form.
   right-click member menu, read from the desktop app's cached bundle (not API
   methods; what client mods hook into).
 - `methods/huddles-and-chime.md` — huddles: the `rooms.*`/`screenhero.*` calls, the
-  realtime websocket events, and the AWS Chime media layer. Source-read only,
-  from `ingoau/huddlefm` and `LeafdTK/huddlecast` (not live-tested).
+  realtime websocket events, and the AWS Chime media layer. Mostly source-read
+  from `ingoau/huddlefm` and `LeafdTK/huddlecast`, plus a live-tested section
+  (2026-09-26) on joining with raw requests and no browser.
+- `methods/huddles-peer-messages.md` — what travels inside a huddle's Chime
+  session: the `PeerMessage` protobuf (drawing on screen shares, reactions,
+  mute/kick notices, awareness, transcript catch-up), decoded from the client
+  bundle; screenshare drawing, fading, cursors and Chime's data-message rate
+  limit live-tested (2026-09-26).
 - `methods/slack-undoc-client-2026.md` — the 31 new methods (with typed
   params) found cross-referencing `ImShyMike/slack-undoc-client`.
 - `methods/admin-write-scope-2026-09.md` — the fifth pass: live-testing

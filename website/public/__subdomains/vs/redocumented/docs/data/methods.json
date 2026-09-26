@@ -34394,10 +34394,10 @@
     {
       "name": "rooms.join",
       "status": "undocumented",
-      "tokens": "unknown - not live-tested",
-      "verified": "existence-only",
+      "tokens": "Browser-session identity: xoxc client token + Cookie d=<xoxd>, POSTed to <workspace>.slack.com. On Enterprise Grid the enterprise-level (E…) xoxc is needed; the workspace (T…) token gets team_is_restricted. (live-tested 2026-09-26)",
+      "verified": "live-verified",
       "purpose": "Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in the loop.",
-      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested); deployor/hq-fishbowl (source read; trusted)",
+      "source": "3kh0/slack-datamine, build 132396 (committed webpack mining); ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested); deployor/hq-fishbowl (source read; trusted); live-tested 2026-09-26 (huddle-drawing project, see methods/huddles-and-chime.md)",
       "params_known": true,
       "params": {
         "channel_id": {
@@ -34408,12 +34408,12 @@
         "regions": {
           "required": false,
           "type": "string",
-          "desc": "Chime media region to request. Working clients use ap-southeast-2 (huddlefm), us-west-1 (huddlecast), us-east-2 (hq-fishbowl)."
+          "desc": "Chime media region to request. Working clients use ap-southeast-2 (huddlefm), us-west-1 (huddlecast), us-east-2 (hq-fishbowl). us-east-2 live-tested."
         },
         "multidevice": {
           "required": false,
           "type": "string",
-          "desc": "Sent as \"true\" by huddlefm and \"false\" by huddlecast; omitted by deployor/hq-fishbowl, so not required. Meaning unconfirmed."
+          "desc": "Sent as \"true\" by huddlefm and \"false\" by huddlecast; omitted by deployor/hq-fishbowl, so not required. Meaning unconfirmed. Not needed live."
         },
         "token": {
           "required": true,
@@ -34433,15 +34433,16 @@
         "canvas.root_thread_ts": "string",
         "huddle.id": "string",
         "huddle.created_by": "string",
-        "huddle.participants": "string[] | {user_id: string}[]"
+        "huddle.participants": "string[] | {user_id: string}[]",
+        "call.survey_percent": "number (seen live)"
       },
-      "response_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- partial: only fields these clients read"
+      "response_source": "ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- partial: only fields these clients read; live 2026-09-26: call.call_id, call.survey_percent, call.free_willy.{meeting,attendee} seen. The same user gets the same AttendeeId/JoinToken on every call while the room lives."
     },
     {
       "name": "rooms.leave",
       "status": "undocumented",
-      "tokens": "unknown - not live-tested",
-      "verified": "existence-only",
+      "tokens": "xoxc + d cookie returned feature_not_enabled (live-tested 2026-09-26)",
+      "verified": "ambiguous (live 2026-09-26: feature_not_enabled for a browser-session identity; leave via the Chime LEAVE frame instead, see methods/huddles-and-chime.md)",
       "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
       "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
       "params_known": false,
