@@ -6,40 +6,51 @@
 
 ## Quick start for agents (pick the smallest thing that answers your question)
 
-- One method:   https://vs.izie.top/redocumented/api/methods/chat.postMessage.json
-                (or .md for markdown; https://vs.izie.top/redocumented/chat.postMessage also works,
-                returning JSON, or markdown when you send `Accept: text/markdown`)
-- Find methods: https://vs.izie.top/redocumented/api/methods.txt   (one TSV line per method:
-                name, status, verified, params-known, write-shaped, purpose; ~250 KB, grep it)
-- Index JSON:   https://vs.izie.top/redocumented/api/index.json    (same data as JSON, no params)
-- Namespaces:   https://vs.izie.top/redocumented/api/namespaces.json (e.g. "chat" -> [method names])
-- OpenAPI 3.1:  https://vs.izie.top/redocumented/openapi.json      (only the params-known methods;
-                usable as tool definitions, each op carries x-verified and x-write-shaped)
-- Everything:   https://vs.izie.top/redocumented/llms-full.txt     (this file + every markdown doc)
-- Full catalog: https://vs.izie.top/redocumented/docs/data/methods.json (~1.9 MB, all fields)
+Know the method name? Fetch just that method:
 
-All of these are static, CORS-open (`Access-Control-Allow-Origin: *`), and need no auth or JS.
-A method missing from the catalog returns a JSON 404 with pointers. Missing means unknown to
-this catalog, not proof the method does not exist. `write_shaped: true` is a heuristic
-from the method's verb (create/delete/set/send/...). Treat it as "never call without a
-human", and don't assume a false value means the method is read-only.
+  https://vs.izie.top/redocumented/chat.postMessage              -> JSON
+  https://vs.izie.top/redocumented/chat.postMessage?format=md    -> markdown
+  (same as /redocumented/api/methods/chat.postMessage.json and .md;
+   `Accept: text/markdown` also works if your tool can set headers)
+
+Names are case-sensitive and must be the full name (`chat.postMessage`, not
+`postMessage` or `chat.postmessage`). A name that isn't in the catalog returns
+HTTP 404 with JSON `{"ok": false, "error": "method_not_in_catalog", ...}`.
+That means this catalog doesn't know the method. It doesn't mean Slack lacks it.
+
+Don't know the name? Search first:
+
+- https://vs.izie.top/redocumented/api/methods.txt   (~250 KB) one tab-separated line per method:
+  name, status, verified, params ("params" = known, "-" = unknown), write ("write" or "-"), purpose
+- https://vs.izie.top/redocumented/api/namespaces.json   prefix -> method names, e.g. "chat" -> [...]
+- https://vs.izie.top/redocumented/api/index.json   the same list as methods.txt, as JSON
+
+Need more:
+
+- https://vs.izie.top/redocumented/openapi.json   OpenAPI 3.1 for every method whose params are
+  known (726, including ones known to take none). Usable as tool definitions. Each operation
+  has `x-verified` and `x-write-shaped`.
+- https://vs.izie.top/redocumented/llms-full.txt   this file plus every markdown write-up (~650 KB)
+- https://vs.izie.top/redocumented/docs/data/methods.json   the full catalog (~1.9 MB), only if
+  you really need all fields for every method
+
+Everything above is plain GET, CORS-open (`Access-Control-Allow-Origin: *`), with no auth or
+JavaScript. `write_shaped: true` comes from the method's verb (create/delete/set/send/...):
+never call those without a human. `write_shaped: false` does NOT mean read-only.
 
 ## For agents / programmatic use
 
-The full catalog is a single JSON file, safe to fetch and parse directly:
-
-  https://vs.izie.top/redocumented/docs/data/methods.json
-
-That file has a top-level `schema` object describing every field, and a
-`safety_note_for_agents` field with explicit warnings. Read both before using
-the data. In short:
+Every per-method response above, and the full catalog at
+https://vs.izie.top/redocumented/docs/data/methods.json, uses the same fields.
+The full catalog also has a top-level `schema` object describing every field,
+and each per-method JSON carries `safety_note_for_agents`. In short:
 
 - If you learn more about any method (params, responses, behavior, a new or
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 725/1,922
-  methods (37.7%) have real sourced params; the rest are `params_known: false`
+  Only trust `params`/`response` as real when those are `true` — 726/1,922
+  methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS
   and behaves as described: `live-verified` (called for real) down through

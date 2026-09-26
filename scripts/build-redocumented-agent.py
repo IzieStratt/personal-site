@@ -72,11 +72,11 @@ write_json(API / 'namespaces.json', dict(sorted(namespaces.items())))
 # OpenAPI: only methods whose params are real sourced data
 paths = {}
 for m in methods:
-    if not m['params_known'] or not m['params']:
+    if not m['params_known']:
         continue
     props = {k: {'type': 'string', 'description': ' '.join(str(x) for x in (v.get('type'), v.get('desc')) if x)}
-             for k, v in m['params'].items()}
-    required = [k for k, v in m['params'].items() if v.get('required') and k != 'token']
+             for k, v in (m['params'] or {}).items()}
+    required = [k for k, v in (m['params'] or {}).items() if v.get('required') and k != 'token']
     schema = {'type': 'object', 'properties': props}
     if required:
         schema['required'] = required

@@ -132,6 +132,33 @@
     }
    }
   },
+  "/activity.views": {
+   "post": {
+    "operationId": "activity.views",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/activity.views.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, views, id, name, view_type, position, sort, filters"
+     }
+    }
+   }
+  },
   "/admin.accountType.permissions.add": {
    "post": {
     "operationId": "admin.accountType.permissions.add",
@@ -841,6 +868,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/admin.apps.certified.list": {
+   "post": {
+    "operationId": "admin.apps.certified.list",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.certified.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, apps, id, is_installed, is_request_pending, namespace, app_resolution, requires_config, missing_required_config, config_options, variables, name, title, description, hint, min_length, max_length, is_required, is_secret, admin_app_config, workflow_auth_strategy, is_config_request_pending, date_released, profile, icons, image_32, image_48, image_64, image_72, image_96, image_128, image_192, image_512, image_1024, image_36, is_hidden, has_slow_execution"
      }
     }
    }
@@ -1734,6 +1788,33 @@
     }
    }
   },
+  "/admin.audit.anomaly.allow.getItem": {
+   "post": {
+    "operationId": "admin.audit.anomaly.allow.getItem",
+    "summary": "API to allow Enterprise org admins to read the allow list of IP blocks and ASNs from the enterprise configuration.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.audit.anomaly.allow.getItem.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
   "/admin.audit.anomaly.allow.updateItem": {
    "post": {
     "operationId": "admin.audit.anomaly.allow.updateItem",
@@ -2069,6 +2150,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/admin.billing.settings.boot": {
+   "post": {
+    "operationId": "admin.billing.settings.boot",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.billing.settings.boot.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, can_change_purchase_settings, current_product_id, is_current_product_trial, is_team_in_dunning, next_product_id, should_show_billing_email_daily_setting, should_show_billing_email_monthly_setting, should_show_request_settings, auto_detected_country_code"
      }
     }
    }
@@ -3539,6 +3647,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/admin.features.list": {
+   "post": {
+    "operationId": "admin.features.list",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.features.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, categories, name, description, feature_count, id"
      }
     }
    }
@@ -6053,6 +6188,87 @@
     }
    }
   },
+  "/ai.alpha.agents.threads.list": {
+   "post": {
+    "operationId": "ai.alpha.agents.threads.list",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.agents.threads.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, threads"
+     }
+    }
+   }
+  },
+  "/ai.alpha.digest.list": {
+   "post": {
+    "operationId": "ai.alpha.digest.list",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.digest.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, digests, is_stale_or_empty_digest"
+     }
+    }
+   }
+  },
+  "/ai.alpha.digest.listDigestChannelIds": {
+   "post": {
+    "operationId": "ai.alpha.digest.listDigestChannelIds",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.digest.listDigestChannelIds.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, channel_ids"
+     }
+    }
+   }
+  },
   "/ai.alpha.summarize.channelUnreads": {
    "post": {
     "operationId": "ai.alpha.summarize.channelUnreads",
@@ -6085,6 +6301,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, summary, id"
+     }
+    }
+   }
+  },
+  "/ai.alpha.translate.locales": {
+   "post": {
+    "operationId": "ai.alpha.translate.locales",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.translate.locales.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, locales, name, locale"
      }
     }
    }
@@ -6265,6 +6508,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/app.uninstallTasks.list": {
+   "post": {
+    "operationId": "app.uninstallTasks.list",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/app.uninstallTasks.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, active_tasks, is_over_recent_task_limit"
      }
     }
    }
@@ -6504,6 +6774,87 @@
         "required": [
          "external_token_id"
         ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/apps.auth.external.userAuths.get": {
+   "post": {
+    "operationId": "apps.auth.external.userAuths.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.auth.external.userAuths.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, apps"
+     }
+    }
+   }
+  },
+  "/apps.certified.list": {
+   "post": {
+    "operationId": "apps.certified.list",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.certified.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, apps, id, namespace, app_resolution, is_installed, is_request_pending, has_slow_execution, requires_config, missing_required_config, config_options, variables, name, title, description, hint, min_length, max_length, is_required, is_secret, is_config_request_pending, admin_app_config, workflow_auth_strategy, profile, icons, image_32, image_36, image_48, image_64, image_72, image_96, image_128, image_192, image_512, image_1024, can_user_manage_app, is_aaa_enabled"
+     }
+    }
+   }
+  },
+  "/apps.connections.open": {
+   "post": {
+    "operationId": "apps.connections.open",
+    "summary": "Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/apps.connections.open.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
        }
       }
      }
@@ -7854,6 +8205,33 @@
     }
    }
   },
+  "/assistant.search.info": {
+   "post": {
+    "operationId": "assistant.search.info",
+    "summary": "Returns search capabilities on a given team.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/assistant.search.info.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
   "/assistant.threads.changeContext": {
    "post": {
     "operationId": "assistant.threads.changeContext",
@@ -8092,6 +8470,33 @@
     }
    }
   },
+  "/auth.captcha": {
+   "post": {
+    "operationId": "auth.captcha",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/auth.captcha.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, sitekey"
+     }
+    }
+   }
+  },
   "/auth.revoke": {
    "post": {
     "operationId": "auth.revoke",
@@ -8160,6 +8565,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/auth.test": {
+   "post": {
+    "operationId": "auth.test",
+    "summary": "Checks authentication & identity.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/auth.test.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, url, team, user, team_id, user_id, is_enterprise_install"
      }
     }
    }
@@ -8504,6 +8936,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/calendar.getInstalledCalendars": {
+   "post": {
+    "operationId": "calendar.getInstalledCalendars",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/calendar.getInstalledCalendars.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, gcal, is_installed, app_id, is_manageable_by_user, ocal"
      }
     }
    }
@@ -10341,6 +10800,60 @@
     }
    }
   },
+  "/client.appCommands": {
+   "post": {
+    "operationId": "client.appCommands",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.appCommands.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, app_actions, app_id, app_name, team_id, icons, image_32, image_48, image_64, image_72, actions, action_id, name, desc, description, payload, callback_id, type, teams, is_enterprise_install, commands, canonical_name, usage, name_normalized, is_workspace_agnostic, alias_of, alias_of_normalized, cache_ts"
+     }
+    }
+   }
+  },
+  "/client.boot": {
+   "post": {
+    "operationId": "client.boot",
+    "summary": "Boot single-team web client state",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.boot.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, self, id, name, is_bot, updated, is_app_user, team_id, deleted, color, is_email_confirmed, real_name, tz, tz_label, tz_offset, is_admin, is_owner, is_primary_owner, is_restricted, is_ultra_restricted, who_can_share_contact_card, first_login, lob_sales_home_enabled, manual_presence, profile, display_name, avatar_hash, real_name_normalized, display_name_normalized, image_original, is_custom_image, first_name, last_name, team, title, pronouns, phone, skype, status_text, status_text_canonical, status_emoji, status_emoji_display_info, display_url, unicode, status_expiration, guest_invited_by, huddle_state, huddle_state_expiration_ts, start_date, ooo_message, url, domain, avatar_base_url, is_verified, plan, is_plan_frozen, icon, image_default, image_34, image_44, image_68, image_88, image_102, image_230, image_132, date_created, prefs, admin_customized_quick_reactions, ai_apps_settings, apps, all_users_can_purchase, allow_account_type_edit_channel_workspaces_override, allow_audio_clip_sharing_slack_connect, allow_audio_clips, allow_automatic_media_transcriptions, allow_calls, allow_calls_interactive_screen_sharing, allow_cea_for_hippa_team, allow_clip_downloads, allow_content_review, allow_custom_solution_templates, allow_feature_request, allow_lists, allow_lock_thread, allow_media_transcriptions, allow_native_gif_picker, allow_retention_override, allow_solution_templates, allow_spaceship, allow_sponsored_slack_connections, allow_video_clip_sharing_slack_connect, allow_video_clips, alt_text_reminders, alt_text_reminders_custom_link, atlas_org_charts_access, atlas_profiles_access, auth_mode, available_calendar_huddle_access_options, knock_access, org_access, billing_email_daily, billing_email_monthly, billing_wdf_customer_id, block_file_download, block_file_types, can_accept_slack_connect_channel_invites, can_create_external_limited_invite, can_create_slack_connect_channel_invite, can_receive_shared_channels_invites, canvas_printing_enabled, canvas_restricted_sharing_enabled, canvas_retention_duration, canvas_retention_type, canvas_version_history_enabled, commands_only_regular, company_name, content_review_enabled, custom_status_site, default_channel_knowledge_agent, default_function_reuse_visibility, visibility, developer_sandbox_dashboard_limited_access, developer_sandbox_org, developer_sandbox_org_self_signin_disabled, disable_file_deleting, disable_file_editing, disallow_public_file_urls, display_anniversary_celebration, display_email_addresses, display_external_email_addresses, display_guest_email_addresses, display_new_hire_celebration, display_pronouns, dm_retention_duration, dm_retention_redaction_duration, dm_retention_type, file_retention_duration, file_retention_type, flag_content_admin_dash, flag_content_review_allow_decision_reversal, flag_content_review_flag_profiles, flag_content_review_note_required, flag_content_reviewer_assigned_notif, flag_message_author_outcome_notif, flag_message_custom_link, flag_message_flagger_outcome_notif, flag_message_users_to_notify, flagged_content_review_channel, gdpr_enabled, gdrive_unfurl_restricted, google_sso_domain, google_sso_enable, has_hipaa_compliance, hermes_allow_interactions_with_workflows_owned_by_slack_connected_teams, hermes_triggers_trippable_by_slack_connected_teams, hide_gsuite_invite_option, hide_person_opt_out, identity_links_prefs, is_enabled, ineligible_for_discount, invited_user_preset, list_column_option_limit, list_restricted_sharing_enabled, locale, max_guest_duration, member_analytics_disabled, ml_opt_out, mobile_block_message_copy, mobile_force_app_upgrade_min_version, mobile_force_app_upgrade_versions_allowed, mobile_passcode_timeout_in_seconds, mobile_session_duration, msg_edit_window_mins, no_email_user_provision_type, notification_redaction_type, notify_pending_enabled, ntlm_credential_domains, onedrive_and_sharepoint_unfurl_restricted, premium_workflow_notifications, notifications_enabled, notification_location, private_channel_analytics_disabled, private_channel_membership_limit, private_message_forwarding, private_retention_redaction_duration, public_retention_redaction_duration, read_only_canvas_subteam_ids, record_channel_private_retention_duration, record_channel_private_retention_redaction_duration, record_channel_private_retention_type, record_channel_public_retention_duration, record_channel_public_retention_redaction_duration, record_channel_public_retention_type, required_minimum_desktop_version, required_minimum_mobile_version, restrict_workflow_trigger_steps, triggers, rimeto_org_instance_id, sales_home_retention_duration, sales_home_retention_type, salesforce_forwarding, default, same_org_external_teams, saml_enable, search_feedback_opt_out, security_circuit_breakers, tor, session_fingerprint, spoofed_user_agent, unexpected_scraping, unexpected_user_agent, unexpected_api_call_volume, notify_primary_owner, notify_security_admins, session_duration, session_duration_type, show_legacy_workflows, signup_domains, signup_mode, slack_ai_action_items_opt_out, slack_ai_allowed_workspaces, slack_ai_answer_sharing_opt_out, slack_ai_daily_recap_opt_out, slack_ai_detailed_feedback_opt_out, slack_ai_disabled, slack_ai_explain_sharing_opt_out, slack_ai_feedback_opt_out, slack_ai_file_summaries_opt_out, slack_ai_files_search_opt_out, all_file_opt_out, slack_ai_files_workflow_steps_opt_out, slack_ai_huddle_summaries_opt_out, slack_ai_huddles_automatic_notes_opt_out, slack_ai_message_translations_opt_out, slack_ai_opt_out, slack_ai_workflow_builder_opt_out, slack_connect_account_visibility, slack_connect_allowed_workspaces, type, slack_connect_approval_type, slack_connect_dm_only_verified_orgs, slackbot_ai_canvas_write_enabled, spaceship_workspace_setting_visible, sso_auth_restrictions, sso_change_email, sso_choose_username, sso_disable_emails, sso_signup_restrictions, sso_sync_with_provider, team_list_count, thorn_designated_contact, thorn_safer_scan, two_factor_auth_required, two_factor_prevent_sms, use_browser_picker, warn_before_at_channel, warn_user_before_logout_desktop, warn_user_before_logout_mobile, wfb_default_connector_visibility, wfb_salesforce_trigger_channel_restrictions, salesforce_orgs, who_can_accept_slack_connect_channel_invites, user, subteam, who_can_create_external_limited_invite, who_can_create_slack_connect_channel_invite, who_can_create_standard_workflows, who_can_dm_anyone, who_can_manage_ext_shared_channels, who_can_review_flagged_content, work_object_unfurl_visibility, default_channels, posts_migrating, gateway_allow_xmpp_ssl, gateway_allow_irc_ssl, gateway_allow_irc_plain, group_retention_type, group_retention_duration, retention_type, retention_duration, dnd_enabled, dnd_start_hour, dnd_end_hour, who_can_post_general, calls_sent_welcome_to_admins, invites_only_admins, seen_invites_only_admins_warning, slackbot_responses_disabled, who_can_create_delete_user_groups, who_can_edit_user_groups, limit_reached_ts, uses_customized_custom_status_presets, hide_referers, gdrive_enabled_team, received_github_app_upgrade_prompt, has_shared_invites, onedrive_enabled_team, show_join_leave, onedrive_app_installed, dropbox_legacy_picker, welcome_place_enabled, received_esc_route_to_channel_awareness_message, has_installed_apps, box_app_installed, calls_apps, video, image, audio, workflow_extension_steps_beta_opt_in, joiner_notifications_enabled, who_can_request_ext_shared_channels, app_whitelist_enabled, who_can_manage_integrations, who_can_use_hermes, hermes_has_accepted_tos, custom_status_presets, stats_only_admins, ai_apps, allowed_apps, app_id, bot_user_id, should_show_in_sunroof, was_treatment_for_boost_bus_plus_awareness_and_upgrades, subteams_auto_create_admin, subteams_auto_create_owner, display_real_names, calls_locations, discoverable, use_workspace_icon_for_single_workspace_users, invite_requests_approval_channel, allow_admin_retention_override, allow_box_cfs, allow_huddles, allow_huddles_transcriptions, allow_huddles_video, allow_message_deletion, allow_workflow_export, app_dir_only, app_management_apps, app_whitelist_requests_enabled, app_whitelist_requests_require_comment_enabled, automatic_welcome_dm_enabled, canvas_updated_message_enabled, custom_status_default_emoji, default_rxns, disable_email_ingestion, disable_file_uploads, disable_sidebar_connect_prompts, disable_sidebar_install_prompts, dnd_after_friday, dnd_after_monday, dnd_after_saturday, dnd_after_sunday, dnd_after_thursday, dnd_after_tuesday, dnd_after_wednesday, dnd_before_friday, dnd_before_monday, dnd_before_saturday, dnd_before_sunday, dnd_before_thursday, dnd_before_tuesday, dnd_before_wednesday, dnd_days, dnd_enabled_friday, dnd_enabled_monday, dnd_enabled_saturday, dnd_enabled_sunday, dnd_enabled_thursday, dnd_enabled_tuesday, dnd_enabled_wednesday, dnd_weekdays_off_allday, invite_requests_enabled, invites_limit, ip_restriction_ranges, loading_only_admins, loud_channel_mentions_limit, max_file_upload_size, sales_get_help, sign_in_with_slack_disabled, slack_ai_search_suggested_queries, slack_connect_file_upload_sharing_enabled, tableau_agent_user_id, username_policy, who_can_change_team_profile, who_can_create_shared_channels, who_can_create_workflows, workflow_extension_steps_enabled, workflows_export_csv_enabled, workflows_webhook_trigger_enabled, allow_developer_sandboxes, channel_audit_export_enabled, channel_email_addresses_enabled, custom_contact_email, default_create_private_channel, developer_sandbox_admin_menu_limited_access, developer_sandbox_allow_slack_connect_owning_org, developer_sandbox_invite_org_domains_only, domains, developer_sandbox_provision_notifications, developer_sandbox_request_auto_response, developer_sandbox_request_notifications, developer_sandbox_safe_sign_in, developer_sandbox_slack_connect_org_sandboxes_only, disable_privacy_and_cookie_policy, display_default_phone, rich_previews_default, sign_in_with_slack_default, single_user_exports, sso_optional, who_has_team_visibility, workflow_builder_enabled, allow_free_automated_trials, compliance_export_start, created_with_google, daily_prompts_enabled, default_channel_creation_enabled, file_limit_whitelisted, filepicker_app_first_install, has_compliance_export, has_seen_partner_promo, instant_slack_enabled, magic_unfurls_enabled, self_serve_select, show_join_leave_welcome_party, show_legacy_paid_benefits_page, show_mobile_promos, slack_connect_acceptance_auto_created_workspace, solutions_onboarding_tracker, canvas, list, test_team, two_factor_required, image_proxy_url, onboarding_channel_id, messages_count, can_leave, cannot_leave_reasons, is_sfdc_auto_slack, is_europe, translations_cache_ts, cache_ts_version, subteams, is_content_reporting_enabled, paid_features, cache_version, can_access_client_v2"
+     }
+    }
+   }
+  },
   "/client.counts": {
    "post": {
     "operationId": "client.counts",
@@ -10469,6 +10982,33 @@
     }
    }
   },
+  "/client.getWebSocketURL": {
+   "post": {
+    "operationId": "client.getWebSocketURL",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.getWebSocketURL.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, primary_websocket_url, fallback_websocket_url, ttl_seconds, routing_context"
+     }
+    }
+   }
+  },
   "/client.shouldReload": {
    "post": {
     "operationId": "client.shouldReload",
@@ -10553,6 +11093,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, app_commands_cache_ts, cache_ts_version, cache_version, translations_cache_ts, is_content_reporting_enabled, dnd, dnd_enabled, next_dnd_start_ts, next_dnd_end_ts, snooze_enabled, is_europe, account_types, is_admin, is_owner, is_primary_owner, can_access_client_v2, channels_priority, channels, id, name, is_channel, is_group, is_im, is_mpim, is_private, created, is_archived, is_general, unlinked, name_normalized, is_shared, is_frozen, is_org_shared, is_pending_ext_shared, pending_shared, context_team_id, updated, parent_conversation, creator, is_moved, is_ext_shared, shared_team_ids, internal_team_ids, pending_connected_team_ids, topic, value, last_set, purpose, properties, canvas, file_id, is_empty, quip_thread_id, is_migrated, meeting_notes, is_locked, tabs, type, label, is_disabled, data, shared_ts, mute_edit_updates, folder_bookmark_id, tabz, auto_open_tab_id, auto_open_tab_id_timestamp, who_can_manage_tabs, is_dormant, posting_restricted_to, user, threads_restricted_to, huddles_restricted, huddles, ai_notes_settings_restricted, is_huddle_channel, at_here_restricted, at_channel_restricted, previous_names, is_global_shared, is_org_default, is_org_mandatory, connected_team_ids, connected_limited_team_ids, members, default_workspace, has_more_mpdms, ims, is_open, non_threadable_channels, prefs, prefs_version, read_only_channels, self, is_bot, is_app_user, deleted, color, is_email_confirmed, real_name, tz, tz_label, tz_offset, is_restricted, is_ultra_restricted, who_can_share_contact_card, first_login, manual_presence, profile, display_name, avatar_hash, real_name_normalized, display_name_normalized, image_original, is_custom_image, first_name, last_name, team, title, pronouns, phone, skype, status_text, status_text_canonical, status_emoji, status_emoji_display_info, display_url, unicode, status_expiration, guest_invited_by, huddle_state, huddle_state_expiration_ts, start_date, ooo_message, huddle_state_call_id, slack_route, starred, url, domain, avatar_base_url, is_verified, plan, icon, image_default, image_34, image_44, image_68, image_88, image_102, image_230, image_132, date_created, admin_customized_quick_reactions, agentforce_workspaces, ai_apps, is_enabled, allowed_apps, ai_apps_settings, apps, all_users_can_purchase, allow_account_type_edit_channel_workspaces_override, allow_admin_retention_override, allow_audio_clip_sharing_slack_connect, allow_audio_clips, allow_automatic_media_transcriptions, allow_box_cfs, allow_calls, allow_calls_interactive_screen_sharing, allow_cea_for_hippa_team, allow_clip_downloads, allow_content_review, allow_custom_solution_templates, allow_developer_sandboxes, allow_feature_request, allow_huddles, allow_huddles_transcriptions, allow_huddles_video, allow_lists, allow_lock_thread, allow_media_transcriptions, allow_message_deletion, allow_native_gif_picker, allow_retention_override, allow_solution_templates, allow_spaceship, allow_sponsored_slack_connections, allow_video_clip_sharing_slack_connect, allow_video_clips, allow_workflow_export, alt_text_reminders, alt_text_reminders_custom_link, always_show_workspace_name, app_dir_only, app_management_apps, app_whitelist_enabled, app_whitelist_requests_enabled, app_whitelist_requests_require_comment_enabled, atlas_org_charts_access, atlas_profiles_access, auth_mode, automatic_welcome_dm_enabled, available_calendar_huddle_access_options, knock_access, org_access, billing_email_daily, billing_email_monthly, billing_wdf_customer_id, block_file_download, block_file_types, calls_locations, can_accept_slack_connect_channel_invites, can_create_external_limited_invite, can_create_slack_connect_channel_invite, can_receive_shared_channels_invites, canvas_printing_enabled, canvas_restricted_sharing_enabled, canvas_retention_duration, canvas_retention_type, canvas_updated_message_enabled, canvas_version_history_enabled, channel_audit_export_enabled, channel_email_addresses_enabled, commands_only_regular, company_name, content_review_enabled, custom_contact_email, custom_status_default_emoji, custom_status_presets, custom_status_site, default_channel_knowledge_agent, default_channels, default_create_private_channel, default_function_reuse_visibility, visibility, default_rxns, default_theme, developer_sandbox_admin_menu_limited_access, developer_sandbox_allow_slack_connect_owning_org, developer_sandbox_dashboard_limited_access, developer_sandbox_invite_org_domains_only, domains, developer_sandbox_org, developer_sandbox_org_self_signin_disabled, developer_sandbox_provision_notifications, notifications_enabled, notification_location, developer_sandbox_request_auto_response, developer_sandbox_request_notifications, developer_sandbox_safe_sign_in, developer_sandbox_slack_connect_org_sandboxes_only, disable_email_ingestion, disable_file_deleting, disable_file_editing, disable_file_uploads, disable_privacy_and_cookie_policy, disable_sidebar_connect_prompts, disable_sidebar_install_prompts, disallow_public_file_urls, display_anniversary_celebration, display_default_phone, display_email_addresses, display_external_email_addresses, display_guest_email_addresses, display_new_hire_celebration, display_pronouns, display_real_names, dm_retention_duration, dm_retention_redaction_duration, dm_retention_type, dnd_after_friday, dnd_after_monday, dnd_after_saturday, dnd_after_sunday, dnd_after_thursday, dnd_after_tuesday, dnd_after_wednesday, dnd_before_friday, dnd_before_monday, dnd_before_saturday, dnd_before_sunday, dnd_before_thursday, dnd_before_tuesday, dnd_before_wednesday, dnd_days, dnd_enabled_friday, dnd_enabled_monday, dnd_enabled_saturday, dnd_enabled_sunday, dnd_enabled_thursday, dnd_enabled_tuesday, dnd_enabled_wednesday, dnd_end_hour, dnd_start_hour, dnd_weekdays_off_allday, file_retention_duration, file_retention_type, flag_content_admin_dash, flag_content_review_allow_decision_reversal, flag_content_review_flag_profiles, flag_content_review_note_required, flag_content_reviewer_assigned_notif, flag_message_author_outcome_notif, flag_message_custom_link, flag_message_flagger_outcome_notif, flag_message_users_to_notify, flagged_content_review_channel, gdpr_enabled, gdrive_unfurl_restricted, google_sso_domain, google_sso_enable, group_retention_duration, group_retention_type, has_hipaa_compliance, has_shared_invites, hermes_allow_interactions_with_workflows_owned_by_slack_connected_teams, hermes_has_accepted_tos, hermes_triggers_trippable_by_slack_connected_teams, hide_gsuite_invite_option, hide_person_opt_out, hide_referers, identity_links_prefs, ineligible_for_discount, invite_requests_approval_channel, invite_requests_enabled, invited_user_preset, invites_limit, ip_restriction_ranges, list_column_option_limit, list_restricted_sharing_enabled, loading_only_admins, locale, loud_channel_mentions_limit, max_file_upload_size, max_guest_duration, member_analytics_disabled, ml_opt_out, mobile_block_message_copy, mobile_force_app_upgrade_min_version, mobile_force_app_upgrade_versions_allowed, mobile_passcode_timeout_in_seconds, mobile_session_duration, msg_edit_window_mins, no_email_user_provision_type, notification_redaction_type, notify_pending_enabled, ntlm_credential_domains, onedrive_and_sharepoint_unfurl_restricted, org_default_theme, premium_workflow_notifications, private_channel_analytics_disabled, private_channel_membership_limit, private_message_forwarding, private_retention_redaction_duration, public_retention_redaction_duration, read_only_canvas_subteam_ids, received_esc_route_to_channel_awareness_message, record_channel_private_retention_duration, record_channel_private_retention_redaction_duration, record_channel_private_retention_type, record_channel_public_retention_duration, record_channel_public_retention_redaction_duration, record_channel_public_retention_type, required_minimum_desktop_version, required_minimum_mobile_version, restrict_workflow_trigger_steps, triggers, retention_duration, retention_type, rich_previews_default, rimeto_org_instance_id, sales_get_help, sales_home_retention_duration, sales_home_retention_type, salesforce_forwarding, default, same_org_external_teams, saml_enable, search_feedback_opt_out, security_circuit_breakers, tor, session_fingerprint, spoofed_user_agent, unexpected_scraping, unexpected_user_agent, unexpected_api_call_volume, notify_primary_owner, notify_security_admins, session_duration, session_duration_type, show_legacy_workflows, sign_in_with_slack_default, sign_in_with_slack_disabled, signup_domains, signup_mode, single_user_exports, slack_ai_action_items_opt_out, slack_ai_allowed_workspaces, slack_ai_answer_sharing_opt_out, slack_ai_daily_recap_opt_out, slack_ai_detailed_feedback_opt_out, slack_ai_disabled, slack_ai_explain_sharing_opt_out, slack_ai_feedback_opt_out, slack_ai_file_summaries_opt_out, slack_ai_files_search_opt_out, all_file_opt_out, slack_ai_files_workflow_steps_opt_out, slack_ai_huddle_summaries_opt_out, slack_ai_huddles_automatic_notes_opt_out, slack_ai_message_translations_opt_out, slack_ai_opt_out, slack_ai_search_suggested_queries, slack_ai_workflow_builder_opt_out, slack_connect_account_visibility, slack_connect_allowed_workspaces, slack_connect_approval_type, slack_connect_dm_only_verified_orgs, slack_connect_file_upload_sharing_enabled, slackbot_ai_canvas_write_enabled, slackbot_responses_disabled, spaceship_workspace_setting_visible, sso_auth_restrictions, sso_change_email, sso_choose_username, sso_disable_emails, sso_optional, sso_signup_restrictions, sso_sync_with_provider, stats_only_admins, subteams_auto_create_admin, subteams_auto_create_owner, tableau_agent_user_id, team_list_count, thorn_designated_contact, thorn_safer_scan, two_factor_auth_required, two_factor_prevent_sms, use_browser_picker, use_workspace_icon_for_single_workspace_users, username_policy, uses_customized_custom_status_presets, warn_before_at_channel, warn_user_before_logout_desktop, warn_user_before_logout_mobile, was_treatment_for_boost_bus_plus_awareness_and_upgrades, welcome_place_enabled, wfb_default_connector_visibility, wfb_salesforce_trigger_channel_restrictions, salesforce_orgs, who_can_accept_slack_connect_channel_invites, subteam, who_can_change_team_profile, who_can_create_external_limited_invite, who_can_create_shared_channels, who_can_create_slack_connect_channel_invite, who_can_create_standard_workflows, who_can_create_workflows, who_can_dm_anyone, who_can_manage_ext_shared_channels, who_can_manage_integrations, who_can_post_general, who_can_review_flagged_content, who_can_use_hermes, who_has_team_visibility, work_object_unfurl_visibility, workflow_builder_enabled, workflow_extension_steps_enabled, workflows_export_csv_enabled, workflows_webhook_trigger_enabled, allow_free_automated_trials, box_app_installed, calls_apps, audio, video, compliance_export_start, created_with_google, daily_prompts_enabled, default_channel_creation_enabled, discoverable, dropbox_legacy_picker, file_limit_whitelisted, filepicker_app_first_install, gdrive_enabled_team, has_compliance_export, has_seen_partner_promo, instant_slack_enabled, invites_only_admins, joiner_notifications_enabled, magic_unfurls_enabled, onedrive_app_installed, onedrive_enabled_team, self_serve_select, show_join_leave, show_join_leave_welcome_party, show_legacy_paid_benefits_page, show_mobile_promos, slack_connect_acceptance_auto_created_workspace, solutions_onboarding_tracker, list, test_team, two_factor_required, workflow_extension_steps_beta_opt_in, image_proxy_url, onboarding_channel_id, messages_count, thread_only_channels, unchanged_channel_ids, workspaces, posts_migrating, gateway_allow_xmpp_ssl, gateway_allow_irc_ssl, gateway_allow_irc_plain, calls_sent_welcome_to_admins, seen_invites_only_admins_warning, who_can_create_delete_user_groups, who_can_edit_user_groups, limit_reached_ts, received_github_app_upgrade_prompt, has_installed_apps, image, who_can_request_ext_shared_channels, app_id, bot_user_id, should_show_in_sunroof, is_slack_first_crm, mobile_app_requires_upgrade, subteams, paid_features, accept_tos_url, links, domains_ts"
+     }
+    }
+   }
+  },
+  "/commands.list": {
+   "post": {
+    "operationId": "commands.list",
+    "summary": "List slash commands",
+    "description": "status: undocumented; verified: live-verified; params source: live-verified this project (no params needed; token only). Details: https://vs.izie.top/redocumented/api/methods/commands.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
      }
     }
    }
@@ -12698,6 +13265,33 @@
     }
    }
   },
+  "/conversations.suggestions": {
+   "post": {
+    "operationId": "conversations.suggestions",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.suggestions.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, suggestion_types_tried, status"
+     }
+    }
+   }
+  },
   "/conversations.teamConnections": {
    "post": {
     "operationId": "conversations.teamConnections",
@@ -13533,6 +14127,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, command, name, url, desc, usage, parse_full, id"
+     }
+    }
+   }
+  },
+  "/developer.apps.config.createToolingToken": {
+   "post": {
+    "operationId": "developer.apps.config.createToolingToken",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/developer.apps.config.createToolingToken.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, user_id, team_id, access_token, refresh_token, iat"
      }
     }
    }
@@ -14381,6 +15002,60 @@
     }
    }
   },
+  "/dnd.endDnd": {
+   "post": {
+    "operationId": "dnd.endDnd",
+    "summary": "Ends the current user's Do Not Disturb session immediately.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/dnd.endDnd.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/dnd.endSnooze": {
+   "post": {
+    "operationId": "dnd.endSnooze",
+    "summary": "Ends the current user's snooze mode immediately.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/dnd.endSnooze.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, dnd_enabled, next_dnd_start_ts, next_dnd_end_ts, snooze_enabled"
+     }
+    }
+   }
+  },
   "/dnd.info": {
    "post": {
     "operationId": "dnd.info",
@@ -14715,6 +15390,33 @@
     }
    }
   },
+  "/email.affiliations.info": {
+   "post": {
+    "operationId": "email.affiliations.info",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/email.affiliations.info.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, google_affiliation"
+     }
+    }
+   }
+  },
   "/emails.info": {
    "post": {
     "operationId": "emails.info",
@@ -14955,6 +15657,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok"
+     }
+    }
+   }
+  },
+  "/enterprise.prefs.get": {
+   "post": {
+    "operationId": "enterprise.prefs.get",
+    "summary": "Enterprise-level client preferences",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/enterprise.prefs.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, locked_prefs, admin_customized_quick_reactions, ai_apps_settings, apps, all_users_can_purchase, allow_account_type_edit_channel_workspaces_override, allow_audio_clip_sharing_slack_connect, allow_audio_clips, allow_automatic_media_transcriptions, allow_calls, allow_calls_interactive_screen_sharing, allow_cea_for_hippa_team, allow_clip_downloads, allow_content_review, allow_custom_solution_templates, allow_feature_request, allow_lists, allow_lock_thread, allow_media_transcriptions, allow_native_gif_picker, allow_retention_override, allow_solution_templates, allow_spaceship, allow_sponsored_slack_connections, allow_video_clip_sharing_slack_connect, allow_video_clips, alt_text_reminders, alt_text_reminders_custom_link, atlas_org_charts_access, atlas_profiles_access, auth_mode, available_calendar_huddle_access_options, org_access, knock_access, billing_email_daily, billing_email_monthly, billing_wdf_customer_id, block_file_download, block_file_types, can_accept_slack_connect_channel_invites, can_create_external_limited_invite, can_create_slack_connect_channel_invite, can_receive_shared_channels_invites, canvas_printing_enabled, canvas_restricted_sharing_enabled, canvas_retention_duration, canvas_retention_type, canvas_version_history_enabled, commands_only_regular, company_name, content_review_enabled, custom_status_site, default_channel_knowledge_agent, default_function_reuse_visibility, visibility, developer_sandbox_dashboard_limited_access, developer_sandbox_org, developer_sandbox_org_self_signin_disabled, disable_file_deleting, disable_file_editing, disallow_public_file_urls, display_anniversary_celebration, display_email_addresses, display_external_email_addresses, display_guest_email_addresses, display_new_hire_celebration, display_pronouns, dm_retention_duration, dm_retention_redaction_duration, dm_retention_type, file_retention_duration, file_retention_type, flag_content_admin_dash, flag_content_review_allow_decision_reversal, flag_content_review_flag_profiles, flag_content_review_note_required, flag_content_reviewer_assigned_notif, flag_message_author_outcome_notif, flag_message_custom_link, flag_message_flagger_outcome_notif, flag_message_users_to_notify, flagged_content_review_channel, gdpr_enabled, gdrive_unfurl_restricted, google_sso_domain, google_sso_enable, has_hipaa_compliance, hermes_allow_interactions_with_workflows_owned_by_slack_connected_teams, hermes_triggers_trippable_by_slack_connected_teams, hide_gsuite_invite_option, hide_person_opt_out, identity_links_prefs, ineligible_for_discount, invited_user_preset, list_column_option_limit, list_restricted_sharing_enabled, locale, max_guest_duration, member_analytics_disabled, ml_opt_out, mobile_block_message_copy, mobile_force_app_upgrade_min_version, mobile_force_app_upgrade_versions_allowed, mobile_passcode_timeout_in_seconds, mobile_session_duration, msg_edit_window_mins, no_email_user_provision_type, notification_redaction_type, notify_pending_enabled, ntlm_credential_domains, onedrive_and_sharepoint_unfurl_restricted, premium_workflow_notifications, notifications_enabled, notification_location, private_channel_analytics_disabled, private_channel_membership_limit, private_message_forwarding, private_retention_redaction_duration, public_retention_redaction_duration, read_only_canvas_subteam_ids, record_channel_private_retention_duration, record_channel_private_retention_redaction_duration, record_channel_private_retention_type, record_channel_public_retention_duration, record_channel_public_retention_redaction_duration, record_channel_public_retention_type, required_minimum_desktop_version, required_minimum_mobile_version, restrict_workflow_trigger_steps, triggers, rimeto_org_instance_id, sales_home_retention_duration, sales_home_retention_type, salesforce_forwarding, default, same_org_external_teams, saml_enable, search_feedback_opt_out, security_circuit_breakers, tor, session_fingerprint, spoofed_user_agent, unexpected_scraping, unexpected_user_agent, unexpected_api_call_volume, notify_primary_owner, notify_security_admins, session_duration, session_duration_type, show_legacy_workflows, signup_domains, signup_mode, slack_ai_action_items_opt_out, slack_ai_allowed_workspaces, slack_ai_answer_sharing_opt_out, slack_ai_daily_recap_opt_out, slack_ai_detailed_feedback_opt_out, slack_ai_disabled, slack_ai_explain_sharing_opt_out, slack_ai_feedback_opt_out, slack_ai_file_summaries_opt_out, slack_ai_files_search_opt_out, all_file_opt_out, slack_ai_files_workflow_steps_opt_out, slack_ai_huddle_summaries_opt_out, slack_ai_huddles_automatic_notes_opt_out, slack_ai_message_translations_opt_out, slack_ai_opt_out, slack_ai_workflow_builder_opt_out, slack_connect_account_visibility, slack_connect_allowed_workspaces, type, slack_connect_approval_type, slack_connect_dm_only_verified_orgs, slackbot_ai_canvas_write_enabled, spaceship_workspace_setting_visible, sso_auth_restrictions, sso_change_email, sso_choose_username, sso_disable_emails, sso_signup_restrictions, sso_sync_with_provider, team_list_count, thorn_designated_contact, thorn_safer_scan, two_factor_auth_required, two_factor_prevent_sms, use_browser_picker, warn_before_at_channel, warn_user_before_logout_desktop, warn_user_before_logout_mobile, wfb_default_connector_visibility, wfb_salesforce_trigger_channel_restrictions, salesforce_orgs, who_can_accept_slack_connect_channel_invites, user, subteam, who_can_create_external_limited_invite, who_can_create_slack_connect_channel_invite, who_can_create_standard_workflows, who_can_dm_anyone, who_can_manage_ext_shared_channels, who_can_review_flagged_content, work_object_unfurl_visibility, unlocked_prefs, ai_apps, is_enabled, allowed_apps, allow_admin_retention_override, allow_box_cfs, allow_huddles, allow_huddles_transcriptions, allow_huddles_video, allow_message_deletion, allow_workflow_export, app_dir_only, app_management_apps, app_whitelist_enabled, app_whitelist_requests_enabled, app_whitelist_requests_require_comment_enabled, automatic_welcome_dm_enabled, calls_locations, canvas_updated_message_enabled, custom_status_default_emoji, custom_status_presets, default_channels, default_rxns, disable_email_ingestion, disable_file_uploads, disable_sidebar_connect_prompts, disable_sidebar_install_prompts, display_real_names, dnd_after_friday, dnd_after_monday, dnd_after_saturday, dnd_after_sunday, dnd_after_thursday, dnd_after_tuesday, dnd_after_wednesday, dnd_before_friday, dnd_before_monday, dnd_before_saturday, dnd_before_sunday, dnd_before_thursday, dnd_before_tuesday, dnd_before_wednesday, dnd_days, dnd_enabled, dnd_enabled_friday, dnd_enabled_monday, dnd_enabled_saturday, dnd_enabled_sunday, dnd_enabled_thursday, dnd_enabled_tuesday, dnd_enabled_wednesday, dnd_end_hour, dnd_start_hour, dnd_weekdays_off_allday, group_retention_duration, group_retention_type, has_shared_invites, hermes_has_accepted_tos, hide_referers, invite_requests_approval_channel, invite_requests_enabled, invites_limit, ip_restriction_ranges, loading_only_admins, loud_channel_mentions_limit, max_file_upload_size, retention_duration, retention_type, sales_get_help, sign_in_with_slack_disabled, slack_ai_search_suggested_queries, slack_connect_file_upload_sharing_enabled, slackbot_responses_disabled, stats_only_admins, subteams_auto_create_admin, subteams_auto_create_owner, tableau_agent_user_id, use_workspace_icon_for_single_workspace_users, username_policy, uses_customized_custom_status_presets, was_treatment_for_boost_bus_plus_awareness_and_upgrades, welcome_place_enabled, who_can_change_team_profile, who_can_create_shared_channels, who_can_create_workflows, who_can_manage_integrations, who_can_post_general, who_can_use_hermes, workflow_extension_steps_enabled, workflows_export_csv_enabled, workflows_webhook_trigger_enabled, org_prefs, agentforce_workspaces, allow_developer_sandboxes, always_show_workspace_name, channel_audit_export_enabled, channel_email_addresses_enabled, custom_contact_email, default_create_private_channel, default_theme, developer_sandbox_admin_menu_limited_access, developer_sandbox_allow_slack_connect_owning_org, developer_sandbox_invite_org_domains_only, domains, developer_sandbox_provision_notifications, developer_sandbox_request_auto_response, developer_sandbox_request_notifications, developer_sandbox_safe_sign_in, developer_sandbox_slack_connect_org_sandboxes_only, disable_privacy_and_cookie_policy, display_default_phone, image_102, image_132, image_230, image_34, image_44, image_68, image_88, image_default, image_original, org_calls_apps, org_default_theme, received_esc_route_to_channel_awareness_message, rich_previews_default, sign_in_with_slack_default, single_user_exports, sso_optional, who_has_team_visibility, workflow_builder_enabled"
      }
     }
    }
@@ -15245,6 +15974,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, total_usages, usages_remaining, reset_time"
+     }
+    }
+   }
+  },
+  "/features.access.policies.list": {
+   "post": {
+    "operationId": "features.access.policies.list",
+    "summary": "Feature-flag/entitlement access policies",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/features.access.policies.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, feature_policies, analytics_all_channels_in_org__view, is_enabled, reason, name, canvas_standalone__edit, canvas_standalone__create, canvas_channel__delete, canvas_channel__edit, canvas_channel__create, canvas_huddle__edit, canvas_huddle__create, webhook_trigger__create, workflow_connector__use, rosi_app__create, hermes__write, hermes__read, trigger__trip, workflow_custom_steps__use, workflow_conditional_steps__use, workflow_repeater_steps__use, slack_ai__access, slack_ai_exclude_from_slack_ai_property__access, huddle__start, user_groups__manage, slack_connect_dm__access, slack_connect_channel__access, salesforce__access, salesforce_multi_org__access, salesforce_standalone_lists__access, salesforce_seamless_auth__access, salesforce_data_fields__access, salesforce_org_slack_first_crm__access, slack_ai_apps_assistant_view__access, audit_log__access, audit_log_addon__access, discovery_api__access, discovery_api_addon__access, manage_channel_posting__access, search_query_audit__access"
      }
     }
    }
@@ -16166,6 +16922,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, viewers, user_id, date_created, date_updated, is_focused, should_subscribe_and_ping"
+     }
+    }
+   }
+  },
+  "/files.recentlyDeleted": {
+   "post": {
+    "operationId": "files.recentlyDeleted",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only (sample-checked); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/files.recentlyDeleted.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only (sample-checked)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, files"
      }
     }
    }
@@ -17874,6 +18657,33 @@
     }
    }
   },
+  "/help.issues.ticketStats": {
+   "post": {
+    "operationId": "help.issues.ticketStats",
+    "summary": "Open/unread support ticket counts",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/help.issues.ticketStats.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, unread_count, open_count"
+     }
+    }
+   }
+  },
   "/help.productHelpCard.list": {
    "post": {
     "operationId": "help.productHelpCard.list",
@@ -18158,6 +18968,33 @@
     }
    }
   },
+  "/huddles.listBackgrounds": {
+   "post": {
+    "operationId": "huddles.listBackgrounds",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/huddles.listBackgrounds.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, backgrounds, id, category_id, category_name, category_order, url, preview_url, artist, name"
+     }
+    }
+   }
+  },
   "/im.list": {
    "post": {
     "operationId": "im.list",
@@ -18262,6 +19099,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok"
+     }
+    }
+   }
+  },
+  "/links.getDomains": {
+   "post": {
+    "operationId": "links.getDomains",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/links.getDomains.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, domains_ts, domains, wildcard_domains"
      }
     }
    }
@@ -19306,6 +20170,60 @@
     }
    }
   },
+  "/openid.connect.userInfo": {
+   "post": {
+    "operationId": "openid.connect.userInfo",
+    "summary": "Get the identity of a user who has authorized Sign in with Slack.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/openid.connect.userInfo.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/payments.billing.addresses.get": {
+   "post": {
+    "operationId": "payments.billing.addresses.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/payments.billing.addresses.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, team_id, company_name, street1, street2, city, state, zip, country, plus4, vat_id, abn_id, tax_id, is_business, is_vat_registered, waiting_for_vat, notes, regional_tax_id"
+     }
+    }
+   }
+  },
   "/payments.billing.addresses.locations": {
    "post": {
     "operationId": "payments.billing.addresses.locations",
@@ -19490,6 +20408,33 @@
     }
    }
   },
+  "/payments.status.get": {
+   "post": {
+    "operationId": "payments.status.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/payments.status.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, provisions_status, level, renewal_level, term_info, term, start_dt, start_ts, total_time, total_days, remaining_days, fraction, product_name_for_display, payment_method"
+     }
+    }
+   }
+  },
   "/payments.stripe.config.get": {
    "post": {
     "operationId": "payments.stripe.config.get",
@@ -19547,6 +20492,33 @@
           "description": "string"
          }
         }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, account_code, id, created, invoice_settings, default_payment_method, payment_method, types, wallet"
+     }
+    }
+   }
+  },
+  "/payments.stripe.customer.get": {
+   "post": {
+    "operationId": "payments.stripe.customer.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/payments.stripe.customer.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
        }
       }
      }
@@ -20464,6 +21436,33 @@
     }
    }
   },
+  "/retail.getAvailablePlans": {
+   "post": {
+    "operationId": "retail.getAvailablePlans",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/retail.getAvailablePlans.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, currency, country, plans, standard, monthly, product, product_id, term, cost_per_m, cost_per_term, level, is_inv, available_addons, cost, unit_price, billable_active_users, paid_seats, subtotal, undiscounted_subtotal, credits, total_credits, credits_remaining, credits_applied, additional_credits_remaining, total_credits_remaining, total_credits_applied, credit_balance, tax, recurring_tax_amt, total_recurring, total_due_today, quoted_term_end, quoted_term_start, pre_tax_total, outstanding_invoice_amount, prorated_refund, discounted_unit_price, discount, percentage, duration, type, name, promo_type, amount, yearly, plus, team_current_product, payments_status, provisions_status, renewal_level, term_info, start_dt, start_ts, total_time, total_days, remaining_days, fraction, payment_method, team_next_product, team_current_product_is_bespoke, team_current_product_is_comp, team_current_addon_types, country_code, pricing_page_promotional_header, data, discount_pct, discount_duration, discount_expiration_ts, discount_expiration_date, upgrade_plan_levels, upgrade_product_ids, promo_subtype"
+     }
+    }
+   }
+  },
   "/retail.plans": {
    "post": {
     "operationId": "retail.plans",
@@ -20719,6 +21718,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, item, item_id, item_type, date_created, date_due, date_completed, date_updated, is_archived, date_snoozed_until, description, type, block_id, state, ts"
+     }
+    }
+   }
+  },
+  "/saved.clearCompleted": {
+   "post": {
+    "operationId": "saved.clearCompleted",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/saved.clearCompleted.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok"
      }
     }
    }
@@ -21050,6 +22076,87 @@
     }
    }
   },
+  "/search.autocomplete.intentModel": {
+   "post": {
+    "operationId": "search.autocomplete.intentModel",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/search.autocomplete.intentModel.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, intent_model, weights, bias, threshold"
+     }
+    }
+   }
+  },
+  "/search.autocomplete.model": {
+   "post": {
+    "operationId": "search.autocomplete.model",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/search.autocomplete.model.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, model"
+     }
+    }
+   }
+  },
+  "/search.autocomplete.offlineFeatures": {
+   "post": {
+    "operationId": "search.autocomplete.offlineFeatures",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/search.autocomplete.offlineFeatures.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, top_emojis, top_mpims, top_channels, top_users, top_app_actions, top_channel_actions, top_slash_commands, top_workflow_triggers, top_global_actions, mpim_features, channel_features, user_features, mpim_ctr, channel_ctr, user_ctr, other_ctr, app_action_ctr, slash_command_ctr, workflow_trigger_ctr, global_action_ctr, channel_action_ctr, default_features, users_has_dmed, last_read_abs, users_has_mpdmed, membership_count, channel_priority_28d, channel_priority_90d, user_affinity"
+     }
+    }
+   }
+  },
   "/search.autocomplete.topEmojis": {
    "post": {
     "operationId": "search.autocomplete.topEmojis",
@@ -21078,6 +22185,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, user, org"
+     }
+    }
+   }
+  },
+  "/search.autocomplete.topEngagedFiles": {
+   "post": {
+    "operationId": "search.autocomplete.topEngagedFiles",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/search.autocomplete.topEngagedFiles.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, files, id, created, timestamp, name, title, mimetype, filetype, pretty_type, user, user_team, size, mode, is_external, is_public, public_url_shared, display_as_bot, username, url_private, url_private_download, media_display_type, thumb_64, thumb_80, thumb_360, thumb_360_w, thumb_360_h, thumb_480, thumb_480_w, thumb_480_h, thumb_160, thumb_720, thumb_720_w, thumb_720_h, thumb_800, thumb_800_w, thumb_800_h, thumb_960, thumb_960_w, thumb_960_h, thumb_1024, thumb_1024_w, thumb_1024_h, original_w, original_h, thumb_tiny, permalink, permalink_public, skipped_shares, has_rich_preview, file_access, url_static_preview, quip_thread_id, updated, update_notification, teams_shared_with, is_restricted_sharing_enabled, access, org_or_workspace_access, title_blocks, type, block_id, canvas_creator_id, team_pref_version_history_enabled, canvas_printing_enabled, last_read, is_ai_suggested, is_transcription_region_supported, transcription, status, mp4, hls, hls_embed, mp4_low, duration_ms, thumb_video, thumb_video_w, thumb_video_h"
      }
     }
    }
@@ -22232,6 +23366,114 @@
     }
    }
   },
+  "/sessions.checkRecent": {
+   "post": {
+    "operationId": "sessions.checkRecent",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sessions.checkRecent.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, has_recent_auth"
+     }
+    }
+   }
+  },
+  "/sfdc.integration.admin.listOrgs": {
+   "post": {
+    "operationId": "sfdc.integration.admin.listOrgs",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sfdc.integration.admin.listOrgs.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, salesforce_orgs"
+     }
+    }
+   }
+  },
+  "/sfdc.integration.listOrgs": {
+   "post": {
+    "operationId": "sfdc.integration.listOrgs",
+    "summary": "List connected Salesforce integration orgs",
+    "description": "status: undocumented; verified: not-live-tested; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sfdc.integration.listOrgs.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, salesforce_orgs"
+     }
+    }
+   }
+  },
+  "/sharedInvites.canGetLink": {
+   "post": {
+    "operationId": "sharedInvites.canGetLink",
+    "summary": "Eligibility to generate shared invite link",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sharedInvites.canGetLink.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, is_eligible, reason"
+     }
+    }
+   }
+  },
   "/signin.findWorkspaces": {
    "post": {
     "operationId": "signin.findWorkspaces",
@@ -23030,6 +24272,33 @@
     }
    }
   },
+  "/solutions.getTemplates": {
+   "post": {
+    "operationId": "solutions.getTemplates",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/solutions.getTemplates.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, templates, id, icon, name, description, prefix, categories, template_items, workflows, workflow_template_id, title, is_composer_default, dependent_items, object_id, object_type, lists, list_template_id, canvases, canvas_template_id, toplevel_team_id, status, creator_id, default_tab, type"
+     }
+    }
+   }
+  },
   "/solutions.list": {
    "post": {
     "operationId": "solutions.list",
@@ -23550,6 +24819,33 @@
     }
    }
   },
+  "/team.admin.attachments.list": {
+   "post": {
+    "operationId": "team.admin.attachments.list",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.admin.attachments.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, blocked_domains"
+     }
+    }
+   }
+  },
   "/team.billableInfo": {
    "post": {
     "operationId": "team.billableInfo",
@@ -23654,6 +24950,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, changes, statelog, id, date_create, user_info, user, username, user_profile, title, phone, skype, real_name, real_name_normalized, display_name, display_name_normalized, fields, status_text, status_emoji, status_emoji_display_info, status_expiration, avatar_hash, first_name, last_name, image_24, image_32, image_48, image_72, image_192, image_512, status_text_canonical, image_original, is_custom_image, image_1024, pagination, total_count, page, per_page, page_count, first, last"
+     }
+    }
+   }
+  },
+  "/team.billing.info": {
+   "post": {
+    "operationId": "team.billing.info",
+    "summary": "Reads a workspace's billing plan information.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.billing.info.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
      }
     }
    }
@@ -24045,6 +25368,60 @@
     }
    }
   },
+  "/team.nav.get": {
+   "post": {
+    "operationId": "team.nav.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.nav.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, is_blocked_agent, data_residency_enabled, view_permissions_enabled, view_roles_enabled, signout_crumb, is_plan_frozen, is_view_overview_analytics_enabled, is_view_member_analytics_enabled, is_view_channels_analytics_enabled, is_view_app_analytics_enabled, is_developer_identity_workspace"
+     }
+    }
+   }
+  },
+  "/team.preferences.list": {
+   "post": {
+    "operationId": "team.preferences.list",
+    "summary": "Retrieve a list of a workspace's team preferences.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.preferences.list.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
   "/team.prefs.get": {
    "post": {
     "operationId": "team.prefs.get",
@@ -24177,6 +25554,33 @@
     }
    }
   },
+  "/team.slackConnectPrefs.list": {
+   "post": {
+    "operationId": "team.slackConnectPrefs.list",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.slackConnectPrefs.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, defaults, allow_sc_file_uploads, profile_visibility, allowed_workspaces, type, team_ids, allowed_canvas_sharing, allowed_list_sharing, away_team_sc_invite_permissions, away_team_sc_invite_require_2fa, accept_sc_invites, accept_private, sc_channel_limited_access, sc_mpdm_to_private, require_sc_channel_for_sc_dm, shared_channel_invite_requested, accept_spaces_invites, spaces_approval_type, interact_with_externally_owned_workflows, approved_org_info, partner_overrides"
+     }
+    }
+   }
+  },
   "/team.slackConnectPrefs.set": {
    "post": {
     "operationId": "team.slackConnectPrefs.set",
@@ -24285,6 +25689,60 @@
     }
    }
   },
+  "/team.targetingCriteria": {
+   "post": {
+    "operationId": "team.targetingCriteria",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.targetingCriteria.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, users, count"
+     }
+    }
+   }
+  },
+  "/teams.authorized.ip.range.list": {
+   "post": {
+    "operationId": "teams.authorized.ip.range.list",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/teams.authorized.ip.range.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, ip_ranges"
+     }
+    }
+   }
+  },
   "/teams.authorized.ip.range.set": {
    "post": {
     "operationId": "teams.authorized.ip.range.set",
@@ -24313,6 +25771,87 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok"
+     }
+    }
+   }
+  },
+  "/teams.company.info": {
+   "post": {
+    "operationId": "teams.company.info",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/teams.company.info.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, is_l28, team_type, state, country_iso_code, company_name, company_size, industry, primary_email_domain, size_segmentation, company_size_group"
+     }
+    }
+   }
+  },
+  "/teams.trials.info": {
+   "post": {
+    "operationId": "teams.trials.info",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/teams.trials.info.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, trial_info, date_end, date_start, days_extended, has_future_switch, is_active, product_level, next_product_level, type, subtype, days_remaining, has_base_plan_ai_entitlements"
+     }
+    }
+   }
+  },
+  "/templates.integrations.get": {
+   "post": {
+    "operationId": "templates.integrations.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/templates.integrations.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, integrations, app_id, name, org_name"
      }
     }
    }
@@ -24669,6 +26208,33 @@
     }
    }
   },
+  "/usergroups.membership": {
+   "post": {
+    "operationId": "usergroups.membership",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/usergroups.membership.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, usergroups"
+     }
+    }
+   }
+  },
   "/usergroups.update": {
    "post": {
     "operationId": "usergroups.update",
@@ -24831,6 +26397,60 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, usergroup, id, team_id, is_usergroup, is_subteam, name, description, handle, is_external, date_create, date_update, date_delete, auto_type, auto_provision, created_by, updated_by, deleted_by, is_section, is_editing_restricted, is_membership_locked, is_idp_group, is_visible, is_org_level, prefs, channels, groups, users, user_count, channel_count"
+     }
+    }
+   }
+  },
+  "/users.accessLogs": {
+   "post": {
+    "operationId": "users.accessLogs",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.accessLogs.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, logins, date_first, date_last, login_count, ip, user_agent_simple, user_agent_full"
+     }
+    }
+   }
+  },
+  "/users.admin.canAddUltraRestricted": {
+   "post": {
+    "operationId": "users.admin.canAddUltraRestricted",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.admin.canAddUltraRestricted.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok"
      }
     }
    }
@@ -25393,6 +27013,33 @@
     }
    }
   },
+  "/users.channelSections.list": {
+   "post": {
+    "operationId": "users.channelSections.list",
+    "summary": "Sidebar channel-section definitions",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.channelSections.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, channel_sections, channel_section_id, name, type, next_channel_section_id, last_updated, channel_ids_page, channel_ids, count, cursor, is_redacted"
+     }
+    }
+   }
+  },
   "/users.channelSections.set": {
    "post": {
     "operationId": "users.channelSections.set",
@@ -25557,6 +27204,33 @@
     }
    }
   },
+  "/users.deletePhoto": {
+   "post": {
+    "operationId": "users.deletePhoto",
+    "summary": "Delete the user profile photo",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.deletePhoto.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
   "/users.discoverableContacts.lookup": {
    "post": {
     "operationId": "users.discoverableContacts.lookup",
@@ -25592,6 +27266,87 @@
     }
    }
   },
+  "/users.emailVerificationStatus.get": {
+   "post": {
+    "operationId": "users.emailVerificationStatus.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.emailVerificationStatus.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, is_verified"
+     }
+    }
+   }
+  },
+  "/users.emailtoken.get": {
+   "post": {
+    "operationId": "users.emailtoken.get",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.emailtoken.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok"
+     }
+    }
+   }
+  },
+  "/users.getInviter": {
+   "post": {
+    "operationId": "users.getInviter",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.getInviter.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, user_id"
+     }
+    }
+   }
+  },
   "/users.getPresence": {
    "post": {
     "operationId": "users.getPresence",
@@ -25613,6 +27368,33 @@
           "description": "user User to get presence info on. Defaults to the authed user."
          }
         }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/users.identity": {
+   "post": {
+    "operationId": "users.identity",
+    "summary": "Get a user's identity.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.identity.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
        }
       }
      }
@@ -25808,6 +27590,33 @@
     }
    }
   },
+  "/users.listIgnoredUsers": {
+   "post": {
+    "operationId": "users.listIgnoredUsers",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only (sample-checked); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.listIgnoredUsers.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only (sample-checked)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok"
+     }
+    }
+   }
+  },
   "/users.lookupByEmail": {
    "post": {
     "operationId": "users.lookupByEmail",
@@ -25839,6 +27648,60 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/users.permissions.apps": {
+   "post": {
+    "operationId": "users.permissions.apps",
+    "summary": "params per slack-undoc-client generated types: (void / no params)",
+    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.permissions.apps.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, permissions, manage_integrations, manage_uninstall_tasks, whitelist_apps, is_appmin"
+     }
+    }
+   }
+  },
+  "/users.prefs.get": {
+   "post": {
+    "operationId": "users.prefs.get",
+    "summary": "Fetch user's client preference blob",
+    "description": "status: undocumented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.prefs.get.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, prefs"
      }
     }
    }
@@ -26023,6 +27886,33 @@
     }
    }
   },
+  "/users.priority.list": {
+   "post": {
+    "operationId": "users.priority.list",
+    "summary": "Ranked priority-contacts list",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.priority.list.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "live-verified",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, users, manual_provenance"
+     }
+    }
+   }
+  },
   "/users.priority.remove": {
    "post": {
     "operationId": "users.priority.remove",
@@ -26087,6 +27977,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, profile, title, phone, skype, real_name, real_name_normalized, display_name, display_name_normalized, fields, value, alt, status_text, status_emoji, status_emoji_display_info, display_url, unicode, display_alias, status_expiration, avatar_hash, image_original, is_custom_image, huddle_state, huddle_state_expiration_ts, first_name, last_name, image_24, image_32, image_48, image_72, image_192, image_512, image_1024, status_text_canonical, start_date, guest_invited_by, pronouns, ooo_message, who_can_share_contact_card"
+     }
+    }
+   }
+  },
+  "/users.profile.getAdminSections": {
+   "post": {
+    "operationId": "users.profile.getAdminSections",
+    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.getAdminSections.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, result, data, admin, id, profileAdminSections, label, order, type, isHidden, canChangeHidden, canEdit, profileAdminElements, __typename"
      }
     }
    }
@@ -26315,6 +28232,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, user_ids"
+     }
+    }
+   }
+  },
+  "/users.setActive": {
+   "post": {
+    "operationId": "users.setActive",
+    "summary": "Marked a user as active. Deprecated and non-functional.",
+    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.setActive.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
      }
     }
    }
@@ -27218,6 +29162,33 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, triggers, id, inputs, value, locked, hidden, outputs, type, name, title, is_required, description, available_data, date_created, date_updated, owning_team_id, filter, root, statement, version, subtype, share_url, channel_ids, workflow, callback_id, input_parameters, is_hidden, output_parameters, product_level_availability, is_available, available_to, category_id, category_label, app_id, app, icons, image_32, image_48, image_64, image_72, is_workflow_app, sales_home_workflow_app_type, date_released, date_deleted, form_enabled, workflow_id, shortcut_url, schedule, start_time, timezone, frequency, webhook_url, rejected_triggers, response_metadata, next_cursor"
+     }
+    }
+   }
+  },
+  "/workflows.triggers.listRecentlyRunForUser": {
+   "post": {
+    "operationId": "workflows.triggers.listRecentlyRunForUser",
+    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
+    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.triggers.listRecentlyRunForUser.md",
+    "tags": [
+     "undocumented"
+    ],
+    "x-verified": "existence-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: ok, recently_run_triggers, recently_run_triggers_with_timestamps"
      }
     }
    }
