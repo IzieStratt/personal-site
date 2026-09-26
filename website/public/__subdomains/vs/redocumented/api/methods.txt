@@ -1341,8 +1341,8 @@ retail.plans	undocumented	existence-only	params	-	(inferred from name only; see 
 rooms.appOptions.list	undocumented	existence-only	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 rooms.getLink	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rooms.inviteResponse	undocumented	existence-only	params	write	Respond to a huddle invite; 'decline' is the only response value seen (huddlefm), sent with _x_reason=respond-to-huddle-invite.
-rooms.join	undocumented	existence-only	params	write	Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in the loop.
-rooms.leave	undocumented	existence-only	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+rooms.join	undocumented	live-verified	params	write	Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in the loop.
+rooms.leave	undocumented	ambiguous (live 2026-09-26: feature_not_enabled for a browser-session identity; leave via the Chime LEAVE frame instead, see methods/huddles-and-chime.md)	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 rooms.notifyMember	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rooms.request	undocumented	existence-only	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 rooms.startTranscription	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
