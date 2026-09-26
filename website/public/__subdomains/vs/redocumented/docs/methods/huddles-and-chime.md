@@ -1,12 +1,12 @@
 # Huddles, the realtime (RTM-style) gateway, and the AWS Chime media layer
 
-**Provenance: source-read only. None of this was live-tested by this project.**
-Everything below comes from reading two independent open-source projects that
-join Slack Huddles in production, plus AWS's public Chime SDK docs. It is
-recorded so the shape is not lost; treat it as a strong lead, not as verified
-behavior. Per this catalog's ethos: `verified` levels for the methods below
-stay at `existence-only`, and the added params/response fields are marked as
-third-party-sourced.
+**Provenance: mostly source-read, plus one live-tested section.** Most of this page comes from reading two
+independent open-source projects that join Slack Huddles in production, plus AWS's public Chime SDK docs; treat
+those parts as a strong lead, not as verified behavior. The section
+[**Joining without a browser (live-tested 2026-09-26)**](#joining-without-a-browser-live-tested-2026-09-26) was
+done for real against this workspace, and `rooms.join` is now `live-verified`. What travels inside the Chime session
+(screenshare drawing, reactions, mute requests, …) is on its own page:
+[`huddles-peer-messages.md`](huddles-peer-messages.md).
 
 ## Sources
 
@@ -31,6 +31,66 @@ third-party-sourced.
   AWS" but is not proof of it for every workspace or every call type.
   `screenhero.rooms.info` responses do carry `media_backend_type` and
   `media_server` fields, whose possible values we have not seen enumerated.
+
+## Joining without a browser (live-tested 2026-09-26)
+
+Every project listed below runs the real Chime SDK inside headless Chromium. That isn't needed: a huddle can be
+joined with plain HTTP, one websocket and a pure-JS WebRTC stack (Node + [`werift`](https://github.com/shinyoshiaki/werift-webrtc)
+here), and such an attendee is a full participant: it shows up in the huddle, can play audio, send and receive
+Chime data messages (so it can draw on screen shares), and receive other people's video.
+
+**1. `rooms.join`.** POST `https://<workspace>.slack.com/api/rooms.join` with `channel_id`, `regions` (`us-east-2`
+worked) and `token`, plus `Cookie: d=<xoxd>`. Nothing else was needed (no `_x_*`, no `multidevice`).
+
+- On this Enterprise Grid workspace the **enterprise-level xoxc token (`E…` team) is required**; the workspace-level
+  (`T…`) token gets `team_is_restricted`.
+- It works for channels and DMs, and starts a huddle if there isn't one.
+- Response (seen): `call.call_id`, `call.survey_percent`, `call.free_willy.{meeting, attendee}`. The Chime objects
+  use AWS's PascalCase (`meeting.MediaPlacement.SignalingUrl`, `.AudioHostUrl`; `attendee.AttendeeId`,
+  `.ExternalUserId` = `<enterprise id>-<room id>-<user id>`, `.JoinToken`).
+- **The same user gets the same AttendeeId and JoinToken on every call** while the room lives, whatever the params
+  (`regions`, extra ids). Several websocket connections with that JoinToken can be open at once (Chime didn't kick
+  any), but they are one attendee: one line when drawing, one audio stream. To be N participants you need N accounts.
+
+**2. Chime signaling.** Open
+`<SignalingUrl>?X-Chime-Control-Protocol-Version=3&X-Amzn-Chime-Send-Close-On-Error=1` with websocket subprotocols
+`['_aws_wt_session', <JoinToken>]`. Every frame is one byte `0x05` followed by an `SdkSignalFrame` protobuf (the
+schema ships in `amazon-chime-sdk-js` as `SignalingProtocol.js`). Send `JOIN` (protocol version 2, flag
+`HAS_STREAM_UPDATE`, any plausible `clientDetails`); the answer is `JOIN_ACK`, carrying TURN credentials. Answer the
+server's `PING`s with `PONG`s (and ping it every ~10 s).
+
+**3. The audio leg is required.** Signaling alone lets you send and receive data messages, but other clients only
+treat you as present once Chime reports you in `AUDIO_STREAM_ID_INFO`, and that only happens once real audio is
+flowing. (Slack clients drop draw messages from attendees they don't know.) So: create an `RTCPeerConnection`, add a
+`sendrecv` audio transceiver (Opus, PT 111, `minptime=10;useinbandfec=1`) **and a `recvonly` video transceiver**
+(without a video section `SUBSCRIBE_ACK` fails with "failed to initialize video session"), gather ICE, and send
+`SUBSCRIBE` with the SDP offer (the SDK rewrites `o=-` to `o=mozilla-chrome`), `duplex: RX`, `audioHost`,
+`audioMuted`, `receiveStreamIds: [0]` and one audio `sendStreams` entry. Apply the answer from `SUBSCRIBE_ACK`, then
+send 20 ms Opus packets (pre-encoded near-silence is enough; real audio plays normally when unmuted).
+
+- **SRTP gotcha:** the DTLS-SRTP profile must be `SRTP_AES128_CM_HMAC_SHA1_80`. werift prefers AES-128-GCM; Chime's
+  audio server can't decrypt it, sends nothing back, and **drops the attendee ~2.5 s after the first packet**
+  (the websocket closes with 1006).
+- Pace audio off the wall clock. A 20 ms timer sharing an event loop with heavy work (other WebRTC stacks, a busy
+  send loop) fires late and the audio comes out crackly; running the audio attendee in its own process fixed it.
+
+**4. Receiving video** (e.g. someone's screen share): each source is listed in `INDEX` frames (`streamId`,
+`attendeeId` — a screen share is `<sharerAttendeeId>#content` — `externalUserId`, `width`, `height`). Put the
+`streamId` in `receiveStreamIds` in the `SUBSCRIBE`. The RTP arrives on the video transceiver (H.264 here) and the
+huddle's mixed audio on the audio one; forwarding both to ffmpeg with a hand-written SDP records them. Send an RTCP
+PLI every couple of seconds so the decoder gets keyframes.
+
+**5. Leaving.** Send the Chime `LEAVE` frame (answered by `LEAVE_ACK`). `rooms.leave` returns
+`feature_not_enabled` for this identity.
+
+Close codes seen: **4410** = the meeting has ended; **4403 "attendee unavailable"** = that attendee can't join right
+now (seen when a previous connection for the same account hadn't left cleanly); **1006** = dropped (see the SRTP
+gotcha, or sending data messages far over the rate limit).
+
+**Data messages** (the channel Slack's drawing, reactions, mute requests etc. use) are `DATA_MESSAGE` frames on
+the same websocket: `{messages: [{topic, data, lifetimeMs}]}`. Chime delivers about 150 per second per meeting (all
+senders together, burst ~200) and silently drops the rest; details in
+[`huddles-peer-messages.md`](huddles-peer-messages.md#throughput).
 
 ## Auth model these projects use
 
@@ -229,13 +289,14 @@ first-party material is the AWS post above.
 
 ## Open questions (not answered by these sources)
 
-- Values of `media_backend_type` other than `free_willy` (seen in the `super-platinum` fixtures), the `media_server` field, which `regions` values Slack accepts (`us-east-2`, `us-west-1`, `ap-southeast-2` all appear in working clients), and what `multidevice` does (present in huddlefm, absent in hq-fishbowl).
+- Values of `media_backend_type` other than `free_willy` (seen in the `super-platinum` fixtures), the `media_server` field, which `regions` values Slack accepts (`us-east-2` live-tested; `us-west-1`, `ap-southeast-2` appear in working clients), and what `multidevice` does (present in huddlefm, absent in hq-fishbowl, not needed live).
 - The accept value for `rooms.inviteResponse`, and the exact params for
   `rooms.request`, `rooms.notifyMember`, `rooms.getLink`,
   `rooms.sendHuddleInvite`, `huddles.knock`, `huddles.knockResponse`.
 - Whether older or non-Chime huddle backends still exist for some workspaces.
 - Rate limits and abuse thresholds for `rooms.join` (none documented anywhere
-  we looked).
+  we looked; joining ~20 accounts into one huddle within a few seconds was fine). The
+  Chime *data message* limit is measured, see above.
 
 ## Safety
 

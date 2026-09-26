@@ -21543,11 +21543,11 @@
    "post": {
     "operationId": "rooms.join",
     "summary": "Join (or start) a huddle in a channel as the calling user; returns an AWS Chime meeting+attendee under call.free_willy for the media layer. Joins a real call visibly -- do not call without a human in ",
-    "description": "status: undocumented; verified: existence-only; params source: ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- 'required' is inferred from these clients always sending them; deployor/hq-fishbowl (source read, commit c1619f1, 2025-08-06; trusted source): only channel_id, regions, token + Cookie header are sent, no _x_* fields. Details: https://vs.izie.top/redocumented/api/methods/rooms.join.md",
+    "description": "status: undocumented; verified: live-verified; params source: ingoau/huddlefm (source read, commit 2097946; not live-tested); LeafdTK/huddlecast (source read, commit 65a041d; not live-tested) -- 'required' is inferred from these clients always sending them; deployor/hq-fishbowl (source read, commit c1619f1, 2025-08-06; trusted source): only channel_id, regions, token + Cookie header are sent, no _x_* fields. Details: https://vs.izie.top/redocumented/api/methods/rooms.join.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -21561,11 +21561,11 @@
          },
          "regions": {
           "type": "string",
-          "description": "string Chime media region to request. Working clients use ap-southeast-2 (huddlefm), us-west-1 (huddlecast), us-east-2 (hq-fishbowl)."
+          "description": "string Chime media region to request. Working clients use ap-southeast-2 (huddlefm), us-west-1 (huddlecast), us-east-2 (hq-fishbowl). us-east-2 live-tested."
          },
          "multidevice": {
           "type": "string",
-          "description": "string Sent as \"true\" by huddlefm and \"false\" by huddlecast; omitted by deployor/hq-fishbowl, so not required. Meaning unconfirmed."
+          "description": "string Sent as \"true\" by huddlefm and \"false\" by huddlecast; omitted by deployor/hq-fishbowl, so not required. Meaning unconfirmed. Not needed live."
          },
          "token": {
           "type": "string",
@@ -21581,7 +21581,7 @@
     },
     "responses": {
      "200": {
-      "description": "Slack envelope; check `ok`. Response fields: ok, call, call.call_id, call.free_willy.meeting, call.free_willy.attendee, canvas.thread_channel_id, canvas.root_thread_ts, huddle.id, huddle.created_by, huddle.participants"
+      "description": "Slack envelope; check `ok`. Response fields: ok, call, call.call_id, call.free_willy.meeting, call.free_willy.attendee, canvas.thread_channel_id, canvas.root_thread_ts, huddle.id, huddle.created_by, huddle.participants, call.survey_percent"
      }
     }
    }

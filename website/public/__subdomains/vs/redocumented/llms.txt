@@ -67,7 +67,11 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
 - Start here: https://vs.izie.top/redocumented/ (sidebar docs viewer + interactive method explorer)
 - Full write-ups by namespace: /redocumented/docs/methods/*.md
 - Huddles, the realtime websocket and the AWS Chime media layer: /redocumented/docs/methods/huddles-and-chime.md
-  (source-read from ingoau/huddlefm + LeafdTK/huddlecast; not live-tested)
+  (source-read from ingoau/huddlefm + LeafdTK/huddlecast, plus a live-tested section on joining a huddle with raw
+  requests, no browser: rooms.join, Chime signaling, the required audio leg, receiving video)
+- Inside a huddle: Chime data-channel peer messages (screenshare drawing, reactions, mute requests, awareness,
+  transcript catch-up): /redocumented/docs/methods/huddles-peer-messages.md
+  (schema decoded from the client bundle; drawing, fading, cursors and data-message rate limits live-tested)
 - Slack web client internals (emoji hover card, picker, autocomplete, member right-click menu): /redocumented/docs/methods/web-client-internals-2026-09.md
   (component/thunk names read from the desktop app's cached bundle; not Web API methods)
 - Pressing an app's Block Kit button and submitting its modal from a session token (blocks.actions, RTM view_opened, views.submit): /redocumented/docs/methods/block-actions-and-modals-2026-09.md
