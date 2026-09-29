@@ -4,7 +4,7 @@
     "documented": 323,
     "undocumented": 1599,
     "total": 1922,
-    "live_verified_undocumented": 21
+    "live_verified_undocumented": 22
   },
   "methods": [
     {
@@ -15956,23 +15956,24 @@
     {
       "name": "conversations.bulkLeave",
       "status": "undocumented",
-      "tokens": "unknown - not live-tested",
-      "verified": "existence-only",
-      "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+      "tokens": "enterprise xoxc/xoxd; team xoxc returns team_is_restricted. Works on hackclub.slack.com and hackclub.enterprise.slack.com. Live-tested 2026-09-28; see methods/conversations.md",
+      "verified": "live-verified",
+      "purpose": "Leaves the calling account from the conversation(s) named in `channels` (the client's bulk 'leave channels' flow). Live 2026-09-28: a plain channel id in `channels` really leaves; a JSON-array value returns ok:true and silently does nothing; on this workspace's #general it returns ok:true and silently does NOT leave. Do not trust its ok as proof of a leave.",
       "source": "3kh0/slack-datamine, build 132396 (committed webpack mining)",
       "params": {
         "channels": {
           "required": false,
-          "type": "string"
+          "type": "string",
+          "desc": "Channel id to leave, as a plain id string. NOT a JSON array - that returns ok:true and silently no-ops. Whether multiple comma-separated ids are accepted is untested."
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "live-verified 2026-09-28 for the single-id case and the two no-op encodings; param name from ImShyMike/slack-undoc-client generated TS types",
       "response": {
         "ok": "true"
       },
       "response_known": true,
-      "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)"
+      "response_source": "live-verified 2026-09-28: response is {\"ok\": true} on success, on a JSON-array no-op, and on the #general no-op alike - it carries no information about whether a leave happened"
     },
     {
       "name": "conversations.bulkReacjiTriggers",
@@ -17388,8 +17389,8 @@
     {
       "name": "conversations.kick",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "per official docs. Live 2026-09-28: kicking yourself returns restricted_action on a non-admin account, so there is no self-kick route around conversations.leave; no admin token was available in this pass",
+      "verified": "docs-only (live-tested 2026-09-28, error path only)",
       "purpose": "Removes a user from a conversation.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -17415,8 +17416,8 @@
     {
       "name": "conversations.leave",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "enterprise xoxc/xoxd; self-leave needs no admin, channel-manager or channels:manage rights. Live 2026-09-28: 51/51 accounts left a public channel they were in, 0 failures. See methods/conversations.md",
+      "verified": "docs + live-tested",
       "purpose": "Leaves a conversation.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
@@ -17427,7 +17428,7 @@
         }
       },
       "params_known": true,
-      "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args)",
+      "params_source": "slack-ruby/slack-api-ref (mirrors official docs.slack.dev args); behavior live-verified 2026-09-28 - see methods/conversations.md (cant_leave_general on #general, not_in_channel when not a member, channel_not_found for a private channel the caller can't see, invalid_arguments for a name instead of an id)",
       "response": {
         "ok": "true"
       },
@@ -44873,8 +44874,8 @@
     {
       "name": "users.conversations",
       "status": "documented",
-      "tokens": "per official docs",
-      "verified": "docs-only",
+      "tokens": "team xoxc/xoxd ONLY - enterprise_is_restricted with the enterprise xoxc, ok:true with the team one (live 2026-09-28), inverting the usual try-team-first order. Note the documented param is `user`; a `user_id` alias was also accepted, but every call queried the calling user, so whether `user` is honored or merely defaulted is UNCONFIRMED. Private channels the caller is not in are invisible.",
+      "verified": "docs + live-tested",
       "purpose": "List conversations the calling user is a member of.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {

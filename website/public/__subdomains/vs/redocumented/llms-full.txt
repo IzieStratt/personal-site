@@ -601,6 +601,14 @@ your `xoxc` token is a team-level session or the enterprise/org-level session**:
   state and needs the org session. `rtm.connect` is team-scoped too
   (`enterprise_is_restricted` with the enterprise xoxc), so an app modal opened by
   an enterprise-token `blocks.actions` click arrives on the **team** token's socket.
+  `users.conversations` is team-scoped as well — `enterprise_is_restricted` with
+  the enterprise xoxc, `ok:true` with the team one (live 2026-09-28), so the usual
+  "try team, retry with enterprise" order inverts for it.
+- The undocumented `conversations.bulkLeave` goes the other way: `team_is_restricted`
+  with the **team** xoxc, `ok:true` with the **enterprise** one, on both hosts
+  (live 2026-09-28). `conversations.leave`, `conversations.join` and
+  `conversations.kick` all worked with the enterprise xoxc and no extra rights.
+  See `methods/conversations.md`.
 - `drafts.create` is the odd one out: it works with **either** xoxc (team or
   enterprise) — creating a draft doesn't require org-wide session scope the way
   listing/deleting them apparently does.
@@ -729,6 +737,10 @@ official docs (marked **docs**) relevant to the methods covered here.
 | `post_error` (with `message`) | `blocks.actions` was delivered to the app, but it didn't ack within 3s (for example, an `action_id` it doesn't handle). `message`: "App took too long to respond…". **seen** | `blocks.actions`, enterprise xoxc. |
 | `rate_limited` / HTTP 429 | Standard rate limiting; `Retry-After` header gives seconds to wait. **docs**, backoff implemented in `tools/probe.py` but never triggered at our ~1 req/s pace. Seen as `ratelimited` on `admin.apps.uninstall` in the sixth pass. | `admin.apps.uninstall` (see `methods/grid-admin-sandbox-2026-09.md`) |
 | `account_inactive` / `token_revoked` | Token/account no longer valid — treated as a hard-stop lockout signal in `tools/probe.py`, never encountered live. **docs**, not seen. | — |
+| `cant_leave_general` | The target is the workspace's `#general` channel, which nobody may leave — not a scope or permission issue, and not fixable by a different token. **seen** (see `methods/conversations.md`) | `conversations.leave` on this workspace's one `is_general: true` channel, 51 accounts, both hosts, both xoxc scopes. The undocumented `conversations.bulkLeave` returns `ok:true` on the same target and silently doesn't leave — the only reliable tell is re-reading membership. |
+| `not_in_channel` | Self-leave/removal when the caller isn't a member. The normal, benign result of sweeping a call across accounts that weren't all in the target. **seen** | `conversations.leave`, 50 of 51 accounts against a channel only one was in. |
+| `channel_not_found` | Also what a **private** channel looks like to a non-member: invisible, not merely forbidden. Means an account can never *self*-leave a private channel it isn't in — only someone who can already see it can remove it. **seen** | `conversations.leave`/`conversations.join`/`conversations.invite`/`conversations.open`/`conversations.members` on a private channel, from every non-member account tried. |
+| `restricted_action` | Authenticated fine, token type fine, but this identity may not perform this action on this target — a permissions answer, distinct from `not_an_admin` (no admin claim at all) and from the scope errors. **seen** (see `methods/conversations.md`) | `conversations.kick` of yourself, and `admin.conversations.invite`, with a non-admin xoxc. |
 
 ## Notes on the existence oracle
 
@@ -1513,7 +1525,7 @@ Verified legend (undocumented only): `live-verified` (called for real, read-only
 | `conversations.bulkArchive` | undocumented | existence-only | unknown | unknown | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
 | `conversations.bulkFetchMetadata` | undocumented | existence-only | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `conversations.bulkJoin` | undocumented | existence-only | unknown | unknown | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
-| `conversations.bulkLeave` | undocumented | existence-only | 1 optional | known | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
+| `conversations.bulkLeave` | undocumented | live-verified | 1 optional | known | 3kh0/slack-datamine, build 132396 (committed webpack mining) | Leaves the given conversation(s). `channels` takes a plain channel id; a JSON-array value returns ok:true and silently no-ops, and on this workspace's #general it returns ok:true without leaving. Don't trust its ok. See methods/conversations.md. |
 | `conversations.bulkReacjiTriggers` | undocumented | not-live-tested | 1 optional | known | first pass -- see methods/*.md and undocumented/INDEX.md for per-method citation | Bulk reacji trigger config |
 | `conversations.bulkRejoin` | undocumented | existence-only | unknown | unknown | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
 | `conversations.canCreateSharedInvite` | undocumented | existence-only | 1 optional | known | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
@@ -1555,8 +1567,8 @@ Verified legend (undocumented only): `live-verified` (called for real, read-only
 | `conversations.joinConnectedShared` | undocumented | existence-only | unknown | unknown | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
 | `conversations.joinContext` | undocumented | existence-only | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `conversations.joinPendingShared` | undocumented | existence-only | unknown | unknown | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
-| `conversations.kick` | documented | docs | 1 required (channel); 1 optional | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | Removes a user from a conversation. |
-| `conversations.leave` | documented | docs | 1 required (channel) | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | Leaves a conversation. |
+| `conversations.kick` | documented | docs-only (live-tested 2026-09-28, error path only) | 1 required (channel); 1 optional | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | Removes a user from a conversation. Kicking yourself returns `restricted_action` as a non-admin, so self-leave via conversations.leave is the only route. |
+| `conversations.leave` | documented | docs-only (live-tested 2026-09-28) | 1 required (channel) | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | Leaves a conversation. Self-leave needs no admin/manager rights. Errors: `cant_leave_general` on #general, `not_in_channel`, `channel_not_found` for a private channel you're not in. See methods/conversations.md. |
 | `conversations.leave.recommendations` | undocumented | existence-only | 1 optional | known | 3kh0/slack-datamine, build 132396 (committed webpack mining) | (inferred from name only; see methods/datamine-2026-09.md) |
 | `conversations.list` | documented | docs | 5 optional | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | Lists all channels in a Slack team. |
 | `conversations.listConnectInvites` | documented | docs | 2 optional | unknown | docs.slack.dev / slack-ruby/slack-api-ref mirror | Lists shared channel invites that have been generated or received but have not been approved by all parties |
@@ -2639,7 +2651,7 @@ Verified legend (undocumented only): `live-verified` (called for real, read-only
 | `users.consent.add` | undocumented | existence-only | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `users.consent.get` | undocumented | existence-only | 1 optional | known | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `users.consent.remove` | undocumented | existence-only (sample-checked) | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
-| `users.conversations` | documented | docs | 7 optional | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | List conversations the calling user is a member of. |
+| `users.conversations` | documented | docs-only (live-tested 2026-09-28) | 7 optional | known | docs.slack.dev / slack-ruby/slack-api-ref mirror | List conversations the calling user is a member of. **Team xoxc only** (`enterprise_is_restricted` with the enterprise one), inverting the usual try-team-first order. |
 | `users.customStatus.deleteScheduled` | undocumented | existence-only | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `users.customStatus.hide` | undocumented | existence-only | unknown | unknown | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
 | `users.customStatus.list` | undocumented | existence-only | 1 optional | known | internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task) | (from internal-canvas cross-reference; see methods/internal-canvas-2026.md) |
@@ -3297,6 +3309,76 @@ token.
 
 This file also covers three undocumented additions.
 
+## Leaving a channel (live-tested 2026-09-28)
+
+All of this was exercised with ordinary **browser-session accounts** (xoxc + `d=`
+cookie, no admin/manager rights, no app) driving `conversations.leave` across 51
+separate accounts on this workspace, plus the undocumented
+`conversations.bulkLeave`. Method: leave a public channel the accounts were
+members of, then re-read membership with `users.conversations` and
+`conversations.info` to confirm.
+
+### `conversations.leave` — live-verified
+
+Previously `docs-only`. Now confirmed end-to-end: **51 of 51 accounts left a
+public channel they were in, 0 failures**, each with its own token.
+
+- **Self-leave needs no special rights.** No `channels:manage`, no
+  channel-manager, no admin. This is the practical difference from
+  `conversations.kick` below, and it's why "get a bot out of a channel it was
+  temporarily invited to" doesn't need an inviter account at all.
+- **`cant_leave_general`** on this workspace's one `is_general: true` channel
+  (`C0266FRGT`), for every account and on both hosts. This is a hard server-side
+  rule, not a permissions problem.
+- **`not_in_channel`** when the account was never a member — the normal result
+  for a bulk sweep across accounts that weren't all in the target.
+- **`channel_not_found`** for a *private* channel the caller isn't in. A private
+  channel is invisible to non-members, so a self-leave is impossible precisely
+  when someone might most want it; the account can only be removed by somebody
+  who can already see the channel.
+- **`invalid_arguments`** if you pass a channel *name* (`announcements`) instead
+  of an id. Ids only.
+
+### `conversations.bulkLeave` — UNDOCUMENTED, live-verified, and a trap
+
+`params` here were previously "generated TS types, cross-referenced not
+independently verified" and `verified` was `existence-only`. Both are now
+settled by live calls.
+
+- **Status:** UNDOCUMENTED (`3kh0/slack-datamine` build 132396).
+- **Purpose:** the client's bulk "leave channels" flow. Leaves the calling
+  account from the conversation(s) named in `channels`.
+- **`channels` takes a plain channel id string** — `channels=C…`. Verified: this
+  form actually left `#lounge` (membership dropped on re-read; rejoined
+  afterwards to restore the original state).
+- **A JSON-array encoding silently does nothing.** `channels=["C…"]` returns
+  `ok: true` and the account is *still* a member. Since the generated type only
+  said "string", the obvious "it's a list, so send a list" reading is a silent
+  no-op — worth knowing before trusting a bulk call's success.
+- **It lies about #general.** On `C0266FRGT` it returned `ok: true` with **no
+  effect**: confirmed by four `users.conversations` reads over ~8s and by
+  `conversations.info` still reporting `is_member: true`, while
+  `conversations.leave` on the same target errors `cant_leave_general`. So the
+  #general block is enforced on both code paths — `bulkLeave` just fails
+  quietly instead of loudly. **Do not use `bulkLeave`'s `ok` as evidence a leave
+  happened**; re-read membership instead.
+- **Tokens:** works with the **enterprise** xoxc on both `hackclub.slack.com`
+  and `hackclub.enterprise.slack.com`; the **team** xoxc returns
+  `team_is_restricted`. (Fits the team-vs-org split in `../auth-and-tokens.md`.)
+- **Not established:** the multi-id form (whether `channels` accepts a
+  comma-separated list) was never tested — only the single-id case. A repeated
+  `channels` param returned `channel_not_found`, but that call was confounded
+  (the account had already left by then, and that error is what a not-a-member
+  leave returns), so it proves nothing either way.
+
+### `conversations.kick` — live-verified negative
+
+Kicking **yourself** (`channel` + your own `user` id) returns
+**`restricted_action`** on a non-admin account. There is no self-kick shortcut
+around `conversations.leave`, and no admin token was available in this pass
+(`not_an_admin`/`restricted_action` across the board, see
+`methods/admin-write-scope-2026-09.md`). Use self-leave.
+
 ## `conversations.view`
 
 - **Status:** UNDOCUMENTED.
@@ -3343,6 +3425,11 @@ This file also covers three undocumented additions.
 **Result of the oracle sweep:** 391 EXISTS, 12 NOT_FOUND, 0 ambiguous. Only the EXISTS set is added to this project's catalog below; NOT_FOUND names are recorded as noise (webpack strings that are not live `/api/<method>` dispatch targets -- could be client-side route/action names, retired methods, or names from a different dispatch path the oracle doesn't cover).
 
 **Verification level for every method below: `existence-only`.** None of these were live-called with real tokens, and none had params/response shape investigated -- that would be a much larger follow-up pass. Purpose descriptions are inferred from the name alone and clearly marked as such.
+
+**Exception, added 2026-09-28:** `conversations.bulkLeave` from this list has since been live-called and is now
+`live-verified` in the catalog -- `channels` takes a plain channel id, a JSON-array value silently no-ops, and it
+returns `ok:true` without leaving this workspace's #general. See `conversations.md`. Everything else on this page is
+still `existence-only`.
 
 ## Checked and NOT_FOUND (webpack string, but not a live dispatch target)
 

@@ -635,7 +635,7 @@ conversations.badgeCount	undocumented	existence-only	params	-	(inferred from nam
 conversations.bulkArchive	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.bulkFetchMetadata	undocumented	existence-only	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.bulkJoin	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-conversations.bulkLeave	undocumented	existence-only	params	-	(inferred from name only; see methods/datamine-2026-09.md)
+conversations.bulkLeave	undocumented	live-verified	params	-	Leaves the calling account from the conversation(s) named in `channels` (the client's bulk 'leave channels' flow). Live 2026-09-28: a plain channel id in `channels` really leaves; a JSON-array value returns ok:true and silently does nothing; on this workspace's #general it returns ok:true and silently does NOT leave. Do not trust its ok as proof of a leave.
 conversations.bulkReacjiTriggers	undocumented	not-live-tested	params	-	Bulk reacji trigger config
 conversations.bulkRejoin	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.canCreateSharedInvite	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -677,8 +677,8 @@ conversations.join	documented	docs-only	params	write	Joins an existing conversat
 conversations.joinConnectedShared	undocumented	existence-only	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.joinContext	undocumented	existence-only	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.joinPendingShared	undocumented	existence-only	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-conversations.kick	documented	docs-only	params	write	Removes a user from a conversation.
-conversations.leave	documented	docs-only	params	write	Leaves a conversation.
+conversations.kick	documented	docs-only (live-tested 2026-09-28, error path only)	params	write	Removes a user from a conversation.
+conversations.leave	documented	docs + live-tested	params	write	Leaves a conversation.
 conversations.leave.recommendations	undocumented	existence-only	params	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.list	documented	docs-only	params	-	Lists all channels in a Slack team.
 conversations.listConnectInvites	documented	docs-only	params	-	Lists shared channel invites that have been generated or received but have not been approved by all parties
@@ -1761,7 +1761,7 @@ users.channelSuggestions.list	undocumented	existence-only	-	-	(inferred from nam
 users.consent.add	undocumented	existence-only	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.consent.get	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.consent.remove	undocumented	existence-only (sample-checked)	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-users.conversations	documented	docs-only	params	-	List conversations the calling user is a member of.
+users.conversations	documented	docs + live-tested	params	-	List conversations the calling user is a member of.
 users.customStatus.deleteScheduled	undocumented	existence-only	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.customStatus.hide	undocumented	existence-only	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.customStatus.list	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

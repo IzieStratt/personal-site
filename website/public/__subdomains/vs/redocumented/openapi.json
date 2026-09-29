@@ -11364,12 +11364,12 @@
   "/conversations.bulkLeave": {
    "post": {
     "operationId": "conversations.bulkLeave",
-    "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.bulkLeave.md",
+    "summary": "Leaves the calling account from the conversation(s) named in `channels` (the client's bulk 'leave channels' flow). Live 2026-09-28: a plain channel id in `channels` really leaves; a JSON-array value r",
+    "description": "status: undocumented; verified: live-verified; params source: live-verified 2026-09-28 for the single-id case and the two no-op encodings; param name from ImShyMike/slack-undoc-client generated TS types. Details: https://vs.izie.top/redocumented/api/methods/conversations.bulkLeave.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -11379,7 +11379,7 @@
         "properties": {
          "channels": {
           "type": "string",
-          "description": "string"
+          "description": "string Channel id to leave, as a plain id string. NOT a JSON array - that returns ok:true and silently no-ops. Whether multiple comma-separated ids are accepted is untested."
          }
         }
        }
@@ -12274,11 +12274,11 @@
    "post": {
     "operationId": "conversations.kick",
     "summary": "Removes a user from a conversation.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/conversations.kick.md",
+    "description": "status: documented; verified: docs-only (live-tested 2026-09-28, error path only); params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/conversations.kick.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs-only (live-tested 2026-09-28, error path only)",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -12313,11 +12313,11 @@
    "post": {
     "operationId": "conversations.leave",
     "summary": "Leaves a conversation.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/conversations.leave.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args); behavior live-verified 2026-09-28 - see methods/conversations.md (cant_leave_general on #general, not_in_channel when not a member, channel_not_found for a private channel the caller can't see, invalid_arguments for a name instead of an id). Details: https://vs.izie.top/redocumented/api/methods/conversations.leave.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -27120,11 +27120,11 @@
    "post": {
     "operationId": "users.conversations",
     "summary": "List conversations the calling user is a member of.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.conversations.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.conversations.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": false,
     "requestBody": {
      "content": {

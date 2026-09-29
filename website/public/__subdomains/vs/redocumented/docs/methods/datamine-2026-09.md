@@ -6,6 +6,11 @@
 
 **Verification level for every method below: `existence-only`.** None of these were live-called with real tokens, and none had params/response shape investigated -- that would be a much larger follow-up pass. Purpose descriptions are inferred from the name alone and clearly marked as such.
 
+**Exception, added 2026-09-28:** `conversations.bulkLeave` from this list has since been live-called and is now
+`live-verified` in the catalog -- `channels` takes a plain channel id, a JSON-array value silently no-ops, and it
+returns `ok:true` without leaving this workspace's #general. See `conversations.md`. Everything else on this page is
+still `existence-only`.
+
 ## Checked and NOT_FOUND (webpack string, but not a live dispatch target)
 
 `channels.insights`, `channels.view`, `conversations.dms.mark`, `entities.channels.matchEmailField`, `entities.members.matchEmailField`, `groups.view`, `im.view`, `mpim.view`, `rtm.shouldReload`, `screenhero.rooms.proxyAnalytics`, `screenhero.rooms.refreshToken`, `search.autocomplete.topEmoji`
