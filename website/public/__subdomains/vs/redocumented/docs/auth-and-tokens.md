@@ -48,6 +48,14 @@ your `xoxc` token is a team-level session or the enterprise/org-level session**:
   state and needs the org session. `rtm.connect` is team-scoped too
   (`enterprise_is_restricted` with the enterprise xoxc), so an app modal opened by
   an enterprise-token `blocks.actions` click arrives on the **team** token's socket.
+  `users.conversations` is team-scoped as well — `enterprise_is_restricted` with
+  the enterprise xoxc, `ok:true` with the team one (live 2026-09-28), so the usual
+  "try team, retry with enterprise" order inverts for it.
+- The undocumented `conversations.bulkLeave` goes the other way: `team_is_restricted`
+  with the **team** xoxc, `ok:true` with the **enterprise** one, on both hosts
+  (live 2026-09-28). `conversations.leave`, `conversations.join` and
+  `conversations.kick` all worked with the enterprise xoxc and no extra rights.
+  See `methods/conversations.md`.
 - `drafts.create` is the odd one out: it works with **either** xoxc (team or
   enterprise) — creating a draft doesn't require org-wide session scope the way
   listing/deleting them apparently does.

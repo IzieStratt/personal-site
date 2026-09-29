@@ -4,7 +4,7 @@
   "documented": 323,
   "undocumented": 1599,
   "total": 1922,
-  "live_verified_undocumented": 21
+  "live_verified_undocumented": 22
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -5727,11 +5727,11 @@
   {
    "name": "conversations.bulkLeave",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
-   "purpose": "(inferred from name only; see methods/datamine-2026-09.md)"
+   "purpose": "Leaves the calling account from the conversation(s) named in `channels` (the client's bulk 'leave channels' flow). Live 2026-09-28: a plain channel id in `channels` really leaves; a JSON-array value returns ok:true and silently does nothing; on this workspace's #general it returns ok:true and silently does NOT leave. Do not trust its ok as proof of a leave."
   },
   {
    "name": "conversations.bulkReacjiTriggers",
@@ -6105,7 +6105,7 @@
   {
    "name": "conversations.kick",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs-only (live-tested 2026-09-28, error path only)",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
@@ -6114,7 +6114,7 @@
   {
    "name": "conversations.leave",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
@@ -15861,7 +15861,7 @@
   {
    "name": "users.conversations",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
