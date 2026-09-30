@@ -28047,12 +28047,12 @@
   "/users.profile.getSections": {
    "post": {
     "operationId": "users.profile.getSections",
-    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.getSections.md",
+    "summary": "Full profile section/element structure with per-element write permissions (permissions.api / .ui / .scim). This is the only place a caller can discover whether a given custom field is API-writable at ",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client generated types, cross-referenced and confirmed by live call. Details: https://vs.izie.top/redocumented/api/methods/users.profile.getSections.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -28083,7 +28083,7 @@
   "/users.profile.set": {
    "post": {
     "operationId": "users.profile.set",
-    "summary": "Set a user's profile information, including custom status.",
+    "summary": "Set a user's profile information, including custom status. IMPORTANT: despite the docs, this does NOT write custom profile fields (Xf... ids) -- it returns ok:true and silently discards them. Use user",
     "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.profile.set.md",
     "tags": [
      "documented"
@@ -28127,12 +28127,12 @@
   "/users.profile.setAdminSections": {
    "post": {
     "operationId": "users.profile.setAdminSections",
-    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.setAdminSections.md",
+    "summary": "Admin-side definition of WHICH elements a profile section contains and their ordering/metadata. Schema, not values: it rejects every value-bearing property. Reached only by a genuine org/workspace adm",
+    "description": "status: undocumented; verified: live-verified (schema); write blocked for this account (permission_denied); params source: live call -- schema derived from Slack's own validation errors. Details: https://vs.izie.top/redocumented/api/methods/users.profile.setAdminSections.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified (schema); write blocked for this account (permission_denied)",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -28142,9 +28142,12 @@
         "properties": {
          "sections": {
           "type": "string",
-          "description": "string"
+          "description": "string JSON array of admin section objects. Each requires: id, label, order, type, isHidden, canChangeHidden, canEdit, and profileAdminElements[]. Each element requires: label, order, elementKey, type, hint, isHidden, canChangeHidden, canEdit, isIndexed, isFilterable, isInPreview, isScimManaged; optional legacyFieldId (accepted; elementId and fieldId are rejected). NO value property is accepted -- date/text/value/link/person are all rejected as 'invalid additional property'. Errors are returned as response_metadata.messages[] with JSON pointers, which makes the schema self-describing."
          }
-        }
+        },
+        "required": [
+         "sections"
+        ]
        }
       }
      }
@@ -28159,12 +28162,12 @@
   "/users.profile.setSections": {
    "post": {
     "operationId": "users.profile.setSections",
-    "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.setSections.md",
+    "summary": "Write a profile section's custom-field values. This -- not users.profile.set -- is what the Slack web client actually uses to save custom profile fields. Silently discards elements whose permissions.u",
+    "description": "status: undocumented; verified: live-verified; params source: Slack web client bundles, build bv1-13, fetched 2026-09-30 from a.slack-edge.com (13 files, ~48 MB); the endpoint, param names and element payload shapes were read from js/modern.vendor.1199148cec6e2371.min.js and each confirmed by a live call against this account. Details: https://vs.izie.top/redocumented/api/methods/users.profile.setSections.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -28174,15 +28177,15 @@
         "properties": {
          "user": {
           "type": "string",
-          "description": "string"
+          "description": "string User ID whose section is being written. Live-verified: omitting it targets the caller."
          },
          "section": {
           "type": "string",
-          "description": "string"
+          "description": "string sectionId (e.g. Ps09UB143BUJ), NOT the label. Live-verified: 'section' is the accepted param name; 'section_id' and 'profile_section_id' both return failed_to_set_sections."
          },
          "elements": {
           "type": "string",
-          "description": "string"
+          "description": "string JSON array of element objects, each {element_id, <type-key>: {...}}. The element_id is the 'Pe...' id from users.profile.getSections, NOT the legacy 'Xf...' field id. Type key per element __typename, built client-side by convertSectionToProfileInput: ProfileTextElement->text:{text}, ProfileDateElement->date:{date}, ProfileLinkElement->link:{displayText,uri}, ProfilePersonElement->person:{persons}, ProfileLongTextElement->long_text, ProfileCurrentLocationElement->currentLocation:{city,country,description,state}, ProfileTagsElement->tags:{tags}. An empty inner string clears the element."
          }
         }
        }

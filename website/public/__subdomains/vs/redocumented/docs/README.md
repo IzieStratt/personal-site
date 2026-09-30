@@ -106,6 +106,13 @@ field or the published `llms.txt` for the same note in agent-facing form.
   `admin.apps.uninstall`/`approve`/`approved.list`/`requests.cancel` and
   `team.integrationLogs`/`bots.info` for real against this account, and the
   new `permission_denied`/`not_an_admin` distinction that came out of it.
+- `methods/profile-fields-2026-09.md` — the sixth pass: custom profile fields.
+  `users.profile.set` silently discards `Xf...` writes while returning
+  `ok: true`; `users.profile.setSections` is the endpoint the web client
+  actually uses (source-read + live-verified, including the per-`__typename`
+  element payload shapes and the `section`-not-`section_id` trap); per-element
+  `permissions.ui` explains admin-locked fields; `setAdminSections` is
+  schema-only and takes no values.
 
 ## Methodology
 

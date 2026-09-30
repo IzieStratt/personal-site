@@ -1799,12 +1799,12 @@ users.priority.remove	undocumented	existence-only	params	write	(from internal-ca
 users.profile.get	documented	docs-only	params	-	Retrieve a user's profile information, including their custom status.
 users.profile.getAdminSections	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.profile.getExtras	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-users.profile.getSections	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+users.profile.getSections	undocumented	live-verified	params	-	Full profile section/element structure with per-element write permissions (permissions.api / .ui / .scim). This is the only place a caller can discover whether a given custom field is API-writable at all.
 users.profile.getTrailheadRank	undocumented	existence-only	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.profile.relationships.getOrgChart	undocumented	existence-only	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-users.profile.set	documented	docs-only	params	write	Set a user's profile information, including custom status.
-users.profile.setAdminSections	undocumented	existence-only	params	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-users.profile.setSections	undocumented	existence-only	params	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+users.profile.set	documented	docs-only	params	write	Set a user's profile information, including custom status. IMPORTANT: despite the docs, this does NOT write custom profile fields (Xf... ids) -- it returns ok:true and silently discards them. Use users.profile.setSections for those. Core fields (status_text, status_emoji, title, phone, real_name...) do work here.
+users.profile.setAdminSections	undocumented	live-verified (schema); write blocked for this account (permission_denied)	params	write	Admin-side definition of WHICH elements a profile section contains and their ordering/metadata. Schema, not values: it rejects every value-bearing property. Reached only by a genuine org/workspace admin identity.
+users.profile.setSections	undocumented	live-verified	params	write	Write a profile section's custom-field values. This -- not users.profile.set -- is what the Slack web client actually uses to save custom profile fields. Silently discards elements whose permissions.ui is false (returns ok:true).
 users.recommend	undocumented	existence-only	params	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.removeUserBlock	undocumented	existence-only	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.setActive	documented	docs-only	params	write	Marked a user as active. Deprecated and non-functional.

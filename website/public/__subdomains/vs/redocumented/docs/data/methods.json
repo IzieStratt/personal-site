@@ -45847,10 +45847,10 @@
     {
       "name": "users.profile.getSections",
       "status": "undocumented",
-      "tokens": "unknown",
-      "verified": "existence-only",
-      "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-      "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+      "tokens": "enterprise xoxc/xoxd only (team xoxc -> team_is_restricted)",
+      "verified": "live-verified",
+      "purpose": "Full profile section/element structure with per-element write permissions (permissions.api / .ui / .scim). This is the only place a caller can discover whether a given custom field is API-writable at all.",
+      "source": "Slack web client bundles, build bv1-13, fetched 2026-09-30 from a.slack-edge.com (13 files, ~48 MB); the endpoint, param names and element payload shapes were read from js/modern.vendor.1199148cec6e2371.min.js and each confirmed by a live call against this account",
       "params": {
         "user": {
           "required": false,
@@ -45862,7 +45862,7 @@
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "ImShyMike/slack-undoc-client generated types, cross-referenced and confirmed by live call",
       "response": {
         "ok": "true",
         "result": "{",
@@ -45918,7 +45918,7 @@
       "status": "documented",
       "tokens": "per official docs",
       "verified": "docs-only",
-      "purpose": "Set a user's profile information, including custom status.",
+      "purpose": "Set a user's profile information, including custom status. IMPORTANT: despite the docs, this does NOT write custom profile fields (Xf... ids) -- it returns ok:true and silently discards them. Use users.profile.setSections for those. Core fields (status_text, status_emoji, title, phone, real_name...) do work here.",
       "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
       "params": {
         "name": {
@@ -45991,18 +45991,19 @@
     {
       "name": "users.profile.setAdminSections",
       "status": "undocumented",
-      "tokens": "unknown",
-      "verified": "existence-only",
-      "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-      "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+      "tokens": "enterprise xoxc/xoxd reached the validator; final write returned permission_denied",
+      "verified": "live-verified (schema); write blocked for this account (permission_denied)",
+      "purpose": "Admin-side definition of WHICH elements a profile section contains and their ordering/metadata. Schema, not values: it rejects every value-bearing property. Reached only by a genuine org/workspace admin identity.",
+      "source": "Live calls only. The required-field set was recovered from Slack's own JSON-schema validation errors (response_metadata.messages[] carries a JSON pointer per problem), then confirmed by a payload that reached the permission check. NOTE: this method does NOT appear in the Slack web client bundles (bv1-13, fetched 2026-09-30) -- the bundle contains PROFILE_ADMIN_ELEMENTS as a label constant only -- so there was no client-side source to read; params_source reflects the live derivation.",
       "params": {
         "sections": {
-          "required": false,
-          "type": "string"
+          "required": true,
+          "type": "string",
+          "desc": "JSON array of admin section objects. Each requires: id, label, order, type, isHidden, canChangeHidden, canEdit, and profileAdminElements[]. Each element requires: label, order, elementKey, type, hint, isHidden, canChangeHidden, canEdit, isIndexed, isFilterable, isInPreview, isScimManaged; optional legacyFieldId (accepted; elementId and fieldId are rejected). NO value property is accepted -- date/text/value/link/person are all rejected as 'invalid additional property'. Errors are returned as response_metadata.messages[] with JSON pointers, which makes the schema self-describing."
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "live call -- schema derived from Slack's own validation errors",
       "response": {
         "ok": "true",
         "result": "{",
@@ -46025,26 +46026,29 @@
     {
       "name": "users.profile.setSections",
       "status": "undocumented",
-      "tokens": "unknown",
-      "verified": "existence-only",
-      "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-      "source": "internal Canvas (private, hackclub workspace; bonus 4th source, user-linked mid-task)",
+      "tokens": "enterprise xoxc/xoxd only (team xoxc -> team_is_restricted); xoxp/xoxb -> not_allowed_token_type",
+      "verified": "live-verified",
+      "purpose": "Write a profile section's custom-field values. This -- not users.profile.set -- is what the Slack web client actually uses to save custom profile fields. Silently discards elements whose permissions.ui is false (returns ok:true).",
+      "source": "Slack web client bundles, build bv1-13, fetched 2026-09-30 from a.slack-edge.com (13 files, ~48 MB); the endpoint, param names and element payload shapes were read from js/modern.vendor.1199148cec6e2371.min.js and each confirmed by a live call against this account",
       "params": {
         "user": {
           "required": false,
-          "type": "string"
+          "type": "string",
+          "desc": "User ID whose section is being written. Live-verified: omitting it targets the caller."
         },
         "section": {
           "required": false,
-          "type": "string"
+          "type": "string",
+          "desc": "sectionId (e.g. Ps09UB143BUJ), NOT the label. Live-verified: 'section' is the accepted param name; 'section_id' and 'profile_section_id' both return failed_to_set_sections."
         },
         "elements": {
           "required": false,
-          "type": "string"
+          "type": "string",
+          "desc": "JSON array of element objects, each {element_id, <type-key>: {...}}. The element_id is the 'Pe...' id from users.profile.getSections, NOT the legacy 'Xf...' field id. Type key per element __typename, built client-side by convertSectionToProfileInput: ProfileTextElement->text:{text}, ProfileDateElement->date:{date}, ProfileLinkElement->link:{displayText,uri}, ProfilePersonElement->person:{persons}, ProfileLongTextElement->long_text, ProfileCurrentLocationElement->currentLocation:{city,country,description,state}, ProfileTagsElement->tags:{tags}. An empty inner string clears the element."
         }
       },
       "params_known": true,
-      "params_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
+      "params_source": "Slack web client bundles, build bv1-13, fetched 2026-09-30 from a.slack-edge.com (13 files, ~48 MB); the endpoint, param names and element payload shapes were read from js/modern.vendor.1199148cec6e2371.min.js and each confirmed by a live call against this account",
       "response": {
         "ok": "true",
         "result": "{",
@@ -46062,7 +46066,7 @@
         "__typename": "string"
       },
       "response_known": true,
-      "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)"
+      "response_source": "live call (write to the calling user's own School field, then restored)"
     },
     {
       "name": "users.recommend",

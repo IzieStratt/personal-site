@@ -58,6 +58,16 @@ this project already applies to every secondary source.
    `existence-only` at best, never `live-verified` — existence is now 100%
    checked, *behavior* is not.
 
+   **Later-pass exception (2026-09-30):** three names first listed here —
+   `users.profile.getSections`, `users.profile.setSections`,
+   `users.profile.setAdminSections` — have since been upgraded to
+   `live-verified`. That upgrade came from an *independent* source (the Slack
+   web client bundle, cross-referenced with real calls against this account),
+   not from trusting the canvas, and it is documented in
+   `profile-fields-2026-09.md`. They are the exception that proves the rule:
+   the canvas correctly predicted that the methods exist, and had nothing
+   whatsoever to say about how they behave.
+
 ## Confirmed NOT_FOUND (68 total, excluded from the catalog)
 
 Sample-phase (5): `apps.permissions.internal.info`, `channels.insights`,

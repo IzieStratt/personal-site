@@ -4,6 +4,14 @@ Documented `users.*` methods are unchanged from official docs (no quirks
 observed this session beyond what's already public). This file covers the
 undocumented additions.
 
+> **Custom profile fields:** `users.profile.set` does **not** write `Xf...`
+> custom fields — it returns `ok: true` and discards them, while core fields
+> (`status_text`, `status_emoji`, `title`, …) do work. The real endpoint is
+> `users.profile.setSections`, and whether a given field is writable at all is
+> reported per-element as `permissions.ui` by `users.profile.getSections`.
+> Full detail, live-verified payloads and provenance:
+> [`profile-fields-2026-09.md`](profile-fields-2026-09.md).
+
 ## `users.admin.invite`
 
 - **Status:** UNDOCUMENTED (legacy admin API).

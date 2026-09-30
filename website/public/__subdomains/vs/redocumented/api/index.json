@@ -16203,11 +16203,11 @@
   {
    "name": "users.profile.getSections",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
-   "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)"
+   "purpose": "Full profile section/element structure with per-element write permissions (permissions.api / .ui / .scim). This is the only place a caller can discover whether a given custom field is API-writable at all."
   },
   {
    "name": "users.profile.getTrailheadRank",
@@ -16234,25 +16234,25 @@
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
-   "purpose": "Set a user's profile information, including custom status."
+   "purpose": "Set a user's profile information, including custom status. IMPORTANT: despite the docs, this does NOT write custom profile fields (Xf... ids) -- it returns ok:true and silently discards them. Use users.profile.setSections for those. Core fields (status_text, status_emoji, title, phone, real_name...) do work here."
   },
   {
    "name": "users.profile.setAdminSections",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified (schema); write blocked for this account (permission_denied)",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
-   "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)"
+   "purpose": "Admin-side definition of WHICH elements a profile section contains and their ordering/metadata. Schema, not values: it rejects every value-bearing property. Reached only by a genuine org/workspace admin identity."
   },
   {
    "name": "users.profile.setSections",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
-   "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)"
+   "purpose": "Write a profile section's custom-field values. This -- not users.profile.set -- is what the Slack web client actually uses to save custom profile fields. Silently discards elements whose permissions.ui is false (returns ok:true)."
   },
   {
    "name": "users.recommend",
