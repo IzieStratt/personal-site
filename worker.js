@@ -6,16 +6,18 @@ export default {
     const url = new URL(request.url)
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse
-    if (url.hostname === 'izie.top' && ['/redoc', '/redoc/'].includes(url.pathname)) {
+    if (url.hostname === 'izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
+      const rest = url.pathname.replace(/^\/redoc\/?/, '')
       return new Response(null, {
         status: 302,
-        headers: { Location: `https://vs.izie.top/redocumented${url.search}` },
+        headers: { Location: `https://vs.izie.top/redocumented${rest ? `/${rest}` : ''}${url.search}` },
       })
     }
-    if (url.hostname === 'vs.izie.top' && ['/redoc', '/redoc/'].includes(url.pathname)) {
+    if (url.hostname === 'vs.izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
+      const rest = url.pathname.replace(/^\/redoc\/?/, '')
       return new Response(null, {
         status: 302,
-        headers: { Location: `/redocumented${url.search}` },
+        headers: { Location: `/redocumented${rest ? `/${rest}` : ''}${url.search}` },
       })
     }
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slackapi/')) {
