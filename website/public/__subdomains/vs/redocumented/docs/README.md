@@ -326,6 +326,14 @@ No bulk/exploratory `admin.*` calls were made — six specific methods,
 chosen because the task at hand needed them, each called a small, bounded
 number of times (never more than 4-5 param/token combinations per method).
 
+## Scoped profile-field record (2026-09-30)
+
+- [`methods/profile-fields-2026-09.md`](methods/profile-fields-2026-09.md)
+  preserves the dated member-account response/readback observations, separates
+  them from supported `users.profile.set` custom-field writes, and records
+  the limits of the undocumented section/layout evidence. No new writes or
+  catalog verification upgrades were made for this revision.
+
 ## Honest coverage statement
 
 This is **not** a complete map of Slack's private API surface, and cannot be:
