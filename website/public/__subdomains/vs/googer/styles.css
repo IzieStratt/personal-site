@@ -30,7 +30,7 @@ output { color: #bda18e; font-size: .75rem; }
 .cover-options legend { padding: 0 .3rem; color: #ffd19e; font-size: .8rem; }
 .check { display: flex; grid-template-columns: auto 1fr; align-items: start; gap: .5rem; color: #bda18e; font-size: .72rem; }
 .check input { margin-top: .2rem; accent-color: #e9a66b; }
-.actions { display: flex; gap: .6rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; }
 button { flex: 1; padding: .7rem .8rem; cursor: pointer; color: #281811; border: 0; border-radius: .35rem; background: #ffc486; font-weight: 700; }
 button.secondary { color: #ffd19e; border: 1px solid #765542; background: transparent; }
 button:hover, button:focus-visible { filter: brightness(1.12); outline: 2px solid #ffc486; outline-offset: 2px; }
