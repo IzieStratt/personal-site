@@ -249,6 +249,24 @@ document.querySelector('#download').addEventListener('click', () => {
   status.textContent = 'PNG exported locally.'
 })
 
+document.querySelector('#copy').addEventListener('click', async () => {
+  if (!baseImage) {
+    status.textContent = 'Choose a base image before copying.'
+    return
+  }
+  if (!navigator.clipboard || !window.ClipboardItem) {
+    status.textContent = 'This browser cannot copy images. Use Export PNG instead.'
+    return
+  }
+  try {
+    const blob = await new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error('no blob')), 'image/png'))
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+    status.textContent = 'Image copied to clipboard.'
+  } catch {
+    status.textContent = 'Copy failed (clipboard permission denied?). Use Export PNG instead.'
+  }
+})
+
 document.fonts.load('900 224px "Jost Black"').then(fonts => {
   if (!fonts.length || !document.fonts.check('900 224px "Jost Black"')) {
     status.textContent = 'Jost Black failed to load; refusing to render a fallback font.'
