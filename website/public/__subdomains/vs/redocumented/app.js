@@ -50,6 +50,7 @@ const NAV = [
     items: [
       { label: "Undocumented methods index", path: "docs/undocumented/INDEX.md" },
       { label: "Guide: schedule send + attachments", path: "docs/guides/schedule-send-with-attachments.md" },
+      { label: "Client experiments (community-reported)", path: "docs/guides/client-experiments-2026-10.md" },
     ],
   },
 ];
