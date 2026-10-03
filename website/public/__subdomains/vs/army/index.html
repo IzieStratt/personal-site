@@ -42,7 +42,7 @@
         <label>tile PNG (used as-is, starts as neocat)
           <input type="file" id="file" accept="image/png">
         </label>
-        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. For emoji that sit side by side in Slack, make the canvas a multiple of the (padded) tile width, or the pattern breaks at each emoji edge. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
+        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. For emoji that sit side by side in Slack, make the canvas a multiple of the (padded) tile width, or the pattern breaks at each emoji edge. The square preset resamples neocat to 42×42 so stacked emoji line up too. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
         <div class="row">
           <label>canvas <input type="number" id="size" min="1" max="128" step="1" value="112"></label>
           <label>frames <input type="number" id="frames" min="1" step="1" value="10"></label>
@@ -57,6 +57,7 @@
           <button type="button" id="download">Download GIF</button>
           <button type="button" id="copy">Copy GIF</button>
           <button type="button" id="diag">Diagonal preset</button>
+          <button type="button" id="sq">Square preset</button>
         </div>
         <p class="hint" id="tileinfo"></p>
         <ul id="msgs"></ul>
@@ -192,6 +193,19 @@
             $("gx").value = $("gy").value = 0;
             [["size", 120], ["frames", 24], ["delay", 60], ["dx", 5], ["dy", 5.5]].forEach(function (a) { $(a[0]).value = a[1]; });
             setTile(c, "neocat-diag");
+          });
+        });
+
+        // Seamless both ways: neocat resampled (nearest) from 40x44 to 42x42, canvas 126 = 3 tiles each way.
+        // 21 frames x 6px = 126 in both axes; ~98 KB. Slightly squashes the sprite, so it's an opt-in preset.
+        $("sq").addEventListener("click", function () {
+          armyEmbed.loadTile(armyEmbed.PRESETS.neocat).then(function (c) {
+            var t = document.createElement("canvas"); t.width = t.height = 42;
+            var x = t.getContext("2d"); x.imageSmoothingEnabled = false;
+            x.drawImage(c, 0, 0, c.width, c.height, 0, 0, 42, 42);
+            $("gx").value = $("gy").value = 0;
+            [["size", 126], ["frames", 21], ["delay", 70], ["dx", 6], ["dy", 6]].forEach(function (a) { $(a[0]).value = a[1]; });
+            setTile(t, "neocat-square");
           });
         });
 
