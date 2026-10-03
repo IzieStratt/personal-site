@@ -76,6 +76,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   (component/thunk names read from the desktop app's cached bundle; not Web API methods)
 - Pressing an app's Block Kit button and submitting its modal from a session token (blocks.actions, RTM view_opened, views.submit): /redocumented/docs/methods/block-actions-and-modals-2026-09.md
   (live-tested)
+- Community-reported web client experiment query parameters (not API methods, not live-tested): /redocumented/docs/guides/client-experiments-2026-10.md
 - Provenance of every source used: /redocumented/docs/README.md
 
 ## Found something new? Please open a PR.
