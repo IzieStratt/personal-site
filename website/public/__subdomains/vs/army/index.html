@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>emoji army</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+      :root { color: #222; background: #fffdf7; font: 1rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+      body { width: min(46rem, calc(100% - 3rem)); margin: 8vh auto; padding: 0; overflow-wrap: anywhere; }
+      h1 { margin: 0 0 1.5rem; font: 900 clamp(2rem, 8vw, 4rem)/1 Georgia, serif; }
+      h2 { margin: 2.5rem 0 1rem; font-size: 1.3rem; font-weight: normal; }
+      p { margin: 0 0 1.5rem; }
+      a { color: #315f9d; }
+      code { font: inherit; background: #f3eedc; padding: 0 .3em; border-radius: 4px; }
+      .army { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+      .army figure { margin: 0; text-align: center; }
+      .army canvas { width: 48px; height: 48px; display: block; margin: 0 auto .4rem; }
+      .army figcaption { font-size: 1rem; }
+      .maker { display: grid; gap: .8rem; }
+      .maker label { display: inline-flex; flex-direction: column; font-size: 1rem; }
+      .maker input { font: inherit; font-size: 1rem; color: inherit; background: #fff; border: 1px solid #222; border-radius: 4px; padding: .15rem .4rem; width: 6rem; }
+      .maker input[type=file] { width: auto; max-width: 100%; }
+      .row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; }
+      .maker button { font: inherit; font-size: 1rem; color: inherit; background: #fff; border: 1px solid #222; border-radius: 4px; padding: .2rem .8rem; cursor: pointer; }
+      .maker button:hover { background: #f3eedc; }
+      #preview { width: 112px; height: 112px; border: 1px dashed #999; background: #fff; image-rendering: auto; }
+      #msgs { margin: 0; padding-left: 1.2rem; font-size: 1rem; color: #9a4a00; }
+      #msgs:empty { display: none; }
+      .hint { font-size: 1rem; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>emoji army</h1>
+      <p>Tiny characters, marching in formation. Made for Slack custom emoji. <a href="/">back</a></p>
+
+      <div class="army" id="army"></div>
+
+      <h2>make your own army</h2>
+      <div class="maker">
+        <label>tile PNG (used as-is, starts as neocat)
+          <input type="file" id="file" accept="image/png">
+        </label>
+        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
+        <div class="row">
+          <label>canvas <input type="number" id="size" min="1" max="128" step="1" value="112"></label>
+          <label>frames <input type="number" id="frames" min="1" step="1" value="10"></label>
+          <label>delay ms <input type="number" id="delay" min="10" step="10" value="80"></label>
+          <label>scroll x <input type="number" id="dx" step="any" value="8"></label>
+          <label>scroll y <input type="number" id="dy" step="any" value="0"></label>
+          <label>spacing x <input type="number" id="gx" min="0" step="1" value="0"></label>
+          <label>spacing y <input type="number" id="gy" min="0" step="1" value="0"></label>
+        </div>
+        <div class="row">
+          <canvas id="preview" width="112" height="112"></canvas>
+          <button type="button" id="download">Download GIF</button>
+          <button type="button" id="copy">Copy GIF</button>
+        </div>
+        <p class="hint" id="tileinfo"></p>
+        <ul id="msgs"></ul>
+      </div>
+    </main>
+
+    <script src="army-embed.js"></script>
+    <script>
+      (function () {
+        var NAMES = { clawd: ":clawd-army:", drohc: ":drohc-clone-army:", neocat: ":neocat-boop-army:" };
+        var LIMIT_PX = 128, LIMIT_BYTES = 128 * 1024;
+
+        // The module's renderFrame/animate read cfg.size; presets store the same value as cfg.canvas.
+        function toCfg(p) {
+          return { size: p.canvas, frames: p.frames, delay: p.delay, dx: p.dx, dy: p.dy };
+        }
+
+        // ---- presets ----
+        var army = document.getElementById("army");
+        Object.keys(armyEmbed.PRESETS).forEach(function (key) {
+          var preset = armyEmbed.PRESETS[key];
+          var fig = document.createElement("figure");
+          var cv = document.createElement("canvas");
+          cv.width = cv.height = preset.canvas;
+          var cap = document.createElement("figcaption");
+          cap.textContent = NAMES[key];
+          fig.appendChild(cv); fig.appendChild(cap); army.appendChild(fig);
+          armyEmbed.loadTile(preset).then(function (tile) {
+            armyEmbed.animate(cv, tile, toCfg(preset));
+          });
+        });
+
+        // ---- maker ----
+        var $ = function (id) { return document.getElementById(id); };
+        var tile = null, tileName = "neocat", raf = 0;
+
+        // Base tile plus optional transparent spacing; with no spacing the tile is used untouched.
+        function cur() {
+          var gx = Math.max(0, Math.floor(Number($("gx").value)) || 0), gy = Math.max(0, Math.floor(Number($("gy").value)) || 0);
+          if (!tile || (!gx && !gy)) return tile;
+          var c = document.createElement("canvas"); c.width = tile.width + gx; c.height = tile.height + gy;
+          c.getContext("2d").drawImage(tile, 0, 0);
+          return c;
+        }
+
+        function readCfg() {
+          return {
+            size: Number($("size").value), frames: Number($("frames").value),
+            delay: Number($("delay").value), dx: Number($("dx").value), dy: Number($("dy").value)
+          };
+        }
+
+        // Returns { errors, warnings } for the current tile + cfg.
+        function check(cfg) {
+          var errors = [], warnings = [];
+          if (!tile) { errors.push("no tile loaded"); return { errors: errors, warnings: warnings }; }
+          var t = cur();
+          if (!(Number.isInteger(cfg.size) && cfg.size >= 1)) errors.push("canvas must be a whole number of pixels");
+          if (!(Number.isInteger(cfg.frames) && cfg.frames >= 1)) errors.push("frames must be a whole number ≥ 1");
+          if (!(cfg.delay >= 10)) errors.push("delay must be at least 10 ms (GIFs use centiseconds)");
+          if (!isFinite(cfg.dx) || !isFinite(cfg.dy)) errors.push("scroll values must be numbers");
+          if (errors.length) return { errors: errors, warnings: warnings };
+          if (cfg.size > LIMIT_PX) warnings.push("canvas is over " + LIMIT_PX + "px; Slack emoji must be ≤ " + LIMIT_PX + "×" + LIMIT_PX);
+          // Presets like drohc (2.25 × 10 = 22.5 vs tile 23) are accepted, so allow half a pixel of slack.
+          [["dx", t.width, "width"], ["dy", t.height, "height"]].forEach(function (a) {
+            var v = cfg[a[0]]; if (v === 0) return;
+            var total = cfg.frames * Math.abs(v), n = Math.round(total / a[1]);
+            if (n < 1 || Math.abs(total - n * a[1]) > 0.5)
+              warnings.push("loop won't be seamless: frames × |" + a[0] + "| = " + +total.toFixed(3) + ", not a multiple of tile " + a[2] + " (" + a[1] + ")");
+          });
+          if (cfg.dx === 0 && cfg.dy === 0) warnings.push("both scroll values are 0, so nothing moves");
+          return { errors: errors, warnings: warnings };
+        }
+
+        function show(list) {
+          var ul = $("msgs"); ul.textContent = "";
+          list.forEach(function (m) { var li = document.createElement("li"); li.textContent = m; ul.appendChild(li); });
+        }
+
+        // Own preview loop (rather than armyEmbed.animate) so it can be cancelled and restarted on every edit.
+        function refresh() {
+          cancelAnimationFrame(raf);
+          var cfg = readCfg(), r = check(cfg);
+          show(r.errors.concat(r.warnings));
+          if (r.errors.length || cfg.size > 512) return;
+          var t = cur(), pv = $("preview"), frames = [];
+          for (var k = 0; k < cfg.frames; k++) frames.push(armyEmbed.renderFrame(t, k, cfg));
+          pv.width = pv.height = cfg.size;
+          var i = 0, last = 0, ctx = pv.getContext("2d");
+          ctx.drawImage(frames[0], 0, 0);
+          (function tick(t) {
+            if (t - last >= cfg.delay) { last = t; i = (i + 1) % frames.length; ctx.clearRect(0, 0, cfg.size, cfg.size); ctx.drawImage(frames[i], 0, 0); }
+            raf = requestAnimationFrame(tick);
+          })(0);
+        }
+
+        function setTile(canvas, name) {
+          tile = canvas; tileName = name;
+          $("tileinfo").textContent = "tile: " + canvas.width + "×" + canvas.height + " px";
+          refresh();
+        }
+
+        ["size", "frames", "delay", "dx", "dy", "gx", "gy"].forEach(function (id) { $(id).addEventListener("input", refresh); });
+
+        $("file").addEventListener("change", function (e) {
+          var f = e.target.files[0]; if (!f) return;
+          var url = URL.createObjectURL(f), img = new Image();
+          img.onload = function () {
+            var c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
+            c.getContext("2d").drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+            setTile(c, f.name.replace(/\.png$/i, ""));
+          };
+          img.onerror = function () { URL.revokeObjectURL(url); show(["couldn't read that file as an image"]); };
+          img.src = url;
+        });
+
+        // Shared pre-export checks; returns encoded bytes or null if cancelled/invalid.
+        function prepare(verb) {
+          var cfg = readCfg(), r = check(cfg);
+          if (r.errors.length) { show(r.errors); return null; }
+          if (r.warnings.length && !confirm("Export anyway?\n\n" + r.warnings.join("\n"))) return null;
+          var bytes = armyEmbed.gifBytes(cur(), cfg);
+          if (bytes.length > LIMIT_BYTES && !confirm("This GIF is " + Math.round(bytes.length / 1024) + " KB, over Slack's 128 KB emoji limit. " + verb + " anyway?")) return null;
+          return { cfg: cfg, bytes: bytes, tile: cur() };
+        }
+
+        $("download").addEventListener("click", function () {
+          // The size check encodes once; the download encodes again, untouched, via downloadGIF.
+          var p = prepare("Download"); if (!p) return;
+          armyEmbed.downloadGIF(p.tile, p.cfg, tileName + "-army.gif");
+        });
+
+        $("copy").addEventListener("click", function () {
+          var p = prepare("Copy"); if (!p) return;
+          var btn = $("copy");
+          function flash(t) { btn.textContent = t; setTimeout(function () { btn.textContent = "Copy GIF"; }, 1500); }
+          try {
+            navigator.clipboard.write([new ClipboardItem({ "image/gif": new Blob([p.bytes], { type: "image/gif" }) })])
+              .then(function () { flash("Copied!"); }, function () { show(["this browser won't copy GIFs to the clipboard; use Download GIF"]); });
+          } catch (e) { show(["this browser won't copy GIFs to the clipboard; use Download GIF"]); }
+        });
+
+        armyEmbed.loadTile(armyEmbed.PRESETS.neocat).then(function (c) { setTile(c, "neocat"); });
+      })();
+    </script>
+  </body>
+</html>
