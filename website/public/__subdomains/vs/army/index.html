@@ -42,7 +42,7 @@
         <label>tile PNG (used as-is, starts as neocat)
           <input type="file" id="file" accept="image/png">
         </label>
-        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
+        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. For emoji that sit side by side in Slack, make the canvas a multiple of the (padded) tile width, or the pattern breaks at each emoji edge. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
         <div class="row">
           <label>canvas <input type="number" id="size" min="1" max="128" step="1" value="112"></label>
           <label>frames <input type="number" id="frames" min="1" step="1" value="10"></label>
@@ -56,6 +56,7 @@
           <canvas id="preview" width="112" height="112"></canvas>
           <button type="button" id="download">Download GIF</button>
           <button type="button" id="copy">Copy GIF</button>
+          <button type="button" id="diag">Diagonal preset</button>
         </div>
         <p class="hint" id="tileinfo"></p>
         <ul id="msgs"></ul>
@@ -126,6 +127,8 @@
             if (n < 1 || Math.abs(total - n * a[1]) > 0.5)
               warnings.push("loop won't be seamless: frames × |" + a[0] + "| = " + +total.toFixed(3) + ", not a multiple of tile " + a[2] + " (" + a[1] + ")");
           });
+          if (cfg.size % t.width !== 0)
+            warnings.push("canvas " + cfg.size + " isn't a multiple of tile width " + t.width + ": emoji placed side by side will show a seam (try " + Math.floor(LIMIT_PX / t.width) * t.width + ")");
           if (cfg.dx === 0 && cfg.dy === 0) warnings.push("both scroll values are 0, so nothing moves");
           return { errors: errors, warnings: warnings };
         }
@@ -182,6 +185,15 @@
           if (bytes.length > LIMIT_BYTES && !confirm("This GIF is " + Math.round(bytes.length / 1024) + " KB, over Slack's 128 KB emoji limit. " + verb + " anyway?")) return null;
           return { cfg: cfg, bytes: bytes, tile: cur() };
         }
+
+        // Diagonal neocat: 120 = 3 tiles wide (seamless side by side); 24×5 = 3 tiles across, 24×5.5 = 3 tiles down; ~105 KB.
+        $("diag").addEventListener("click", function () {
+          armyEmbed.loadTile(armyEmbed.PRESETS.neocat).then(function (c) {
+            $("gx").value = $("gy").value = 0;
+            [["size", 120], ["frames", 24], ["delay", 60], ["dx", 5], ["dy", 5.5]].forEach(function (a) { $(a[0]).value = a[1]; });
+            setTile(c, "neocat-diag");
+          });
+        });
 
         $("download").addEventListener("click", function () {
           // The size check encodes once; the download encodes again, untouched, via downloadGIF.
