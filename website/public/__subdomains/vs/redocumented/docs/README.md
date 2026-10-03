@@ -436,3 +436,10 @@ This is **not** a complete map of Slack's private API surface, and cannot be:
   existing catalog. No oracle sweep either (the 31 new names are recorded as
   unverified, honestly, rather than spending more live-adjacent calls on a
   third-party-typed but unconfirmed list).
+
+## Community-reported client experiments (October 2026)
+
+[Client experiments guide](guides/client-experiments-2026-10.md): seven exact
+web-client override parameters from a community post pasted by the site owner,
+plus `slackDebug=1` and feature mentions without flag IDs. Source-reported only,
+not live-tested or bundle-verified; these are not Web API catalog entries.
