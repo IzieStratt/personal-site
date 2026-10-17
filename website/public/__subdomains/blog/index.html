@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>blog</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <style>
-      @font-face { font-family: "xkcd Script"; src: url("/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
-      body { max-width: 42rem; margin: 20vh auto 0; padding: 0 1.5rem; background: #fffdf7; color: #222; font: 1.35rem/1.5 "xkcd Script", cursive; } /* TODO: make my own font inspired by this one :D */
-    </style>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="alternate" type="application/atom+xml" title="blog" href="/feed.xml">
   </head>
   <body>
     <main>
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="/">all posts</a></li>
+          <li><a href="https://izie.top">home</a></li>
+          <li><a href="/feed.xml">feed</a></li>
+        </ul>
+      </nav>
       <h1>BLOG</h1>
       <p>huh, why's nothing here?</p>
       <p>meoww mrrpp meoeweawww</p>
-      <p><a href="/">back home</a></p>
     </main>
   </body>
 </html>
