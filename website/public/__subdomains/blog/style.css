@@ -84,14 +84,14 @@ nav a:focus-visible {
   display: block;
   padding: 0.15rem 0.6rem;
   border-radius: 999px;
-  background: #eee9dc;
-  color: #594733;
+  background: #dce6f1;
+  color: #234670;
   text-decoration: none;
 }
 
 .tags a:hover,
 .tags a:focus-visible {
-  background: #594733;
+  background: #234670;
   color: #fffdf7;
 }
 
@@ -133,7 +133,6 @@ nav a:focus-visible {
 }
 
 .tags.cloud {
-  margin-bottom: 2rem;
   font-size: 1.15rem;
 }
 
@@ -153,9 +152,9 @@ nav a:focus-visible {
 .card {
   display: block;
   padding: 0.9rem 1.2rem 1rem;
-  border: 2px solid #222;
   border-radius: 1.2rem;
   corner-shape: squircle;
+  background: #ede6d6;
   color: #222;
   text-decoration: none;
   transition: transform 150ms ease, background-color 150ms ease;
@@ -163,8 +162,13 @@ nav a:focus-visible {
 
 .card:hover,
 .card:focus-visible {
-  background: #f6f1e3;
+  background: #e6decb;
   transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid #315f9d;
+  outline-offset: 2px;
 }
 
 .card time {
@@ -246,6 +250,186 @@ sup.archive a {
   color: #a8442a;
 }
 
+/* tag filter on the front page: a button with a tapered-bars icon that opens a panel of tag chips.
+   without javascript the chips are just links to the tag pages and the panel stays open */
+.filter {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.8rem;
+}
+
+.filter-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  align-items: center;
+  min-height: 2.1rem;
+  font-size: 1rem;
+  color: #5c5346;
+}
+
+.filter-top p {
+  margin: 0;
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.9rem 0.25rem 0.8rem;
+  border: 1px solid #222;
+  border-radius: 999px;
+  background: transparent;
+  color: #222;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.filter-toggle[hidden],
+.filter-clear[hidden] {
+  display: none;
+}
+
+.filter-toggle:hover,
+.filter-toggle:focus-visible {
+  background: #222;
+  color: #fffdf7;
+}
+
+.filter-toggle:focus-visible {
+  outline: 2px solid #315f9d;
+  outline-offset: 2px;
+}
+
+.filter-toggle[aria-expanded="true"] {
+  border-color: #234670;
+  background: #dce6f1;
+  color: #234670;
+}
+
+.filter-toggle[aria-expanded="true"]:hover,
+.filter-toggle[aria-expanded="true"]:focus-visible {
+  background: #234670;
+  color: #fffdf7;
+}
+
+/* the three bars: closed they taper like a funnel; opening makes them slide out to full width
+   one after another, and closing sends them back */
+.filter-toggle .bars {
+  flex: none;
+  overflow: visible;
+}
+
+.filter-toggle .bars path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.filter-toggle[aria-expanded="true"] .bars path:nth-child(2) {
+  transform: scaleX(1.3);
+  transition-delay: 50ms;
+}
+
+.filter-toggle[aria-expanded="true"] .bars path:nth-child(3) {
+  transform: scaleX(2.2);
+  transition-delay: 100ms;
+}
+
+.filter-toggle:active .bars path {
+  transform: scaleX(0.7);
+  transition-duration: 80ms;
+}
+
+/* the panel grows open from nothing; the chips then pop in one by one */
+.filter-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 280ms ease, opacity 200ms ease, visibility 0s;
+}
+
+.filter-panel > div {
+  min-height: 0;
+  padding: 0.2rem;
+  margin: -0.2rem;
+  overflow: hidden;
+}
+
+.filter-panel[data-open="false"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 280ms ease, opacity 200ms ease, visibility 0s 280ms;
+}
+
+.filter-panel[data-open="true"] .tags li {
+  animation: chip-in 320ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 28ms + 90ms);
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.85);
+  }
+}
+
+.filter-panel .tags a {
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.filter-panel .tags a:active {
+  transform: scale(0.94);
+}
+
+.filter .tags a[aria-pressed="true"] {
+  background: #315f9d;
+  color: #fffdf7;
+}
+
+.filter .tags a[aria-pressed="true"]::before {
+  content: "\2212" / "";
+  opacity: 1;
+}
+
+.filter-clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #a8442a;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.filter-clear:hover,
+.filter-clear:focus-visible {
+  color: #6e2410;
+}
+
+.posts li[hidden] {
+  display: none;
+}
+
+.no-match {
+  margin: 0;
+}
+
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
 /* anyone who asked their system for less motion gets none */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -289,7 +473,7 @@ sup.archive a {
   padding: 0.7rem 1rem;
   border-radius: 1rem;
   corner-shape: squircle;
-  background: #f1ebdd;
+  background: #ede6d6;
 }
 
 .comment header {

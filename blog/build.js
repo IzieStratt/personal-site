@@ -60,7 +60,7 @@ const commentsSection = (slug) => `
       </section>
       <script src="/comments.js" defer></script>`
 
-const page = ({ title, body, head = '' }) => `<!doctype html>
+const page = ({ title, body, head = '', foot = '' }) => `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -80,16 +80,31 @@ const page = ({ title, body, head = '' }) => `<!doctype html>
         </ul>
       </nav>
 ${body}
-    </main>
+    </main>${foot}
   </body>
 </html>
 `
+
+// the front page's tag filter (see filter-client.js). The chips are ordinary links to the tag pages, so it
+// still works without javascript; the script turns them into toggles and adds the open/close button.
+const BARS = '<svg class="bars" viewBox="0 0 16 12" width="16" height="12" aria-hidden="true" focusable="false"><path d="M1 1.5h14" /><path d="M3.5 6h9" /><path d="M6 10.5h4" /></svg>'
+const filterBox = (counts) => `<div class="filter" id="filter">
+        <div class="filter-top">
+          <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel" hidden>${BARS}<span class="label">filter</span></button>
+          <p id="filter-label" class="vh">filter by tag</p>
+          <p id="filter-count" role="status"></p>
+          <button type="button" class="filter-clear" hidden>clear filter</button>
+        </div>
+        <div id="filter-panel" class="filter-panel" data-open="true"><div>
+          <ul class="tags cloud" aria-labelledby="filter-label">${counts.map(([t, n], i) => `<li style="--i:${i}"><a href="/tag/${encodeURIComponent(t)}/">${esc(t)} <span>${n}</span></a></li>`).join('')}</ul>
+        </div></div>
+      </div>`
 
 const tagLinks = (tags) => tags.length
   ? `<ul class="tags">${tags.map((t) => `<li><a href="/tag/${encodeURIComponent(t)}/">${esc(t)}</a></li>`).join('')}</ul>`
   : ''
 
-const postList = (posts) => `<ol class="posts">${posts.map((p) => `
+const postList = (posts) => `<ol class="posts" id="post-list">${posts.map((p) => `
         <li>
           <a class="card" href="/post/${p.slug}/">
             <time datetime="${esc(p.date)}">${day(p.date)}</time>
@@ -114,14 +129,13 @@ export async function build() {
 
   const counts = new Map()
   for (const p of all) for (const t of p.tags) counts.set(t, (counts.get(t) || 0) + 1)
-  const cloud = counts.size
-    ? `<ul class="tags cloud">${[...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([t, n]) => `<li><a href="/tag/${encodeURIComponent(t)}/">${esc(t)} <span>${n}</span></a></li>`).join('')}</ul>`
-    : ''
+  const sorted = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 
   await write('index.html', page({
     title: 'blog',
+    foot: all.length ? '\n    <script src="/filter.js" defer></script>' : '',
     body: `      <h1>BLOG</h1>
-      ${all.length ? `${cloud}\n      ${postList(all)}` : "<p>huh, why's nothing here?</p>\n      <p>meoww mrrpp meoeweawww</p>"}`,
+      ${all.length ? `${filterBox(sorted)}\n      ${postList(all)}` : "<p>huh, why's nothing here?</p>\n      <p>meoww mrrpp meoeweawww</p>"}`,
   }))
 
   for (const [t] of counts) {
@@ -150,6 +164,7 @@ ${render(p.body, ctx)}
   }
 
   await copyFile(new URL('./comments-client.js', import.meta.url), path.join(SITE, 'comments.js'))
+  await copyFile(new URL('./filter-client.js', import.meta.url), path.join(SITE, 'filter.js'))
 
   const updated = (all[0]?.date || new Date().toISOString())
   await write('feed.xml', `<?xml version="1.0" encoding="utf-8"?>
