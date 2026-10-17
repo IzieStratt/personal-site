@@ -31,6 +31,7 @@ function fill(p) {
   $('date').value = (p.date || nowLocal()).slice(0, 16)
   $('body').value = p.body || ''
   $('draft').checked = !!p.draft
+  document.querySelector(`#post-comments input[value="${p.comments || ''}"]`).checked = true
   $('delete').hidden = state.slug === 'new'
   $('view').hidden = state.slug === 'new'
   $('view').href = `/post/${state.slug}/`
@@ -60,7 +61,7 @@ async function save(e) {
   try {
     const r = await api('PUT', `/api/posts/${state.slug}`, {
       title: $('title').value, tags: $('tags').value, date: $('date').value,
-      draft: $('draft').checked, body: $('body').value, refresh: $('refresh').checked,
+      draft: $('draft').checked, comments: document.querySelector('#post-comments input:checked').value, body: $('body').value, refresh: $('refresh').checked,
     })
     $('refresh').checked = false
     if (state.slug === 'new') history.replaceState(null, '', `?post=${r.slug}`)

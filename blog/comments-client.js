@@ -65,9 +65,11 @@
   }
 
   function setMode(mode) {
-    const off = mode === 'off'
-    form.hidden = off
-    root.querySelector('.comments-off').hidden = !off
+    const closed = mode === 'off' || mode === 'locked'
+    form.hidden = closed
+    const closedNote = root.querySelector('.comments-off')
+    closedNote.hidden = !closed
+    closedNote.textContent = mode === 'locked' ? 'this post is closed to new comments.' : 'comments are turned off right now.'
     note.textContent = mode === 'review' ? 'comments are read by izie before they show up.' : ''
     root.dataset.mode = mode
   }

@@ -10,7 +10,7 @@ import { archiveUrl } from './archive.js'
 import { build } from './build.js'
 import { getMode, listComments, removeComment, setMode, setStatus } from './comments-admin.js'
 import { externalLinks } from './markdown.js'
-import { ARCHIVES, CDN, PUBLIC, SITE, deletePost, getPost, listPosts, readArchives, savePost, slugify, tagSlug, writeArchives } from './store.js'
+import { ARCHIVES, CDN, COMMENT_SETTINGS, PUBLIC, SITE, deletePost, getPost, listPosts, readArchives, savePost, slugify, tagSlug, writeArchives } from './store.js'
 
 const PORT = Number(process.env.PORT) || 4747
 const ADMIN = path.join(path.dirname(fileURLToPath(import.meta.url)), 'admin')
@@ -139,6 +139,7 @@ async function api(req, res, url) {
       date: data.date || new Date().toISOString().slice(0, 16),
       tags: [...new Set(String(data.tags || '').split(',').map(tagSlug).filter(Boolean))],
       draft: !!data.draft,
+      comments: COMMENT_SETTINGS.includes(data.comments) ? data.comments : '',
       body: data.body || '',
     }
     await savePost(post)

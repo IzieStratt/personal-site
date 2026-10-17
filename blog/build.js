@@ -35,8 +35,8 @@ const NUTSHELL = `
     </script>`
 
 // comments load from /api/comments (see ../comments.js); the form and list are filled in by comments.js
-const commentsSection = (slug) => `
-      <section id="comments" class="comments" data-post="${slug}" aria-labelledby="comments-title">
+const commentsSection = (slug, setting) => `
+      <section id="comments" class="comments" data-post="${slug}" data-setting="${setting || 'default'}" aria-labelledby="comments-title">
         <h2 id="comments-title">comments</h2>
         <div class="comment-list" aria-live="polite"><p class="empty">loading comments...</p></div>
         <noscript><p>comments need javascript, sorry.</p></noscript>
@@ -151,7 +151,7 @@ export async function build() {
   for (const p of all) {
     await write(`post/${p.slug}/index.html`, page({
       title: `${p.title} - blog`,
-      head: usesNutshell(p.body) ? NUTSHELL : '',
+      head: `\n    <meta name="comments" content="${p.comments || 'default'}">${usesNutshell(p.body) ? NUTSHELL : ''}`,
       body: `      <article>
         <h1>${esc(p.title)}</h1>
         <p class="subtitle"><time datetime="${esc(p.date)}">${day(p.date)}</time></p>
@@ -159,7 +159,7 @@ export async function build() {
         <div class="post">
 ${render(p.body, ctx)}
         </div>
-      </article>${commentsSection(p.slug)}`,
+      </article>${p.comments === 'off' ? '' : commentsSection(p.slug, p.comments)}`,
     }))
   }
 

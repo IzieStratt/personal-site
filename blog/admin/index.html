@@ -36,6 +36,13 @@
       ol.moderation .meta { font-size: 1rem; color: #5c5346; margin: 0 0 0.3rem; }
       ol.moderation .body { margin: 0 0 0.5rem; white-space: pre-wrap; overflow-wrap: anywhere; }
       ol.moderation .actions { gap: 0.4rem; }
+      fieldset.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0; padding: 0; border: 0; }
+      fieldset.pills legend { float: left; padding: 0; margin-right: 0.5rem; font-size: 1rem; color: #5c5346; }
+      fieldset.pills label { display: block; }
+      fieldset.pills input { position: absolute; opacity: 0; }
+      fieldset.pills span { display: inline-block; padding: 0.2rem 0.9rem; border: 1px solid #222; border-radius: 999px; cursor: pointer; }
+      fieldset.pills input:checked + span { background: #222; color: #fffdf7; }
+      fieldset.pills input:focus-visible + span { outline: 2px solid #315f9d; outline-offset: 2px; }
       .hint a { color: #a8442a; }
       .hint code { color: inherit; }
       input[type="text"], input[type="datetime-local"], textarea {
@@ -106,6 +113,14 @@
           for <a href="https://ncase.me/nutshell/" target="_blank" rel="noreferrer">nutshell</a>, start the link text with a colon:
           <code>[:like this](#Some heading)</code> or <code>[:or this](https://example.com/page#Heading)</code>.
         </p>
+        <fieldset class="pills" id="post-comments">
+          <legend>comments on this post</legend>
+          <label><input type="radio" name="post-comments" value="" checked><span>blog default</span></label>
+          <label><input type="radio" name="post-comments" value="on"><span>on</span></label>
+          <label><input type="radio" name="post-comments" value="locked"><span>locked</span></label>
+          <label><input type="radio" name="post-comments" value="off"><span>off</span></label>
+        </fieldset>
+        <p class="hint" id="post-comments-hint">follows the blog-wide setting below. "on" takes comments even when the blog is off (they wait for you to approve them), "locked" keeps the ones already there but takes no more, "off" hides the comment section.</p>
         <div class="actions">
           <button type="submit" class="primary" id="save">save</button>
           <button type="button" id="attach">attach files</button>

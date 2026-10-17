@@ -3,6 +3,10 @@ import { readFile, writeFile, readdir, rm, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+// per-post comment setting: on (accept comments even if the blog-wide mode is off), locked (show the
+// existing ones, accept none) or off (no comment section at all). Empty follows the blog-wide mode.
+export const COMMENT_SETTINGS = ['on', 'locked', 'off']
+
 export const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const PUBLIC = path.join(REPO, 'website/public')
 export const SITE = process.env.BLOG_SITE || path.join(PUBLIC, '__subdomains/blog')
@@ -27,6 +31,7 @@ export function parsePost(slug, text) {
     date: meta.date || '',
     tags: (meta.tags || '').split(',').map(tagSlug).filter(Boolean),
     draft: meta.draft === 'true',
+    comments: COMMENT_SETTINGS.includes(meta.comments) ? meta.comments : '',
     body: (m ? m[2] : text).replace(/^\n+/, ''),
   }
 }
@@ -34,6 +39,7 @@ export function parsePost(slug, text) {
 export function serializePost(p) {
   const head = [`title: ${p.title.replace(/\n/g, ' ')}`, `date: ${p.date}`, `tags: ${p.tags.join(', ')}`]
   if (p.draft) head.push('draft: true')
+  if (COMMENT_SETTINGS.includes(p.comments)) head.push(`comments: ${p.comments}`)
   return `---\n${head.join('\n')}\n---\n\n${p.body.replace(/\s+$/, '')}\n`
 }
 
