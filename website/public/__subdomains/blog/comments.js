@@ -107,8 +107,33 @@
     field('contact').value = localStorage.getItem('comment-contact') || ''
   } catch {}
 
+  // the same rules the server enforces (comments.js), checked here first so mistakes show up right away.
+  // the server still checks everything again; this is only for convenience.
+  const looksLikeEmail = (v) => v.length <= 254 && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(v)
+  const looksLikeDomain = (v) => /^(?=.{3,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(v.replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0])
+  function problem() {
+    const name = field('name').value.trim()
+    const contact = field('contact').value.trim()
+    const body = field('body').value.trim()
+    if (!name || name.length > 40) return ['name', 'add a name (40 characters or fewer)']
+    if (!contact.includes('@') ? !looksLikeDomain(contact.toLowerCase()) : !looksLikeEmail(contact.toLowerCase())) {
+      return ['contact', contact.includes('@') ? "that email address doesn't look right" : 'add a website domain (like example.com) or an email address']
+    }
+    if (!body || body.length > 2000) return ['body', 'write a comment (2000 characters or fewer)']
+    return null
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    for (const el of form.elements) el.removeAttribute?.('aria-invalid')
+    const bad = problem()
+    if (bad) {
+      field(bad[0]).setAttribute('aria-invalid', 'true')
+      status.className = 'comment-status bad'
+      status.textContent = bad[1]
+      field(bad[0]).focus()
+      return
+    }
     const send = form.querySelector('button[type=submit]')
     send.disabled = true
     status.className = 'comment-status'

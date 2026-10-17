@@ -604,6 +604,11 @@ sup.archive a {
   font: inherit;
 }
 
+.comments input[aria-invalid="true"],
+.comments textarea[aria-invalid="true"] {
+  border-color: #a33;
+}
+
 .comments textarea {
   resize: vertical;
 }

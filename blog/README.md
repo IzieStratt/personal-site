@@ -28,6 +28,7 @@ One-time setup (until it's done the comment box says comments aren't available):
     #   "d1_databases": [{ "binding": "COMMENTS", "database_name": "izie-blog", "database_id": "<id>" }]
     wrangler d1 execute izie-blog --remote --file blog/schema.sql
     scripts/deploy.fish
-    # optional: wrangler secret put COMMENT_SALT   (any random string, makes the hashed IPs unguessable)
+    # COMMENT_SALT (random secret for the hashed IPs) is already set on the worker; check with `wrangler secret list` after deploying.
+    # on a fresh account:  head -c 96 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 25 | wrangler secret put COMMENT_SALT
 
 To try it locally without touching Cloudflare, see `COMMENTS_LOCAL`, `COMMENTS_WRANGLER_CONFIG` and `COMMENTS_API` in `comments-admin.js` and `server.js`.
