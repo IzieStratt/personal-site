@@ -1,0 +1,434 @@
+/* same palette and type as the main site (/style.css); this one adds the post bits */
+@font-face {
+  font-family: "xkcd Script";
+  src: url("/cdn/xkcd-script.woff") format("woff");
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  background: #fffdf7;
+  color: #222;
+  font-family: "xkcd Script", cursive;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+main {
+  width: min(42rem, calc(100% - 3rem));
+  margin: 3rem auto 4rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #315f9d;
+  outline-offset: 3px;
+}
+
+code {
+  padding: 0.08em 0.35em;
+  border-radius: 0.35em;
+  background: #eee9dc;
+  color: #594733;
+  font: inherit;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  background: #eee9dc;
+  line-height: 1.35;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.8em;
+}
+
+nav {
+  margin: 0 0 2.5rem;
+}
+
+nav ul,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid #222;
+  border-radius: 999px;
+  color: #222;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: #222;
+  color: #fffdf7;
+}
+
+.tags a {
+  display: block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #eee9dc;
+  color: #594733;
+  text-decoration: none;
+}
+
+.tags a:hover,
+.tags a:focus-visible {
+  background: #594733;
+  color: #fffdf7;
+}
+
+.subtitle {
+  margin-top: -0.5rem;
+}
+
+/* links in running text: our own colours instead of the browser's blue and purple */
+.post a,
+.subtitle a,
+.hint a {
+  color: #a8442a;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.post a:visited {
+  color: #7b3f61;
+}
+
+.post a:hover,
+.post a:focus-visible,
+.subtitle a:hover {
+  color: #6e2410;
+  text-decoration-thickness: 2px;
+}
+
+/* tags under a post or list item are smaller than the nav pills */
+.tags {
+  gap: 0.4rem;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.tags a::before {
+  content: "#";
+  content: "#" / ""; /* decorative: not read out */
+  opacity: 0.55;
+}
+
+.tags.cloud {
+  margin-bottom: 2rem;
+  font-size: 1.15rem;
+}
+
+.tags span {
+  opacity: 0.9;
+}
+
+.posts {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each post is a box; its tags sit underneath, outside it */
+.card {
+  display: block;
+  padding: 0.9rem 1.2rem 1rem;
+  border: 2px solid #222;
+  border-radius: 1.2rem;
+  corner-shape: squircle;
+  color: #222;
+  text-decoration: none;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  background: #f6f1e3;
+  transform: translateY(-2px);
+}
+
+.card time {
+  display: block;
+  font-size: 1rem;
+  opacity: 0.65;
+}
+
+.card .title {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.posts .tags {
+  margin: 0.55rem 0 0 0.4rem;
+}
+
+article > .tags {
+  margin-bottom: 1.5rem;
+}
+
+.post img,
+.post video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.post audio {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.post blockquote {
+  margin: 1rem 0;
+  padding: 0.1rem 1.1rem;
+  border-radius: 0.75rem;
+  background: #eee9dc;
+}
+
+.post blockquote > :first-child { margin-top: 0; }
+.post blockquote > :last-child { margin-bottom: 0; }
+
+.post hr {
+  width: 3rem;
+  margin: 2rem 0;
+  border: 0;
+  border-top: 3px dotted #222;
+}
+
+/* the archived copy of a link, small and raised next to the original */
+sup.archive {
+  margin-left: 0.15em;
+  font-size: 0.6em;
+  line-height: 0;
+}
+
+sup.archive a {
+  color: inherit;
+}
+
+/* nutshell: expandable explanations. it brings its own dotted underline; this just
+   makes the bubbles sit in the page's font */
+.nutshell-bubble {
+  font-family: "xkcd Script", cursive;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* nutshell fades the "from ..." line to 69% opacity, which drops it to about 3.2:1 on cream */
+.nutshell-bubble-from {
+  opacity: 1;
+  color: #5c5346;
+}
+
+.nutshell-bubble-from a {
+  color: #a8442a;
+}
+
+/* anyone who asked their system for less motion gets none */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: none;
+  }
+}
+
+/* comments */
+.comments {
+  margin-top: 3rem;
+}
+
+.comment-list .thread,
+.comment-list .replies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thread > li,
+.replies > li {
+  margin-top: 1rem;
+}
+
+.comment-list .replies {
+  margin-left: 0.4rem;
+  padding-left: 1rem;
+  border-left: 2px solid #e4dccb;
+}
+
+.comment {
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  corner-shape: squircle;
+  background: #f1ebdd;
+}
+
+.comment header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.7rem;
+  align-items: baseline;
+}
+
+.comment .site,
+.comment time {
+  font-size: 1rem;
+}
+
+.comment time {
+  color: #5c5346;
+}
+
+.comment .text > :first-child {
+  margin-top: 0.4rem;
+}
+
+.comment .text > :last-child {
+  margin-bottom: 0;
+}
+
+.comment .text blockquote {
+  margin-left: 0;
+  padding-left: 0.8rem;
+  border-left: 2px solid #c9bfa8;
+  color: #4b4438;
+}
+
+.comment .text code {
+  padding: 0 0.3rem;
+  border-radius: 0.4rem;
+  background: #e4dccb;
+  font-size: 0.9em;
+}
+
+.comments a {
+  color: #a8442a;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.comments a:visited {
+  color: #7b3f61;
+}
+
+.comments a:hover {
+  color: #6e2410;
+}
+
+.comment .reply,
+.comments button {
+  padding: 0.25rem 0.9rem;
+  border: 1px solid #222;
+  border-radius: 999px;
+  background: transparent;
+  color: #222;
+  font: inherit;
+  cursor: pointer;
+}
+
+.comment .reply {
+  margin-top: 0.4rem;
+}
+
+.comments button:hover,
+.comments button:focus-visible {
+  background: #222;
+  color: #fffdf7;
+}
+
+.comments button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.comments form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.comments form h3 {
+  margin: 0;
+}
+
+.comments label {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.comments label > span,
+.comments .hint,
+.comment-note {
+  font-size: 1rem;
+  color: #5c5346;
+}
+
+.comments .hint,
+.comment-note,
+.comment-status {
+  margin: 0;
+}
+
+.comments input,
+.comments textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border: 2px solid #222;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #222;
+  font: inherit;
+}
+
+.comments textarea {
+  resize: vertical;
+}
+
+.comments .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.comment-status.bad {
+  color: #a33;
+}
+
+/* the honeypot: out of sight and out of the tab order for people, still there for bots */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

@@ -1,3 +1,4 @@
+import { handleComments } from './comments.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 
@@ -33,6 +34,7 @@ export default {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
+    if (url.pathname === '/api/comments') return handleComments(request, env, url)
     if (url.pathname.startsWith('/api/graphs/')) {
       const response = await fetch(`https://botme.dunkirk.sh${url.pathname}${url.search}`, request)
       const headers = new Headers(response.headers)

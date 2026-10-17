@@ -7,3 +7,4 @@ NOTES-hmojis.md
 # machine-local one-off tooling; never committed, never deployed.
 # these read tokens out of sibling repos' .env files and hardcode channel ids.
 scripts/local/
+blog/TODO.md

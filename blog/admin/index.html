@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>write - blog</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      main { width: min(52rem, calc(100% - 3rem)); }
+      form { display: grid; gap: 1rem; }
+      label { display: grid; gap: 0.2rem; }
+      label > span, .hint { font-size: 1rem; color: #5c5346; }
+      ol.posts { list-style: none; padding: 0; display: grid; gap: 0.4rem; }
+      ol.posts li { display: flex; gap: 1rem; align-items: baseline; }
+      ol.posts time { color: #5c5346; flex: none; min-width: 7.5rem; }
+      ol.posts a { color: #a8442a; text-underline-offset: 0.15em; }
+      ol.posts a:visited { color: #7b3f61; }
+      ol.posts a:hover { color: #6e2410; }
+      .dropdown { position: relative; display: flex; align-items: center; gap: 0.6rem; }
+      .dropdown > span { font-size: 1rem; color: #5c5346; }
+      #mode { width: 17.5rem; text-align: left; padding-right: 2rem; position: relative; border-width: 2px; border-radius: 0.75rem; background: #fff; }
+      .dd-box { position: relative; }
+      #mode::after { content: ""; position: absolute; right: 0.8rem; top: 50%; width: 0.45rem; height: 0.45rem; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-70%) rotate(45deg); }
+      #mode:hover, #mode:focus-visible, #mode[aria-expanded="true"] { background: #fff; color: #222; }
+      #mode:focus-visible { outline: 2px solid #315f9d; outline-offset: 2px; }
+      #mode-list { position: absolute; top: calc(100% + 0.3rem); left: 0; right: 0; margin: 0; padding: 0.3rem; list-style: none; z-index: 5; box-sizing: border-box; border: 2px solid #222; border-radius: 0.75rem; background: #fff; outline: none; }
+      #mode-list[hidden] { display: none; }
+      #mode-list [role="option"] { padding: 0.3rem 0.6rem; border-radius: 0.5rem; cursor: pointer; white-space: nowrap; }
+      #mode-list [role="option"].active { background: #eee9dc; }
+      #mode-list [role="option"][aria-selected="true"]::before { content: ""; display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.5rem; border-radius: 50%; background: currentColor; }
+      #mode-list [role="option"]:not([aria-selected="true"])::before { content: ""; display: inline-block; width: 0.45rem; margin-right: 0.5rem; }
+      ol.moderation { list-style: none; padding: 0; display: grid; gap: 0.8rem; }
+      ol.moderation li { padding: 0.7rem 1rem; border-radius: 1rem; background: #f1ebdd; }
+      ol.moderation li.pending { outline: 2px solid #a8442a; }
+      ol.moderation .meta { font-size: 1rem; color: #5c5346; margin: 0 0 0.3rem; }
+      ol.moderation .body { margin: 0 0 0.5rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      ol.moderation .actions { gap: 0.4rem; }
+      .hint a { color: #a8442a; }
+      .hint code { color: inherit; }
+      input[type="text"], input[type="datetime-local"], textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.4rem 0.7rem;
+        border: 2px solid #222;
+        border-radius: 0.75rem;
+        background: #fff;
+        color: #222;
+        font: inherit;
+      }
+      textarea {
+        min-height: 26rem;
+        resize: vertical;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+      textarea.drop { background: #eee9dc; border-style: dashed; }
+      .row { display: flex; flex-wrap: wrap; gap: 1rem; }
+      .row > label { flex: 1 1 14rem; }
+      .check { display: flex; align-items: center; gap: 0.5rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+      button {
+        padding: 0.35rem 0.9rem;
+        border: 1px solid #222;
+        border-radius: 999px;
+        background: transparent;
+        color: #222;
+        font: inherit;
+        cursor: pointer;
+      }
+      button:hover, button:focus-visible { background: #222; color: #fffdf7; }
+      button.primary { background: #222; color: #fffdf7; }
+      button.primary:hover { background: #594733; border-color: #594733; }
+      button:disabled { opacity: 0.5; cursor: wait; }
+      .posts a.draft::after { content: " (draft)"; opacity: 0.6; }
+      #status { min-height: 1.5em; margin: 0; }
+      #status.bad { color: #a33; }
+      #status ul { margin: 0.3rem 0 0; padding-left: 1.2rem; font-size: 1rem; }
+      h2 { margin-bottom: 0.4rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="/" target="_blank">preview blog</a></li>
+          <li><a href="/admin/">new post</a></li>
+        </ul>
+      </nav>
+      <h1>write</h1>
+
+      <form id="form" autocomplete="off">
+        <label><span>title</span><input type="text" id="title" required></label>
+        <div class="row">
+          <label><span>tags (comma separated)</span><input type="text" id="tags" list="known-tags"></label>
+          <label><span>date</span><input type="datetime-local" id="date"></label>
+        </div>
+        <datalist id="known-tags"></datalist>
+        <label>
+          <span>post (markdown. drop or paste images and files in to attach them)</span>
+          <textarea id="body"></textarea>
+        </label>
+        <p class="hint">
+          links to other sites are archived to the cdn when you save, and show up as a small <sup>archive</sup> next to them.
+          for <a href="https://ncase.me/nutshell/" target="_blank" rel="noreferrer">nutshell</a>, start the link text with a colon:
+          <code>[:like this](#Some heading)</code> or <code>[:or this](https://example.com/page#Heading)</code>.
+        </p>
+        <div class="actions">
+          <button type="submit" class="primary" id="save">save</button>
+          <button type="button" id="attach">attach files</button>
+          <input type="file" id="file" multiple hidden>
+          <label class="check"><input type="checkbox" id="draft"> draft</label>
+          <label class="check"><input type="checkbox" id="refresh"> re-archive links</label>
+          <button type="button" id="delete" hidden>delete</button>
+          <a id="view" hidden target="_blank">view post</a>
+        </div>
+        <p id="status" role="status"></p>
+      </form>
+
+      <h2>comments</h2>
+      <div class="actions">
+        <div class="dropdown">
+          <span id="mode-label">when someone comments</span>
+          <div class="dd-box">
+          <button type="button" id="mode" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="mode-label mode"></button>
+          <ul role="listbox" id="mode-list" aria-labelledby="mode-label" tabindex="-1" hidden>
+            <li role="option" id="mode-review" data-value="review">hold it until i approve</li>
+            <li role="option" id="mode-open" data-value="open">show it right away</li>
+            <li role="option" id="mode-off" data-value="off">comments off (no new ones)</li>
+          </ul>
+          </div>
+        </div>
+        <button type="button" id="reload-comments">refresh</button>
+      </div>
+      <p id="comments-status" role="status" class="hint"></p>
+      <ol class="moderation" id="moderation"></ol>
+
+      <h2>posts</h2>
+      <ol class="posts" id="posts"></ol>
+    </main>
+    <script src="admin.js"></script>
+  </body>
+</html>
