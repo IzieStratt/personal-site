@@ -543,6 +543,12 @@ sup.archive a {
   margin-top: 0.4rem;
 }
 
+/* a locked post keeps its comments but takes no replies */
+.comments[data-mode="locked"] .reply,
+.comments[data-mode="off"] .reply {
+  display: none;
+}
+
 .comments button:hover,
 .comments button:focus-visible {
   background: #222;
@@ -552,6 +558,10 @@ sup.archive a {
 .comments button:disabled {
   opacity: 0.5;
   cursor: wait;
+}
+
+.comments [hidden] {
+  display: none;
 }
 
 .comments form {
