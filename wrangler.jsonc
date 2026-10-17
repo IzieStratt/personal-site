@@ -45,6 +45,14 @@
       "id": "01baf867cd7c4e33b12416e851fab709"
     }
   ],
+  // blog comments (comments.js); schema in blog/schema.sql
+  "d1_databases": [
+    {
+      "binding": "COMMENTS",
+      "database_name": "izie-blog",
+      "database_id": "02967e3a-0e3a-4118-aa54-d0c242725ca3"
+    }
+  ],
   "vars": {
     // set to "true" to let any hmoji token holder PUT /hmojis/<id> directly,
     // not just you from scripts/hmoji.ts
