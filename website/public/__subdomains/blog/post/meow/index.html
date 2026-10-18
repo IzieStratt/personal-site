@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>meow - blog</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="alternate" type="application/atom+xml" title="blog" href="/feed.xml">
+    <meta name="comments" content="default">
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="/">all posts</a></li>
+          <li><a href="https://izie.top">home</a></li>
+          <li><a href="/feed.xml">feed</a></li>
+        </ul>
+      </nav>
+      <article>
+        <h1>meow</h1>
+        <p class="subtitle"><time datetime="2026-10-17T20:58">10/17/2026</time></p>
+        <ul class="tags"><li><a href="/tag/testing/">testing</a></li></ul>
+        <div class="post">
+<p>is this how i write a blog post
+uh yeah <a href="https://example.com">test website</a><sup class="archive"><a href="/cdn/archives/websites/example.com_20261018-005936/" title="archived copy">archive</a></sup></p>
+        </div>
+      </article>
+      <section id="comments" class="comments" data-post="meow" data-setting="default" aria-labelledby="comments-title">
+        <h2 id="comments-title">comments</h2>
+        <div class="comment-list" aria-live="polite"><p class="empty">loading comments...</p></div>
+        <noscript><p>comments need javascript, sorry.</p></noscript>
+        <p class="comments-off" hidden>comments are turned off right now.</p>
+        <div class="comment-form-home">
+          <form novalidate>
+            <h3>leave a comment</h3>
+            <p class="comment-note"></p>
+            <label><span>name</span><input name="name" type="text" maxlength="40" autocomplete="nickname" required></label>
+            <label><span>website or email</span><input name="contact" type="text" maxlength="254" autocomplete="off" required aria-describedby="contact-help"></label>
+            <p id="contact-help" class="hint">a website shows up as a link next to your name. an email is kept private and never shown. one or the other is needed.</p>
+            <label><span>comment (markdown works: *italic*, **bold**, `code`, [links](https://example.com), &gt; quotes, - lists)</span><textarea name="body" rows="5" maxlength="2000" required></textarea></label>
+            <div class="trap" aria-hidden="true"><label>leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+            <div class="actions">
+              <button type="submit">post comment</button>
+              <button type="button" class="cancel-reply" hidden>cancel reply</button>
+            </div>
+            <p class="comment-status" role="status"></p>
+          </form>
+        </div>
+      </section>
+      <script src="/comments.js" defer></script>
+    </main>
+  </body>
+</html>

@@ -4,6 +4,14 @@
   <id>https://blog.izie.top/</id>
   <link href="https://blog.izie.top/"/>
   <link rel="self" href="https://blog.izie.top/feed.xml"/>
-  <updated>2026-10-18T00:55:57.760Z</updated>
-
+  <updated>2026-10-18T00:58:00.000Z</updated>
+  <entry>
+    <title>meow</title>
+    <id>https://blog.izie.top/post/meow/</id>
+    <link href="https://blog.izie.top/post/meow/"/>
+    <updated>2026-10-18T00:58:00.000Z</updated>
+    <category term="testing"/>
+    <content type="html">&lt;p&gt;is this how i write a blog post
+uh yeah &lt;a href=&quot;https://example.com&quot;&gt;test website&lt;/a&gt;&lt;sup class=&quot;archive&quot;&gt;&lt;a href=&quot;https://blog.izie.top/cdn/archives/websites/example.com_20261018-005936/&quot; title=&quot;archived copy&quot;&gt;archive&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;</content>
+  </entry>
 </feed>
