@@ -190,6 +190,10 @@ article > .tags {
   margin-bottom: 1.5rem;
 }
 
+.post {
+  padding-bottom: 1rem;
+}
+
 .post img,
 .post video {
   display: block;
@@ -449,6 +453,8 @@ sup.archive a {
 /* comments */
 .comments {
   margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #222;
 }
 
 .comment-list .thread,
