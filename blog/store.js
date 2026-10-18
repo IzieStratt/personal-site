@@ -13,7 +13,7 @@ export const SITE = process.env.BLOG_SITE || path.join(PUBLIC, '__subdomains/blo
 export const CDN = path.join(PUBLIC, 'cdn')
 export const ARCHIVES = process.env.BLOG_ARCHIVES_DIR || path.join(CDN, 'archives', 'websites')
 export const POSTS = process.env.BLOG_POSTS || path.join(REPO, 'blog/posts')
-const ARCHIVE_INDEX = process.env.BLOG_ARCHIVES || path.join(REPO, 'blog/archives.json')
+export const ARCHIVE_INDEX = process.env.BLOG_ARCHIVES || path.join(REPO, 'blog/archives.json')
 
 export const tagSlug = (t) => t.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\p{L}\p{N}-]/gu, '').replace(/^-+|-+$/g, '')
 export const slugify = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '').slice(0, 60) || 'post'

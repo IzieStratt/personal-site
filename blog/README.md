@@ -1,9 +1,11 @@
 # blog
 
-    node blog/server.js     # editor at http://localhost:4747/admin/, preview at http://localhost:4747/
+    node blog/server.js     # opens the editor at http://localhost:4747/admin/ (--no-open to skip), preview at http://localhost:4747/
     node blog/build.js      # rebuild the static pages without the editor
 
-Posts live in `blog/posts/*.md` and build into `website/public/__subdomains/blog`. Publish with `scripts/deploy.fish`.
+Posts live in `blog/posts/*.md` and build into `website/public/__subdomains/blog`.
+
+The editor's **publish** button saves the post, commits only the blog's files (posts, built pages, attachments, archives) with the message `blog: <post title>`, and pushes the current branch. GitHub deploys from `main`. Anything else you have uncommitted is left alone. If a push fails, the commit is kept and the next publish pushes it.
 
 - Attached images/files go to `website/public/cdn/blog/<year>/`.
 - Every external link is snapshotted to `website/public/cdn/archives/websites/<site>_<yyyymmdd-hhmmss>/` the first time a post is saved with it
