@@ -82,8 +82,10 @@ async function save(e) {
     }
     status(out, r.archived.failed.length > 0)
     loadList()
+    return true
   } catch (err) {
     status(err.message, true)
+    return false
   } finally {
     $('save').disabled = false
   }
@@ -116,6 +118,24 @@ for (const ev of ['dragenter', 'dragover']) $('body').addEventListener(ev, (e) =
 for (const ev of ['dragleave', 'drop']) $('body').addEventListener(ev, () => $('body').classList.remove('drop'))
 $('body').addEventListener('drop', (e) => { e.preventDefault(); attach([...e.dataTransfer.files]) })
 document.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 's') save(e) })
+// publish = save, then commit the blog's files with the post's title as the message, then push
+$('publish').addEventListener('click', async () => {
+  if (!$('title').value.trim()) return status('give the post a title first', true)
+  const { branch } = await api('GET', '/api/git').catch(() => ({ branch: '' }))
+  const live = branch === 'main' ? ' (main goes live on the site)' : ''
+  if (!confirm(`save, commit "blog: ${$('title').value.trim()}" and push to ${branch || 'origin'}?${live}`)) return
+  $('publish').disabled = true
+  try {
+    if (!(await save())) return
+    status('committing and pushing...')
+    const r = await api('POST', '/api/publish', { slug: state.slug })
+    status(r.nothing ? `nothing new to publish (already committed on ${r.branch})` : `pushed ${r.commit} to ${r.branch}${r.branch === 'main' ? ', it will deploy shortly' : ''}`)
+  } catch (err) {
+    status(err.message, true)
+  } finally {
+    $('publish').disabled = false
+  }
+})
 $('delete').addEventListener('click', async () => {
   if (!confirm(`delete "${$('title').value}"? (the md file only; attached files and archives stay in /cdn)`)) return
   await api('DELETE', `/api/posts/${state.slug}`)

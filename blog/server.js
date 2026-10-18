@@ -2,6 +2,8 @@
 // Serves the built blog (and the shared /cdn) for previewing, plus the editing API.
 // It only listens on 127.0.0.1; publishing is the normal git push (scripts/deploy.fish).
 import http from 'node:http'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { readFile, writeFile, mkdir, stat, readdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
@@ -10,7 +12,7 @@ import { archiveUrl } from './archive.js'
 import { build } from './build.js'
 import { getMode, listComments, removeComment, setMode, setStatus } from './comments-admin.js'
 import { externalLinks } from './markdown.js'
-import { ARCHIVES, CDN, COMMENT_SETTINGS, PUBLIC, SITE, deletePost, getPost, listPosts, readArchives, savePost, slugify, tagSlug, writeArchives } from './store.js'
+import { ARCHIVES, ARCHIVE_INDEX, CDN, COMMENT_SETTINGS, PUBLIC, REPO, SITE, deletePost, getPost, listPosts, readArchives, savePost, slugify, tagSlug, writeArchives } from './store.js'
 
 const PORT = Number(process.env.PORT) || 4747
 const ADMIN = path.join(path.dirname(fileURLToPath(import.meta.url)), 'admin')
@@ -88,6 +90,37 @@ async function uploadFile(req, url) {
   return { href, name, markdown: media ? `![${stem.replace(/-/g, ' ')}](${href})` : `[${raw}](${href})` }
 }
 
+// publishing = a git commit of the blog's files, then a push (GitHub deploys it). Only blog paths are
+// touched, so anything else you have lying around uncommitted stays exactly as it is.
+const git = (...args) => promisify(execFile)('git', args, { cwd: REPO, maxBuffer: 8 << 20 }).then((r) => r.stdout.trim())
+const BLOG_PATHS = ['blog/posts', path.relative(REPO, SITE), path.relative(REPO, path.join(CDN, 'blog')), path.relative(REPO, ARCHIVES), path.relative(REPO, ARCHIVE_INDEX)]
+let publishing = false
+
+async function publish(title) {
+  if (publishing) throw Object.assign(new Error('already publishing'), { status: 409 })
+  publishing = true
+  try {
+    const exists = []
+    for (const p of BLOG_PATHS) if (await stat(path.join(REPO, p)).then(() => true, () => false)) exists.push(p)
+    // a path that was deleted is still worth staging, so also ask git about it
+    await git('add', '-A', '--', ...exists)
+    const changed = await git('status', '--porcelain', '--', ...exists)
+    if (changed) await git('commit', '-m', `blog: ${title || 'update'}`, '--', ...exists)
+    const branch = await git('branch', '--show-current')
+    // a commit from an earlier failed push is still waiting; push it too
+    const waiting = Number(await git('rev-list', '--count', '@{u}..HEAD').catch(() => '1'))
+    if (!changed && !waiting) return { nothing: true, branch }
+    try {
+      await git('push', 'origin', 'HEAD')
+    } catch (e) {
+      throw new Error(`committed, but the push failed: ${String(e.stderr || e.message).trim().split('\n').slice(-2).join(' ')}`)
+    }
+    return { pushed: true, branch, commit: await git('rev-parse', '--short', 'HEAD') }
+  } finally {
+    publishing = false
+  }
+}
+
 // previewing a post here can talk to a `wrangler dev` worker (COMMENTS_API=http://localhost:8787)
 async function proxyComments(req, res, url) {
   if (req.method === 'POST' && req.headers.origin && req.headers.origin !== `http://${req.headers.host}`) return send(res, 403, { error: 'bad origin' })
@@ -105,6 +138,12 @@ async function api(req, res, url) {
   const body = () => readBody(req).then((b) => JSON.parse(b.toString() || '{}'))
 
   if (parts[0] === 'upload' && req.method === 'POST') return send(res, 200, await uploadFile(req, url))
+  if (parts[0] === 'git' && req.method === 'GET') return send(res, 200, { branch: await git('branch', '--show-current').catch(() => '') })
+  if (parts[0] === 'publish' && req.method === 'POST') {
+    const slug = String((await body()).slug || '')
+    const title = /^[\p{L}\p{N}-]+$/u.test(slug) ? (await getPost(slug).catch(() => null))?.title : ''
+    return send(res, 200, await publish(title))
+  }
   if (parts[0] === 'moderation') {
     if (parts[1] === 'mode') {
       if (req.method === 'PUT') await setMode((await body()).mode)
@@ -173,4 +212,11 @@ http.createServer(async (req, res) => {
   } catch (e) {
     send(res, e.status || 500, { error: e.code === 'ENOENT' ? 'not found' : e.message })
   }
-}).listen(PORT, '127.0.0.1', () => console.log(`blog editor: http://localhost:${PORT}/admin/   preview: http://localhost:${PORT}/`))
+}).listen(PORT, '127.0.0.1', () => {
+  const editor = `http://localhost:${PORT}/admin/`
+  console.log(`blog editor: ${editor}   preview: http://localhost:${PORT}/`)
+  // open it in the browser (pass --no-open, or set BLOG_NO_OPEN=1, to skip)
+  if (process.argv.includes('--no-open') || process.env.BLOG_NO_OPEN) return
+  const [cmd, ...rest] = process.platform === 'darwin' ? ['open'] : process.platform === 'win32' ? ['cmd', '/c', 'start', ''] : ['xdg-open']
+  execFile(cmd, [...rest, editor], () => {})
+})
