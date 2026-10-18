@@ -68,6 +68,7 @@ const page = ({ title, body, head = '', foot = '' }) => `<!doctype html>
     <title>${esc(title)}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
     <link rel="alternate" type="application/atom+xml" title="blog" href="/feed.xml">${head}
   </head>
   <body>

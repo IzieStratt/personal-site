@@ -5,10 +5,80 @@
   font-display: swap;
 }
 
+/* light by default; dark when the browser asks for it, unless the toggle (/cdn/theme.js) set
+   data-theme on <html> to override it either way */
+:root {
+  color-scheme: light;
+  --bg: #fffdf7;
+  --fg: #222;
+  --focus: #315f9d;
+  --code-bg: #eee9dc;
+  --code-fg: #594733;
+  --muted: #5c5346;
+  --card: #ede6d6;
+  --card-hover: #e6decb;
+  --line: #e4dccb;
+  --quote-line: #c9bfa8;
+  --quote-fg: #4b4438;
+  --link: #a8442a;
+  --link-visited: #7b3f61;
+  --link-hover: #6e2410;
+  --tag-bg: #dce6f1;
+  --tag-fg: #234670;
+  --input-bg: #fff;
+  --bad: #a33;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #1b1a17;
+    --fg: #ece6d8;
+    --focus: #8fb3e6;
+    --code-bg: #2e2b25;
+    --code-fg: #dcc6a6;
+    --muted: #b5ab99;
+    --card: #2a2722;
+    --card-hover: #34302a;
+    --line: #3b372f;
+    --quote-line: #5c5548;
+    --quote-fg: #cbc2b1;
+    --link: #f0a083;
+    --link-visited: #dca5c6;
+    --link-hover: #ffc7b3;
+    --tag-bg: #24324a;
+    --tag-fg: #b7cfee;
+    --input-bg: #24221e;
+    --bad: #f28b82;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1b1a17;
+  --fg: #ece6d8;
+  --focus: #8fb3e6;
+  --code-bg: #2e2b25;
+  --code-fg: #dcc6a6;
+  --muted: #b5ab99;
+  --card: #2a2722;
+  --card-hover: #34302a;
+  --line: #3b372f;
+  --quote-line: #5c5548;
+  --quote-fg: #cbc2b1;
+  --link: #f0a083;
+  --link-visited: #dca5c6;
+  --link-hover: #ffc7b3;
+  --tag-bg: #24324a;
+  --tag-fg: #b7cfee;
+  --input-bg: #24221e;
+  --bad: #f28b82;
+}
+
 body {
   margin: 0;
-  background: #fffdf7;
-  color: #222;
+  background: var(--bg);
+  color: var(--fg);
   font-family: "xkcd Script", cursive;
   font-size: 1.35rem;
   line-height: 1.5;
@@ -23,15 +93,15 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #315f9d;
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 
 code {
   padding: 0.08em 0.35em;
   border-radius: 0.35em;
-  background: #eee9dc;
-  color: #594733;
+  background: var(--code-bg);
+  color: var(--code-fg);
   font: inherit;
 }
 
@@ -40,7 +110,7 @@ pre {
   margin: 1rem 0;
   padding: 0.7rem 1rem;
   border-radius: 0.75rem;
-  background: #eee9dc;
+  background: var(--code-bg);
   line-height: 1.35;
 }
 
@@ -68,31 +138,31 @@ nav ul,
 nav a {
   display: block;
   padding: 0.35rem 0.7rem;
-  border: 1px solid #222;
+  border: 1px solid var(--fg);
   border-radius: 999px;
-  color: #222;
+  color: var(--fg);
   text-decoration: none;
 }
 
 nav a:hover,
 nav a:focus-visible {
-  background: #222;
-  color: #fffdf7;
+  background: var(--fg);
+  color: var(--bg);
 }
 
 .tags a {
   display: block;
   padding: 0.15rem 0.6rem;
   border-radius: 999px;
-  background: #dce6f1;
-  color: #234670;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
   text-decoration: none;
 }
 
 .tags a:hover,
 .tags a:focus-visible {
-  background: #234670;
-  color: #fffdf7;
+  background: var(--tag-fg);
+  color: var(--bg);
 }
 
 .subtitle {
@@ -103,19 +173,19 @@ nav a:focus-visible {
 .post a,
 .subtitle a,
 .hint a {
-  color: #a8442a;
+  color: var(--link);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
 }
 
 .post a:visited {
-  color: #7b3f61;
+  color: var(--link-visited);
 }
 
 .post a:hover,
 .post a:focus-visible,
 .subtitle a:hover {
-  color: #6e2410;
+  color: var(--link-hover);
   text-decoration-thickness: 2px;
 }
 
@@ -154,20 +224,20 @@ nav a:focus-visible {
   padding: 0.9rem 1.2rem 1rem;
   border-radius: 1.2rem;
   corner-shape: squircle;
-  background: #ede6d6;
-  color: #222;
+  background: var(--card);
+  color: var(--fg);
   text-decoration: none;
   transition: transform 150ms ease, background-color 150ms ease;
 }
 
 .card:hover,
 .card:focus-visible {
-  background: #e6decb;
+  background: var(--card-hover);
   transform: translateY(-2px);
 }
 
 .card:focus-visible {
-  outline: 2px solid #315f9d;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -212,7 +282,7 @@ article > .tags {
   margin: 1rem 0;
   padding: 0.1rem 1.1rem;
   border-radius: 0.75rem;
-  background: #eee9dc;
+  background: var(--code-bg);
 }
 
 .post blockquote > :first-child { margin-top: 0; }
@@ -222,7 +292,7 @@ article > .tags {
   width: 3rem;
   margin: 2rem 0;
   border: 0;
-  border-top: 3px dotted #222;
+  border-top: 3px dotted var(--fg);
 }
 
 /* the archived copy of a link, small and raised next to the original */
@@ -247,11 +317,11 @@ sup.archive a {
 /* nutshell fades the "from ..." line to 69% opacity, which drops it to about 3.2:1 on cream */
 .nutshell-bubble-from {
   opacity: 1;
-  color: #5c5346;
+  color: var(--muted);
 }
 
 .nutshell-bubble-from a {
-  color: #a8442a;
+  color: var(--link);
 }
 
 /* tag filter on the front page: a button with a tapered-bars icon that opens a panel of tag chips.
@@ -269,7 +339,7 @@ sup.archive a {
   align-items: center;
   min-height: 2.1rem;
   font-size: 1rem;
-  color: #5c5346;
+  color: var(--muted);
 }
 
 .filter-top p {
@@ -281,10 +351,10 @@ sup.archive a {
   align-items: center;
   gap: 0.5rem;
   padding: 0.25rem 0.9rem 0.25rem 0.8rem;
-  border: 1px solid #222;
+  border: 1px solid var(--fg);
   border-radius: 999px;
   background: transparent;
-  color: #222;
+  color: var(--fg);
   font: inherit;
   cursor: pointer;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
@@ -297,25 +367,25 @@ sup.archive a {
 
 .filter-toggle:hover,
 .filter-toggle:focus-visible {
-  background: #222;
-  color: #fffdf7;
+  background: var(--fg);
+  color: var(--bg);
 }
 
 .filter-toggle:focus-visible {
-  outline: 2px solid #315f9d;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
 .filter-toggle[aria-expanded="true"] {
-  border-color: #234670;
-  background: #dce6f1;
-  color: #234670;
+  border-color: var(--tag-fg);
+  background: var(--tag-bg);
+  color: var(--tag-fg);
 }
 
 .filter-toggle[aria-expanded="true"]:hover,
 .filter-toggle[aria-expanded="true"]:focus-visible {
-  background: #234670;
-  color: #fffdf7;
+  background: var(--tag-fg);
+  color: var(--bg);
 }
 
 /* the three bars: closed they taper like a funnel; opening makes them slide out to full width
@@ -392,8 +462,8 @@ sup.archive a {
 }
 
 .filter .tags a[aria-pressed="true"] {
-  background: #315f9d;
-  color: #fffdf7;
+  background: var(--focus);
+  color: var(--bg);
 }
 
 .filter .tags a[aria-pressed="true"]::before {
@@ -405,7 +475,7 @@ sup.archive a {
   padding: 0;
   border: 0;
   background: none;
-  color: #a8442a;
+  color: var(--link);
   font: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -415,7 +485,7 @@ sup.archive a {
 
 .filter-clear:hover,
 .filter-clear:focus-visible {
-  color: #6e2410;
+  color: var(--link-hover);
 }
 
 .posts li[hidden] {
@@ -445,7 +515,9 @@ sup.archive a {
   }
 
   .card:hover,
-  .card:focus-visible {
+  .card:focus-visible,
+  .theme-toggle:hover .theme-face,
+  .theme-toggle:focus-visible .theme-face {
     transform: none;
   }
 }
@@ -454,7 +526,7 @@ sup.archive a {
 .comments {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 2px solid #222;
+  border-top: 2px solid var(--fg);
 }
 
 .comment-list .thread,
@@ -472,14 +544,14 @@ sup.archive a {
 .comment-list .replies {
   margin-left: 0.4rem;
   padding-left: 1rem;
-  border-left: 2px solid #e4dccb;
+  border-left: 2px solid var(--line);
 }
 
 .comment {
   padding: 0.7rem 1rem;
   border-radius: 1rem;
   corner-shape: squircle;
-  background: #ede6d6;
+  background: var(--card);
 }
 
 .comment header {
@@ -495,7 +567,7 @@ sup.archive a {
 }
 
 .comment time {
-  color: #5c5346;
+  color: var(--muted);
 }
 
 .comment .text > :first-child {
@@ -509,38 +581,38 @@ sup.archive a {
 .comment .text blockquote {
   margin-left: 0;
   padding-left: 0.8rem;
-  border-left: 2px solid #c9bfa8;
-  color: #4b4438;
+  border-left: 2px solid var(--quote-line);
+  color: var(--quote-fg);
 }
 
 .comment .text code {
   padding: 0 0.3rem;
   border-radius: 0.4rem;
-  background: #e4dccb;
+  background: var(--line);
   font-size: 0.9em;
 }
 
 .comments a {
-  color: #a8442a;
+  color: var(--link);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
 }
 
 .comments a:visited {
-  color: #7b3f61;
+  color: var(--link-visited);
 }
 
 .comments a:hover {
-  color: #6e2410;
+  color: var(--link-hover);
 }
 
 .comment .reply,
 .comments button {
   padding: 0.25rem 0.9rem;
-  border: 1px solid #222;
+  border: 1px solid var(--fg);
   border-radius: 999px;
   background: transparent;
-  color: #222;
+  color: var(--fg);
   font: inherit;
   cursor: pointer;
 }
@@ -557,8 +629,8 @@ sup.archive a {
 
 .comments button:hover,
 .comments button:focus-visible {
-  background: #222;
-  color: #fffdf7;
+  background: var(--fg);
+  color: var(--bg);
 }
 
 .comments button:disabled {
@@ -589,7 +661,7 @@ sup.archive a {
 .comments .hint,
 .comment-note {
   font-size: 1rem;
-  color: #5c5346;
+  color: var(--muted);
 }
 
 .comments .hint,
@@ -603,16 +675,16 @@ sup.archive a {
   box-sizing: border-box;
   width: 100%;
   padding: 0.4rem 0.7rem;
-  border: 2px solid #222;
+  border: 2px solid var(--fg);
   border-radius: 0.75rem;
-  background: #fff;
-  color: #222;
+  background: var(--input-bg);
+  color: var(--fg);
   font: inherit;
 }
 
 .comments input[aria-invalid="true"],
 .comments textarea[aria-invalid="true"] {
-  border-color: #a33;
+  border-color: var(--bad);
 }
 
 .comments textarea {
@@ -626,7 +698,7 @@ sup.archive a {
 }
 
 .comment-status.bad {
-  color: #a33;
+  color: var(--bad);
 }
 
 /* the honeypot: out of sight and out of the tab order for people, still there for bots */
@@ -636,4 +708,50 @@ sup.archive a {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* the light/dark toggle (made by /cdn/theme.js), styled like the GitHub button on the main site; same trick:
+   the button stays put and only .theme-face lifts */
+.theme-toggle {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.75rem;
+  z-index: 1;
+  padding: 6px;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.theme-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.7rem 0.25rem 0.5rem;
+  border: 2px solid var(--fg);
+  border-radius: 0.75rem;
+  background: var(--bg);
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.theme-toggle:hover .theme-face,
+.theme-toggle:focus-visible .theme-face {
+  background: var(--fg);
+  color: var(--bg);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.theme-icon {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
