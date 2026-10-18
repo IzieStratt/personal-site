@@ -18,8 +18,27 @@
         </ul>
       </nav>
       <h1>BLOG</h1>
-      <p>huh, why's nothing here?</p>
-      <p>meoww mrrpp meoeweawww</p>
+      <div class="filter" id="filter">
+        <div class="filter-top">
+          <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel" hidden><svg class="bars" viewBox="0 0 16 12" width="16" height="12" aria-hidden="true" focusable="false"><path d="M1 1.5h14" /><path d="M3.5 6h9" /><path d="M6 10.5h4" /></svg><span class="label">filter</span></button>
+          <p id="filter-label" class="vh">filter by tag</p>
+          <p id="filter-count" role="status"></p>
+          <button type="button" class="filter-clear" hidden>clear filter</button>
+        </div>
+        <div id="filter-panel" class="filter-panel" data-open="true"><div>
+          <ul class="tags cloud" aria-labelledby="filter-label"><li style="--i:0"><a href="/tag/testing/">testing <span>1</span></a></li></ul>
+        </div></div>
+      </div>
+      <ol class="posts" id="post-list">
+        <li>
+          <a class="card" href="/post/meow/">
+            <time datetime="2026-10-17T20:58">10/17/2026</time>
+            <span class="title">meow</span>
+          </a>
+          <ul class="tags"><li><a href="/tag/testing/">testing</a></li></ul>
+        </li>
+      </ol>
     </main>
+    <script src="/filter.js" defer></script>
   </body>
 </html>
