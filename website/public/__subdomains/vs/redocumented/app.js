@@ -26,6 +26,7 @@ const NAV = [
       { label: "files.*", path: "docs/methods/files.md" },
       { label: "huddles, RTM & Chime", path: "docs/methods/huddles-and-chime.md" },
       { label: "huddle peer messages (drawing)", path: "docs/methods/huddles-peer-messages.md" },
+      { label: "Realtime websocket + typing", path: "docs/methods/realtime-websocket.md" },
       { label: "search.*", path: "docs/methods/search.md" },
       { label: "team.*", path: "docs/methods/team.md" },
       { label: "users.*", path: "docs/methods/users.md" },

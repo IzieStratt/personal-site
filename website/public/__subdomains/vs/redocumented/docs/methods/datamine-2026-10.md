@@ -24,6 +24,12 @@ The latest builds list far fewer methods than older ones, and the miner is the r
 
 The miner only sees chunks served to one logged-in client, and 12 `gantry-v2` chunks fail to download in every recent build (see `failedChunkFiles` in `meta.json`). So **"removed" means "no longer in the bundle the miner can read", not "Slack deleted the endpoint"**. Many entries (the `admin.*`, `sfdc.*`, `enterprise.*` families) likely just moved into the unreadable chunks. The existence-oracle results for them still stand.
 
+## Why chunks "fail" (checked 2026-10-19)
+
+- The 12 failed names are `gantry-v2.<hash>.min.js`. They return `403 AccessDenied` (an S3-style XML body) from the CDN **even for build 128106**, which was mined with 1,526 chunks, so they were never fetchable and are probably not real files. The same 403 comes back with a browser User-Agent, Referer, Origin or `?cacheKey=`.
+- The real chunks (`client-boot.*`, `gantry-v2-vendors.*`, `gantry-v2-async-*`) return 200 and are **brotli-compressed** (the `-br` in the CDN path); decode before grepping.
+- The collapse after 2026-07-24 is therefore in manifest parsing: the miner stopped finding the `gantry-v2-async-*` list (1,526 -> 14 chunks), which is where the application code (and most method names) lives. `client-boot` and `vendors` alone give about 250 names.
+
 ## Latest build, other extracted data (build 134791)
 
 250 API methods, 92 feature flags, 49 experiments, 230 error codes, 138 slash commands (including `/code` and `/codeblock`), 27 notification types, 87 Block Kit types, 76 workflow functions, 4,623 UI strings. OAuth scopes, API args, MCP actions and AI features currently extract as empty.
