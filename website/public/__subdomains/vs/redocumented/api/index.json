@@ -3228,7 +3228,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "agents.sessions.rename",
@@ -3268,7 +3268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "agents.threads.archive",

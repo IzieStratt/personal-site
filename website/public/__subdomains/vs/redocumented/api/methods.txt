@@ -321,11 +321,11 @@ agents.a2a.preview	undocumented	datamine-only (not oracle-tested)	-	removed	-	(i
 agents.mcp.settings.list	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 agents.mcp.settings.listTools	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 agents.mcp.settings.setServerEnabled	undocumented	datamine-only (not oracle-tested)	-	-	write	(inferred from name only; webpack string, not oracle-tested)
-agents.mcp.settings.setToolPermissions	undocumented	datamine-only (not oracle-tested)	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+agents.mcp.settings.setToolPermissions	undocumented	datamine-only (not oracle-tested)	-	removed	write	(inferred from name only; webpack string, not oracle-tested)
 agents.sessions.rename	documented	docs-only	params	-	write	Rename an agent session.
 agents.sessions.setStatus	documented	docs-only	params	-	write	Set an agent session's lifecycle status, creating the session if needed.
 agents.sessions.stop	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-agents.sunroof.get	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
+agents.sunroof.get	undocumented	existence-only	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 agents.threads.archive	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 agents.threads.pin	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 agents.threads.rename	undocumented	datamine-only (not oracle-tested)	-	removed	write	(inferred from name only; webpack string, not oracle-tested)
