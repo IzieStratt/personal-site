@@ -26,7 +26,7 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,599 undocumented/cross-referenced = 1,922 total method names**
+documented + 1,727 undocumented/cross-referenced = 2,050 total (1,500 marked removed) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
@@ -40,8 +40,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **725/1,922 methods
-(37.7%) now have real, sourced, structured `params`; 672/1,922 (35.0%) have a
+existed, instead of leaving them as bare method names. **726/2,050 methods
+(35.4%) now have real, sourced, structured `params`; 673/2,050 (32.8%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of

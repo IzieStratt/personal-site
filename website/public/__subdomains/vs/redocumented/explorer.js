@@ -8,6 +8,7 @@ const state = {
   query: "",
   status: "all", // all | documented | undocumented
   paramsFilter: "all", // all | known | unknown
+  showRemoved: false, // methods gone from the latest datamine build
   sortKey: "name",
   sortDir: 1,
   limit: 50,
@@ -44,10 +45,12 @@ function responseSummary(m) {
 }
 
 function renderStats() {
-  const total = state.data.methods.length;
-  const paramsKnown = state.data.methods.filter((m) => m.params_known).length;
-  const respKnown = state.data.methods.filter((m) => m.response_known).length;
-  const documented = state.data.methods.filter((m) => m.status === "documented").length;
+  const all = state.showRemoved ? state.data.methods : state.data.methods.filter((m) => !m.removed);
+  const removed = state.data.methods.length - state.data.methods.filter((m) => !m.removed).length;
+  const total = all.length;
+  const paramsKnown = all.filter((m) => m.params_known).length;
+  const respKnown = all.filter((m) => m.response_known).length;
+  const documented = all.filter((m) => m.status === "documented").length;
   return `
     <div class="stats-row">
       <div class="stat"><b>${total}</b><span>total methods</span></div>
@@ -55,6 +58,7 @@ function renderStats() {
       <div class="stat"><b>${total - documented}</b><span>undocumented</span></div>
       <div class="stat"><b>${paramsKnown}</b><span>params known (${fmtPct(paramsKnown, total)})</span></div>
       <div class="stat"><b>${respKnown}</b><span>response known (${fmtPct(respKnown, total)})</span></div>
+      <div class="stat"><b>${removed}</b><span>removed (${state.showRemoved ? "shown" : "hidden"})</span></div>
     </div>`;
 }
 
@@ -68,6 +72,7 @@ function applyFilters() {
   }
   const q = state.query.trim().toLowerCase();
   state.filtered = state.data.methods.filter((m) => {
+    if (m.removed && !state.showRemoved) return false;
     if (state.status !== "all" && m.status !== state.status) return false;
     if (state.paramsFilter === "known" && !m.params_known) return false;
     if (state.paramsFilter === "unknown" && m.params_known) return false;
@@ -110,7 +115,7 @@ function renderTable() {
       const r = responseSummary(m);
       return `
       <tr class="method-row" data-idx="${m._idx}">
-        <td><code>${escapeHtml(m.name)}</code></td>
+        <td><code>${escapeHtml(m.name)}</code>${m.removed ? ' <span class="tag tag-removed" title="' + escapeHtml(m.removed_note || "") + '">removed</span>' : ""}</td>
         <td><span class="tag tag-${m.status}">${m.status}</span></td>
         <td><span class="tag tag-verified">${escapeHtml(m.verified)}</span></td>
         <td><span class="tag ${p.cls}">${p.text}</span></td>
@@ -162,6 +167,8 @@ function renderDetail(m) {
         <h4>Meta</h4>
         <p><b>Purpose:</b> ${escapeHtml(m.purpose || "(none recorded)")}</p>
         <p><b>Tokens:</b> ${escapeHtml(m.tokens || "unknown")}</p>
+        ${m.removed ? `<p><b>Removed:</b> ${escapeHtml(m.removed_note || "")}</p>` : ""}
+        ${m.datamine ? `<p><b>Datamine:</b> first seen build ${escapeHtml(m.datamine.first_build)} (${escapeHtml(m.datamine.first_seen)}), last seen build ${escapeHtml(m.datamine.last_build)} (${escapeHtml(m.datamine.last_seen)})</p>` : ""}
         <p><b>Call:</b> <code>POST https://slack.com/api/${escapeHtml(m.name)}</code></p>
       </div>
     </div>`;
@@ -205,6 +212,7 @@ function attachRowHandlers() {
 }
 
 function renderAll() {
+  els.root.querySelector("#explorer-stats").innerHTML = renderStats();
   els.root.querySelector("#explorer-table-wrap").innerHTML = renderTable();
   attachRowHandlers();
 }
@@ -223,7 +231,7 @@ async function init() {
   }
   applyFilters();
   els.root.innerHTML = `
-    ${renderStats()}
+    <div id="explorer-stats">${renderStats()}</div>
     ${callout("safety-note", "redoc.hide.safety", `<b>Safety note (from the catalog's own metadata):</b> ${escapeHtml(state.data.schema?.safety_note_for_agents || "")}`)}
     ${callout("contribute-note", "redoc.hide.contribute", `<b>Know something this catalog doesn't?</b> If you've verified a method marked <i>unknown</i> / <i>existence-only</i> / <i>not-live-tested</i>, found a missing method, or spotted something wrong, please
       <a href="https://github.com/IzieStratt/personal-site/tree/main/website/public/__subdomains/vs/redocumented/docs" target="_blank" rel="noreferrer">open a PR</a>
@@ -240,6 +248,7 @@ async function init() {
         <option value="known">Params known only</option>
         <option value="unknown">Params unknown only</option>
       </select>
+      <label class="explorer-toggle"><input type="checkbox" id="explorer-removed" /> Show removed</label>
     </div>
     <div id="explorer-table-wrap"></div>`;
   for (const el of els.root.querySelectorAll("[data-hide]")) {
@@ -261,6 +270,12 @@ async function init() {
   });
   document.getElementById("explorer-params").addEventListener("change", (e) => {
     state.paramsFilter = e.target.value;
+    state.limit = PAGE_SIZE;
+    applyFilters();
+    renderAll();
+  });
+  document.getElementById("explorer-removed").addEventListener("change", (e) => {
+    state.showRemoved = e.target.checked;
     state.limit = PAGE_SIZE;
     applyFilters();
     renderAll();

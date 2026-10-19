@@ -53,8 +53,9 @@ for m in methods:
     ns = name.rsplit('.', 1)[0] if '.' in name else name
     namespaces[ns].append(name)
     index.append({k: m.get(k) for k in (
-        'name', 'status', 'verified', 'params_known', 'response_known', 'write_shaped', 'purpose')})
-    txt.append('\t'.join([name, m['status'], m['verified'], 'params' if m['params_known'] else '-',
+        'name', 'status', 'verified', 'params_known', 'response_known', 'write_shaped', 'purpose')}
+                 | {'removed': bool(m.get('removed'))})
+    txt.append('\t'.join([name, m['status'], m['verified'], 'params' if m['params_known'] else '-', 'removed' if m.get('removed') else '-',
                           'write' if m['write_shaped'] else '-', (m.get('purpose') or '').replace('\n', ' ')]))
 
 write_json(API / 'index.json', {
@@ -66,7 +67,7 @@ write_json(API / 'index.json', {
 })
 write_json(API / 'namespaces.json', dict(sorted(namespaces.items())))
 (API / 'methods.txt').write_text(
-    '# name\tstatus\tverified\tparams(known)\twrite-shaped\tpurpose\n'
+    '# name\tstatus\tverified\tparams(known)\tremoved\twrite-shaped\tpurpose\n'
     f'# one method per line; full entry at {BASE}/api/methods/<name>.json\n' + '\n'.join(txt) + '\n')
 
 # OpenAPI: only methods whose params are real sourced data
