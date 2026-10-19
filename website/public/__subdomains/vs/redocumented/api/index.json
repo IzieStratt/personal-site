@@ -2,9 +2,9 @@
  "generated": "2026-10-19",
  "counts": {
   "documented": 323,
-  "undocumented": 1727,
-  "total": 2050,
-  "removed": 1500,
+  "undocumented": 1797,
+  "total": 2120,
+  "removed": 1199,
   "live_verified_undocumented": 22
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
@@ -68,7 +68,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "activity.mark",
@@ -88,7 +88,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "activity.markRead",
@@ -349,6 +349,36 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "removed": true
+  },
+  {
+   "name": "admin.analytics.channels.modal",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "admin.analytics.channels.modal.availableDateRange",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "admin.analytics.channels.modal.export",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "admin.analytics.export",
@@ -668,7 +698,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.domainWideAuth.enable",
@@ -678,7 +708,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.domainWideAuth.google.getAdminInstallUrl",
@@ -688,7 +718,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.domainWideAuth.google.getAuthorizeUrl",
@@ -698,7 +728,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.domainWideAuth.list",
@@ -718,7 +748,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.domainWideAuth.removeDomain",
@@ -728,7 +758,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.getAiPrefs",
@@ -858,7 +888,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.apps.recommend.add",
@@ -2898,7 +2928,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "admin.users.session.clearSettings",
@@ -3161,6 +3191,46 @@
    "removed": true
   },
   {
+   "name": "agents.mcp.settings.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "agents.mcp.settings.listTools",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "agents.mcp.settings.setServerEnabled",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "agents.mcp.settings.setToolPermissions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "agents.sessions.rename",
    "status": "documented",
    "verified": "docs-only",
@@ -3178,6 +3248,16 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Set an agent session's lifecycle status, creating the session if needed.",
+   "removed": false
+  },
+  {
+   "name": "agents.sessions.stop",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "removed": false
   },
   {
@@ -3258,7 +3338,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.agents.diveDeeper",
@@ -3298,7 +3378,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.analyze.startThread",
@@ -3308,7 +3388,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.answer.previewShare",
@@ -3348,7 +3428,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.audio.transcribeChunk",
@@ -3358,7 +3438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.canvas.computeDraftDiff",
@@ -3388,7 +3468,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.canvas.refineContent",
@@ -3428,7 +3508,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.digest.list",
@@ -3458,7 +3538,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.digest.markUnread",
@@ -3468,7 +3548,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.digest.removeFromDigest",
@@ -3518,7 +3598,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.replies.get",
@@ -3568,7 +3648,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.sidekicks.rewritePrompt",
@@ -3608,7 +3688,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.automationGroups.list",
@@ -3618,7 +3698,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.automationGroups.setActive",
@@ -3628,7 +3708,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.channelMemory.delete",
@@ -3658,7 +3738,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.channelResponses.restore",
@@ -3668,7 +3748,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.channelSkills.addSkill",
@@ -3721,6 +3801,16 @@
    "removed": true
   },
   {
+   "name": "ai.alpha.slackbot.resolveVoiceToolApproval",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "ai.alpha.slackbot.searchAnswerThreads.create",
    "status": "undocumented",
    "verified": "existence-only",
@@ -3738,7 +3828,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skillSets.listEnabled",
@@ -3748,7 +3838,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skillSets.removeFromLibrary",
@@ -3758,7 +3848,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "ai.alpha.slackbot.skills.activate",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.addToLibrary",
@@ -3768,7 +3868,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "ai.alpha.slackbot.skills.browse",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.createShareLink",
@@ -3781,6 +3891,16 @@
    "removed": true
   },
   {
+   "name": "ai.alpha.slackbot.skills.deactivate",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "ai.alpha.slackbot.skills.getAggregateMetrics",
    "status": "undocumented",
    "verified": "existence-only",
@@ -3788,7 +3908,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.getBuiltinInfo",
@@ -3798,7 +3918,17 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "ai.alpha.slackbot.skills.getBuiltinUsageCounts",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.listDiscoverable",
@@ -3808,7 +3938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.listEnabled",
@@ -3818,7 +3948,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.listRecommended",
@@ -3838,7 +3968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.previewShareLink",
@@ -3848,7 +3978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.publishToCatalog",
@@ -3861,6 +3991,16 @@
    "removed": true
   },
   {
+   "name": "ai.alpha.slackbot.skills.recordView",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "ai.alpha.slackbot.skills.redeemShareLink",
    "status": "undocumented",
    "verified": "existence-only",
@@ -3868,7 +4008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.removeFromLibrary",
@@ -3878,7 +4018,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.resolveBuiltinReferences",
@@ -3908,7 +4048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.setAutoEnabled",
@@ -3918,7 +4058,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.setCanvasAsSkill",
@@ -3928,7 +4068,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.setDisabled",
@@ -3938,7 +4078,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.slackbot.skills.unpublishFromCatalog",
@@ -4038,7 +4178,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.summarize.entityRefs",
@@ -4058,7 +4198,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.summarize.profile",
@@ -4088,7 +4228,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.summarize.unreadsSnapshot",
@@ -4108,7 +4248,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.surfaces.getData",
@@ -4118,7 +4258,17 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "ai.alpha.surfaces.openCardComment",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "ai.alpha.translate.fileSummary",
@@ -4128,7 +4278,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.translate.locales",
@@ -4148,7 +4298,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.alpha.translate.promptSummary",
@@ -4168,7 +4318,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.channelKnowledge.disable",
@@ -4178,7 +4328,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.channelKnowledge.refresh",
@@ -4208,7 +4358,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.crm.records.create",
@@ -4238,7 +4388,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.addTrigger",
@@ -4248,7 +4398,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.create",
@@ -4258,7 +4408,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.delete",
@@ -4268,7 +4418,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.execute",
@@ -4278,7 +4428,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.list",
@@ -4288,7 +4438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.update",
@@ -4298,7 +4448,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.savedPrompts.updateTrigger",
@@ -4308,7 +4458,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ai.suggest.topics",
@@ -4328,7 +4478,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "aiApps.deletePhoto",
@@ -4358,7 +4508,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "aiApps.list",
@@ -4388,7 +4538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "api.benchmark",
@@ -4441,6 +4591,16 @@
    "removed": false
   },
   {
+   "name": "apps.about.info",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "apps.actions.listForResource",
    "status": "undocumented",
    "verified": "existence-only",
@@ -4448,7 +4608,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.actions.run",
@@ -4458,7 +4618,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.actions.v2.execute",
@@ -4468,7 +4628,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.actions.v2.list",
@@ -4478,7 +4638,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.activities.list",
@@ -4498,7 +4658,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.auth.external.authMapping.update",
@@ -4558,7 +4718,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.auth.external.userAuths.get",
@@ -4568,7 +4728,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.certified.install",
@@ -4588,7 +4748,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.connections.open",
@@ -4608,7 +4768,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.datasources.external.add",
@@ -4638,7 +4798,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.datasources.external.info",
@@ -4648,7 +4808,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.datasources.external.list",
@@ -4658,7 +4818,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.datasources.external.schema.info",
@@ -4668,7 +4828,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.datasources.external.schema.objects.list",
@@ -4678,7 +4838,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.datasources.external.schema.resync",
@@ -4808,7 +4968,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.home.open",
@@ -4818,7 +4978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.icon.set",
@@ -4828,6 +4988,16 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Sets the app icon",
+   "removed": false
+  },
+  {
+   "name": "apps.index",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "removed": false
   },
   {
@@ -4868,7 +5038,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.managed.permissions.set",
@@ -4938,7 +5108,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.permissions.internal.add",
@@ -5068,7 +5238,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.profile.check",
@@ -5078,7 +5248,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.profile.get",
@@ -5088,7 +5258,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "apps.profile.lookup",
@@ -5098,7 +5268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.recommendations.list",
@@ -5148,7 +5318,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "apps.team.variables.set",
@@ -5238,7 +5408,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "assistant.threads.rename",
@@ -5248,7 +5418,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "assistant.threads.setStatus",
@@ -5288,7 +5458,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "audit.actions",
@@ -5338,7 +5508,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "auth.enterpriseSignout",
@@ -5358,7 +5528,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "auth.gr",
@@ -5378,7 +5548,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "auth.magicLogins.create",
@@ -5448,7 +5618,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "auth.signout",
@@ -5498,7 +5668,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "avatars.upload",
@@ -5508,7 +5678,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "bkb.ai.feedback",
@@ -5538,7 +5708,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Clicks a Block Kit button in an app's message as the user; Slack forwards a block_actions payload (with trigger_id) to the app. Response is just ok:true; any modal the app opens arrives as an RTM view_opened event.",
-   "removed": true
+   "removed": false
   },
   {
    "name": "blocks.actionsPreview",
@@ -5558,7 +5728,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "blocks.page.getContent",
@@ -5568,7 +5738,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "blocks.suggestions",
@@ -5578,7 +5748,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "blocks.validate",
@@ -5618,7 +5788,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "List channel bookmarks (also may be official)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "bookmarks.preview",
@@ -5628,7 +5798,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "bookmarks.remove",
@@ -5648,7 +5818,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "bots.info",
@@ -5708,7 +5878,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.event.copy",
@@ -5718,7 +5888,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.event.create",
@@ -5738,7 +5908,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "calendar.event.info",
@@ -5748,7 +5918,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.event.list",
@@ -5768,7 +5938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.event.next",
@@ -5818,7 +5988,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.getInstalledCalendars",
@@ -5828,7 +5998,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.getNotificationPrefs",
@@ -5838,7 +6008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.meetingPrep",
@@ -5868,7 +6038,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.user.info",
@@ -5878,7 +6048,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.user.status",
@@ -5898,7 +6068,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calendar.user.toggleStatusSync",
@@ -5908,7 +6078,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calls.add",
@@ -5978,7 +6148,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calls.request",
@@ -5988,7 +6158,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "calls.update",
@@ -6028,7 +6198,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "canvases.create",
@@ -6078,7 +6248,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "canvases.getEmbedToken",
@@ -6098,7 +6268,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "canvases.listHeaders",
@@ -6108,7 +6278,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "canvases.notificationSections",
@@ -6148,7 +6318,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "channelSections.create",
@@ -6158,7 +6328,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "channelSections.deleteSection",
@@ -6168,7 +6338,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "channelSections.recommend",
@@ -6188,7 +6358,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "channelSuggestions.fileCollaborators.info",
@@ -6208,7 +6378,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "channels.prefs.set",
@@ -6218,7 +6388,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Set per-channel prefs from a JSON string (who_can_post, can_thread, enable_at_here, enable_at_channel); huddlefm uses it on its private companion controls channel.",
-   "removed": false
+   "removed": true
   },
   {
    "name": "chat.action",
@@ -6228,7 +6398,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.appendStream",
@@ -6258,7 +6428,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "chat.avatarBackground",
@@ -6298,7 +6468,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Run a slash command server-side",
-   "removed": false
+   "removed": true
   },
   {
    "name": "chat.delete",
@@ -6328,7 +6498,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.deleteScheduledMessage",
@@ -6398,7 +6568,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.removeFile",
@@ -6408,7 +6578,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.removeUnfurlLink",
@@ -6418,7 +6588,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.requestBackground",
@@ -6498,7 +6668,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.slashCommandBackground",
@@ -6528,7 +6698,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.startStream",
@@ -6578,7 +6748,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "chat.update",
@@ -6601,6 +6771,16 @@
    "removed": true
   },
   {
+   "name": "client.apps.composerSuggestions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "client.boot",
    "status": "undocumented",
    "verified": "live-verified",
@@ -6621,6 +6801,26 @@
    "removed": true
   },
   {
+   "name": "client.codeChannels.action",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.addReviewComment",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "client.codeChannels.create",
    "status": "undocumented",
    "verified": "existence-only",
@@ -6628,7 +6828,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "Code channels: client-side create (\"New code channel\"); inferred from name, see methods/code-channels.md.",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.createAndStart",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "client.codeChannels.getBlockKitView",
@@ -6641,6 +6851,56 @@
    "removed": true
   },
   {
+   "name": "client.codeChannels.getDiff",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.getMergeStatus",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.getPrWorkObject",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.getPullRequestConnection",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.getSummary",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "client.codeChannels.join",
    "status": "undocumented",
    "verified": "existence-only",
@@ -6648,7 +6908,47 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "Code channels: join a code channel from an origin the user can see (matches a client string); see methods/code-channels.md.",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.listSupportedApps",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.mergePullRequest",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.requestReviewers",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "client.codeChannels.submitReview",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "client.counts",
@@ -6668,7 +6968,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "DM history filters (Edge-style sync)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "client.extras",
@@ -6878,7 +7178,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "contacts.add",
@@ -6888,7 +7188,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.acceptSharedInvite",
@@ -6908,7 +7208,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.approveSharedInvite",
@@ -6948,7 +7248,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.bulkArchive",
@@ -6968,7 +7268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.bulkJoin",
@@ -6978,7 +7278,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.bulkLeave",
@@ -7018,7 +7318,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.canSetProperties",
@@ -7098,7 +7398,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.convertToPublic",
@@ -7108,7 +7408,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.coreProdAIPrototype",
@@ -7118,7 +7418,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.create",
@@ -7138,7 +7438,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.createFromDmMpdm",
@@ -7168,7 +7468,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.disconnectShared",
@@ -7238,7 +7538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.externalInvitePermissions.set",
@@ -7268,7 +7568,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.getGeneral",
@@ -7278,7 +7578,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.getJoinedChannels",
@@ -7298,7 +7598,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.history",
@@ -7318,7 +7618,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.ignoreInvite",
@@ -7538,7 +7838,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.permissions.accountTypes.set",
@@ -7548,7 +7848,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.recentSummary",
@@ -7568,7 +7868,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.removeSharedLegacyRestriction",
@@ -7578,7 +7878,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.removeTab",
@@ -7588,7 +7888,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.rename",
@@ -7668,7 +7968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.setInviterJoinerProperties",
@@ -7708,7 +8008,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.setTeams",
@@ -7808,7 +8108,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.unarchive",
@@ -7828,7 +8128,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "conversations.updateTab",
@@ -7838,7 +8138,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "conversations.validateName",
@@ -7858,7 +8158,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Mark a conversation viewed (possible side effect)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "dataResidency.backfillStatus",
@@ -8728,7 +9028,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "directory.token.hasScopes",
@@ -8738,7 +9038,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "directory.users.list",
@@ -8748,7 +9048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "dnd.endDnd",
@@ -8848,7 +9148,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "drafts.bulkDelete",
@@ -8868,7 +9168,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Create a scheduled draft",
-   "removed": true
+   "removed": false
   },
   {
    "name": "drafts.delete",
@@ -8878,7 +9178,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Delete a draft",
-   "removed": false
+   "removed": true
   },
   {
    "name": "drafts.info",
@@ -8888,7 +9188,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "drafts.list",
@@ -8898,7 +9198,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "List scheduled/unsent drafts",
-   "removed": true
+   "removed": false
   },
   {
    "name": "drafts.listActive",
@@ -8918,7 +9218,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Edit an existing draft",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ekm.backfill.info",
@@ -8938,7 +9238,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "email.digest",
@@ -9011,6 +9311,56 @@
    "removed": true
   },
   {
+   "name": "emailConnectorSelfServe.disable",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "emailConnectorSelfServe.disconnect",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "emailConnectorSelfServe.emails.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "emailConnectorSelfServe.enable",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "emailConnectorSelfServe.importedEmails.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "emailConnectorSelfServe.info",
    "status": "undocumented",
    "verified": "existence-only",
@@ -9068,7 +9418,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "emoji.add",
@@ -9078,7 +9428,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "emoji.addCollection",
@@ -9088,7 +9438,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "emoji.adminList",
@@ -9108,7 +9458,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "emoji.getInfo",
@@ -9118,7 +9468,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "emoji.list",
@@ -9148,7 +9498,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "emoji.rename",
@@ -9378,7 +9728,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.admin.removeDefault",
@@ -9388,7 +9738,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.admin.removeMandatory",
@@ -9398,7 +9748,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.admin.setDefault",
@@ -9408,7 +9758,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.admin.setMandatory",
@@ -9418,7 +9768,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.createShared",
@@ -9428,7 +9778,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.channels.listShared",
@@ -9508,7 +9858,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.info",
@@ -9518,7 +9868,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.add",
@@ -9528,7 +9878,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.approve",
@@ -9538,7 +9888,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.approveIntent",
@@ -9568,7 +9918,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.declineIntent",
@@ -9608,7 +9958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.getAvailableTimes",
@@ -9618,7 +9968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.getDetailedStatus",
@@ -9638,7 +9988,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.getStatus",
@@ -9648,7 +9998,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.migrations.markIntentChecklistItemComplete",
@@ -9678,7 +10028,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.payments.companyGet",
@@ -9708,7 +10058,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Enterprise-level client preferences",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.prefs.set",
@@ -9718,7 +10068,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.prefs.setAndLock",
@@ -9728,7 +10078,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.prefs.unlock",
@@ -9838,7 +10188,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.security.alerts.list",
@@ -9888,7 +10238,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.signup.checkPassword",
@@ -9898,7 +10248,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.signup.complete",
@@ -9908,7 +10258,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.stats.listTeams",
@@ -9928,7 +10278,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.creationrequests.create",
@@ -9938,7 +10288,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.directory",
@@ -9948,7 +10298,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.info",
@@ -9958,7 +10308,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.join",
@@ -9968,7 +10318,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.joinrequests.create",
@@ -9978,7 +10328,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.leave",
@@ -9988,7 +10338,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "enterprise.teams.nameValidation",
@@ -10208,7 +10558,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "enterpriseSearch.getConnectors",
@@ -10218,7 +10568,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "enterpriseSearch.getEmailConnectorStatus",
@@ -10238,7 +10588,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "enterpriseSearch.listConnectorActions",
@@ -10248,7 +10598,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "enterpriseSearch.searchFilterResults",
@@ -10321,6 +10671,26 @@
    "removed": false
   },
   {
+   "name": "entity.runPendingUpdates",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "experiments.exposureAttributes.snapshot",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "experiments.getByUser",
    "status": "undocumented",
    "verified": "live-verified",
@@ -10338,7 +10708,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "export.configuration.list",
@@ -10428,7 +10798,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "features.access.policies.list",
@@ -10438,7 +10808,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Feature-flag/entitlement access policies",
-   "removed": false
+   "removed": true
   },
   {
    "name": "features.app_home.home_tab_enabled",
@@ -10508,7 +10878,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "feedback.submitPilotFeedback",
@@ -10518,7 +10888,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "feedback.submitSalesforceFeedback",
@@ -10558,7 +10928,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.canSee",
@@ -10578,7 +10948,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.canUndelete",
@@ -10588,7 +10958,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.channelSettingsAllowDownloads",
@@ -10598,7 +10968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.close",
@@ -10618,7 +10988,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.collections.delete",
@@ -10628,7 +10998,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.collections.list",
@@ -10638,7 +11008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.collections.rename",
@@ -10658,7 +11028,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.collections.sortFiles",
@@ -10678,7 +11048,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.comments.delete",
@@ -10698,7 +11068,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.completeUploadExternal",
@@ -10718,7 +11088,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.createCanvas",
@@ -10728,7 +11098,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.createExternal",
@@ -10738,7 +11108,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.createSkillCanvas",
@@ -10768,7 +11138,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.disableRestrictedSharing",
@@ -10788,7 +11158,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.docs.fetchAccessLevelForUsers",
@@ -10798,7 +11168,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.docs.setEditor",
@@ -10808,7 +11178,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.docs.setNonOwnerEditability",
@@ -10818,7 +11188,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.docs.unsetEditor",
@@ -10828,7 +11198,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.edit",
@@ -10838,7 +11208,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Edit an uploaded file's content/title in place",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.embedWithPermissions",
@@ -10848,7 +11218,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.enableCrossWorkspaceLinkSharing",
@@ -10858,7 +11228,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.enableRestrictedSharing",
@@ -10878,7 +11248,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.external.getOrCreate",
@@ -10888,7 +11258,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.external.getProviders",
@@ -10898,7 +11268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.external.preview",
@@ -10928,7 +11298,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.favorites.add",
@@ -10938,7 +11308,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.favorites.list",
@@ -10948,7 +11318,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.favorites.remove",
@@ -10958,7 +11328,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.generateAltText",
@@ -10968,7 +11338,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.generateProviderTokenForFileStore",
@@ -10978,7 +11348,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.generateThumbnails",
@@ -10988,7 +11358,17 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "files.getContentHtml",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "files.getMetadata",
@@ -11008,7 +11388,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.getProviderPreviewUrlForFileStore",
@@ -11018,7 +11398,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.getShares",
@@ -11028,7 +11408,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.getUploadURL",
@@ -11038,7 +11418,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.getUploadURLExternal",
@@ -11058,7 +11438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.hasShares",
@@ -11068,7 +11448,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.ignorePermissionRequest",
@@ -11078,7 +11458,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.importFromExternalURL",
@@ -11121,6 +11501,16 @@
    "removed": false
   },
   {
+   "name": "files.list3pFiles",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "files.markRead",
    "status": "undocumented",
    "verified": "existence-only",
@@ -11128,7 +11518,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.open",
@@ -11138,7 +11528,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.ping",
@@ -11158,7 +11548,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.recentlyDeleted",
@@ -11168,7 +11558,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.refresh",
@@ -11178,7 +11568,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.remote.add",
@@ -11248,7 +11638,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.retranscribe",
@@ -11258,7 +11648,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.revokePermission",
@@ -11298,7 +11688,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Share an already-uploaded file into a channel",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.sharedPublicURL",
@@ -11328,7 +11718,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.undelete",
@@ -11338,7 +11728,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.unlock",
@@ -11358,7 +11748,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "files.updatePermission",
@@ -11368,7 +11758,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.upload",
@@ -11388,7 +11778,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "folders.create",
@@ -11398,7 +11788,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "folders.items.add",
@@ -11408,7 +11798,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "folders.items.remove",
@@ -11418,7 +11808,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "folders.items.reorder",
@@ -11428,7 +11818,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "folders.update",
@@ -11438,7 +11828,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.categories.steps.list",
@@ -11518,7 +11908,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.list",
@@ -11548,7 +11938,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.collaborators.remove",
@@ -11558,7 +11948,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.create",
@@ -11578,7 +11968,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.executions.confirmDelivery",
@@ -11608,7 +11998,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.findWorkflowForBotUsers",
@@ -11618,7 +12008,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.get",
@@ -11628,7 +12018,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "functions.workflows.getIsRestricted",
@@ -11638,7 +12028,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.getLatest",
@@ -11648,7 +12038,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.import",
@@ -11658,7 +12048,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.list",
@@ -11668,7 +12058,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "functions.workflows.permissions.copy.list",
@@ -11678,7 +12068,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.permissions.copy.set",
@@ -11688,7 +12078,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.publish",
@@ -11698,7 +12088,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.restoreFromVersion",
@@ -11708,7 +12098,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.add",
@@ -11728,7 +12118,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.delete",
@@ -11738,7 +12128,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.inputs.dynamicOptions.get",
@@ -11748,7 +12138,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.inputs.dynamicOptions.validate",
@@ -11758,7 +12148,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.list",
@@ -11778,7 +12168,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.responses.export",
@@ -11798,7 +12188,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.update",
@@ -11808,7 +12198,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.steps.variables.schema.get",
@@ -11818,7 +12208,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.unpublish",
@@ -11828,7 +12218,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "functions.workflows.update",
@@ -11838,7 +12228,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "gif.featured",
@@ -11848,7 +12238,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "gif.search",
@@ -11858,7 +12248,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "google.auth.disable",
@@ -11878,7 +12268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "graphql.resolve",
@@ -11928,7 +12318,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "helpcenter.track",
@@ -11938,7 +12328,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "helpdesk.categories",
@@ -11968,7 +12358,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "helpdesk.getSectionsAndArticlesByCategory",
@@ -11988,7 +12378,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "huddles.external.generate",
@@ -11999,6 +12389,26 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "removed": true
+  },
+  {
+   "name": "huddles.external.linkInfo",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "huddles.external.listExternalParticipants",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "huddles.external.new",
@@ -12028,7 +12438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "huddles.getTrackUrls",
@@ -12058,7 +12468,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "huddles.knockResponse",
@@ -12088,7 +12498,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "huddles.recording.auditLog",
@@ -12158,7 +12568,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "i18n.translations.get",
@@ -12218,7 +12628,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "insights.messageStats",
@@ -12228,7 +12638,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "insights.messageStats.export",
@@ -12238,7 +12648,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "instantSlack.moveSession",
@@ -12268,7 +12678,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "links.getDomains",
@@ -12288,7 +12698,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "links.getTransferPayload",
@@ -12298,7 +12708,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.addToList",
@@ -12318,7 +12728,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.columns.create",
@@ -12338,7 +12748,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.columns.revert",
@@ -12368,7 +12778,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.duplicate",
@@ -12398,7 +12808,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.getApprovalReviewPending",
@@ -12408,7 +12818,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.getDefaultView",
@@ -12428,7 +12838,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.getOrCreateTaskList",
@@ -12448,7 +12858,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.history.list",
@@ -12458,7 +12868,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.history.load",
@@ -12468,7 +12878,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.history.restoreExecute",
@@ -12498,7 +12908,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.open",
@@ -12508,7 +12918,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.archive",
@@ -12518,7 +12928,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.count",
@@ -12528,7 +12938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.create",
@@ -12568,7 +12978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "lists.records.infoBatch",
@@ -12578,7 +12988,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "lists.records.list",
@@ -12588,7 +12998,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "lists.records.open",
@@ -12598,7 +13008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.reorder",
@@ -12608,7 +13018,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.restore",
@@ -12618,7 +13028,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.subscriptions.add",
@@ -12638,7 +13048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.records.subscriptions.remove",
@@ -12658,7 +13068,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.setDefaultView",
@@ -12708,7 +13118,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "lists.updateMyItemReminder",
@@ -12798,7 +13208,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "media.reactions.add",
@@ -12808,7 +13218,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "media.reactions.get",
@@ -12818,7 +13228,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "media.reactions.remove",
@@ -12828,7 +13238,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "meetings.channel.getOrCreate",
@@ -12838,7 +13248,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "meetings.list",
@@ -12861,6 +13271,16 @@
    "removed": true
   },
   {
+   "name": "meetings.removeChannel",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "meetings.resolve",
    "status": "undocumented",
    "verified": "existence-only",
@@ -12868,7 +13288,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "meetings.sharedContent.list",
@@ -12898,7 +13318,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "meetings.usersetdata",
@@ -12908,7 +13328,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "megaphone.executeEvent",
@@ -12948,7 +13368,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "megaphone.visualizer.notifications.list",
@@ -13088,7 +13508,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "moderation.flags.dashboardDismiss",
@@ -13118,7 +13538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "moderation.flags.export",
@@ -13218,7 +13638,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "moderation.thread.hide",
@@ -13238,7 +13658,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "mpim.resources.ids",
@@ -13468,7 +13888,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "payments.stripe.config.get",
@@ -13568,7 +13988,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "polls.create",
@@ -13588,7 +14008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "presence.set",
@@ -13818,7 +14238,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "promo.campaigns.optOut",
@@ -13838,7 +14258,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "promo.codes.redeem",
@@ -13869,6 +14289,16 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "removed": true
+  },
+  {
+   "name": "quip.getControllerInitData",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "quip.getMentions",
@@ -13908,7 +14338,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.lookupThreadIds",
@@ -13928,7 +14358,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.thread.archiveAll",
@@ -13938,7 +14368,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.thread.mark",
@@ -13948,7 +14378,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.thread.synchronize",
@@ -13968,7 +14398,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.unfurl",
@@ -13978,7 +14408,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "quip.updateRootComment",
@@ -14088,7 +14518,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "recordChannels.digest",
@@ -14108,7 +14538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "recordChannels.limitedAccess.set",
@@ -14128,7 +14558,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "recordChannels.objectTypes.getDefaultVisibility",
@@ -14198,7 +14628,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "recordChannels.unlink",
@@ -14218,7 +14648,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "records.previewShare",
@@ -14228,7 +14658,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "records.relationships.list",
@@ -14268,7 +14698,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "reminders.complete",
@@ -14348,7 +14778,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "rooms.getLink",
@@ -14368,7 +14798,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Respond to a huddle invite; 'decline' is the only response value seen (huddlefm), sent with _x_reason=respond-to-huddle-invite.",
-   "removed": false
+   "removed": true
   },
   {
    "name": "rooms.join",
@@ -14408,7 +14838,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "rooms.sendHuddleInvite",
@@ -14468,7 +14898,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.addOrg",
@@ -14478,7 +14908,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.addValidatedMembers",
@@ -14488,7 +14918,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.disconnectOrg",
@@ -14498,7 +14928,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.exportMembers",
@@ -14508,7 +14938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.getAccessInfo",
@@ -14518,7 +14948,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.getConfig",
@@ -14528,7 +14958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.getSuggestedListViews",
@@ -14538,7 +14968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.listMembers",
@@ -14548,7 +14978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.listOrgs",
@@ -14558,7 +14988,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.removeMembers",
@@ -14568,7 +14998,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.setConfig",
@@ -14588,7 +15018,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.setObjectMappings",
@@ -14598,7 +15028,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.setSuggestedListViews",
@@ -14608,7 +15038,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.admin.validateEmails",
@@ -14618,7 +15048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.auth.list",
@@ -14628,7 +15058,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.dealWinCelebrations.get",
@@ -14638,7 +15068,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.insights.get",
@@ -14648,7 +15078,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.insights.set",
@@ -14658,7 +15088,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.listViews.getAdminSuggested",
@@ -14668,7 +15098,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.notifications.formatShare",
@@ -14678,7 +15108,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.notifications.list",
@@ -14688,7 +15118,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.notifications.mutePrefs.list",
@@ -14698,7 +15128,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.notifications.mutePrefs.update",
@@ -14708,7 +15138,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.notifications.share",
@@ -14718,7 +15148,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.salesforceOrgs.getAdminConfig",
@@ -14748,7 +15178,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.workflows.list",
@@ -14758,7 +15188,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "salesHome.workflows.update",
@@ -14768,7 +15198,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "saved.add",
@@ -14778,7 +15208,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "saved.bulkDelete",
@@ -14788,7 +15218,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "saved.bulkUpdate",
@@ -14808,7 +15238,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "saved.delete",
@@ -14828,7 +15258,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "saved.list",
@@ -14838,7 +15268,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "List Saved-for-later items",
-   "removed": false
+   "removed": true
   },
   {
    "name": "saved.markCompleted",
@@ -14848,7 +15278,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "saved.update",
@@ -14858,7 +15288,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "schemaless.getClientLock",
@@ -14868,7 +15298,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "screenhero.rooms.create",
@@ -14898,7 +15328,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "screenhero.rooms.inviteResponse",
@@ -14908,7 +15338,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "screenhero.rooms.join",
@@ -14938,7 +15368,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "screenhero.rooms.rename",
@@ -14958,7 +15388,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.all",
@@ -14978,7 +15408,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "search.autocomplete",
@@ -14988,7 +15418,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Search box autocomplete",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.files",
@@ -14998,7 +15428,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "File search autocomplete",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.intentModel",
@@ -15008,7 +15438,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.model",
@@ -15018,7 +15448,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.offlineFeatures",
@@ -15028,7 +15458,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.tags",
@@ -15048,7 +15478,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Emoji picker autocomplete ranking",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.topEngagedFiles",
@@ -15058,7 +15488,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.autocomplete.triggers",
@@ -15068,7 +15498,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.delete",
@@ -15078,7 +15508,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.enterprise",
@@ -15088,7 +15518,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.feedback",
@@ -15098,7 +15528,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.files",
@@ -15118,7 +15548,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Inline as-you-type search suggestions",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.messages",
@@ -15138,7 +15568,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.modules.channels",
@@ -15158,7 +15588,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Modular DM search",
-   "removed": true
+   "removed": false
   },
   {
    "name": "search.modules.external",
@@ -15168,7 +15598,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.modules.files",
@@ -15178,7 +15608,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Modular file search",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.modules.messages",
@@ -15208,7 +15638,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.modules.triggers",
@@ -15228,7 +15658,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.precache",
@@ -15238,7 +15668,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Pre-warm search caches",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.save",
@@ -15248,7 +15678,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Save a search query",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.saved.create",
@@ -15288,7 +15718,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "search.ua",
@@ -15328,7 +15758,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.activities.getActionLayout",
@@ -15338,7 +15768,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.activities.getActivityTrackedObjects",
@@ -15348,7 +15778,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.activities.list",
@@ -15358,7 +15788,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.activities.listForUser",
@@ -15378,7 +15808,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.admin.configs.get",
@@ -15498,7 +15928,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.agentforce.getSlackbotPrefs",
@@ -15508,7 +15938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.agentforce.list",
@@ -15548,7 +15978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.agentforce.provisionCka",
@@ -15578,7 +16008,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.approvals.getApprovalProgress",
@@ -15618,7 +16048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.autoStarter.integration.admin.removeMembers",
@@ -15638,7 +16068,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.captchaKeys.create",
@@ -15668,7 +16098,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.datacloud.createDatacloudTeam",
@@ -15751,6 +16181,16 @@
    "removed": true
   },
   {
+   "name": "sfdc.domainVerification.isVerified",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "sfdc.domainVerification.list",
    "status": "undocumented",
    "verified": "existence-only",
@@ -15758,7 +16198,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.eacConfigs.disconnect",
@@ -15768,7 +16208,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.eacConfigs.get",
@@ -15778,7 +16218,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.eacConfigs.init",
@@ -15788,7 +16228,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emailToCaseConfigs.create",
@@ -15798,7 +16238,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emailToCaseConfigs.delete",
@@ -15808,7 +16248,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emailToCaseConfigs.get",
@@ -15818,7 +16258,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emailToCaseConfigs.notifyCopy",
@@ -15828,7 +16268,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emailToCaseConfigs.resendVerification",
@@ -15838,7 +16278,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emails.composer.defaults",
@@ -15848,7 +16288,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emails.history",
@@ -15858,7 +16298,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.emails.send",
@@ -15868,7 +16308,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.events.list",
@@ -15928,7 +16368,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.files.list",
@@ -15948,7 +16388,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getContactAvailableFields",
@@ -15988,7 +16428,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getFrontdoorUrl",
@@ -15998,7 +16438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getGlobalActions",
@@ -16008,7 +16448,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getImportObjectAvailableFields",
@@ -16038,7 +16478,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getListViewsV2",
@@ -16048,7 +16488,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getObjectFields",
@@ -16058,7 +16498,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getObjectsOfType",
@@ -16068,7 +16508,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getOpportunity",
@@ -16078,7 +16518,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getOwnerChangeOptions",
@@ -16088,7 +16528,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getPicklistValuesV2",
@@ -16098,7 +16538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.getRecordLayoutDetails",
@@ -16228,7 +16668,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.admin.listOrgs",
@@ -16308,7 +16748,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.authUser",
@@ -16318,7 +16758,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.disconnectUser",
@@ -16328,7 +16768,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.elevateMigration.complete",
@@ -16338,7 +16778,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.elevateMigration.exportFailedUsers",
@@ -16348,7 +16788,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.elevateMigration.start",
@@ -16358,7 +16798,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.elevateMigration.startManual",
@@ -16368,7 +16808,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.listOrgs",
@@ -16408,7 +16848,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.licenses.approval.list",
@@ -16428,7 +16868,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.licenses.approval.request",
@@ -16438,7 +16878,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.licenses.approval.review",
@@ -16448,7 +16888,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.listViews.loadPreferences",
@@ -16488,7 +16928,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.orgInfo",
@@ -16498,7 +16938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.provisionOrg",
@@ -16508,7 +16948,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.records.changeOwner",
@@ -16518,7 +16958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.records.create",
@@ -16528,7 +16968,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.records.delete",
@@ -16558,7 +16998,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.records.undelete",
@@ -16578,7 +17018,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.salesTracker.getContent",
@@ -16598,7 +17038,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.salesTracker.getStageSettings",
@@ -16651,6 +17091,16 @@
    "removed": true
   },
   {
+   "name": "sfdc.tasks.lookup",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "sfdc.updateRecord",
    "status": "undocumented",
    "verified": "existence-only",
@@ -16658,7 +17108,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.uploadCSVFile",
@@ -16678,7 +17128,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.webToLeads.updateSettings",
@@ -16698,7 +17148,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "share.prompts.checkAttachedSkills",
@@ -16708,7 +17158,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "share.prompts.info",
@@ -16718,7 +17168,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "share.prompts.listInvokedSkills",
@@ -16728,7 +17178,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sharedInvites.accept",
@@ -16758,7 +17208,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Eligibility to generate shared invite link",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sharedInvites.findTeamsEligibility",
@@ -16848,7 +17298,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "signin.confirmCode",
@@ -16858,7 +17308,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "signin.findWorkspaces",
@@ -16868,7 +17318,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "signup.checkSignupDomains",
@@ -16888,7 +17338,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackAi.permissions.getForUser",
@@ -17048,7 +17498,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.getToolResult",
@@ -17058,7 +17508,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.invalidateToolsCache",
@@ -17068,7 +17518,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.list",
@@ -17078,7 +17528,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.listResources",
@@ -17088,7 +17538,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.listTools",
@@ -17098,7 +17548,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.openLink",
@@ -17108,7 +17558,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.readResource",
@@ -17118,7 +17568,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.mcp.sendMessage",
@@ -17128,7 +17578,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "slackbot.mcp.updateModelContext",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "slackbot.memories.delete",
@@ -17191,6 +17651,176 @@
    "removed": true
   },
   {
+   "name": "slackbot.projects.canvases.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.canvases.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.channels.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.channels.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.context.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.create",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.delete",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.files.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.files.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.files.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.memoryInfo",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.memoryUpdate",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.reportInfo",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.reportUpdate",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.threads.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "slackbot.projects.update",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "slackbot.responses.add",
    "status": "undocumented",
    "verified": "not-live-tested (source-only, typed but unverified)",
@@ -17238,7 +17868,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slackbot.suggestions.listForDesktop",
@@ -17258,7 +17888,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "slides.update",
@@ -17268,7 +17898,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "solutions.collaborators.add",
@@ -17328,7 +17958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "solutions.getTemplates",
@@ -17398,7 +18028,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.clearAll",
@@ -17408,7 +18038,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.get",
@@ -17418,7 +18048,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.getTimestamps",
@@ -17428,7 +18058,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.getView",
@@ -17438,7 +18068,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.mark",
@@ -17448,7 +18078,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subscriptions.thread.remove",
@@ -17458,7 +18088,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "subteams.info",
@@ -17538,7 +18168,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "team.approvedOrgs.add",
@@ -17828,7 +18458,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "team.php",
@@ -17858,7 +18488,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Team-level client preferences",
-   "removed": false
+   "removed": true
   },
   {
    "name": "team.prefs.set",
@@ -17868,7 +18498,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "team.profile.get",
@@ -17898,7 +18528,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "team.slackConnectGuidelines.list",
@@ -17988,7 +18618,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "teams.authorized.ip.range.checkIp",
@@ -17998,7 +18628,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "teams.authorized.ip.range.list",
@@ -18028,7 +18658,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "teams.selfReportedSegmentation.create",
@@ -18058,7 +18688,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "teams.trials.usage",
@@ -18068,7 +18698,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "templates.admins.list",
@@ -18078,7 +18708,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "templates.integrations.get",
@@ -18088,7 +18718,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "templates.provision",
@@ -18228,7 +18858,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "ublockworkaround.history",
@@ -18288,7 +18918,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "usergroups.create",
@@ -18348,7 +18978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "usergroups.update",
@@ -18398,7 +19028,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.admin.changeURAChannel",
@@ -18418,7 +19048,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.admin.disable2FA",
@@ -18478,7 +19108,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.admin.inviteSms",
@@ -18618,7 +19248,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSections.channels.bulkUpdate",
@@ -18628,7 +19258,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.channels.remove",
@@ -18638,7 +19268,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.create",
@@ -18648,7 +19278,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.createLink",
@@ -18658,7 +19288,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSections.delete",
@@ -18668,7 +19298,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.entities.update",
@@ -18678,7 +19308,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSections.linkInfo",
@@ -18688,7 +19318,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSections.list",
@@ -18698,7 +19328,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Sidebar channel-section definitions",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.set",
@@ -18708,7 +19338,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.channelSections.validateShare",
@@ -18718,7 +19348,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSuggestions.dismiss",
@@ -18728,7 +19358,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.channelSuggestions.list",
@@ -18741,6 +19371,16 @@
    "removed": true
   },
   {
+   "name": "users.channelSuggestions.update",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "users.consent.add",
    "status": "undocumented",
    "verified": "existence-only",
@@ -18748,7 +19388,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.consent.get",
@@ -18758,7 +19398,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.consent.remove",
@@ -18768,7 +19408,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.conversations",
@@ -18788,7 +19428,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.customStatus.hide",
@@ -18798,7 +19438,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.customStatus.list",
@@ -18808,7 +19448,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.customStatus.schedule",
@@ -18818,7 +19458,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "users.delegates.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "users.delegates.list",
@@ -18828,7 +19478,17 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
+  },
+  {
+   "name": "users.delegates.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
   },
   {
    "name": "users.deletePhoto",
@@ -18858,7 +19518,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.emailtoken.create",
@@ -18868,7 +19528,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.emailtoken.delete",
@@ -18878,7 +19538,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.emailtoken.get",
@@ -18888,7 +19548,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.getInviter",
@@ -18938,7 +19598,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.interactions.set",
@@ -18948,7 +19608,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.inviteRequests.create",
@@ -18958,7 +19618,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.invites.addToChannelBulk",
@@ -18998,7 +19658,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.list",
@@ -19018,7 +19678,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.listOutgoingInvites",
@@ -19028,7 +19688,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.lookupByEmail",
@@ -19048,7 +19708,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.permissions.apps",
@@ -19068,7 +19728,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Fetch user's client preference blob",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.prefs.set",
@@ -19078,7 +19738,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Set client preferences",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.prefs.setNotifications",
@@ -19088,7 +19748,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.preparePhoto",
@@ -19108,7 +19768,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.priority.getRecommendations",
@@ -19118,7 +19778,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.priority.list",
@@ -19138,7 +19798,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.profile.get",
@@ -19238,7 +19898,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.removeUserBlock",
@@ -19248,7 +19908,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.setActive",
@@ -19288,7 +19948,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.sharedInvites.renew",
@@ -19308,7 +19968,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.slackConnect.orgInfo",
@@ -19318,7 +19978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.slackConnect.orgList",
@@ -19328,7 +19988,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.stateMachine",
@@ -19338,7 +19998,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "users.upgradeGuests.request",
@@ -19348,7 +20008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "views.close",
@@ -19358,7 +20018,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "views.get",
@@ -19368,7 +20028,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "views.open",
@@ -19408,7 +20068,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Submits an open modal as the user: view_id from the RTM view_opened event, state={\"values\":{block_id:{action_id:{type,value}}}}, fresh client_token.",
-   "removed": false
+   "removed": true
   },
   {
    "name": "views.submitPreview",
@@ -20018,7 +20678,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workObjects.getComments",
@@ -20038,7 +20698,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workObjects.postComment",
@@ -20058,7 +20718,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.activity.export",
@@ -20068,7 +20728,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.activity.get",
@@ -20078,7 +20738,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.activity.list",
@@ -20088,7 +20748,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.ai.create",
@@ -20108,7 +20768,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.ai.generate",
@@ -20128,7 +20788,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.channelOptIn.set",
@@ -20138,7 +20798,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.createFromTemplate",
@@ -20191,6 +20851,46 @@
    "removed": false
   },
   {
+   "name": "workflows.notificationOptOut.info",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "workflows.notificationOptOut.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "workflows.notificationOptOut.set",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
+   "name": "workflows.taskRuns.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "workflows.template_approval_request",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -20208,7 +20908,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.collaborators.remove",
@@ -20218,7 +20918,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.create",
@@ -20228,7 +20928,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.delete",
@@ -20248,7 +20948,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.get",
@@ -20258,7 +20958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.templates.getAsDecoratedWorkflow",
@@ -20268,7 +20968,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.getBuiltinTemplate",
@@ -20278,7 +20978,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.list",
@@ -20288,7 +20988,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.templates.listAsDecoratedWorkflows",
@@ -20308,7 +21008,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.templates.localize",
@@ -20318,7 +21018,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.setStatus",
@@ -20338,7 +21038,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.templates.validate",
@@ -20348,7 +21048,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.auth.external.list",
@@ -20358,7 +21058,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.create",
@@ -20378,7 +21078,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.info",
@@ -20388,7 +21088,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.triggers.list",
@@ -20398,7 +21098,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "List Workflow Builder triggers",
-   "removed": false
+   "removed": true
   },
   {
    "name": "workflows.triggers.listRecentlyRunForUser",
@@ -20408,7 +21108,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.permissions.add",
@@ -20458,7 +21158,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.preview",
@@ -20468,7 +21168,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.summarize",
@@ -20478,7 +21178,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.trip",
@@ -20488,7 +21188,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "workflows.triggers.types.list",
@@ -20508,7 +21208,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   }
  ]
 }

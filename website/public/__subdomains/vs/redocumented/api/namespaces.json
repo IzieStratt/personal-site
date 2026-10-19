@@ -68,6 +68,13 @@
   "admin.analytics.ai.getAnalytics",
   "admin.analytics.ai.getAvailableDateRange"
  ],
+ "admin.analytics.channels": [
+  "admin.analytics.channels.modal"
+ ],
+ "admin.analytics.channels.modal": [
+  "admin.analytics.channels.modal.availableDateRange",
+  "admin.analytics.channels.modal.export"
+ ],
  "admin.analytics.messages": [
   "admin.analytics.messages.activity",
   "admin.analytics.messages.metadata"
@@ -512,9 +519,16 @@
   "agents.a2a.add",
   "agents.a2a.preview"
  ],
+ "agents.mcp.settings": [
+  "agents.mcp.settings.list",
+  "agents.mcp.settings.listTools",
+  "agents.mcp.settings.setServerEnabled",
+  "agents.mcp.settings.setToolPermissions"
+ ],
  "agents.sessions": [
   "agents.sessions.rename",
-  "agents.sessions.setStatus"
+  "agents.sessions.setStatus",
+  "agents.sessions.stop"
  ],
  "agents.sunroof": [
   "agents.sunroof.get"
@@ -595,7 +609,8 @@
   "ai.alpha.sidekicks.update"
  ],
  "ai.alpha.slackbot": [
-  "ai.alpha.slackbot.createSlackbotInitiatedThread"
+  "ai.alpha.slackbot.createSlackbotInitiatedThread",
+  "ai.alpha.slackbot.resolveVoiceToolApproval"
  ],
  "ai.alpha.slackbot.automationGroups": [
   "ai.alpha.slackbot.automationGroups.delete",
@@ -625,16 +640,21 @@
   "ai.alpha.slackbot.skillSets.removeFromLibrary"
  ],
  "ai.alpha.slackbot.skills": [
+  "ai.alpha.slackbot.skills.activate",
   "ai.alpha.slackbot.skills.addToLibrary",
+  "ai.alpha.slackbot.skills.browse",
   "ai.alpha.slackbot.skills.createShareLink",
+  "ai.alpha.slackbot.skills.deactivate",
   "ai.alpha.slackbot.skills.getAggregateMetrics",
   "ai.alpha.slackbot.skills.getBuiltinInfo",
+  "ai.alpha.slackbot.skills.getBuiltinUsageCounts",
   "ai.alpha.slackbot.skills.listDiscoverable",
   "ai.alpha.slackbot.skills.listEnabled",
   "ai.alpha.slackbot.skills.listRecommended",
   "ai.alpha.slackbot.skills.listSkillEnablementDetails",
   "ai.alpha.slackbot.skills.previewShareLink",
   "ai.alpha.slackbot.skills.publishToCatalog",
+  "ai.alpha.slackbot.skills.recordView",
   "ai.alpha.slackbot.skills.redeemShareLink",
   "ai.alpha.slackbot.skills.removeFromLibrary",
   "ai.alpha.slackbot.skills.resolveBuiltinReferences",
@@ -670,7 +690,8 @@
  ],
  "ai.alpha.surfaces": [
   "ai.alpha.surfaces.getContent",
-  "ai.alpha.surfaces.getData"
+  "ai.alpha.surfaces.getData",
+  "ai.alpha.surfaces.openCardComment"
  ],
  "ai.alpha.translate": [
   "ai.alpha.translate.fileSummary",
@@ -735,8 +756,12 @@
   "app.uninstallTasks.list"
  ],
  "apps": [
+  "apps.index",
   "apps.limit",
   "apps.uninstall"
+ ],
+ "apps.about": [
+  "apps.about.info"
  ],
  "apps.actions": [
   "apps.actions.listForResource",
@@ -1092,10 +1117,25 @@
   "client.shouldReload",
   "client.userBoot"
  ],
+ "client.apps": [
+  "client.apps.composerSuggestions"
+ ],
  "client.codeChannels": [
+  "client.codeChannels.action",
+  "client.codeChannels.addReviewComment",
   "client.codeChannels.create",
+  "client.codeChannels.createAndStart",
   "client.codeChannels.getBlockKitView",
-  "client.codeChannels.join"
+  "client.codeChannels.getDiff",
+  "client.codeChannels.getMergeStatus",
+  "client.codeChannels.getPrWorkObject",
+  "client.codeChannels.getPullRequestConnection",
+  "client.codeChannels.getSummary",
+  "client.codeChannels.join",
+  "client.codeChannels.listSupportedApps",
+  "client.codeChannels.mergePullRequest",
+  "client.codeChannels.requestReviewers",
+  "client.codeChannels.submitReview"
  ],
  "codeChannels": [
   "codeChannels.action",
@@ -1442,7 +1482,16 @@
   "email.threads.share"
  ],
  "emailConnectorSelfServe": [
+  "emailConnectorSelfServe.disable",
+  "emailConnectorSelfServe.disconnect",
+  "emailConnectorSelfServe.enable",
   "emailConnectorSelfServe.info"
+ ],
+ "emailConnectorSelfServe.emails": [
+  "emailConnectorSelfServe.emails.list"
+ ],
+ "emailConnectorSelfServe.importedEmails": [
+  "emailConnectorSelfServe.importedEmails.list"
  ],
  "emailPreview.catalog": [
   "emailPreview.catalog.list"
@@ -1656,11 +1705,15 @@
  "entity": [
   "entity.acknowledgeCommentAction",
   "entity.presentComments",
-  "entity.presentDetails"
+  "entity.presentDetails",
+  "entity.runPendingUpdates"
  ],
  "experiments": [
   "experiments.getByUser",
   "experiments.getConfigById"
+ ],
+ "experiments.exposureAttributes": [
+  "experiments.exposureAttributes.snapshot"
  ],
  "export.configuration": [
   "export.configuration.list",
@@ -1728,6 +1781,7 @@
   "files.generateAltText",
   "files.generateProviderTokenForFileStore",
   "files.generateThumbnails",
+  "files.getContentHtml",
   "files.getMetadata",
   "files.getOverview",
   "files.getProviderPreviewUrlForFileStore",
@@ -1741,6 +1795,7 @@
   "files.info",
   "files.isAccessRequestedByUser",
   "files.list",
+  "files.list3pFiles",
   "files.markRead",
   "files.open",
   "files.ping",
@@ -1924,6 +1979,8 @@
  ],
  "huddles.external": [
   "huddles.external.generate",
+  "huddles.external.linkInfo",
+  "huddles.external.listExternalParticipants",
   "huddles.external.new"
  ],
  "huddles.recording": [
@@ -2052,6 +2109,7 @@
  "meetings": [
   "meetings.list",
   "meetings.processRecording",
+  "meetings.removeChannel",
   "meetings.resolve",
   "meetings.transcribeChunk",
   "meetings.update",
@@ -2240,6 +2298,7 @@
  "quip": [
   "quip.cloneCanvas",
   "quip.getCanvasBulkSectionIdsData",
+  "quip.getControllerInitData",
   "quip.getMentions",
   "quip.lookupFileId",
   "quip.lookupThreadIds",
@@ -2544,6 +2603,7 @@
   "sfdc.domainVerification.create",
   "sfdc.domainVerification.delete",
   "sfdc.domainVerification.get",
+  "sfdc.domainVerification.isVerified",
   "sfdc.domainVerification.list"
  ],
  "sfdc.eacConfigs": [
@@ -2644,6 +2704,9 @@
   "sfdc.salesTracker.getStageSettings",
   "sfdc.salesTracker.updateStageSettings"
  ],
+ "sfdc.tasks": [
+  "sfdc.tasks.lookup"
+ ],
  "sfdc.webToLeads": [
   "sfdc.webToLeads.updateSettings"
  ],
@@ -2718,7 +2781,8 @@
   "slackbot.mcp.listTools",
   "slackbot.mcp.openLink",
   "slackbot.mcp.readResource",
-  "slackbot.mcp.sendMessage"
+  "slackbot.mcp.sendMessage",
+  "slackbot.mcp.updateModelContext"
  ],
  "slackbot.memories": [
   "slackbot.memories.delete",
@@ -2726,6 +2790,35 @@
   "slackbot.memories.list",
   "slackbot.memories.update",
   "slackbot.memories.updateSettings"
+ ],
+ "slackbot.projects": [
+  "slackbot.projects.create",
+  "slackbot.projects.delete",
+  "slackbot.projects.list",
+  "slackbot.projects.memoryInfo",
+  "slackbot.projects.memoryUpdate",
+  "slackbot.projects.reportInfo",
+  "slackbot.projects.reportUpdate",
+  "slackbot.projects.update"
+ ],
+ "slackbot.projects.canvases": [
+  "slackbot.projects.canvases.add",
+  "slackbot.projects.canvases.remove"
+ ],
+ "slackbot.projects.channels": [
+  "slackbot.projects.channels.add",
+  "slackbot.projects.channels.remove"
+ ],
+ "slackbot.projects.context": [
+  "slackbot.projects.context.list"
+ ],
+ "slackbot.projects.files": [
+  "slackbot.projects.files.add",
+  "slackbot.projects.files.list",
+  "slackbot.projects.files.remove"
+ ],
+ "slackbot.projects.threads": [
+  "slackbot.projects.threads.list"
  ],
  "slackbot.responses": [
   "slackbot.responses.add",
@@ -3008,7 +3101,8 @@
  ],
  "users.channelSuggestions": [
   "users.channelSuggestions.dismiss",
-  "users.channelSuggestions.list"
+  "users.channelSuggestions.list",
+  "users.channelSuggestions.update"
  ],
  "users.consent": [
   "users.consent.add",
@@ -3022,7 +3116,9 @@
   "users.customStatus.schedule"
  ],
  "users.delegates": [
-  "users.delegates.list"
+  "users.delegates.add",
+  "users.delegates.list",
+  "users.delegates.remove"
  ],
  "users.discoverableContacts": [
   "users.discoverableContacts.lookup"
@@ -3215,6 +3311,14 @@
   "workflows.featured.list",
   "workflows.featured.remove",
   "workflows.featured.set"
+ ],
+ "workflows.notificationOptOut": [
+  "workflows.notificationOptOut.info",
+  "workflows.notificationOptOut.list",
+  "workflows.notificationOptOut.set"
+ ],
+ "workflows.taskRuns": [
+  "workflows.taskRuns.list"
  ],
  "workflows.templates": [
   "workflows.templates.create",
