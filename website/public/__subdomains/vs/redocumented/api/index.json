@@ -4,7 +4,7 @@
   "documented": 323,
   "undocumented": 1797,
   "total": 2120,
-  "removed": 1199,
+  "removed": 1188,
   "live_verified_undocumented": 22
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
@@ -6158,7 +6158,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "calls.update",
@@ -15308,7 +15308,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "screenhero.rooms.info",
@@ -15518,7 +15518,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "search.feedback",
@@ -15608,7 +15608,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Modular file search",
-   "removed": true
+   "removed": false
   },
   {
    "name": "search.modules.messages",
@@ -15718,7 +15718,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "search.ua",
@@ -16818,7 +16818,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "List connected Salesforce integration orgs",
-   "removed": true
+   "removed": false
   },
   {
    "name": "sfdc.integration.searchUsers",
@@ -18038,7 +18038,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "subscriptions.thread.get",
@@ -18068,7 +18068,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "subscriptions.thread.mark",
@@ -18078,7 +18078,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "subscriptions.thread.remove",
@@ -19738,7 +19738,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "Set client preferences",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.prefs.setNotifications",
@@ -19748,7 +19748,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "users.preparePhoto",

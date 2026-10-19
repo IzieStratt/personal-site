@@ -614,7 +614,7 @@ calls.info	documented	docs-only	params	-	-	Returns information about a Call.
 calls.participants.add	documented	docs-only	params	-	write	Registers new participants added to a Call.
 calls.participants.remove	documented	docs-only	params	-	write	Registers participants removed from a Call.
 calls.reject	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-calls.request	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
+calls.request	undocumented	existence-only	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calls.update	documented	docs-only	params	-	write	Updates information about a Call.
 canvases.access.delete	documented	docs-only	params	-	write	Remove access to a canvas for specified entities
 canvases.access.set	documented	live-verified	params	-	write	Sets the access level to a canvas for specified entities
@@ -1529,7 +1529,7 @@ saved.list	undocumented	live-verified	params	removed	-	List Saved-for-later item
 saved.markCompleted	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 saved.update	undocumented	existence-only	params	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 schemaless.getClientLock	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-screenhero.rooms.create	undocumented	existence-only	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+screenhero.rooms.create	undocumented	existence-only	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 screenhero.rooms.info	undocumented	existence-only	params	-	-	Read a huddle/room's state by call id (participants, camera/screenshare state, thread, ended). Used to join an invited huddle and to poll room state.
 screenhero.rooms.invite	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 screenhero.rooms.inviteResponse	undocumented	datamine-only (not oracle-tested)	-	-	write	(inferred from name only; webpack string, not oracle-tested)
@@ -1550,7 +1550,7 @@ search.autocomplete.topEmojis	undocumented	existence-only	params	removed	-	Emoji
 search.autocomplete.topEngagedFiles	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.autocomplete.triggers	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.delete	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
-search.enterprise	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
+search.enterprise	undocumented	existence-only	params	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.feedback	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.files	documented	docs-only	params	-	-	Searches for files matching a query.
 search.inline	undocumented	existence-only	params	removed	-	Inline as-you-type search suggestions
@@ -1559,7 +1559,7 @@ search.modules.ai	undocumented	existence-only	-	removed	-	(inferred from name on
 search.modules.channels	undocumented	existence-only	params	removed	-	Modular channel search
 search.modules.dms	undocumented	existence-only	params	-	-	Modular DM search
 search.modules.external	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
-search.modules.files	undocumented	existence-only	params	removed	-	Modular file search
+search.modules.files	undocumented	existence-only	params	-	-	Modular file search
 search.modules.messages	undocumented	partial	params	removed	-	Modular message search
 search.modules.people	undocumented	existence-only	params	removed	-	Modular people search
 search.modules.topResults	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1570,7 +1570,7 @@ search.save	undocumented	not-live-tested	params	removed	write	Save a search quer
 search.saved.create	undocumented	existence-only	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 search.saved.delete	undocumented	existence-only	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 search.saved.list	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-search.team	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
+search.team	undocumented	existence-only	params	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.ua	undocumented	datamine-only (not oracle-tested)	-	removed	-	(inferred from name only; webpack string, not oracle-tested)
 searchQueryAudit.exports.start	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sessions.checkRecent	undocumented	existence-only	params	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1680,7 +1680,7 @@ sfdc.integration.elevateMigration.complete	undocumented	existence-only	-	-	-	(fr
 sfdc.integration.elevateMigration.exportFailedUsers	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.elevateMigration.start	undocumented	existence-only (sample-checked)	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.elevateMigration.startManual	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.integration.listOrgs	undocumented	not-live-tested	params	removed	-	List connected Salesforce integration orgs
+sfdc.integration.listOrgs	undocumented	not-live-tested	params	-	-	List connected Salesforce integration orgs
 sfdc.integration.searchUsers	undocumented	datamine-only (not oracle-tested)	-	removed	-	(inferred from name only; webpack string, not oracle-tested)
 sfdc.integration.setCurrentOrg	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.layouts.info	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1802,11 +1802,11 @@ stars.add	documented	docs-only	params	-	write	Save an item for later. Formerly k
 stars.list	documented	docs-only	params	-	-	Listed a user's saved items, formerly known as stars.
 stars.remove	documented	docs-only	params	-	write	Removes a saved item (star) from an item.
 subscriptions.thread.add	undocumented	existence-only	params	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
-subscriptions.thread.clearAll	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
+subscriptions.thread.clearAll	undocumented	existence-only	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 subscriptions.thread.get	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 subscriptions.thread.getTimestamps	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
-subscriptions.thread.getView	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
-subscriptions.thread.mark	undocumented	existence-only	params	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
+subscriptions.thread.getView	undocumented	existence-only	params	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+subscriptions.thread.mark	undocumented	existence-only	params	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 subscriptions.thread.remove	undocumented	existence-only	params	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 subteams.info	undocumented	existence-only	params	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
 subteams.validateHandle	undocumented	existence-only (sample-checked)	params	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1972,8 +1972,8 @@ users.lookupByEmail	documented	docs-only	params	-	-	Find a user with an email ad
 users.markAllRead	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 users.permissions.apps	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	params per slack-undoc-client generated types: (void / no params)
 users.prefs.get	undocumented	live-verified	params	removed	-	Fetch user's client preference blob
-users.prefs.set	undocumented	not-live-tested	params	removed	write	Set client preferences
-users.prefs.setNotifications	undocumented	existence-only	params	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
+users.prefs.set	undocumented	not-live-tested	params	-	write	Set client preferences
+users.prefs.setNotifications	undocumented	existence-only	params	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 users.preparePhoto	undocumented	existence-only	params	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.priority.add	undocumented	existence-only	params	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.priority.getRecommendations	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
