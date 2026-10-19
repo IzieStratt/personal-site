@@ -165,6 +165,7 @@ function redocMethodMarkdown(m) {
   const lines = [`# ${m.name}`, '',
     `- status: ${m.status}`,
     `- verified: ${m.verified}`,
+    ...(m.removed ? [`- removed: ${m.removed_note || 'absent from the latest slack-datamine build'}`] : []),
     `- tokens: ${m.tokens || 'unknown'}`,
     `- write-shaped name: ${m.write_shaped ? 'yes, do not call without a human in the loop' : 'no'}`,
     `- source: ${m.source || 'unknown'}`,

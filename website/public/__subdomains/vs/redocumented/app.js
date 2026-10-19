@@ -37,6 +37,8 @@ const NAV = [
     title: "Source-mining passes",
     items: [
       { label: "slack-datamine (webpack mining)", path: "docs/methods/datamine-2026-09.md" },
+      { label: "slack-datamine refresh (build 134791, removed methods)", path: "docs/methods/datamine-2026-10.md" },
+      { label: "Code channels", path: "docs/methods/code-channels.md" },
       { label: "Internal Canvas cross-ref", path: "docs/methods/internal-canvas-2026.md" },
       { label: "slack-undoc-client cross-ref", path: "docs/methods/slack-undoc-client-2026.md" },
       { label: "Taut client internals (dead end)", path: "docs/methods/taut-client-internals.md" },
