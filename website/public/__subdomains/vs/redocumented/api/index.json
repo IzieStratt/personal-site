@@ -5,7 +5,7 @@
   "documented": 323,
   "undocumented": 1798,
   "not_in_client": 1183,
-  "params_observed": 200,
+  "params_observed": 205,
   "live_verified_undocumented": 23,
   "params_known": 726,
   "response_known": 673,
@@ -3730,7 +3730,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.answer.previewShare",
@@ -12266,7 +12266,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.docs.create",
@@ -12849,7 +12849,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.share",
@@ -17854,7 +17854,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.emailToCaseConfigs.create",
@@ -17964,7 +17964,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.fields.create",

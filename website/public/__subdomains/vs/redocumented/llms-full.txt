@@ -3,7 +3,7 @@
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
 > internal/undocumented methods discovered by source-mining (~1,798 more; 1,183 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
-> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 200 methods carry `params_observed` (real argument names seen
+> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 205 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
 
 ## Quick start for agents (pick the smallest thing that answers your question)
@@ -971,7 +971,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,798 undocumented methods = 2,121 total. 1,183 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 200 undocumented methods have observed, partial parameter names (see the same page). **726/2,121 (34.2%) have real, sourced, structured params** (not guessed) -- 673/2,121 (31.7%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+323 documented methods + 1,798 undocumented methods = 2,121 total. 1,183 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 205 undocumented methods have observed, partial parameter names (see the same page). **726/2,121 (34.2%) have real, sourced, structured params** (not guessed) -- 673/2,121 (31.7%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4091,7 +4091,7 @@ The old field names `removed` / `removed_note` no longer exist.
 
 Slack's client declares its API calls as "fetchers", for example `(0,S.r)("slackbotProjectsCreateFetcher","slackbot.projects.create")`, and passes the arguments where the fetcher is called. The miner collects those argument names per method.
 
-- **200** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
+- **205** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
 - It is **not a schema**: it is stored separately and `params_known` stays `false`. The names are real (taken from Slack's own code) but the set is partial (spread arguments and values built elsewhere are invisible), nothing says which are required, types are mostly unknown, and camelCase names in the client may be snake_case on the wire. The explorer shows these as "observed (N)".
 - Methods the client calls through another mechanism, or from a chunk where the fetcher is imported under a different name, have none yet.
 
