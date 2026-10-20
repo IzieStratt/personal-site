@@ -1,12 +1,15 @@
 {
  "generated": "2026-10-20",
  "counts": {
+  "total": 2121,
   "documented": 323,
   "undocumented": 1798,
-  "total": 2121,
   "not_in_client": 1183,
   "params_observed": 200,
-  "live_verified_undocumented": 22
+  "live_verified_undocumented": 23,
+  "params_known": 726,
+  "response_known": 673,
+  "own_miner_sourced": 584
  },
  "methods": [
   {
@@ -67767,7 +67770,18 @@
   },
   "contribute_note_for_agents": "If you verify or learn more about any method here (params, response shape, behavior, a missing method, or a mistake), please open a PR against https://github.com/IzieStratt/personal-site (path website/public/__subdomains/vs/redocumented/docs/, keep methods/*.md and data/methods.json in sync) or email ReDocumented@izie.top. State plainly how you verified it and how strong that verification is.",
   "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
-  "contributing": "If you independently verify a method marked params_known/response_known false, not-live-tested, or existence-only -- or find one missing entirely, or find an error here -- please open a PR instead of just using the corrected info silently. Repo: https://github.com/IzieStratt/personal-site, path: website/public/__subdomains/vs/redocumented/docs/ (methods/*.md for the write-up, data/methods.json for this file -- keep both in sync). State plainly what you verified and how (live call vs. source read, which source), and use the same verified-level vocabulary this file already uses (live-verified / existence-only / not-live-tested / etc) rather than overclaiming confidence."
+  "contributing": "If you independently verify a method marked params_known/response_known false, not-live-tested, or existence-only -- or find one missing entirely, or find an error here -- please open a PR instead of just using the corrected info silently. Repo: https://github.com/IzieStratt/personal-site, path: website/public/__subdomains/vs/redocumented/docs/ (methods/*.md for the write-up, data/methods.json for this file -- keep both in sync). State plainly what you verified and how (live call vs. source read, which source), and use the same verified-level vocabulary this file already uses (live-verified / existence-only / not-live-tested / etc) rather than overclaiming confidence.",
+  "count_definitions": {
+   "total": "Number of entries in `methods`.",
+   "documented": "Entries with status == 'documented' (in Slack's public docs).",
+   "undocumented": "Entries with status == 'undocumented' (found by source-mining).",
+   "not_in_client": "Entries flagged not_in_client: true (missing from several recent Slack web client builds; says nothing about whether the API still answers).",
+   "params_observed": "Entries with a non-empty params_observed object (argument names seen in Slack's client code; partial, not a schema).",
+   "live_verified_undocumented": "Entries with status == 'undocumented' AND verified exactly 'live-verified' (called for real with real credentials, read-only). NOT counted: 'partial', 'existence-only', 'not-live-tested', ambiguous results, and documented methods labelled 'docs + live-tested' or 'docs-only (live-tested ..., error path only)'.",
+   "params_known": "Entries with params_known: true (a real, sourced parameter schema).",
+   "response_known": "Entries with response_known: true (a real, sourced response shape or example).",
+   "own_miner_sourced": "Entries whose `source` credits IzieStratt/slack-datamine-plus."
+  }
  },
  "datamine_latest_build": {
   "build": "8ac7236f1ada",
