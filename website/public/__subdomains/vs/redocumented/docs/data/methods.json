@@ -1,10 +1,10 @@
 {
- "generated": "2026-10-19",
+ "generated": "2026-10-20",
  "counts": {
   "documented": 323,
-  "undocumented": 1797,
-  "total": 2120,
-  "removed": 1188,
+  "undocumented": 1798,
+  "total": 2121,
+  "removed": 1183,
   "live_verified_undocumented": 22
  },
  "methods": [
@@ -19324,8 +19324,12 @@
    "response_source": null,
    "datamine": {
     "first_build": "54e9692853f0",
-    "first_seen": "2026-10-19"
-   }
+    "first_seen": "2026-10-19",
+    "last_build": "98e38c8a6354",
+    "last_seen": "2026-10-19"
+   },
+   "removed": true,
+   "removed_note": "Last seen in client build 98e38c8a6354 (2026-10-19); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
   },
   {
    "name": "client.codeChannels.submitReview",
@@ -32830,12 +32834,8 @@
    "response_source": null,
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "files.docs.create",
@@ -33158,12 +33158,8 @@
    "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "files.external.checkPermission",
@@ -33458,12 +33454,8 @@
    "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "files.getOverview",
@@ -34585,12 +34577,8 @@
    "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "files.revokePublicURL",
@@ -34674,12 +34662,8 @@
    "response_source": null,
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "files.share",
@@ -49501,6 +49485,24 @@
    "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
   },
   {
+   "name": "sfdc.events.searchAttendees",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "slack-datamine-plus (own miner), first seen in client build 8ac7236f1ada",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "8ac7236f1ada",
+    "first_seen": "2026-10-20"
+   }
+  },
+  {
    "name": "sfdc.fields.create",
    "status": "undocumented",
    "tokens": "unknown - not live-tested",
@@ -54125,12 +54127,8 @@
    "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)",
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02",
-    "last_build": "128164",
-    "last_seen": "2026-07-24"
-   },
-   "removed": true,
-   "removed_note": "Last seen in client build 128164 (2026-07-24); not in the latest mined build. Removed from the webpack bundle, not proof the server stopped answering."
+    "first_seen": "2026-06-02"
+   }
   },
   {
    "name": "team.checkEmailDomains",
@@ -63122,8 +63120,8 @@
   "contributing": "If you independently verify a method marked params_known/response_known false, not-live-tested, or existence-only -- or find one missing entirely, or find an error here -- please open a PR instead of just using the corrected info silently. Repo: https://github.com/IzieStratt/personal-site, path: website/public/__subdomains/vs/redocumented/docs/ (methods/*.md for the write-up, data/methods.json for this file -- keep both in sync). State plainly what you verified and how (live call vs. source read, which source), and use the same verified-level vocabulary this file already uses (live-verified / existence-only / not-live-tested / etc) rather than overclaiming confidence."
  },
  "datamine_latest_build": {
-  "build": "c5a048160afc",
-  "captured": "2026-10-19",
+  "build": "8ac7236f1ada",
+  "captured": "2026-10-20",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
 }

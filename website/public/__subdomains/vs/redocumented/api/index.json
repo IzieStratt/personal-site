@@ -1,10 +1,10 @@
 {
- "generated": "2026-10-19",
+ "generated": "2026-10-20",
  "counts": {
   "documented": 323,
-  "undocumented": 1797,
-  "total": 2120,
-  "removed": 1188,
+  "undocumented": 1798,
+  "total": 2121,
+  "removed": 1183,
   "live_verified_undocumented": 22
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
@@ -6938,7 +6938,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
-   "removed": false
+   "removed": true
   },
   {
    "name": "client.codeChannels.submitReview",
@@ -11148,7 +11148,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.docs.create",
@@ -11238,7 +11238,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.external.checkPermission",
@@ -11378,7 +11378,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.getOverview",
@@ -11658,7 +11658,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.revokePublicURL",
@@ -11678,7 +11678,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "files.share",
@@ -16321,6 +16321,16 @@
    "removed": true
   },
   {
+   "name": "sfdc.events.searchAttendees",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "removed": false
+  },
+  {
    "name": "sfdc.fields.create",
    "status": "undocumented",
    "verified": "existence-only",
@@ -18268,7 +18278,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "removed": true
+   "removed": false
   },
   {
    "name": "team.checkEmailDomains",

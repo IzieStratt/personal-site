@@ -2626,7 +2626,8 @@
   "sfdc.emails.composer.defaults"
  ],
  "sfdc.events": [
-  "sfdc.events.list"
+  "sfdc.events.list",
+  "sfdc.events.searchAttendees"
  ],
  "sfdc.fields": [
   "sfdc.fields.create",
