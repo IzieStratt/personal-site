@@ -337,7 +337,7 @@ ai.alpha.agents.diveDeeper	undocumented	existence-only	-	-	not-in-client	-	(from
 ai.alpha.agents.sessions.list	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.agents.stop	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.agents.threads.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-ai.alpha.analyze.startThread	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.analyze.startThread	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.answer.previewShare	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.answer.share	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.audio.boot	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1113,7 +1113,7 @@ files.createExternal	undocumented	existence-only	-	-	not-in-client	write	(inferr
 files.createSkillCanvas	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.delete	documented	docs-only	params	-	-	write	Deletes a file.
 files.disableCrossWorkspaceLinkSharing	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.disableRestrictedSharing	undocumented	existence-only (sample-checked)	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.disableRestrictedSharing	undocumented	existence-only (sample-checked)	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.docs.create	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
 files.docs.fetchAccessLevelForUsers	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.docs.setEditor	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1166,7 +1166,7 @@ files.requestPermission	undocumented	existence-only	-	-	-	-	(from internal-canva
 files.retranscribe	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.revokePermission	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.revokePublicURL	documented	docs-only	params	-	-	write	Revokes public/external sharing access for a file
-files.setExcludeFromSlackAi	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.setExcludeFromSlackAi	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.share	undocumented	not-live-tested	params	-	-	write	Share an already-uploaded file into a channel
 files.sharedPublicURL	documented	docs-only	params	-	-	write	Enables a file for public/external sharing.
 files.slack.com	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
@@ -1621,7 +1621,7 @@ sfdc.domainVerification.isVerified	undocumented	datamine-only (not oracle-tested
 sfdc.domainVerification.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.eacConfigs.disconnect	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.eacConfigs.get	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.eacConfigs.init	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sfdc.eacConfigs.init	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emailToCaseConfigs.create	undocumented	existence-only (sample-checked)	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emailToCaseConfigs.delete	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emailToCaseConfigs.get	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1631,7 +1631,7 @@ sfdc.emails.composer.defaults	undocumented	existence-only	-	-	-	-	(from internal
 sfdc.emails.history	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emails.send	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.events.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.events.searchAttendees	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+sfdc.events.searchAttendees	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 sfdc.fields.create	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.fields.edit	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.fields.listEligible	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
