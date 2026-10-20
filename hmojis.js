@@ -729,6 +729,11 @@ async function handleWhoami(request, env, ctx, url) {
     const bad = await checkSignature(request, env, url, '', device.jwk, keyId)
     if (bad) return sigResponse(bad)
     ctx.waitUntil(trackSeen(env, rec, keyId, ci))
+    // which plugin build this is (taut or slick), kept on the record for the operator's `tree`
+    const client = request.headers.get('x-hm-client')
+    if ((client === 'taut' || client === 'slick') && rec.client !== client) {
+      ctx.waitUntil(putRecord(env, token, { ...rec, client }))
+    }
     return json(200, await describe(env, rec, sec, { state: 'active' }))
   }
 
@@ -1694,7 +1699,7 @@ const CORS_HEADERS = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'GET, PUT, POST, OPTIONS',
   'access-control-allow-headers':
-    'Authorization, Content-Type, X-Hm-Key, X-Hm-Ts, X-Hm-Nonce, X-Hm-Sig',
+    'Authorization, Content-Type, X-Hm-Key, X-Hm-Ts, X-Hm-Nonce, X-Hm-Sig, X-Hm-Client',
   'access-control-expose-headers': 'X-Hm-Server-Time',
   'access-control-max-age': '86400',
 }
