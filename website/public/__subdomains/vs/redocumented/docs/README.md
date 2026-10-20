@@ -32,9 +32,9 @@ Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,599 undocumented" as "1,599
+coverage caveats below before treating "1,798 undocumented" as "1,798
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
-only 19 undocumented methods are `live-verified` with real credentials (real
+only 23 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
 *dispatch* (or, for the newest 31, typed by a third party) and nothing more.
 

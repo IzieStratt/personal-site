@@ -2,7 +2,12 @@
 """Build the agent-facing files for vs.izie.top/redocumented from docs/.
 
 Run after editing docs/data/methods.json or any docs/**/*.md:
-  python3 scripts/build-redocumented-agent.py
+  python3 scripts/build-redocumented-agent.py            regenerate everything, refresh derived counts
+  python3 scripts/build-redocumented-agent.py --check    CI: change nothing, exit 1 if anything is stale
+
+Derived counts (total, documented, live-verified undocumented, ...) are computed from the catalog by
+scripts/redocumented_counts.py. They are written into methods.json `counts`, and every sentence in the docs
+that quotes one is refreshed from there; --check fails if any of that, or any generated file, is out of date.
 
 Writes (all generated, don't hand-edit). Per-method pages are served by worker.js
 straight from methods.json, not generated here.
@@ -12,18 +17,41 @@ straight from methods.json, not generated here.
   openapi.json                OpenAPI 3.1 for methods with params_known: true
   llms-full.txt               llms.txt + every markdown doc, concatenated
 """
+import filecmp
 import json
+import os
 import shutil
+import sys
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent / 'website/public/__subdomains/vs/redocumented'
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import redocumented_counts as rc
+
+REAL_VS = Path(os.environ.get('REDOC_VS_DIR') or Path(__file__).resolve().parent.parent / 'website/public/__subdomains/vs')  # env override is for the tests
+CHECK = '--check' in sys.argv
+if CHECK:
+    # work on a throwaway copy, then compare it with the real tree
+    _tmp = Path(tempfile.mkdtemp(prefix='redoc-check-'))
+    VS = _tmp / 'vs'
+    shutil.copytree(REAL_VS, VS)
+else:
+    VS = REAL_VS
+ROOT = VS / 'redocumented'
 BASE = 'https://vs.izie.top/redocumented'
 DOCS = ROOT / 'docs'
 API = ROOT / 'api'
 
 data = json.loads((DOCS / 'data/methods.json').read_text())
 methods = sorted(data['methods'], key=lambda m: m['name'])
+
+# derived counts: the catalog is the source of truth, nothing here is hand-maintained
+counts = rc.compute_counts(data['methods'])
+data['counts'] = counts
+data['schema']['count_definitions'] = rc.COUNT_DEFS
+(DOCS / 'data/methods.json').write_text(json.dumps(data, indent=1, ensure_ascii=False) + '\n')
+claim_problems = rc.apply_claims(counts, {'redocumented': ROOT, 'vs': VS}, write=True)
 safety = data.get('safety_note_for_agents') or data['schema'].get('safety_note_for_agents', '')
 
 if API.exists():
@@ -111,3 +139,23 @@ for p in sorted(DOCS.rglob('*.md'), key=lambda p: (p.name != 'README.md', str(p)
 (ROOT / 'llms-full.txt').write_text(''.join(parts))
 
 print(f'{len(methods)} methods, {len(paths)} in openapi.json, {len(namespaces)} namespaces')
+
+if claim_problems:
+    print('\ncount claims ' + ('that were stale and have been refreshed' if not CHECK else 'that disagree with the catalog') + ':')
+    for pr in claim_problems:
+        print('  -', pr)
+print('counts from the catalog: ' + ', '.join(f'{k}={v}' for k, v in counts.items()))
+
+if CHECK:
+    def files(base):
+        return {p.relative_to(base) for p in base.rglob('*') if p.is_file()}
+    real, fresh = files(REAL_VS), files(VS)
+    stale = sorted(str(p) for p in (real ^ fresh) | {p for p in real & fresh if not filecmp.cmp(REAL_VS / p, VS / p, shallow=False)})
+    shutil.rmtree(_tmp, ignore_errors=True)
+    if stale:
+        print(f'\nFAIL: {len(stale)} file(s) are out of date relative to the catalog (website/public/__subdomains/vs/...):')
+        for p in stale[:40]:
+            print('  -', p)
+        print('\nRun `python3 scripts/build-redocumented-agent.py` and commit the result.')
+        sys.exit(1)
+    print('OK: derived counts, docs claims and generated files all match the catalog.')
