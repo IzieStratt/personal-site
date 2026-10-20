@@ -356,17 +356,22 @@ input:focus-visible {
 }
 .tag-documented { background: var(--accent-soft); color: var(--accent); }
 .tag-undocumented { background: var(--code-bg); color: var(--fg-dim); border: 1px solid var(--border); }
-.tag-removed { background: #f0dede; color: #7a2b2b; margin-left: .25rem; }
+.tag-absent { background: var(--code-bg); color: var(--fg-dim); border: 1px solid var(--border); margin-left: .25rem; }
+.tag-observed { background: #e6eef9; color: #1f4a7a; }
+.observed-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.observed-table th, .observed-table td { text-align: left; padding: .15rem .5rem .15rem 0; border-bottom: 1px solid var(--border); }
 .explorer-toggle { display: flex; align-items: center; gap: .35rem; white-space: nowrap; font-size: .9rem; }
 .tag-verified { background: var(--code-bg); border: 1px solid var(--border); }
 .tag-known { background: #d9ecd9; color: #235c23; }
 .tag-unknown { background: #f0dede; color: #7a2b2b; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .tag-known { background: #1e3320; color: #8fd39a; }
-  :root:not([data-theme="light"]) .tag-unknown, :root:not([data-theme="light"]) .tag-removed { background: #3a2020; color: #e39a9a; }
+  :root:not([data-theme="light"]) .tag-observed { background: #1c2a3d; color: #9cc3ee; }
+  :root:not([data-theme="light"]) .tag-unknown { background: #3a2020; color: #e39a9a; }
 }
 :root[data-theme="dark"] .tag-known { background: #1e3320; color: #8fd39a; }
-:root[data-theme="dark"] .tag-unknown, :root[data-theme="dark"] .tag-removed { background: #3a2020; color: #e39a9a; }
+:root[data-theme="dark"] .tag-observed { background: #1c2a3d; color: #9cc3ee; }
+:root[data-theme="dark"] .tag-unknown { background: #3a2020; color: #e39a9a; }
 
 .detail-panel {
   display: grid;

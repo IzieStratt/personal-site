@@ -26,7 +26,7 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,727 undocumented/cross-referenced = 2,050 total (1,500 marked removed) method names**
+documented + 1,798 undocumented/cross-referenced = 2,121 total (1,183 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
@@ -40,8 +40,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,050 methods
-(35.4%) now have real, sourced, structured `params`; 673/2,050 (32.8%) have a
+existed, instead of leaving them as bare method names. **726/2,121 methods
+(34.2%) now have real, sourced, structured `params`; 673/2,121 (31.7%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -325,6 +325,10 @@ cross-referenced from `auth-and-tokens.md` and `errors.md`.
 No bulk/exploratory `admin.*` calls were made — six specific methods,
 chosen because the task at hand needed them, each called a small, bounded
 number of times (never more than 4-5 param/token combinations per method).
+
+### Sixth/seventh pass (2026-10-19/20): our own miner, `slack-datamine-plus`
+
+3kh0's miner stopped finding most of Slack's code in late July (see `methods/datamine-2026-10.md`), so this project built its own: [`IzieStratt/slack-datamine-plus`](https://github.com/IzieStratt/slack-datamine-plus) (AGPL-3.0, GitHub Actions, about every 40 minutes). It reads the web client's webpack manifest, downloads the ~1,800 chunks, and tracks every method name with first/last seen. It is credited in the `source` of every entry it has seen. It also collects **observed parameter names** from the client's call sites (`params_observed`, not a schema). A method missing from 3 consecutive builds is marked `not_in_client`, which only means the client no longer references it. A bot opens a pull request here whenever something changes.
 
 ## Honest coverage statement
 

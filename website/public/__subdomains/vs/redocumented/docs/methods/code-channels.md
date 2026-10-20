@@ -1,36 +1,51 @@
 # Code channels
 
-Slack's client has (or had) a **code channel** conversation type. The bundle describes it as "a multiplayer coding environment designed for everyone, not just developers." Everything here comes from `3kh0/slack-datamine` (method names and UI strings across builds 125207 -> 134791); **nothing was live-called**, and params/response shapes are unknown. Purposes are inferred from names and strings.
+Slack's client has a **code channel** conversation type: "a multiplayer coding environment designed for everyone, not just developers", with pull requests, diffs and review built in. Everything here comes from Slack's client code (the `slack-datamine-plus` miner, and `3kh0/slack-datamine` history for the early builds). **Nothing was live-called.** Method names and the argument names below are real; descriptions are inferred from names and client strings.
 
 ## Methods
 
-| Method | First seen | Last seen | State |
-|---|---|---|---|
-| `codeChannels.getDiff` | build 125207 (2026-06-02) | 130501 (2026-08-25) | removed |
-| `codeChannels.action` | 125635 (2026-06-08) | 128164 (2026-07-24) | removed |
-| `codeChannels.getView` | 125694 (2026-06-09) | 133442 (2026-10-02) | removed |
-| `codeChannels.createAndStart` | 126668 (2026-06-26) | 133442 (2026-10-02) | removed |
-| `codeChannels.listSupportedApps` | 126668 (2026-06-26) | 133442 (2026-10-02) | removed |
-| `client.codeChannels.join` | 126807 (2026-06-30) | 128164 (2026-07-24) | removed |
-| `client.codeChannels.getBlockKitView` | 126949 (2026-07-02) | 133442 (2026-10-02) | removed |
-| `client.codeChannels.create` | 130603 (2026-08-26) | 133442 (2026-10-02) | removed |
+| Method | First seen (build) | Last seen | State | Observed argument names |
+|---|---|---|---|---|
+| `client.codeChannels.action` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.addReviewComment` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.create` | 130603 (2026-08-26) | current | in current client | `appId`, `blocks`, `entrypoint`, `isPrivate`, `name`, `reason`, `teamId` |
+| `client.codeChannels.createAndStart` | 54e9692853f0 (2026-10-19) | current | in current client | `appId`, `blocks`, `entrypoint`, `isPrivate`, `reason`, `teamId` |
+| `client.codeChannels.getBlockKitView` | 126949 (2026-07-02) | 133442 (2026-10-02) | not in current client | - |
+| `client.codeChannels.getDiff` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.getMergeStatus` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.getPrWorkObject` | 54e9692853f0 (2026-10-19) | current | in current client | `channelId`, `prUrl`, `reason` |
+| `client.codeChannels.getPullRequestConnection` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.getSummary` | 54e9692853f0 (2026-10-19) | current | in current client | - |
+| `client.codeChannels.join` | 126807 (2026-06-30) | current | in current client | - |
+| `client.codeChannels.listSupportedApps` | 54e9692853f0 (2026-10-19) | current | in current client | `reason` |
+| `client.codeChannels.mergePullRequest` | 54e9692853f0 (2026-10-19) | current | in current client | `channelId`, `headSha`, `prUrl`, `reason` |
+| `client.codeChannels.requestReviewers` | 54e9692853f0 (2026-10-19) | 98e38c8a6354 (2026-10-19) | not in current client | `channelId`, `inviteToChannel`, `noteBlocks`, `postMention`, `prUrl`, `reason`, `userIds` |
+| `client.codeChannels.submitReview` | 54e9692853f0 (2026-10-19) | current | in current client | `channelId`, `event`, `prUrl`, `reason`, `revision`, `text` |
+| `codeChannels.action` | 125635 (2026-06-08) | 128164 (2026-07-24) | not in current client | - |
+| `codeChannels.createAndStart` | 126668 (2026-06-26) | 133442 (2026-10-02) | not in current client | - |
+| `codeChannels.getDiff` | 125207 (2026-06-02) | 130501 (2026-08-25) | not in current client | - |
+| `codeChannels.getView` | 125694 (2026-06-09) | 133442 (2026-10-02) | not in current client | - |
+| `codeChannels.listSupportedApps` | 126668 (2026-06-26) | 133442 (2026-10-02) | not in current client | - |
 
-All eight were confirmed to exist by the existence oracle in earlier passes (`existence-only`). None are in the latest build, so the explorer hides them unless **Show removed** is on. See `datamine-2026-10.md` for why "removed" is a weak signal.
+"Observed argument names" are names passed at call sites in the client's code: real, but partial, and not a schema (see `datamine-2026-10.md`). Required/optional is unknown. camelCase names may be snake_case on the wire.
 
-Likely roles: `createAndStart` creates a channel and kicks off its agent session; `listSupportedApps` lists which apps/agents can back one; `getView` / `getBlockKitView` render the channel surface; `getDiff` fetches the diff pane; `action` performs actions (the pull-request lifecycle); `join` joins "from an origin the user can see".
+## What the pieces do (inferred)
 
-## Related client strings (UI, from `ui-strings.txt`)
+- **Create / join:** `createAndStart` creates a channel and starts its agent session; `create` and `join` are the client-side variants ("join from an origin the user can see" is a client string); `listSupportedApps` lists which apps/agents can back one.
+- **Views:** `getView` / `getBlockKitView` render the channel surface.
+- **Pull requests:** `getPullRequestConnection`, `getPrWorkObject`, `getSummary`, `getDiff`, `getMergeStatus`, `requestReviewers`, `addReviewComment`, `submitReview` and `mergePullRequest` cover the PR lifecycle inside the channel. Their observed arguments (`prUrl`, `headSha`, `channelId`, `revision`, `event`, `text`) fit that.
+- **`action`:** a generic action endpoint for the channel (older builds).
 
-- Naming: "Code channel", "Code channels", "Code Channel Command", "Public code channel", "Code channel details / results / views".
-- Lifecycle: "Create a code channel", "New code channel", "Search code channels", "No code channels yet", "Something went wrong creating the code channel.", "Auto-close stale code channels", "When a code channel is archived", "Close an MPIM, IM, or code channel", "Record timestamp when a closed code channel was reopened", "Clear reopen timestamp for a code channel".
-- Pull requests: "Start loading / Store a loaded / Record a failed ... code channel pull request fetch", "Forget a code channel pull request", "PR status", "PR approved / closed / merged / feedback", "Create PR", "All pull requests", "Filter pull requests".
-- Diffs and comments: "Loading diff", "Adds a line-level code comment to the store", "Clears all code comments for a channel when the diff is refreshed".
-- Adjacent: "Agent sessions" strings ("Failed to start agent session", "Navigates to an agent session") appear alongside, suggesting code channels are backed by agent sessions.
+## Related client strings
 
-Code-channel UI strings last appear in build 134419 (2026-10-14); the latest build (134791) has none.
+- Naming: "Code channel", "Code channels", "Public code channel", "Code Channel Command".
+- Lifecycle: "Create a code channel", "New code channel", "Search code channels", "No code channels yet", "Auto-close stale code channels", "When a code channel is archived", "Close an MPIM, IM, or code channel".
+- Pull requests: "PR status", "PR approved / closed / merged / feedback", "Create PR", "Filter pull requests".
+- Diffs and comments: "Loading diff", "Adds a line-level code comment to the store".
+- Adjacent: "Agent sessions" strings suggest code channels are backed by agent sessions.
 
-Also see the `/code` and `/codeblock` slash commands (formatting, unrelated to code channels). The related method families `agents.*` and `ai.alpha.agents.*` are in `datamine-2026-09.md`.
+Code channel UI strings last appear in 3kh0's build 134419 (2026-10-14).
 
 ## Not known
 
-Params, responses, token types, whether the endpoints still answer today, and whether code channels are GA, gated, or retired. If you can verify any of it, see the contribute note in the explorer.
+Whether the endpoints answer outside the client, token types, response shapes, and whether code channels are generally available or gated. If you can verify any of it, see the contribute note in the explorer.

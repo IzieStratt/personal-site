@@ -165,7 +165,7 @@ function redocMethodMarkdown(m) {
   const lines = [`# ${m.name}`, '',
     `- status: ${m.status}`,
     `- verified: ${m.verified}`,
-    ...(m.removed ? [`- removed: ${m.removed_note || 'absent from the latest slack-datamine build'}`] : []),
+    ...(m.not_in_client ? [`- not in the current client: ${m.not_in_client_note || 'missing from recent web client builds'}`] : []),
     `- tokens: ${m.tokens || 'unknown'}`,
     `- write-shaped name: ${m.write_shaped ? 'yes, do not call without a human in the loop' : 'no'}`,
     `- source: ${m.source || 'unknown'}`,
@@ -178,6 +178,11 @@ function redocMethodMarkdown(m) {
       lines.push(`| \`${k}\` | ${v.required ? 'yes' : 'no'} | ${cell(v.type)} | ${cell(v.desc)} |`)
     }
     lines.push('', `Source: ${m.params_source}`)
+  } else if (m.params_observed) {
+    lines.push('', 'Not a schema. These argument names were seen at call sites in Slack\'s web client; the set is partial and says nothing about which are required.',
+      '', '| name | type hint | call sites |', '|---|---|---|')
+    for (const [k, v] of Object.entries(m.params_observed)) lines.push(`| \`${k}\` | ${cell(v.type)} | ${v.sites} |`)
+    lines.push('', `Source: ${m.params_observed_source}`)
   } else {
     lines.push('', 'Unknown. Nothing here is guessed; do not invent params for this method.')
   }
