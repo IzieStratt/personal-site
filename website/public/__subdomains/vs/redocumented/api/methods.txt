@@ -692,7 +692,7 @@ client.codeChannels.getSummary	undocumented	datamine-only (not oracle-tested)	-	
 client.codeChannels.join	undocumented	existence-only	-	-	write	Code channels: join a code channel from an origin the user can see (matches a client string); see methods/code-channels.md.
 client.codeChannels.listSupportedApps	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.mergePullRequest	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-client.codeChannels.requestReviewers	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.requestReviewers	undocumented	datamine-only (not oracle-tested)	-	removed	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.submitReview	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.counts	undocumented	live-verified	params	removed	-	Unread/mention counts
 client.dms	undocumented	existence-only	params	-	-	DM history filters (Edge-style sync)
@@ -1113,7 +1113,7 @@ files.createExternal	undocumented	existence-only	-	removed	write	(inferred from 
 files.createSkillCanvas	undocumented	existence-only	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.delete	documented	docs-only	params	-	write	Deletes a file.
 files.disableCrossWorkspaceLinkSharing	undocumented	existence-only	params	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.disableRestrictedSharing	undocumented	existence-only (sample-checked)	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.disableRestrictedSharing	undocumented	existence-only (sample-checked)	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.docs.create	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 files.docs.fetchAccessLevelForUsers	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.docs.setEditor	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1122,7 +1122,7 @@ files.docs.unsetEditor	undocumented	existence-only	-	removed	-	(inferred from na
 files.edit	undocumented	not-live-tested	params	removed	write	Edit an uploaded file's content/title in place
 files.embedWithPermissions	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.enableCrossWorkspaceLinkSharing	undocumented	existence-only	params	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.enableRestrictedSharing	undocumented	existence-only	params	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.enableRestrictedSharing	undocumented	existence-only	params	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.external.checkPermission	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.external.getOrCreate	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.external.getProviders	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1136,7 +1136,7 @@ files.generateAltText	undocumented	existence-only	-	-	-	(from internal-canvas cr
 files.generateProviderTokenForFileStore	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.generateThumbnails	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getContentHtml	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-files.getMetadata	undocumented	existence-only (sample-checked)	params	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.getMetadata	undocumented	existence-only (sample-checked)	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getOverview	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getProviderPreviewUrlForFileStore	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getShares	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1164,9 +1164,9 @@ files.remote.share	documented	docs-only	params	-	write	Share a remote file into 
 files.remote.update	documented	docs-only	params	-	write	Updates an existing remote file.
 files.requestPermission	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.retranscribe	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.revokePermission	undocumented	existence-only	params	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.revokePermission	undocumented	existence-only	params	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.revokePublicURL	documented	docs-only	params	-	write	Revokes public/external sharing access for a file
-files.setExcludeFromSlackAi	undocumented	existence-only	-	removed	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.setExcludeFromSlackAi	undocumented	existence-only	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.share	undocumented	not-live-tested	params	-	write	Share an already-uploaded file into a channel
 files.sharedPublicURL	documented	docs-only	params	-	write	Enables a file for public/external sharing.
 files.slack.com	undocumented	datamine-only (not oracle-tested)	-	removed	-	(inferred from name only; webpack string, not oracle-tested)
@@ -1631,6 +1631,7 @@ sfdc.emails.composer.defaults	undocumented	existence-only	-	-	-	(from internal-c
 sfdc.emails.history	undocumented	existence-only	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emails.send	undocumented	existence-only	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.events.list	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sfdc.events.searchAttendees	undocumented	datamine-only (not oracle-tested)	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 sfdc.fields.create	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.fields.edit	undocumented	existence-only	-	removed	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.fields.listEligible	undocumented	existence-only	-	removed	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1825,7 +1826,7 @@ team.billing.info	documented	docs-only	params	-	-	Reads a workspace's billing pl
 team.billing.removeContact	undocumented	not-live-tested (source-only, typed but unverified)	params	-	write	params per slack-undoc-client generated types: id?: number;
 team.bmau.export	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 team.bmau.getAvailableDateRange	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-team.changeInfo	undocumented	existence-only	params	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+team.changeInfo	undocumented	existence-only	params	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 team.checkEmailDomains	undocumented	existence-only	params	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 team.connectedOrgs.export	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 team.connectedOrgs.get	undocumented	existence-only	-	removed	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
