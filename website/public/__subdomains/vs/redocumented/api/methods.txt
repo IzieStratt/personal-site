@@ -332,7 +332,7 @@ agents.threads.rename	undocumented	datamine-only (not oracle-tested)	-	-	not-in-
 agents.threads.unpin	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
 ai.agents.channelAgent.configure	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.agents.channelAgent.getConfiguration	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-ai.alpha.agents.channels.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.agents.channels.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.agents.diveDeeper	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.agents.sessions.list	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.agents.stop	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -533,8 +533,8 @@ apps.team.variables.delete	undocumented	existence-only	params	-	not-in-client	wr
 apps.team.variables.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.team.variables.set	undocumented	existence-only	params	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.uninstall	documented	docs-only	params	-	-	-	Uninstalls your app from a workspace.
-apps.user.connection.status	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
-apps.user.connection.submit	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+apps.user.connection.status	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+apps.user.connection.submit	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 apps.user.connection.update	documented	docs-only	params	-	-	write	Updates the connection status between a user and an app.
 assistant.search.context	documented	docs-only	params	-	-	-	Searches messages, files, channels and users across your Slack organization.
 assistant.search.info	documented	docs-only	params	-	-	-	Returns search capabilities on a given team.
@@ -1265,7 +1265,7 @@ inprodsurveys.get	undocumented	existence-only	params	-	-	-	(from internal-canvas
 insights.messageStats	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 insights.messageStats.export	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 instantSlack.moveSession	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-lab.features	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+lab.features	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 links.disconnectApps	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 links.getDomains	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 links.getInterstitialFields	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1372,7 +1372,7 @@ oauth.v2.beginShortTokenRotation	documented	docs-only	params	-	-	-	Call this to 
 oauth.v2.completeShortTokenRotation	documented	docs-only	params	-	-	-	Call this to finish rotating the secret on an old API token with a short secret. Must be paired with a call to oauth.v2.beginShortTokenRotation to start the process.
 oauth.v2.exchange	documented	docs-only	params	-	-	-	Exchanges a legacy access token for a new expiring access token and refresh token
 oauth.v2.user.access	documented	docs-only	params	-	-	-	Exchanges a temporary OAuth verifier code for a user access token.
-onboarding.fetch	undocumented	existence-only	params	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+onboarding.fetch	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 onboarding.updateTeam	undocumented	existence-only	params	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 onboarding.updateUser	undocumented	existence-only	params	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
 openid.connect.token	documented	docs-only	params	-	-	-	Exchanges a temporary OAuth verifier code for an access token for Sign in with Slack.
@@ -1942,7 +1942,7 @@ users.consent.add	undocumented	existence-only	-	observed	-	write	(from internal-
 users.consent.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.consent.remove	undocumented	existence-only (sample-checked)	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.conversations	documented	docs + live-tested	params	-	-	-	List conversations the calling user is a member of.
-users.customStatus.deleteScheduled	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+users.customStatus.deleteScheduled	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.customStatus.hide	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.customStatus.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.customStatus.schedule	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
