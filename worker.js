@@ -55,8 +55,11 @@ export default {
     const sharedAsset = url.pathname.startsWith('/cdn/') || url.pathname === '/favicon.svg'
 
     if (prefix && !sharedAsset) {
+      const originalPath = url.pathname
       url.pathname = `${prefix}${url.pathname}`
       const response = await env.ASSETS.fetch(new Request(url, request))
+      // subdomains without their own stylesheet (e.g. a bare 404 page) fall back to the root one
+      if (response.status === 404 && originalPath === '/style.css') return env.ASSETS.fetch(request)
       const location = response.headers.get('Location')
 
       if (location?.startsWith(prefix)) {
