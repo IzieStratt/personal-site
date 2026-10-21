@@ -1,9 +1,9 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,798 more; 1,183 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,798 more; 1,180 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
-> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 205 methods carry `params_observed` (real argument names seen
+> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 206 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
 
 ## Quick start for agents (pick the smallest thing that answers your question)
