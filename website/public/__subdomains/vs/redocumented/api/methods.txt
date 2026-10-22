@@ -467,7 +467,7 @@ apps.actions.v2.execute	undocumented	existence-only	params	-	-	-	(from internal-
 apps.actions.v2.list	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
 apps.activities.list	documented	docs-only	params	-	-	-	Get logs for a specified app
 apps.approvals.requests.create	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
-apps.auth.external.authMapping.update	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
+apps.auth.external.authMapping.update	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 apps.auth.external.delete	documented	docs-only	params	-	-	write	Delete external auth tokens only on the Slack side
 apps.auth.external.get	documented	docs-only	params	-	-	-	Get the access token for the provided token ID
 apps.auth.external.getFunctionAuth	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1092,7 +1092,7 @@ feedback.submitFeedback	undocumented	existence-only	-	observed	-	-	(from interna
 feedback.submitPilotFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feedback.submitSalesforceFeedback	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
 feedback.submitSlackWrappedFeedback	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
-feedback.submitUserFeedback	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+feedback.submitUserFeedback	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 files.acceptPermissionRequest	undocumented	existence-only (sample-checked)	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.canSee	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.canShare	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
