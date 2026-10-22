@@ -50,7 +50,7 @@ export default {
       return new Response(response.body, { status: response.status, headers })
     }
     const match = url.hostname.match(/^([a-z0-9-]+)\.izie\.top$/)
-    const prefix = match ? `/__subdomains/${match[1]}` : null
+    const prefix = match ? `/__subdomains/${SUBDOMAIN_ALIASES[match[1]] || match[1]}` : null
     // shared root assets (fonts, buttons, favicon) are served as-is on every subdomain
     const sharedAsset = url.pathname.startsWith('/cdn/') || url.pathname === '/favicon.svg'
 
@@ -74,6 +74,9 @@ export default {
     return env.ASSETS.fetch(request)
   }
 }
+
+// subdomains that serve another subdomain's files
+const SUBDOMAIN_ALIASES = { sdmp: 'slackdatamineplus' }
 
 // ReDocumented: make the docs easy for agents to fetch.
 // - `Accept: text/markdown` (or ?format=md) on the SPA root returns llms.txt instead of a JS shell
