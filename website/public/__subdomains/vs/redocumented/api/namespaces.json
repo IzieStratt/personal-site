@@ -691,7 +691,9 @@
  "ai.alpha.surfaces": [
   "ai.alpha.surfaces.getContent",
   "ai.alpha.surfaces.getData",
-  "ai.alpha.surfaces.openCardComment"
+  "ai.alpha.surfaces.listVersions",
+  "ai.alpha.surfaces.openCardComment",
+  "ai.alpha.surfaces.restoreVersion"
  ],
  "ai.alpha.translate": [
   "ai.alpha.translate.fileSummary",

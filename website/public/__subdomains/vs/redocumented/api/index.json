@@ -1,15 +1,15 @@
 {
  "generated": "2026-10-22",
  "counts": {
-  "total": 2121,
+  "total": 2123,
   "documented": 323,
-  "undocumented": 1798,
+  "undocumented": 1800,
   "not_in_client": 1180,
-  "params_observed": 206,
+  "params_observed": 207,
   "live_verified_undocumented": 23,
   "params_known": 726,
   "response_known": 673,
-  "own_miner_sourced": 588
+  "own_miner_sourced": 590
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -4690,6 +4690,17 @@
    "params_observed": false
   },
   {
+   "name": "ai.alpha.surfaces.listVersions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "ai.alpha.surfaces.openCardComment",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -4699,6 +4710,17 @@
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
+  },
+  {
+   "name": "ai.alpha.surfaces.restoreVersion",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
   },
   {
    "name": "ai.alpha.translate.fileSummary",
