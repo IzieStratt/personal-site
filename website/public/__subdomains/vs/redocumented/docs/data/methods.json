@@ -222,7 +222,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "activity.mark",
@@ -277,7 +277,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "activity.markRead",
@@ -1039,7 +1039,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.analytics.export",
@@ -2243,7 +2243,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.apps.domainWideAuth.enable",
@@ -2322,11 +2322,11 @@
     "first_seen": "2026-07-02"
    },
    "params_observed": {
-    "calAppUser": {
-     "sites": 2,
+    "channelId": {
+     "sites": 3,
      "type": "unknown"
     },
-    "channelId": {
+    "calAppUser": {
      "sites": 2,
      "type": "unknown"
     },
@@ -2354,12 +2354,16 @@
      "sites": 1,
      "type": "unknown"
     },
+    "teamId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "userIds": {
      "sites": 1,
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.apps.domainWideAuth.list",
@@ -2426,7 +2430,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.apps.domainWideAuth.removeDomain",
@@ -2942,7 +2946,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.apps.recommend.add",
@@ -9529,7 +9533,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.answer.previewShare",
@@ -9708,7 +9712,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.canvas.refineContent",
@@ -9803,7 +9807,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.digest.list",
@@ -9891,7 +9895,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.digest.markUnread",
@@ -9924,7 +9928,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.digest.removeFromDigest",
@@ -10081,7 +10085,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.replies.get",
@@ -10198,7 +10202,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.sidekicks.rewritePrompt",
@@ -10297,7 +10301,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.automationGroups.list",
@@ -10326,7 +10330,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.automationGroups.setActive",
@@ -10359,7 +10363,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.channelMemory.delete",
@@ -10436,7 +10440,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.channelResponses.restore",
@@ -10469,7 +10473,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.channelSkills.addSkill",
@@ -10781,7 +10785,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.getBuiltinInfo",
@@ -10828,7 +10832,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.listDiscoverable",
@@ -10911,7 +10915,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.previewShareLink",
@@ -11002,7 +11006,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.removeFromLibrary",
@@ -11063,7 +11067,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.resolveBuiltinReferences",
@@ -11132,7 +11136,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.setAutoEnabled",
@@ -11169,7 +11173,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skills.setCanvasAsSkill",
@@ -11348,7 +11352,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skillSets.listEnabled",
@@ -11433,7 +11437,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.slackbot.skillSets.removeFromLibrary",
@@ -11803,7 +11807,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.surfaces.openCardComment",
@@ -11840,7 +11844,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.surfaces.restoreVersion",
@@ -12159,7 +12163,7 @@
      "type": "object"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.create",
@@ -12196,7 +12200,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.delete",
@@ -12225,7 +12229,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.execute",
@@ -12254,7 +12258,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.list",
@@ -12287,7 +12291,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.update",
@@ -12324,7 +12328,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.savedPrompts.updateTrigger",
@@ -12361,7 +12365,7 @@
      "type": "object"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.suggest.topics",
@@ -12416,7 +12420,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "aiApps.deletePhoto",
@@ -12489,7 +12493,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "aiApps.list",
@@ -12685,7 +12689,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "api.benchmark",
@@ -13478,7 +13482,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "apps.datasources.external.list",
@@ -14953,7 +14957,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "apps.recommendations.list",
@@ -17442,7 +17446,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "canvases.create",
@@ -17991,7 +17995,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "channelSections.create",
@@ -19678,7 +19682,7 @@
      "type": "boolean"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.boot",
@@ -20247,7 +20251,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.createAndStart",
@@ -20292,7 +20296,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.getBlockKitView",
@@ -20383,7 +20387,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.getPullRequestConnection",
@@ -20462,7 +20466,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.mergePullRequest",
@@ -20499,7 +20503,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.requestReviewers",
@@ -20597,7 +20601,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.counts",
@@ -21907,7 +21911,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "connectInvites.list",
@@ -22216,7 +22220,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "conversations.bulkLeave",
@@ -28627,7 +28631,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "dnd.endDnd",
@@ -28869,7 +28873,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "drafts.bulkDelete",
@@ -29516,7 +29520,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "emailConnectorSelfServe.emails.list",
@@ -29557,7 +29561,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "emailConnectorSelfServe.enable",
@@ -29582,7 +29586,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "emailConnectorSelfServe.importedEmails.list",
@@ -29619,7 +29623,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "emailConnectorSelfServe.info",
@@ -33099,7 +33103,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "experiments.getByUser",
@@ -33163,7 +33167,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "export.configuration.list",
@@ -33382,7 +33386,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "features.access.policies.list",
@@ -33611,7 +33615,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "feedback.submitPilotFeedback",
@@ -33648,7 +33652,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "feedback.submitSalesforceFeedback",
@@ -33900,7 +33904,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.collections.list",
@@ -33977,7 +33981,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.collections.sortFiles",
@@ -34313,7 +34317,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.docs.create",
@@ -34682,7 +34686,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.enableCrossWorkspaceLinkSharing",
@@ -34789,7 +34793,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.external.getOrCreate",
@@ -35107,7 +35111,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.getMetadata",
@@ -35221,7 +35225,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.getShares",
@@ -36016,7 +36020,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.recentlyDeleted",
@@ -36454,7 +36458,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "files.share",
@@ -36804,7 +36808,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "folders.items.add",
@@ -36855,7 +36859,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "folders.items.reorder",
@@ -36896,7 +36900,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "folders.update",
@@ -36929,7 +36933,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "functions.categories.steps.list",
@@ -37385,7 +37389,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "functions.workflows.collaborators.remove",
@@ -38303,7 +38307,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "functions.workflows.steps.delete",
@@ -39058,7 +39062,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "graphql.resolve",
@@ -39242,7 +39246,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "helpcenter.track",
@@ -39565,7 +39569,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "huddles.external.new",
@@ -39806,7 +39810,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "huddles.knockResponse",
@@ -39914,7 +39918,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "huddles.recording.auditLog",
@@ -40296,7 +40300,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "instantSlack.moveSession",
@@ -40365,7 +40369,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "links.getDomains",
@@ -40754,7 +40758,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.getApprovalReviewPending",
@@ -40787,7 +40791,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.getDefaultView",
@@ -40902,7 +40906,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.history.list",
@@ -41082,7 +41086,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.open",
@@ -41155,7 +41159,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.records.create",
@@ -41422,7 +41426,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.records.reorder",
@@ -41477,7 +41481,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.records.subscriptions.add",
@@ -41532,7 +41536,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.records.subscriptions.remove",
@@ -41847,7 +41851,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.updateMyItemReminder",
@@ -42143,7 +42147,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "meetings.list",
@@ -42531,7 +42535,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "megaphone.visualizer.notifications.list",
@@ -44746,7 +44750,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "polls.create",
@@ -45661,7 +45665,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "quip.thread.archiveAll",
@@ -45690,7 +45694,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "quip.thread.mark",
@@ -45828,7 +45832,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "quip.unfurl",
@@ -46271,7 +46275,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "recordChannels.objectTypes.getDefaultVisibility",
@@ -46500,7 +46504,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "recordChannels.unlink",
@@ -47340,7 +47344,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.addOrg",
@@ -47369,7 +47373,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.addValidatedMembers",
@@ -47398,7 +47402,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.disconnectOrg",
@@ -47445,7 +47449,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.getAccessInfo",
@@ -47510,7 +47514,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.listMembers",
@@ -47579,7 +47583,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.setConfig",
@@ -47634,7 +47638,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.setObjectMappings",
@@ -47685,7 +47689,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.admin.validateEmails",
@@ -47714,7 +47718,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.auth.list",
@@ -47761,7 +47765,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.insights.get",
@@ -47786,7 +47790,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.insights.set",
@@ -47819,7 +47823,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.listViews.getAdminSuggested",
@@ -47844,7 +47848,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.notifications.formatShare",
@@ -47877,7 +47881,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.notifications.list",
@@ -47946,7 +47950,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.notifications.share",
@@ -47983,7 +47987,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.salesforceOrgs.getAdminConfig",
@@ -48056,7 +48060,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "salesHome.workflows.list",
@@ -48438,7 +48442,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "screenhero.rooms.create",
@@ -51119,7 +51123,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.activities.getActionLayout",
@@ -51212,7 +51216,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.activities.listForUser",
@@ -51267,7 +51271,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.admin.configs.get",
@@ -51562,7 +51566,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.agentforce.getSlackbotPrefs",
@@ -52265,7 +52269,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.emails.composer.defaults",
@@ -52332,7 +52336,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.emails.send",
@@ -52393,7 +52397,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.emailToCaseConfigs.create",
@@ -52430,7 +52434,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.emailToCaseConfigs.delete",
@@ -52499,7 +52503,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.emailToCaseConfigs.resendVerification",
@@ -52564,7 +52568,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.events.list",
@@ -52667,7 +52671,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.fields.create",
@@ -52828,7 +52832,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getContactAvailableFields",
@@ -52923,7 +52927,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getFrontdoorUrl",
@@ -53036,7 +53040,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getListViewsV2",
@@ -53145,7 +53149,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getOpportunity",
@@ -53178,7 +53182,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getOwnerChangeOptions",
@@ -53267,7 +53271,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.getPicklistValuesV2",
@@ -53807,7 +53811,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.integration.elevateMigration.exportFailedUsers",
@@ -53836,7 +53840,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.integration.elevateMigration.start",
@@ -53865,7 +53869,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.integration.elevateMigration.startManual",
@@ -53894,7 +53898,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.integration.listOrgs",
@@ -54016,7 +54020,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.licenses.approval.list",
@@ -54167,7 +54171,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.licenses.approval.request",
@@ -54280,7 +54284,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.licenses.approval.review",
@@ -54543,7 +54547,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.records.create",
@@ -54654,7 +54658,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.records.undelete",
@@ -54729,7 +54733,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.salesTracker.getContent",
@@ -55086,7 +55090,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "share.prompts.listInvokedSkills",
@@ -55119,7 +55123,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sharedInvites.accept",
@@ -55386,7 +55390,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "signin.confirmCode",
@@ -55931,7 +55935,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.canvases.remove",
@@ -55964,7 +55968,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.channels.add",
@@ -55997,7 +56001,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.channels.remove",
@@ -56030,7 +56034,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.context.list",
@@ -56059,7 +56063,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.create",
@@ -56096,7 +56100,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.delete",
@@ -56125,7 +56129,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.files.add",
@@ -56158,7 +56162,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.files.list",
@@ -56187,7 +56191,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.files.remove",
@@ -56220,7 +56224,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.list",
@@ -56267,7 +56271,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.memoryUpdate",
@@ -56304,7 +56308,7 @@
      "type": "boolean"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.reportInfo",
@@ -56333,7 +56337,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.reportUpdate",
@@ -56366,7 +56370,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.projects.threads.list",
@@ -56413,7 +56417,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackbot.responses.add",
@@ -57035,7 +57039,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slides.update",
@@ -60223,7 +60227,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "templates.admins.list",
@@ -60252,7 +60256,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "templates.integrations.get",
@@ -61954,7 +61958,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.channelSections.channels.bulkUpdate",
@@ -62320,7 +62324,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.channelSuggestions.dismiss",
@@ -62349,7 +62353,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.channelSuggestions.list",
@@ -62408,7 +62412,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.consent.add",
@@ -62441,7 +62445,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.consent.get",
@@ -62502,7 +62506,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.conversations",
@@ -62586,7 +62590,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.customStatus.hide",
@@ -62698,7 +62702,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.delegates.add",
@@ -62731,7 +62735,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.delegates.list",
@@ -62782,7 +62786,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.deletePhoto",
@@ -62855,7 +62859,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.emailtoken.delete",
@@ -62884,7 +62888,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.emailtoken.get",
@@ -64148,7 +64152,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.setActive",
@@ -64500,7 +64504,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "views.close",
@@ -66082,7 +66086,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.activity.get",
@@ -66201,7 +66205,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.ai.generate",
@@ -66230,7 +66234,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.channelOptIn.list",
@@ -66259,7 +66263,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.channelOptIn.set",
@@ -66296,7 +66300,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.createFromTemplate",
@@ -66522,7 +66526,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.notificationOptOut.list",
@@ -66647,7 +66651,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.notificationOptOut.set",
@@ -66694,7 +66698,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.template_approval_request",
@@ -66749,7 +66753,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.templates.collaborators.remove",
@@ -66782,7 +66786,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.templates.create",
@@ -66823,7 +66827,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.templates.delete",
@@ -66932,7 +66936,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.templates.list",
@@ -67116,7 +67120,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.templates.setStatus",
@@ -67185,7 +67189,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.triggers.auth.external.list",
@@ -67214,7 +67218,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 528887bb4c24, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client (build 470abe849d88, 2026-10-22) by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "workflows.triggers.create",
@@ -68025,7 +68029,7 @@
   }
  },
  "datamine_latest_build": {
-  "build": "528887bb4c24",
+  "build": "470abe849d88",
   "captured": "2026-10-22",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
