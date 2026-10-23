@@ -13396,10 +13396,6 @@
      "sites": 4,
      "type": "unknown"
     },
-    "ts": {
-     "sites": 4,
-     "type": "unknown"
-    },
     "id": {
      "sites": 3,
      "type": "unknown"
@@ -13408,15 +13404,15 @@
      "sites": 3,
      "type": "unknown"
     },
+    "ts": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "appId": {
      "sites": 1,
      "type": "unknown"
     },
     "campaign": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -13433,10 +13429,6 @@
      "type": "unknown"
     },
     "expirationTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "fileId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -30220,18 +30212,6 @@
     "reason": {
      "sites": 4,
      "type": "string"
-    },
-    "fileId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "msg": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewContext": {
-     "sites": 1,
-     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -35277,6 +35257,10 @@
    },
    "params_observed": {
     "contact": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "onInsertEmail": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62808,6 +62792,10 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "channelId": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 3,
      "type": "unknown"
@@ -62816,7 +62804,7 @@
      "sites": 2,
      "type": "unknown"
     },
-    "channelId": {
+    "fileId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -62841,10 +62829,6 @@
      "type": "unknown"
     },
     "file": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "fileId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62883,6 +62867,10 @@
     "skipSimpleArraySerializationInGetFormData": {
      "sites": 1,
      "type": "boolean"
+    },
+    "ts": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -74220,7 +74208,7 @@
   }
  },
  "datamine_latest_build": {
-  "build": "76531814a11d",
+  "build": "bc23ac6351bd",
   "captured": "2026-10-23",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
