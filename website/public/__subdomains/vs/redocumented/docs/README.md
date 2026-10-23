@@ -26,13 +26,13 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,800 undocumented/cross-referenced = 2,123 total (1,179 not found in Slack's current web client) method names**
+documented + 1,868 undocumented/cross-referenced = 2,191 total (412 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,800 undocumented" as "1,800
+coverage caveats below before treating "1,868 undocumented" as "1,868
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
 only 23 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
@@ -40,8 +40,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,123 methods
-(34.2%) now have real, sourced, structured `params`; 673/2,123 (31.7%) have a
+existed, instead of leaving them as bare method names. **726/2,191 methods
+(33.1%) now have real, sourced, structured `params`; 673/2,191 (30.7%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
