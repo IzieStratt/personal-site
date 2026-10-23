@@ -11,7 +11,7 @@
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **1178** of 2123 methods carry the flag. Documented (official) methods never do.
+- Right now **1179** of 2123 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.

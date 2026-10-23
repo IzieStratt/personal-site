@@ -26,7 +26,7 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,800 undocumented/cross-referenced = 2,123 total (1,178 not found in Slack's current web client) method names**
+documented + 1,800 undocumented/cross-referenced = 2,123 total (1,179 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,

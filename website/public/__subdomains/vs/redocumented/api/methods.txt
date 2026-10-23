@@ -379,7 +379,7 @@ ai.alpha.slackbot.channelSkills.getConfiguration	undocumented	datamine-only (not
 ai.alpha.slackbot.channelSkills.removeSkill	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.channelSkills.setCustomInstructions	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.createSlackbotInitiatedThread	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-ai.alpha.slackbot.resolveVoiceToolApproval	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.slackbot.resolveVoiceToolApproval	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.searchAnswerThreads.create	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.slackbot.skillSets.addToLibrary	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skillSets.listEnabled	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

@@ -1,7 +1,7 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,800 more; 1,178 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,800 more; 1,179 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
 > Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 209 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
@@ -138,7 +138,7 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,800 undocumented/cross-referenced = 2,123 total (1,178 not found in Slack's current web client) method names**
+documented + 1,800 undocumented/cross-referenced = 2,123 total (1,179 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
@@ -971,7 +971,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,800 undocumented methods = 2,123 total. 1,178 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 209 undocumented methods have observed, partial parameter names (see the same page). **726/2,123 (34.2%) have real, sourced, structured params** (not guessed) -- 673/2,123 (31.7%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+323 documented methods + 1,800 undocumented methods = 2,123 total. 1,179 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 209 undocumented methods have observed, partial parameter names (see the same page). **726/2,123 (34.2%) have real, sourced, structured params** (not guessed) -- 673/2,123 (31.7%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4082,7 +4082,7 @@ still `existence-only`.
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **1178** of 2123 methods carry the flag. Documented (official) methods never do.
+- Right now **1179** of 2123 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.

@@ -1,10 +1,10 @@
 {
- "generated": "2026-10-22",
+ "generated": "2026-10-23",
  "counts": {
   "total": 2123,
   "documented": 323,
   "undocumented": 1800,
-  "not_in_client": 1178,
+  "not_in_client": 1179,
   "params_observed": 209,
   "live_verified_undocumented": 23,
   "params_known": 726,
@@ -10584,8 +10584,12 @@
    "response_source": null,
    "datamine": {
     "first_build": "54e9692853f0",
-    "first_seen": "2026-10-19"
-   }
+    "first_seen": "2026-10-19",
+    "last_build": "470abe849d88",
+    "last_seen": "2026-10-22"
+   },
+   "not_in_client": true,
+   "not_in_client_note": "Not found in Slack's web client as of the latest mined build (last seen in build 470abe849d88, 2026-10-22). The client no longer references it; that is not proof the API stopped answering."
   },
   {
    "name": "ai.alpha.slackbot.searchAnswerThreads.create",
@@ -68003,8 +68007,8 @@
   }
  },
  "datamine_latest_build": {
-  "build": "722c2070073b",
-  "captured": "2026-10-22",
+  "build": "b6e72ac76ab2",
+  "captured": "2026-10-23",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
 }
