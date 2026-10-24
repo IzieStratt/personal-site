@@ -422,6 +422,11 @@
  "admin.settings": [
   "admin.settings.export"
  ],
+ "admin.slackbot.channelExclusions": [
+  "admin.slackbot.channelExclusions.add",
+  "admin.slackbot.channelExclusions.list",
+  "admin.slackbot.channelExclusions.remove"
+ ],
  "admin.slackbot.channelResponses": [
   "admin.slackbot.channelResponses.listRedactions"
  ],
@@ -479,6 +484,9 @@
  "admin.users.externalUsers": [
   "admin.users.externalUsers.disconnect",
   "admin.users.externalUsers.removeFromAllConversations"
+ ],
+ "admin.users.passkeys": [
+  "admin.users.passkeys.removeAll"
  ],
  "admin.users.session": [
   "admin.users.session.clearSettings",
@@ -582,6 +590,9 @@
   "ai.alpha.canvas.resolveDraft",
   "ai.alpha.canvas.reviseContentWithSources"
  ],
+ "ai.alpha.canvases.drafts": [
+  "ai.alpha.canvases.drafts.view"
+ ],
  "ai.alpha.digest": [
   "ai.alpha.digest.addToDigest",
   "ai.alpha.digest.info",
@@ -674,6 +685,9 @@
   "ai.alpha.slackbot.skills.unsetCanvasAsSkill",
   "ai.alpha.slackbot.skills.updateMetadata"
  ],
+ "ai.alpha.slackbot.voices": [
+  "ai.alpha.slackbot.voices.list"
+ ],
  "ai.alpha.slackbotBigMode": [
   "ai.alpha.slackbotBigMode.listRecommendations",
   "ai.alpha.slackbotBigMode.listSuggestions"
@@ -702,9 +716,11 @@
  "ai.alpha.surfaces": [
   "ai.alpha.surfaces.getContent",
   "ai.alpha.surfaces.getData",
+  "ai.alpha.surfaces.getSourcesShared",
   "ai.alpha.surfaces.listVersions",
   "ai.alpha.surfaces.openCardComment",
-  "ai.alpha.surfaces.restoreVersion"
+  "ai.alpha.surfaces.restoreVersion",
+  "ai.alpha.surfaces.setSourcesShared"
  ],
  "ai.alpha.translate": [
   "ai.alpha.translate.fileSummary",
@@ -947,10 +963,16 @@
   "auth.revoke",
   "auth.signin",
   "auth.signout",
+  "auth.sso",
   "auth.test"
  ],
  "auth.magicLogins": [
   "auth.magicLogins.create"
+ ],
+ "auth.passkeys.auth": [
+  "auth.passkeys.auth.begin",
+  "auth.passkeys.auth.complete",
+  "auth.passkeys.auth.shouldProceed"
  ],
  "auth.passkeys.register": [
   "auth.passkeys.register.begin",
@@ -1135,6 +1157,7 @@
   "client.appCommands",
   "client.boot",
   "client.channels",
+  "client.checkVersion",
   "client.counts",
   "client.dms",
   "client.extras",
@@ -1225,6 +1248,7 @@
   "conversations.disconnectSharedTeam",
   "conversations.export",
   "conversations.findEligibleWorkspaces",
+  "conversations.findTeamsEligibility",
   "conversations.genericInfo",
   "conversations.getGeneral",
   "conversations.getJoinedChannels",
@@ -1558,6 +1582,7 @@
   "enterprise.browserInfo",
   "enterprise.changeInfo",
   "enterprise.info",
+  "enterprise.name",
   "enterprise.nameTaken",
   "enterprise.setPhoto",
   "enterprise.workspaces"
@@ -2691,6 +2716,10 @@
   "sfdc.emails.history",
   "sfdc.emails.send"
  ],
+ "sfdc.emails.capture": [
+  "sfdc.emails.capture.info",
+  "sfdc.emails.capture.set"
+ ],
  "sfdc.emails.composer": [
   "sfdc.emails.composer.defaults"
  ],
@@ -2810,10 +2839,13 @@
  ],
  "signup": [
   "signup.addLead",
+  "signup.checkEmail",
   "signup.checkSignupDomains",
   "signup.checkUsername",
   "signup.confirmCode",
-  "signup.confirmEmail"
+  "signup.confirmEmail",
+  "signup.createTeam",
+  "signup.getGroup"
  ],
  "slackAi.permissions": [
   "slackAi.permissions.getForUser"

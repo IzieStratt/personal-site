@@ -92,7 +92,7 @@ admin.apps.productivity.list	undocumented	existence-only	-	observed	-	-	(from in
 admin.apps.recommend.add	undocumented	existence-only	params	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.recommend.list	undocumented	existence-only	params	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.recommend.remove	undocumented	existence-only (sample-checked)	params	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-admin.apps.requests.bulkCancel	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+admin.apps.requests.bulkCancel	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 admin.apps.requests.cancel	documented	docs-only (live-tested 2026-09-20, not_an_admin on every combination)	params	-	-	-	Cancel app request for team
 admin.apps.requests.list	documented	live-verified	params	-	-	-	List app requests for a team/workspace.
 admin.apps.restrict	documented	live-verified	params	-	-	write	Restrict an app for installation on a workspace.
@@ -259,6 +259,9 @@ admin.sandboxes.unarchive	undocumented	existence-only	-	-	not-in-client	write	(f
 admin.sessions.accessLogs	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: limit?: number; team_id?: string;
 admin.sessions.reset	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.settings.export	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.slackbot.channelExclusions.add	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+admin.slackbot.channelExclusions.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+admin.slackbot.channelExclusions.remove	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.slackbot.channelResponses.listRedactions	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 admin.teams.admins.list	documented	docs-only	params	-	-	-	List all of the admins on a given workspace.
 admin.teams.create	documented	docs-only	params	-	-	write	Create an Enterprise team.
@@ -290,6 +293,7 @@ admin.users.externalUsers.removeFromAllConversations	undocumented	existence-only
 admin.users.getExpiration	documented	docs-only	params	-	-	-	Fetches the expiration timestamp for a guest
 admin.users.invite	documented	docs-only	params	-	-	write	Invite a user to a workspace.
 admin.users.list	documented	docs-only	params	-	-	-	List users on a workspace
+admin.users.passkeys.removeAll	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.users.remove	documented	docs-only	params	-	-	write	Remove a user from a workspace.
 admin.users.removeFromAllExternalLimitedConversations	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.users.resetPassword	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
@@ -352,6 +356,7 @@ ai.alpha.canvas.getTopicSuggestions	undocumented	existence-only (sample-checked)
 ai.alpha.canvas.refineContent	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.canvas.resolveDraft	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.canvas.reviseContentWithSources	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.canvases.drafts.view	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.digest.addToDigest	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.digest.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.digest.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -360,7 +365,7 @@ ai.alpha.digest.markComplete	undocumented	existence-only	-	observed	-	write	(fro
 ai.alpha.digest.markUnread	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.digest.removeFromDigest	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.digest.triggerDigest	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-ai.alpha.focus.summary	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+ai.alpha.focus.summary	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.getChannelJoinReason	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.internal.feedbackDatasets	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.replies.get	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
@@ -384,8 +389,8 @@ ai.alpha.slackbot.channelSkills.getConfiguration	undocumented	datamine-only (not
 ai.alpha.slackbot.channelSkills.removeSkill	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.channelSkills.setCustomInstructions	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.createSlackbotInitiatedThread	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-ai.alpha.slackbot.resolveVoiceToolApproval	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
-ai.alpha.slackbot.searchAnswerThreads.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+ai.alpha.slackbot.resolveVoiceToolApproval	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.slackbot.searchAnswerThreads.create	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.slackbot.skillSets.addToLibrary	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skillSets.listEnabled	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skillSets.removeFromLibrary	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -415,6 +420,7 @@ ai.alpha.slackbot.skills.setDisabled	undocumented	existence-only	-	-	-	write	(fr
 ai.alpha.slackbot.skills.unpublishFromCatalog	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skills.unsetCanvasAsSkill	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skills.updateMetadata	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.slackbot.voices.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbotBigMode.listRecommendations	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbotBigMode.listSuggestions	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbotNuxCarousel.addMemory	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -432,9 +438,11 @@ ai.alpha.summarize.thread	undocumented	existence-only	-	-	-	-	(from internal-can
 ai.alpha.summarize.unreadsSnapshot	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.surfaces.getContent	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.surfaces.getData	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.surfaces.getSourcesShared	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.surfaces.listVersions	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.surfaces.openCardComment	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.surfaces.restoreVersion	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.surfaces.setSourcesShared	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.translate.fileSummary	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.translate.locales	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.translate.message	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -482,17 +490,17 @@ apps.auth.external.delete	documented	docs-only	params	-	-	write	Delete external 
 apps.auth.external.get	documented	docs-only	params	-	-	-	Get the access token for the provided token ID
 apps.auth.external.getFunctionAuth	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 apps.auth.external.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-apps.auth.external.start	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+apps.auth.external.start	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.auth.external.userAuths.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.certified.install	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 apps.certified.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.connections.open	documented	docs-only	params	-	-	-	Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over.
-apps.context.changed	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+apps.context.changed	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 apps.datasources.external.add	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.delete	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.fieldreferences.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-apps.datasources.external.list	undocumented	existence-only (sample-checked)	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+apps.datasources.external.list	undocumented	existence-only (sample-checked)	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.schema.info	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.schema.objects.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.datasources.external.schema.resync	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -563,18 +571,22 @@ audit.exportLogs	undocumented	existence-only	-	-	not-in-client	-	(from internal-
 audit.logs	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 auth.captcha	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: (void / no params)
 auth.emailToken	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-auth.enterpriseSignout	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+auth.enterpriseSignout	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 auth.findTeam	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 auth.gr	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 auth.loginMagic	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 auth.magicLogins.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-auth.passkeys.register.begin	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+auth.passkeys.auth.begin	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+auth.passkeys.auth.complete	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+auth.passkeys.auth.shouldProceed	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+auth.passkeys.register.begin	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 auth.passkeys.register.complete	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 auth.passkeys.register.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-auth.removePendingTeam	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+auth.removePendingTeam	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 auth.revoke	documented	docs-only	params	-	-	write	Revokes a token.
 auth.signin	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-auth.signout	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+auth.signout	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+auth.sso	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 auth.teams.list	documented	docs-only	params	-	-	-	Obtain a full list of workspaces your org-wide app has been approved for.
 auth.test	documented	docs-only	params	-	-	-	Checks authentication & identity.
 auth.twofactor.slackbotMessage	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -597,19 +609,19 @@ bookmarks.remove	documented	docs-only	params	-	-	write	Remove bookmark from the 
 bookmarks.reorder	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 bots.info	documented	live-verified	params	-	-	-	Gets information about a bot user.
 calbootstrap.contactsList	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-calendar.alerts.ack	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+calendar.alerts.ack	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.alerts.list	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-calendar.alerts.snooze	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+calendar.alerts.snooze	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.disconnect	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.event.copy	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.event.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-calendar.event.getByEventLinkId	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+calendar.event.getByEventLinkId	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.event.info	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.event.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.event.listByDateRange	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.event.next	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.event.rsvp	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-calendar.event.setLocation	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
+calendar.event.setLocation	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.freebusy	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 calendar.getConnectedCalendars	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 calendar.getInstalledCalendars	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -696,6 +708,7 @@ client.appCommands	undocumented	existence-only	params	-	-	-	(inferred from name 
 client.apps.composerSuggestions	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.boot	undocumented	live-verified	params	-	-	-	Boot single-team web client state
 client.channels	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+client.checkVersion	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.action	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.addReviewComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.browse	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -719,7 +732,7 @@ client.counts	undocumented	live-verified	params	-	-	-	Unread/mention counts
 client.dms	undocumented	existence-only	params	-	-	-	DM history filters (Edge-style sync)
 client.extras	undocumented	partial	params	-	-	-	Auxiliary boot payload
 client.gantryBoot	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-client.getWebSocketURL	undocumented	existence-only	params	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+client.getWebSocketURL	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 client.init	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 client.shouldReload	undocumented	partial	params	-	-	-	Client build-staleness check
 client.userBoot	undocumented	live-verified	params	-	-	-	Boot org-wide user/client state
@@ -759,7 +772,7 @@ conversations.channelPrefixes.create	undocumented	not-live-tested (source-only, 
 conversations.channelPrefixes.delete	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	write	params per slack-undoc-client generated types: prefix?: string;
 conversations.channelPrefixes.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.close	documented	docs-only	params	-	-	write	Closes a direct message or multi-person direct message.
-conversations.convertExternalLimited	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+conversations.convertExternalLimited	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.convertToPrivate	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.convertToPublic	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.coreProdAIPrototype	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -777,6 +790,7 @@ conversations.emailaddresses.update	undocumented	existence-only	params	-	-	write
 conversations.export	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.externalInvitePermissions.set	documented	docs-only	params	-	-	write	Upgrade or downgrade Slack Connect channel permissions between 'can post only' and 'can post and invite'.
 conversations.findEligibleWorkspaces	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+conversations.findTeamsEligibility	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 conversations.genericInfo	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.getGeneral	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.getJoinedChannels	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
@@ -817,7 +831,7 @@ conversations.requestSharedInvite.deny	documented	docs-only	params	-	-	write	Den
 conversations.requestSharedInvite.list	documented	docs-only	params	-	-	-	Lists requests to add external users to channels with ability to filter.
 conversations.revokeSharedInvite	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.revokeSharedInvitesBulk	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-conversations.searchLinks	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+conversations.searchLinks	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.setInviterJoinerProperties	undocumented	existence-only (sample-checked)	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.setProperties	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.setPurpose	documented	docs-only	params	-	-	write	Sets the channel description.
@@ -828,9 +842,9 @@ conversations.sharedApprovals.bulkApprove	undocumented	existence-only	-	observed
 conversations.sharedApprovals.bulkDecline	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.sharedApprovals.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.sharedInviteAcceptanceEligibility	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-conversations.sharedInviteInfo	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+conversations.sharedInviteInfo	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.sharedInviteLinkCopied	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-conversations.suggestions	undocumented	existence-only	params	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+conversations.suggestions	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.teamConnections	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.unarchive	documented	docs-only	params	-	-	write	Reverses conversation archival.
 conversations.updateDefaultState	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -939,7 +953,7 @@ dotcom.templates.search	undocumented	existence-only	-	observed	-	-	(from interna
 drafts.bulkDelete	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 drafts.create	undocumented	live-verified	params	-	-	write	Create a scheduled draft
 drafts.delete	undocumented	live-verified	params	-	-	write	Delete a draft
-drafts.info	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+drafts.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 drafts.list	undocumented	live-verified	params	-	-	-	List scheduled/unsent drafts
 drafts.listActive	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 drafts.update	undocumented	existence-only	params	-	-	write	Edit an existing draft
@@ -1023,6 +1037,7 @@ enterprise.migrations.getHistory	undocumented	existence-only	-	-	-	-	(inferred f
 enterprise.migrations.getStatus	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 enterprise.migrations.markIntentChecklistItemComplete	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.mobile.versions.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+enterprise.name	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 enterprise.nameTaken	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 enterprise.payments.companyGet	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.payments.contactsList	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1057,7 +1072,7 @@ enterprise.teams.join	undocumented	existence-only	-	-	-	write	(inferred from nam
 enterprise.teams.joinrequests.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 enterprise.teams.leave	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 enterprise.teams.nameValidation	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-enterprise.teams.prefs.get	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+enterprise.teams.prefs.get	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.tos.admin.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.tos.admin.deactivate	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.tos.admin.get	undocumented	existence-only (sample-checked)	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1081,7 +1096,7 @@ enterprise.workspaces	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(in
 enterpriseSearch.getConnectorFilters	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterpriseSearch.getConnectors	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterpriseSearch.getEmailConnectorStatus	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-enterpriseSearch.getEntity	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+enterpriseSearch.getEntity	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterpriseSearch.listConnectorActions	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterpriseSearch.searchFilterResults	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 entities.refs.add	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1100,7 +1115,7 @@ export.configuration.list	undocumented	existence-only	-	-	not-in-client	-	(from 
 export.configuration.set	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 export.partners.list	undocumented	existence-only (sample-checked)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 externalWorkspaces.invites.accept	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-externalWorkspaces.invites.info	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+externalWorkspaces.invites.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 externalWorkspaces.invites.revokeBulk	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 externalWorkspaces.kick	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feature.usage.info	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1114,7 +1129,7 @@ features.rich_previews.entity_types	undocumented	ambiguous (404, likely not a ca
 feedback.submitEnterpriseSearchFeedback	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feedback.submitFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feedback.submitPilotFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-feedback.submitSalesforceFeedback	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+feedback.submitSalesforceFeedback	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 feedback.submitSearchInProductSurvey	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 feedback.submitSlackWrappedFeedback	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 feedback.submitUserFeedback	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1122,7 +1137,7 @@ files.acceptPermissionRequest	undocumented	existence-only (sample-checked)	-	-	-
 files.canSee	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.canShare	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.canUndelete	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.channelSettingsAllowDownloads	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+files.channelSettingsAllowDownloads	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.close	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.collections.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.collections.delete	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1156,7 +1171,7 @@ files.external.getProviders	undocumented	existence-only	-	-	-	-	(from internal-c
 files.external.getReadiness	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.external.preview	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 files.external.search	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
-files.external.searchConnector	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+files.external.searchConnector	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 files.favorites.add	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.favorites.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.favorites.remove	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1191,7 +1206,7 @@ files.remote.list	documented	docs-only	params	-	-	-	Retrieve information about a
 files.remote.remove	documented	docs-only	params	-	-	write	Remove a remote file.
 files.remote.share	documented	docs-only	params	-	-	write	Share a remote file into a channel.
 files.remote.update	documented	docs-only	params	-	-	write	Updates an existing remote file.
-files.requestPermission	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.requestPermission	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.retranscribe	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.revokePermission	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.revokePublicURL	documented	docs-only	params	-	-	write	Revokes public/external sharing access for a file
@@ -1267,7 +1282,7 @@ helpcenter.track	undocumented	existence-only	params	-	-	-	(from internal-canvas 
 helpdesk.categories	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 helpdesk.get	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 helpdesk.getArticle	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-helpdesk.getSectionsAndArticlesByCategory	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+helpdesk.getSectionsAndArticlesByCategory	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 huddles.cancelKnock	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 huddles.external.end	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 huddles.external.generate	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1277,7 +1292,7 @@ huddles.external.listExternalParticipants	undocumented	datamine-only (not oracle
 huddles.external.new	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 huddles.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 huddles.getIndirectHuddle	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-huddles.getTrackUrls	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+huddles.getTrackUrls	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 huddles.history	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 huddles.knock	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 huddles.knockResponse	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1305,7 +1320,7 @@ lab.features	undocumented	existence-only	-	-	-	-	(inferred from name only; see m
 links.disconnectApps	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 links.getDomains	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 links.getInterstitialFields	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-links.getTransferPayload	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+links.getTransferPayload	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.addToList	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 lists.cells.update	undocumented	existence-only (sample-checked)	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.columns.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1370,7 +1385,7 @@ meetings.processRecording	undocumented	existence-only	-	-	-	-	(from internal-can
 meetings.removeChannel	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 meetings.resolve	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 meetings.sharedContent.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-meetings.transcribeChunk	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+meetings.transcribeChunk	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 meetings.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 meetings.usersetdata	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 megaphone.executeEvent	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1380,7 +1395,7 @@ megaphone.visualizer.notifications.get	undocumented	existence-only	-	observed	-	
 megaphone.visualizer.notifications.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 megaphone.visualizer.reducers.get	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 megaphone.visualizer.reducers.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-megaphone.visualizer.spaces.get	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+megaphone.visualizer.spaces.get	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 megaphone.visualizer.spaces.list	undocumented	existence-only (sample-checked)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 messages.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 messages.sent.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1463,7 +1478,7 @@ productui.ui.search	undocumented	existence-only	-	-	not-in-client	-	(from intern
 productui.ui.translate	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 productui.ui.unpublish	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 productui.ui.update	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-profiling.addJSTrace	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+profiling.addJSTrace	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 profiling.addLogging	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 promo.campaigns.eligibilityInfo	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 promo.campaigns.optOut	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1541,7 +1556,7 @@ salesHome.admin.getAccessInfo	undocumented	existence-only	-	-	-	-	(from internal
 salesHome.admin.getConfig	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.admin.getSuggestedListViews	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.admin.listMembers	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-salesHome.admin.listOrgs	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+salesHome.admin.listOrgs	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.admin.removeMembers	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.admin.setConfig	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.admin.setDatasourceId	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1558,8 +1573,8 @@ salesHome.notifications.list	undocumented	existence-only	-	-	-	-	(inferred from 
 salesHome.notifications.mutePrefs.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.notifications.mutePrefs.update	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.notifications.share	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-salesHome.salesforceOrgs.getAdminConfig	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-salesHome.salesforceOrgs.setDefault	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+salesHome.salesforceOrgs.getAdminConfig	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+salesHome.salesforceOrgs.setDefault	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 salesHome.workflows.get	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.workflows.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 salesHome.workflows.update	undocumented	existence-only (sample-checked)	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1568,7 +1583,7 @@ saved.bulkDelete	undocumented	existence-only	-	-	-	-	(from internal-canvas cross
 saved.bulkUpdate	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 saved.clearCompleted	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 saved.delete	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-saved.get	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+saved.get	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 saved.list	undocumented	live-verified	params	-	-	-	List Saved-for-later items
 saved.markCompleted	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 saved.update	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1579,7 +1594,7 @@ screenhero.rooms.invite	undocumented	existence-only	-	-	-	write	(inferred from n
 screenhero.rooms.inviteResponse	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 screenhero.rooms.join	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 screenhero.rooms.proxyLogs	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-screenhero.rooms.proxyMeetingEvents	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+screenhero.rooms.proxyMeetingEvents	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 screenhero.rooms.rename	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 screenhero.rooms.userEvent	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.all	documented	docs-only	params	-	-	-	Searches for messages and files matching a query.
@@ -1603,7 +1618,7 @@ search.messages	documented	docs-only	params	-	-	-	Searches for messages matching
 search.modules.ai	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.modules.channels	undocumented	existence-only	params	-	-	-	Modular channel search
 search.modules.dms	undocumented	existence-only	params	-	-	-	Modular DM search
-search.modules.external	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+search.modules.external	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.modules.files	undocumented	existence-only	params	-	-	-	Modular file search
 search.modules.messages	undocumented	partial	params	-	not-in-client	-	Modular message search
 search.modules.people	undocumented	existence-only	params	-	-	-	Modular people search
@@ -1678,6 +1693,8 @@ sfdc.emailToCaseConfigs.delete	undocumented	existence-only	-	-	-	write	(from int
 sfdc.emailToCaseConfigs.get	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emailToCaseConfigs.notifyCopy	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emailToCaseConfigs.resendVerification	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sfdc.emails.capture.info	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+sfdc.emails.capture.set	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 sfdc.emails.composer.defaults	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emails.history	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.emails.send	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1734,7 +1751,7 @@ sfdc.integration.elevateMigration.start	undocumented	existence-only (sample-chec
 sfdc.integration.elevateMigration.startManual	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.listOrgs	undocumented	not-live-tested	params	-	-	-	List connected Salesforce integration orgs
 sfdc.integration.searchUsers	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
-sfdc.integration.setCurrentOrg	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+sfdc.integration.setCurrentOrg	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.layouts.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.licenses.approval.list	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.licenses.approval.myRequest	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1772,8 +1789,8 @@ share.prompts.listInvokedSkills	undocumented	existence-only	-	observed	-	-	(from
 sharedInvites.accept	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sharedInvites.canAccept	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 sharedInvites.canGetLink	undocumented	live-verified	params	-	-	-	Eligibility to generate shared invite link
-sharedInvites.findTeamsEligibility	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sharedInvites.get	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+sharedInvites.findTeamsEligibility	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sharedInvites.get	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 sharedInvites.getLink	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sharedInvites.ignoreInvite	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 sharedInvites.ignoreUser	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1784,10 +1801,13 @@ sidebar.dms	undocumented	existence-only	-	observed	-	-	(from internal-canvas cro
 signin.confirmCode	undocumented	existence-only (sample-checked)	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 signin.findWorkspaces	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 signup.addLead	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+signup.checkEmail	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 signup.checkSignupDomains	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 signup.checkUsername	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 signup.confirmCode	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 signup.confirmEmail	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+signup.createTeam	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+signup.getGroup	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 slackAi.permissions.getForUser	undocumented	partial	params	-	-	-	Slack AI feature permission state
 slackConnect.domain.setPrimary	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 slackLists.access.delete	documented	docs-only	params	-	-	write	Revoke access to a List for specified entities.
@@ -1849,7 +1869,7 @@ slackbot.responses.delete	undocumented	not-live-tested (source-only, typed but u
 slackbot.responses.edit	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	write	params per slack-undoc-client generated types: response?: string; triggers?: string; responses?: string;
 slackbot.responses.list	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: limit?: number;
 slackbot.suggestions.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-slackbot.suggestions.listForDesktop	undocumented	existence-only	-	-	not-in-client	-	(inferred from name only; see methods/datamine-2026-09.md)
+slackbot.suggestions.listForDesktop	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 slides.addAttachment	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 slides.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 solutions.collaborators.add	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1910,7 +1930,7 @@ team.listExternal	undocumented	existence-only	params	-	not-in-client	-	(inferred
 team.nav.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 team.newHires	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 team.paidfeatures.get	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-team.php	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
+team.php	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 team.preferences.list	documented	docs-only	params	-	-	-	Retrieve a list of a workspace's team preferences.
 team.prefs.get	undocumented	live-verified	params	-	-	-	Team-level client preferences
 team.prefs.set	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1965,7 +1985,7 @@ usergroups.disable	documented	docs-only	params	-	-	write	Disable an existing Use
 usergroups.enable	documented	docs-only	params	-	-	write	Enable a User Group.
 usergroups.list	documented	docs-only	params	-	-	-	List all User Groups for a team.
 usergroups.membership	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-usergroups.search	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+usergroups.search	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 usergroups.update	documented	docs-only	params	-	-	write	Update an existing User Group.
 usergroups.users.list	documented	live-verified	params	-	-	-	List all users in a User Group.
 usergroups.users.update	documented	docs-only	params	-	-	write	Update the list of users for a user group.
@@ -2039,7 +2059,7 @@ users.list	documented	live-verified	params	-	-	-	Lists all users in a Slack team
 users.listIgnoredUsers	undocumented	existence-only (sample-checked)	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.listOutgoingInvites	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.lookupByEmail	documented	docs-only	params	-	-	-	Find a user with an email address.
-users.markAllRead	undocumented	existence-only	-	-	not-in-client	write	(inferred from name only; see methods/datamine-2026-09.md)
+users.markAllRead	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 users.permissions.apps	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: (void / no params)
 users.prefs.get	undocumented	live-verified	params	-	-	-	Fetch user's client preference blob
 users.prefs.set	undocumented	not-live-tested	params	-	-	write	Set client preferences
@@ -2047,7 +2067,7 @@ users.prefs.setNotifications	undocumented	existence-only	params	-	-	write	(infer
 users.preparePhoto	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.priority.add	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.priority.getRecommendations	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-users.priority.list	undocumented	live-verified	params	-	not-in-client	-	Ranked priority-contacts list
+users.priority.list	undocumented	live-verified	params	-	-	-	Ranked priority-contacts list
 users.priority.remove	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.profile.get	documented	docs-only	params	-	-	-	Retrieve a user's profile information, including their custom status.
 users.profile.getAdminSections	undocumented	existence-only	params	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -2078,8 +2098,8 @@ views.push	documented	docs-only	params	-	-	-	Push a view onto the stack of a roo
 views.submit	undocumented	live-verified	params	-	-	-	Submits an open modal as the user: view_id from the RTM view_opened event, state={"values":{block_id:{action_id:{type,value}}}}, fresh client_token.
 views.submitPreview	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 views.update	documented	docs-only	params	-	-	write	Update an existing view.
-visits.list	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-visits.record	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+visits.list	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+visits.record	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 wmp.blockPreviews.render	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 wmp.components.usages.list	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 wmp.contentLibrary.create	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -2138,11 +2158,11 @@ wmp.users.update	undocumented	existence-only	-	-	not-in-client	write	(from inter
 workObjects.editComment	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 workObjects.editEntity	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workObjects.getComments	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-workObjects.getEntity	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+workObjects.getEntity	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workObjects.postComment	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 workObjects.publishEntity	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.activity.export	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-workflows.activity.get	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+workflows.activity.get	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.activity.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.ai.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.ai.feedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -2165,12 +2185,12 @@ workflows.templates.collaborators.remove	undocumented	existence-only	-	observed	
 workflows.templates.create	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.delete	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.describe	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-workflows.templates.get	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+workflows.templates.get	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.templates.getAsDecoratedWorkflow	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.getBuiltinTemplate	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.templates.listAsDecoratedWorkflows	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-workflows.templates.listForUser	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+workflows.templates.listForUser	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 workflows.templates.localize	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.setStatus	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.templates.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -2188,6 +2208,6 @@ workflows.triggers.permissions.set	documented	docs-only	params	-	-	write	Set the
 workflows.triggers.prefs.get	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.triggers.preview	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.triggers.summarize	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-workflows.triggers.trip	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+workflows.triggers.trip	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.triggers.types.list	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 workflows.triggers.update	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
