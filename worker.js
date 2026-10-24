@@ -5,6 +5,13 @@ import { handleQuicklinks } from './quicklinks.js'
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
+    // sdmp.izie.top is the main address for the Slack datamine pages; the long name redirects to it, keeping the path and query string
+    if (url.hostname === 'slackdatamineplus.izie.top') {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: `https://sdmp.izie.top${url.pathname}${url.search}` },
+      })
+    }
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse
     if (url.hostname === 'izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
@@ -75,7 +82,7 @@ export default {
   }
 }
 
-// subdomains that serve another subdomain's files
+// subdomains that serve another subdomain's files (sdmp is the main address for the slackdatamineplus folder; the long hostname redirects to it, see the top of fetch)
 const SUBDOMAIN_ALIASES = { sdmp: 'slackdatamineplus' }
 
 // ReDocumented: make the docs easy for agents to fetch.
