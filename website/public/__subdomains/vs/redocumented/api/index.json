@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-24",
+ "generated": "2026-10-25",
  "counts": {
   "total": 2211,
   "documented": 323,
   "undocumented": 1888,
   "not_in_client": 392,
-  "params_observed": 441,
+  "params_observed": 443,
   "live_verified_undocumented": 23,
   "params_known": 726,
   "response_known": 673,
@@ -12486,7 +12486,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.canSee",
@@ -13091,7 +13091,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.importFromExternalURL",
