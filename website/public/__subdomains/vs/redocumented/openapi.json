@@ -2,7 +2,7 @@
  "openapi": "3.1.0",
  "info": {
   "title": "ReDocumented Slack Web API (params-known subset)",
-  "version": "2026-10-25",
+  "version": "2026-10-26",
   "description": "Generated from methods.json; only methods with params_known: true. Param types are loose strings. This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
  },
  "servers": [

@@ -1,5 +1,12 @@
 [
  {
+  "id": "https://slackdatamineplus.izie.top/#2026-10-26",
+  "date": "2026-10-26",
+  "base": "bad14a43cf8671be8617410f23cdff5f611fd327",
+  "title": "Slack client changes 2026-10-26 (build f41f506904ed)",
+  "html": "<p>8 changes since bad14a4.</p><details open><summary><strong>experiments: gone (1)</strong></summary><ul><li>− <code>at_menu_hide_external_bots</code></li></ul></details><details open><summary><strong>taut-presence: new (3)</strong></summary><ul><li>+ <code>    &quot;E26S:a7c3a361&quot;,</code></li><li>+ <code>    &quot;LpWf:41700c12&quot;,</code></li><li>+ <code>    &quot;LpWf:ee19b843&quot;</code></li></ul></details><details open><summary><strong>taut-presence: gone (4)</strong></summary><ul><li>− <code>    &quot;+eNx:1a50f7c4&quot;</code></li><li>− <code>    &quot;E26S:ae470e5f&quot;,</code></li><li>− <code>    &quot;LpWf:d0fd0342&quot;,</code></li><li>− <code>    &quot;LpWf:e9c151e8&quot;</code></li></ul></details>"
+ },
+ {
   "id": "https://slackdatamineplus.izie.top/#2026-10-25",
   "date": "2026-10-25",
   "base": "213441da73ea1f814ec9943d5ae6e77ef917335b",

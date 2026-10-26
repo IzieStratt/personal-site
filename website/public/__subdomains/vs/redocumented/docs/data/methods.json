@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25",
+ "generated": "2026-10-26",
  "counts": {
   "total": 2211,
   "documented": 323,
@@ -12598,7 +12598,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 17,
+     "sites": 18,
      "type": "unknown"
     },
     "hasError": {
@@ -12625,11 +12625,23 @@
      "sites": 2,
      "type": "unknown"
     },
+    "batchDeletedFiles": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "blocks": {
      "sites": 2,
      "type": "unknown"
     },
+    "count": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "fileId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "includeEvents": {
      "sites": 2,
      "type": "unknown"
     },
@@ -12661,23 +12673,15 @@
      "sites": 2,
      "type": "unknown"
     },
-    "acc": {
-     "sites": 1,
+    "start": {
+     "sites": 2,
      "type": "unknown"
     },
     "actionId": {
      "sites": 1,
      "type": "unknown"
     },
-    "batchDeletedFiles": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "count": {
      "sites": 1,
      "type": "unknown"
     },
@@ -12690,10 +12694,6 @@
      "type": "unknown"
     },
     "fields": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "include": {
      "sites": 1,
      "type": "unknown"
     },
@@ -12729,6 +12729,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "noPayloadIfHasMore": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "parentRecordId": {
      "sites": 1,
      "type": "unknown"
@@ -12738,10 +12742,6 @@
      "type": "unknown"
     },
     "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "start": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42596,7 +42596,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 13,
+     "sites": 11,
      "type": "unknown"
     },
     "channelId": {
@@ -42615,14 +42615,6 @@
      "sites": 3,
      "type": "unknown"
     },
-    "batchDeletedFiles": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "count": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "draft": {
      "sites": 2,
      "type": "unknown"
@@ -42639,19 +42631,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "includeEvents": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "isDisabled": {
      "sites": 2,
      "type": "unknown"
     },
     "skillFileId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "start": {
      "sites": 2,
      "type": "unknown"
     },
@@ -42710,10 +42694,6 @@
     "mode": {
      "sites": 1,
      "type": "string"
-    },
-    "noPayloadIfHasMore": {
-     "sites": 1,
-     "type": "unknown"
     },
     "numDaysTilDowngrade": {
      "sites": 1,
@@ -56762,7 +56742,7 @@
      "type": "unknown"
     },
     "reason": {
-     "sites": 11,
+     "sites": 12,
      "type": "unknown"
     },
     "latest": {
@@ -56833,13 +56813,29 @@
      "sites": 2,
      "type": "unknown"
     },
+    "acc": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "batchDeletedFiles": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "channelLastRead": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "count": {
      "sites": 1,
      "type": "unknown"
     },
     "extras": {
      "sites": 1,
      "type": "object"
+    },
+    "include": {
+     "sites": 1,
+     "type": "unknown"
     },
     "logger": {
      "sites": 1,
@@ -56850,6 +56846,10 @@
      "type": "unknown"
     },
     "position": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "start": {
      "sites": 1,
      "type": "unknown"
     },
@@ -75453,8 +75453,8 @@
   }
  },
  "datamine_latest_build": {
-  "build": "bc4b10c7287a",
-  "captured": "2026-10-25",
+  "build": "f41f506904ed",
+  "captured": "2026-10-26",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
 }
