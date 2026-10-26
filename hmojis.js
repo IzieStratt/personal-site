@@ -1725,6 +1725,9 @@ export async function handleHmoji(request, env, ctx, pathname) {
       response = await handlePluginAsset(env, 'plugin.js')
     } else if (rest === 'plugin.src.js') {
       response = await handlePluginAsset(env, 'plugin.src.js')
+    } else if (rest === 'slick.js') {
+      // The Slick build of the plugin, for Settings > Plugins > Install from URL.
+      response = await handlePluginAsset(env, 'slick.js')
     } else if (rest === 'review') {
       // Slack interactive-callback POST (form-encoded "payload"). Non-POST
       // requests already get NOT_FOUND from the handler.
