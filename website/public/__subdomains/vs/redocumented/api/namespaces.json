@@ -623,6 +623,10 @@
   "ai.alpha.sidekicks.testPrompt",
   "ai.alpha.sidekicks.update"
  ],
+ "ai.alpha.singer": [
+  "ai.alpha.singer.device",
+  "ai.alpha.singer.remoteResponse"
+ ],
  "ai.alpha.slackbot": [
   "ai.alpha.slackbot.createSlackbotInitiatedThread",
   "ai.alpha.slackbot.resolveVoiceToolApproval"
