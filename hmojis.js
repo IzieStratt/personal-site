@@ -342,11 +342,11 @@ async function readProof(env, channel, code, sinceMs) {
 
 /** Best-effort DM from the bot; needs chat:write, silently skipped without it. */
 /** DM from the bot. Returns null when sent, or why it wasn't. Never throws. */
-async function notifySlack(env, userId, text) {
+async function notifySlack(env, userId, text, blocks) {
   if (!userId) return 'no_recipient'
   if (!env.HMOJI_SLACK_BOT_TOKEN) return 'slack_not_configured'
   try {
-    await slackCall(env, 'chat.postMessage', { channel: userId, text })
+    await slackCall(env, 'chat.postMessage', { channel: userId, text, ...(blocks ? { blocks: JSON.stringify(blocks) } : {}) })
     return null
   } catch (err) {
     return err?.code ?? 'slack_error'
@@ -1043,12 +1043,9 @@ async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
     { expirationTtl: 7 * 86400 }
   )
   ctx.waitUntil(logEvent(env, fresh.id, 'device_request', attempt))
+  const deviceText = `hmojis: ${fresh.name} (<@${author}>) asked to add a second device (key ${ch.keyId.slice(0, 8)}, ip ${ci.ip}, AS${ci.asn ?? '?'}). Review: bun scripts/hmoji.ts requests`
   ctx.waitUntil(
-    notifySlack(
-      env,
-      sec.operatorSlackId,
-      `hmojis: ${fresh.name} (<@${author}>) asked to add a second device (key ${ch.keyId.slice(0, 8)}, ip ${ci.ip}, AS${ci.asn ?? '?'}). Review: bun scripts/hmoji.ts requests`
-    )
+    notifySlack(env, sec.operatorSlackId, deviceText, deviceRequestBlocks({ tid: fresh.id, name: fresh.name, owner: author, keyId: ch.keyId, ci }))
   )
   return json(200, { ok: true, status: 'awaiting_approval', keyId: ch.keyId })
 }
@@ -1418,13 +1415,15 @@ async function handleReviewImage(request, env, ctx, url, id) {
 }
 
 /** Slack interactive callback: /slack/hmojis/review (form field "payload"). */
-const VERB_LABEL = { yes: 'approving', no: 'declining', ban: 'banning', remove: 'removing' }
+const VERB_LABEL = { yes: 'approving', no: 'declining', ban: 'banning', remove: 'removing', approve: 'approving', deny: 'denying' }
 
 /** Opens a small confirmation dialog with the click's trigger_id; true only for a real click on our app. */
 async function proveClickWithTrigger(env, payload) {
   const trigger = payload?.trigger_id
   if (typeof trigger !== 'string' || !trigger || !env.HMOJI_SLACK_BOT_TOKEN) return false
-  const [, verb] = String(payload?.actions?.[0]?.value ?? '').split(':')
+  const actionId = String(payload?.actions?.[0]?.action_id ?? '')
+  const device = actionId.startsWith('hm_device:')
+  const verb = device ? actionId.slice('hm_device:'.length) : String(payload?.actions?.[0]?.value ?? '').split(':')[1]
   try {
     await slackCall(env, 'views.open', {
       trigger_id: trigger,
@@ -1437,7 +1436,7 @@ async function proveClickWithTrigger(env, payload) {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: `On it: ${VERB_LABEL[verb] ?? 'deciding'}. The card updates in a moment, with a note in its thread.`,
+              text: `On it: ${VERB_LABEL[verb] ?? 'deciding'}. The card updates in a moment${device ? '.' : ', with a note in its thread.'}`,
             },
           },
         ],
@@ -1447,6 +1446,133 @@ async function proveClickWithTrigger(env, payload) {
   } catch (err) {
     console.error('hmojis views.open refused the trigger:', err?.code)
     return false
+  }
+}
+
+const DEVICE_ACTIONS = new Set(['approve', 'deny'])
+const DEVICE_VALUE_RE = /^(t_[0-9a-f]{6,64}):([A-Za-z0-9_-]{8,64})$/
+const escapeMrkdwn = (value) => String(value ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])
+
+/** The "asked to add a second device" card, with the two decisions as buttons. */
+function deviceRequestBlocks({ tid, name, owner, keyId, ci }) {
+  const value = `${tid}:${keyId}`
+  const from = `${escapeMrkdwn(ci.ip)} · AS${escapeMrkdwn(ci.asn ?? '?')}${ci.country ? ` · ${escapeMrkdwn(ci.country)}` : ''}`
+  return [
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `*${escapeMrkdwn(name)}* (<@${owner}>) asked to add a second device` },
+    },
+    {
+      type: 'context',
+      elements: [
+        { type: 'mrkdwn', text: `key \`${escapeMrkdwn(keyId.slice(0, 8))}\`  ·  ${from}` },
+        { type: 'mrkdwn', text: escapeMrkdwn(String(ci.ua ?? '').slice(0, 120)) || 'unknown client' },
+      ],
+    },
+    {
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✅ Approve', emoji: true },
+          style: 'primary',
+          value,
+          action_id: 'hm_device:approve',
+          confirm: {
+            title: { type: 'plain_text', text: 'Add this device?' },
+            text: { type: 'plain_text', text: `${name} gets a second computer on their token.` },
+            confirm: { type: 'plain_text', text: 'Approve' },
+            deny: { type: 'plain_text', text: 'Cancel' },
+          },
+        },
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '❌ Deny', emoji: true },
+          style: 'danger',
+          value,
+          action_id: 'hm_device:deny',
+        },
+      ],
+    },
+  ]
+}
+
+/** Finds the token whose id is `tid` (records are keyed by token, which the card must not carry). */
+async function tokenForTid(env, tid) {
+  let cursor
+  do {
+    const page = await env.HMOJI_TOKENS.list({ limit: 1000, cursor })
+    for (const key of page.keys) {
+      if (TOKEN_RE.test(key.name) && (await tidOf(key.name)) === tid) return key.name
+    }
+    cursor = page.list_complete ? undefined : page.cursor
+  } while (cursor)
+  return null
+}
+
+/** Approve / Deny on a device-request card: the same decision as `approve` / `deny` in the CLI. */
+async function handleDeviceAction(env, ctx, payload, action) {
+  const verb = String(action.action_id).slice('hm_device:'.length)
+  const m = DEVICE_VALUE_RE.exec(String(action.value ?? ''))
+  if (!m || !DEVICE_ACTIONS.has(verb)) return new Response('ignored', { status: 200 })
+  const [, tid, keyId] = m
+  const sec = await getSecurity(env)
+  const actor = payload.user?.id
+  if (!actor || actor !== sec.operatorSlackId) {
+    ctx.waitUntil(logEvent(env, tid, 'device_nonoperator', { actor: actor ?? 'unknown', verb }))
+    return new Response('Only the operator can act on device requests', { status: 200 })
+  }
+  ctx.waitUntil(
+    decideDevice(env, ctx, { verb, tid, keyId, actor, channel: payload.channel?.id ?? payload.container?.channel_id, ts: payload.message?.ts ?? payload.container?.message_ts }).catch((err) =>
+      console.error('hmojis device decide failed', err?.stack ?? err)
+    )
+  )
+  return new Response('', { status: 200 })
+}
+
+async function decideDevice(env, ctx, { verb, tid, keyId, actor, channel, ts }) {
+  const reqKey = `~devreq:${tid}:${keyId}`
+  const raw = await env.HMOJI_TOKENS.get(reqKey)
+  let outcome
+  if (!raw) {
+    outcome = 'This request is no longer pending (already decided, or it expired).'
+  } else {
+    const req = JSON.parse(raw)
+    const label = `*${escapeMrkdwn(req.name)}* (<@${req.owner}>), key \`${escapeMrkdwn(keyId.slice(0, 8))}\``
+    if (verb === 'deny') {
+      await env.HMOJI_TOKENS.delete(reqKey)
+      await logEvent(env, tid, 'device_denied', { keyId, ip: req.ip, asn: req.asn, by: actor })
+      outcome = `❌ Denied ${label}, decided by <@${actor}>.`
+    } else {
+      const token = await tokenForTid(env, tid)
+      const rec = token ? await getRecord(env, token) : null
+      if (!rec || rec.status !== 'active') {
+        outcome = `⚠️ Not approved: ${label}. The token is not active.`
+      } else if (rec.slackUserId !== req.owner) {
+        outcome = `⚠️ Not approved: ${label}. The owner changed since the request.`
+      } else {
+        const devices = Array.isArray(rec.devices) ? [...rec.devices] : []
+        if (!devices.some((d) => d.keyId === keyId)) {
+          devices.push({ keyId, jwk: req.jwk, addedAt: Date.now(), ip: req.ip, asn: req.asn, approvedBy: 'operator' })
+        }
+        await putRecord(env, token, { ...rec, devices, everBound: true })
+        await env.HMOJI_TOKENS.delete(reqKey)
+        await logEvent(env, tid, 'device_approved', { keyId, ip: req.ip, asn: req.asn, by: actor })
+        outcome = `✅ Approved ${label}, decided by <@${actor}>. They now have ${devices.length} device${devices.length === 1 ? '' : 's'}; they restart Slack to pick it up.`
+      }
+    }
+  }
+  if (!channel || !ts) return
+  try {
+    // the card itself: buttons gone, outcome in their place
+    await slackCall(env, 'chat.update', {
+      channel,
+      ts,
+      blocks: JSON.stringify([{ type: 'section', text: { type: 'mrkdwn', text: outcome } }]),
+      text: outcome.replace(/[*`]/g, ''),
+    })
+  } catch (err) {
+    await logEvent(env, tid, 'device_card_update_failed', { keyId, error: err?.code })
   }
 }
 
@@ -1476,6 +1602,9 @@ async function handleReviewCallback(request, env, ctx, url) {
     return new Response('ignored', { status: 200 })
   }
   const action = Array.isArray(payload.actions) ? payload.actions[0] : null
+  if (typeof action?.action_id === 'string' && action.action_id.startsWith('hm_device:')) {
+    return handleDeviceAction(env, ctx, payload, action)
+  }
   const [id, verb] = String(action?.value ?? '').split(':')
   if (
     !action ||
