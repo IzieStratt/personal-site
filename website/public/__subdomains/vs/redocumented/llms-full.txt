@@ -1,9 +1,9 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,890 more; 392 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,891 more; 392 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
-> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 449 methods carry `params_observed` (real argument names seen
+> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 467 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
 
 ## Quick start for agents (pick the smallest thing that answers your question)
@@ -51,7 +51,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 726/2,213
+  Only trust `params`/`response` as real when those are `true` — 726/2,214
   methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS
@@ -138,13 +138,13 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,890 undocumented/cross-referenced = 2,213 total (392 not found in Slack's current web client) method names**
+documented + 1,891 undocumented/cross-referenced = 2,214 total (392 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,890 undocumented" as "1,890
+coverage caveats below before treating "1,891 undocumented" as "1,891
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
 only 23 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
@@ -152,8 +152,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,213 methods
-(32.8%) now have real, sourced, structured `params`; 673/2,213 (30.4%) have a
+existed, instead of leaving them as bare method names. **726/2,214 methods
+(32.8%) now have real, sourced, structured `params`; 673/2,214 (30.4%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -971,7 +971,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,890 undocumented methods = 2,213 total. 392 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 449 undocumented methods have observed, partial parameter names (see the same page). **726/2,213 (32.8%) have real, sourced, structured params** (not guessed) -- 673/2,213 (30.4%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+323 documented methods + 1,891 undocumented methods = 2,214 total. 392 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 467 undocumented methods have observed, partial parameter names (see the same page). **726/2,214 (32.8%) have real, sourced, structured params** (not guessed) -- 673/2,214 (30.4%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4073,7 +4073,7 @@ still `existence-only`.
 
 ## Sources
 
-- **`IzieStratt/slack-datamine-plus`** (this project's own miner, AGPL-3.0, runs from GitHub Actions every ~40 minutes): downloads the ~1,800 public JavaScript chunks of Slack's web client for the logged-in throwaway account's build, extracts API method names and the argument names used at call sites. It is listed in each entry's `source` as `IzieStratt/slack-datamine-plus (own miner)`; 1469 entries carry it.
+- **`IzieStratt/slack-datamine-plus`** (this project's own miner, AGPL-3.0, runs from GitHub Actions every ~40 minutes): downloads the ~1,800 public JavaScript chunks of Slack's web client for the logged-in throwaway account's build, extracts API method names and the argument names used at call sites. It is listed in each entry's `source` as `IzieStratt/slack-datamine-plus (own miner)`; 1470 entries carry it.
 - **`3kh0/slack-datamine`** (full git history, 2026-06-02 -> 2026-10-19): the earlier source for most undocumented names. Its recent builds only list ~250 methods because its chunk discovery broke around 2026-07-24 (see below); that is why this project built its own miner.
 
 ## "Not in the current client" (was called "removed")
@@ -4082,7 +4082,7 @@ still `existence-only`.
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **392** of 2213 methods carry the flag. Documented (official) methods never do.
+- Right now **392** of 2214 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.
@@ -4091,7 +4091,7 @@ The old field names `removed` / `removed_note` no longer exist.
 
 Slack's client declares its API calls as "fetchers", for example `(0,S.r)("slackbotProjectsCreateFetcher","slackbot.projects.create")`, and passes the arguments where the fetcher is called. The miner collects those argument names per method.
 
-- **449** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
+- **467** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
 - It is **not a schema**: it is stored separately and `params_known` stays `false`. The names are real (taken from Slack's own code) but the set is partial (spread arguments and values built elsewhere are invisible), nothing says which are required, types are mostly unknown, and camelCase names in the client may be snake_case on the wire. The explorer shows these as "observed (N)".
 - Methods the client calls through another mechanism, or from a chunk where the fetcher is imported under a different name, have none yet.
 
