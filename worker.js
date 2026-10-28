@@ -6,7 +6,10 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
     // sdmp.izie.top is the main address for the Slack datamine pages; the long name redirects to it, keeping the path and query string
-    if (url.hostname === 'slackdatamineplus.izie.top') {
+    // browsers fetch /favicon.ico unasked and refuse a favicon that redirects across origins, so the icon is served in place on both names
+    if (url.pathname === '/favicon.ico') url.pathname = '/favicon.svg'
+    const sharedPath = url.pathname === '/favicon.svg' || url.pathname.startsWith('/cdn/')
+    if (url.hostname === 'slackdatamineplus.izie.top' && !sharedPath) {
       return new Response(null, {
         status: 302,
         headers: { Location: `https://sdmp.izie.top${url.pathname}${url.search}` },
@@ -78,7 +81,7 @@ export default {
       return response
     }
 
-    return env.ASSETS.fetch(request)
+    return env.ASSETS.fetch(new Request(url, request))
   }
 }
 
