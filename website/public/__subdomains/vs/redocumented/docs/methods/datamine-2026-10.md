@@ -20,7 +20,7 @@ The old field names `removed` / `removed_note` no longer exist.
 
 Slack's client declares its API calls as "fetchers", for example `(0,S.r)("slackbotProjectsCreateFetcher","slackbot.projects.create")`, and passes the arguments where the fetcher is called. The miner collects those argument names per method.
 
-- **475** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
+- **476** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
 - It is **not a schema**: it is stored separately and `params_known` stays `false`. The names are real (taken from Slack's own code) but the set is partial (spread arguments and values built elsewhere are invisible), nothing says which are required, types are mostly unknown, and camelCase names in the client may be snake_case on the wire. The explorer shows these as "observed (N)".
 - Methods the client calls through another mechanism, or from a chunk where the fetcher is imported under a different name, have none yet.
 

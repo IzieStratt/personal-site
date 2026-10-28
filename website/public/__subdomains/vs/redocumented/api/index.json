@@ -5,7 +5,7 @@
   "documented": 323,
   "undocumented": 1897,
   "not_in_client": 393,
-  "params_observed": 475,
+  "params_observed": 476,
   "live_verified_undocumented": 23,
   "params_known": 726,
   "response_known": 673,
@@ -617,7 +617,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.apps.allowlistAutomation.rules.create",

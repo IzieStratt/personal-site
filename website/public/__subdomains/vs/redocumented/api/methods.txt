@@ -54,7 +54,7 @@ admin.analytics.messages.metadata	documented	docs-only	params	-	-	-	Retrieves me
 admin.analytics.slackbot.dashboard	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.activities.list	documented	docs-only	params	-	-	-	Get logs for a specified team/org
 admin.apps.allowlist.scopesRating.configure	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-admin.apps.allowlist.scopesRating.list	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+admin.apps.allowlist.scopesRating.list	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 admin.apps.allowlistAutomation.rules.create	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 admin.apps.allowlistAutomation.rules.delete	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 admin.apps.allowlistAutomation.rules.list	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
