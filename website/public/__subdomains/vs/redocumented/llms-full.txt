@@ -3513,6 +3513,18 @@ called for real unless marked otherwise.
   `<http://xkcd.com|xkcd.com>` (live, 2026-10-28), so Slack auto-links it. Sent `ts` came back unchanged as the attachment's `ts`.
 - **`conversations.history` shows custom-identity posts with a `username`** (the persona name) alongside the bot's `bot_id`; the text and
   attachments are returned as sent.
+- **`blocks` and `attachments` in one `chat.postMessage`** (xoxb, live 2026-10-28): both are accepted, and `blocks` render above the
+  attachment card. Passing `blocks` means Slack no longer adds its own `rich_text` block for `text`; `text` is then only the notification
+  fallback. A `section` with a `button` accessory that has a `url` and an `action_id` passed `blocks.validate` and posted. Use it to
+  keep a call to action (a podcast's Listen button) from being cut off under a long attachment `text`.
+- **Link buttons still send a click to the app.** A button with `url` opens the link in the client, but Slack also delivers a
+  `block_actions` payload for it, so the app should acknowledge it. Give the button a fixed `action_id` and register one no-op handler; with a
+  Bolt app and no handler the click is "unhandled" (the app returns a 404). We did not test how the client shows an unacknowledged click.
+- **Reading custom-identity posts back.** `conversations.history` returned each message's own `username` correctly with both a bot and a
+  user token (live, 2026-10-28). A reader that labels messages by `bot_id` can show them all under one name: the Slack MCP channel reader we
+  tried named every message from our bot after the oldest custom `username` in the page it read (6 messages -> the first name; the newest 3 ->
+  the oldest of those 3). The site owner's own Slack client showed the correct names, so this is the reader, not what Slack stores. Don't
+  trust a bot_id-keyed name when checking what a persona posted; read `username` per message.
 - **A pasted bare domain** (`blog.izie.top/feed.xml`) arrives with `text` as the
   bare text and a `rich_text` `link` element whose `url` is the full
   `https://…` and `truncated: true` (message event, pasted by the site owner).
