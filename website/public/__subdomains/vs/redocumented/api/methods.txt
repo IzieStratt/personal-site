@@ -70,7 +70,7 @@ admin.apps.clearResolution	documented	live-verified	params	-	-	write	Clear an ap
 admin.apps.config.lookup	documented	docs-only	params	-	-	-	Look up the app config for connectors by their IDs
 admin.apps.config.set	documented	docs-only	params	-	-	write	Set the app config for a connector
 admin.apps.domainWideAuth.addDomain	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-admin.apps.domainWideAuth.enable	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.apps.domainWideAuth.enable	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getAdminInstallUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getAuthorizeUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.list	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
@@ -370,7 +370,7 @@ ai.alpha.getChannelJoinReason	undocumented	existence-only	-	observed	-	-	(from i
 ai.alpha.internal.feedbackDatasets	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.replies.get	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.search.getNoResultsPrompts	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-ai.alpha.sidekicks.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.sidekicks.create	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.sidekicks.delete	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.sidekicks.getOrCreateMemoryCanvas	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.sidekicks.rewritePrompt	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -399,6 +399,7 @@ ai.alpha.slackbot.skillSets.removeFromLibrary	undocumented	existence-only	-	-	-	
 ai.alpha.slackbot.skills.activate	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.skills.addToLibrary	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skills.browse	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.slackbot.skills.canGrantAdminEditAccess	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.skills.createShareLink	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.slackbot.skills.deactivate	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.slackbot.skills.getAggregateMetrics	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -439,6 +440,7 @@ ai.alpha.summarize.profile	undocumented	datamine-only (not oracle-tested)	-	-	no
 ai.alpha.summarize.profileEnabled	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.summarize.thread	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.summarize.unreadsSnapshot	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+ai.alpha.surfaces.deleteVersion	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.surfaces.getContent	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.surfaces.getData	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.surfaces.getSourcesShared	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -718,6 +720,8 @@ client.codeChannels.browse	undocumented	datamine-only (not oracle-tested)	-	obse
 client.codeChannels.convertThread	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.create	undocumented	existence-only	-	observed	-	write	Code channels: client-side create ("New code channel"); inferred from name, see methods/code-channels.md.
 client.codeChannels.createAndStart	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.deleteComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.editComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getBlockKitView	undocumented	existence-only	-	-	-	-	Code channels: fetch the Block Kit view for a code channel (inferred from name); see methods/code-channels.md.
 client.codeChannels.getDiff	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getMergeStatus	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -738,6 +742,7 @@ client.gantryBoot	undocumented	existence-only	-	-	-	-	(inferred from name only; 
 client.getWebSocketURL	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 client.init	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 client.shouldReload	undocumented	partial	params	-	-	-	Client build-staleness check
+client.tbd.codeChannels.open	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.userBoot	undocumented	live-verified	params	-	-	-	Boot org-wide user/client state
 codeChannels.action	undocumented	existence-only	-	-	not-in-client	-	Code channels: perform an action in a code channel, e.g. PR actions (inferred from name; see methods/code-channels.md).
 codeChannels.createAndStart	undocumented	existence-only	-	-	not-in-client	write	Code channels: create a code channel and start its agent session in one call (inferred from name + client strings; see methods/code-channels.md).
@@ -1142,6 +1147,7 @@ files.canShare	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-r
 files.canUndelete	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.channelSettingsAllowDownloads	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.close	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.collections.bulkUpdate	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.collections.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.collections.delete	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 files.collections.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1192,7 +1198,7 @@ files.getUploadURLForFileStore	undocumented	existence-only	-	-	-	-	(from interna
 files.getViewerCounts	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.hasShares	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.ignorePermissionRequest	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.importFromExternalURL	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+files.importFromExternalURL	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.info	documented	docs-only	params	-	-	-	Gets information about a file.
 files.isAccessRequestedByUser	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.list	documented	docs-only	params	-	-	-	List files for a team, in a channel, or from a user with applied filters.
@@ -1520,7 +1526,7 @@ recordChannels.objectTypes.getDefaultVisibility	undocumented	existence-only	-	ob
 recordChannels.objectTypes.getEligibleRelatedObjects	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 recordChannels.objectTypes.getNamingFields	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 recordChannels.objectTypes.getRelatedLists	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-recordChannels.objectTypes.list	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+recordChannels.objectTypes.list	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 recordChannels.open	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 recordChannels.relatedConversations.list	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 recordChannels.requestAccess	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1546,7 +1552,7 @@ rooms.leave	undocumented	ambiguous (live 2026-09-26: feature_not_enabled for a b
 rooms.notifyMember	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rooms.request	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 rooms.sendHuddleInvite	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	write	(inferred from name only; webpack string, not oracle-tested)
-rooms.startTranscription	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+rooms.startTranscription	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rooms.stopTranscription	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rtm.connect	documented	docs + live-tested	params	-	-	-	Starts a Real Time Messaging session.
 rtm.start	documented	docs-only	params	-	-	-	Deprecated: Starts a Real Time Messaging session. Use rtm.connect instead.
@@ -1628,7 +1634,7 @@ search.modules.people	undocumented	existence-only	params	-	-	-	Modular people se
 search.modules.topResults	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.modules.triggers	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: module?: string; query?: string; page?: number; client_req_id?: string; browse_session_id?: string; extracts?: number; highlight?: number; extra_message_data?: number; no_user_profile?: number; count?: number; file_title_only?: boolean; query_rewrite_disabled?: boolean; include_files_shares?: number; browse?: string; search_context?: string; max_filter_suggestions?: number; sort?: string; sort_dir?: string; search_only_my_apps?: boolean; strict_exposure_rules?: number; trigger_types?: string;
 search.modules.workObjects	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-search.precache	undocumented	existence-only	params	-	-	-	Pre-warm search caches
+search.precache	undocumented	existence-only	params	-	not-in-client	-	Pre-warm search caches
 search.save	undocumented	not-live-tested	params	-	-	write	Save a search query
 search.saved.create	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 search.saved.delete	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1768,7 +1774,7 @@ sfdc.orgInfo	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-ref
 sfdc.provisionOrg	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 sfdc.records.changeOwner	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.records.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.records.delete	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+sfdc.records.delete	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.records.listRecent	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 sfdc.records.performQuickAction	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.records.undelete	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1863,7 +1869,7 @@ slackbot.projects.memoryUpdate	undocumented	datamine-only (not oracle-tested)	-	
 slackbot.projects.reportInfo	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 slackbot.projects.reportUpdate	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 slackbot.projects.threads.add	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
-slackbot.projects.threads.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+slackbot.projects.threads.list	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 slackbot.projects.threads.remove	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 slackbot.projects.threads.update	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 slackbot.projects.update	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
