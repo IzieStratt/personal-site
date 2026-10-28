@@ -82,3 +82,62 @@ one undocumented method (`chat.command`).
   `channel=U…` (bot token, `chat:write`) delivers to the bot's DM with that
   user, with no `conversations.open` step needed.
 
+## `chat.postMessage` as an RSS-style bot: identity, newer blocks, threads (documented method)
+
+Observed 2026-10-28 on the Hack Club workspace with a bot `xoxb` that has
+`chat:write`, `chat:write.customize` and `files:write`. Everything below was
+called for real unless marked otherwise.
+
+- **Custom name and icon.** `username` and `icon_url` were accepted on the
+  same call as `blocks`, and again on a **thread reply** (`thread_ts` set), so a
+  reply can look like it came from the same persona. We did not test a bot
+  without `chat:write.customize`, so what happens without it is unconfirmed.
+- **Newer blocks post fine as a bot.** A message with a `section` (button
+  `accessory`) and a `context` block, then a thread reply with a
+  `data_visualization` block (a `bar` chart with a negative series, and a
+  `line` chart), a `table` block and a `section`, all returned `ok:true`.
+  `conversations.replies` then listed the reply's blocks as
+  `['data_visualization', 'table', 'section']`. We did not check how they
+  render. Per the docs a message may hold at most 2 `data_visualization`
+  blocks, and `alert` blocks are modal-only (docs, not tested).
+- **`table` + `column_settings`.** The docs say to use `null` for a column
+  that should keep the defaults. `blocks.validate` rejects that:
+  `invalid_blocks`, `{"code":"invalid_type","message":"must provide an object","pointer":"/1/column_settings/0"}`.
+  An explicit object per column (`{"align": "left"}`, `{"align": "right"}`)
+  passed. A table cell used here was `{"type":"raw_text","text":"…"}`.
+- **Top-level `text` is still the notification fallback** when `blocks` are
+  present; send a short plain summary there.
+- **Escape feed text.** `&`, `<` and `>` in text you did not write must be
+  escaped (`&amp;`, `&lt;`, `&gt;`) or `<!channel>` / `<@U…>` in it will
+  notify people.
+- **Attachments with mrkdwn.** For legacy `attachments`, `text` is only parsed
+  as mrkdwn if the attachment lists it in `mrkdwn_in` (`["text"]`); the
+  `<url|label>` link syntax, `*bold*` and bullets then render.
+
+### `blocks.validate` (documented method)
+
+- **It needs no token.** Called with no `Authorization` header, it returned
+  `{"ok": true}` for valid blocks and the `invalid_blocks` shape above for
+  invalid ones (live, 2026-10-28). It also works with a bot token.
+- **Error shape.** `{"ok":false,"error":"invalid_blocks","errors":[{"code":…,"message":…,"pointer":"/1/column_settings/0"}]}`
+  — `pointer` is a JSON pointer into the `blocks` array you sent.
+- **Passes:** `section` with a `button` accessory, `context` with `mrkdwn`,
+  `table`, and `data_visualization` (`bar` and `line`) validated `ok:true`.
+- **Pass the array as `blocks=<json>`** (form-encoded). A whole message works
+  as `message=`, a modal/home view as `view=`, per the docs.
+
+### What Slack's own RSS app posts (source: a message event the site owner pasted, not an API call)
+
+- `subtype: "bot_message"` with the feed item title as `text`, the feed's name
+  as `username` (for example `xkcd.com`), `bot_id`, and an `edited` object stamped
+  about 2 seconds after `ts` (presumably Slack adding the unfurl; not confirmed).
+- `icons.image_36`, `image_48`, `image_72`: `https://a.slack-edge.com/…/img/services/rss_<size>.png`.
+- One `attachments` entry per item: `title`, `title_link`, `from_url`,
+  `original_url`, `fallback` (`"<feed>: <title>"`), `author_name`/`author_link`
+  (the feed's site), `service_icon`, `text` (here the xkcd alt text),
+  `image_url` with `image_width`/`image_height`/`image_bytes`, and
+  `media_type: "external_link"`. The `blocks` are a single `rich_text` link to
+  the item. That is the shape to copy for an RSS-like bot.
+- **A pasted bare domain** (`blog.izie.top/feed.xml`) arrives with `text` as the
+  bare text and a `rich_text` `link` element whose `url` is the full
+  `https://…` and `truncated: true` (message event, pasted by the site owner).
