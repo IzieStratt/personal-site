@@ -138,6 +138,16 @@ called for real unless marked otherwise.
   `image_url` with `image_width`/`image_height`/`image_bytes`, and
   `media_type: "external_link"`. The `blocks` are a single `rich_text` link to
   the item. That is the shape to copy for an RSS-like bot.
+- **Where the native bot's fields come from** (inferred by putting a native post next to the item's feed XML on 2026-10-28; not tested by
+  subscribing a feed): xkcd's item `description` is only
+  `<img src="…" title="…" alt="…">`, and the native post's `image_url` is that `src` while its `text` is
+  `[Title text] "<the img title>"`. So the bot reads the first `<img>` for the image and an image's `title` attribute for the text. For a feed
+  whose `description` is a whole HTML document (sdmp.izie.top before 2026-10-28), the post's text was the tags stripped with nothing
+  between list items (`…(6)+ ai.alpha.…`), so a plain-text `description` with its own separators reads far better, with the full markup
+  in `content:encoded` for readers.
+- **Legacy attachment fields accepted by `chat.postMessage`** (xoxb, live 2026-10-28, `ok:true`; rendering not inspected): `footer`,
+  `footer_icon` (we passed a site's `.ico` favicon, which may not render, since the docs list image types), `ts` (shown beside the
+  footer), `author_name`/`author_link`, `color`, `title_link`, `from_url`, `image_url`, and `mrkdwn_in: ["text"]`.
 - **A pasted bare domain** (`blog.izie.top/feed.xml`) arrives with `text` as the
   bare text and a `rich_text` `link` element whose `url` is the full
   `https://…` and `truncated: true` (message event, pasted by the site owner).
