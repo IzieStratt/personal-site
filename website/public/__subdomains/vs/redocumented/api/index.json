@@ -6672,7 +6672,7 @@
   {
    "name": "blocks.validate",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -7585,7 +7585,7 @@
   {
    "name": "chat.postMessage",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,
@@ -12744,7 +12744,7 @@
   {
    "name": "files.completeUploadExternal",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -13140,7 +13140,7 @@
   {
    "name": "files.getUploadURLExternal",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs + live-tested",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -13448,7 +13448,7 @@
   {
    "name": "files.sharedPublicURL",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "docs-only (live-tested 2026-10-23, not_allowed_token_type with a bot xoxb; missing_scope with the workspace user token)",
    "params_known": true,
    "response_known": true,
    "write_shaped": true,

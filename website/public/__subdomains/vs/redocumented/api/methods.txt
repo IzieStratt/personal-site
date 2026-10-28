@@ -605,7 +605,7 @@ blocks.format	undocumented	existence-only	params	-	-	-	(from internal-canvas cro
 blocks.length	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 blocks.page.getContent	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 blocks.suggestions	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-blocks.validate	documented	docs-only	params	-	-	-	Validates blocks, messages, and views Block Kit JSON payloads.
+blocks.validate	documented	docs + live-tested	params	-	-	-	Validates blocks, messages, and views Block Kit JSON payloads.
 bookmarks.add	documented	docs-only	params	-	-	write	Add bookmark to a channel.
 bookmarks.edit	documented	docs-only	params	-	-	write	Edit bookmark.
 bookmarks.list	undocumented	partial	params	-	-	-	List channel bookmarks (also may be official)
@@ -688,7 +688,7 @@ chat.editedFileForeground	undocumented	datamine-only (not oracle-tested)	-	-	not
 chat.getPermalink	documented	docs-only	params	-	-	-	Retrieve a permalink URL for a specific extant message
 chat.meMessage	documented	docs-only	params	-	-	-	Share a me message into a channel.
 chat.postEphemeral	documented	docs-only	params	-	-	write	Sends an ephemeral message to a user in a channel.
-chat.postMessage	documented	docs-only	params	-	-	write	Sends a message to a channel.
+chat.postMessage	documented	docs + live-tested	params	-	-	write	Sends a message to a channel.
 chat.refreshUnfurl	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 chat.removeFile	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 chat.removeUnfurlLink	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1157,7 +1157,7 @@ files.collections.sortFiles	undocumented	datamine-only (not oracle-tested)	-	-	n
 files.collections.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.comments.delete	documented	docs-only	params	-	-	write	Deletes an existing comment on a file.
 files.completeUpload	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.completeUploadExternal	documented	docs-only	params	-	-	-	Finishes an upload started with files.getUploadURLExternal
+files.completeUploadExternal	documented	docs + live-tested	params	-	-	-	Finishes an upload started with files.getUploadURLExternal
 files.completeUploadForFileStore	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.createCanvas	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.createExternal	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1193,7 +1193,7 @@ files.getOverview	undocumented	existence-only	params	-	-	-	(from internal-canvas
 files.getProviderPreviewUrlForFileStore	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getShares	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getUploadURL	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-files.getUploadURLExternal	documented	docs-only	params	-	-	-	Gets a URL for an edge external file upload
+files.getUploadURLExternal	documented	docs + live-tested	params	-	-	-	Gets a URL for an edge external file upload
 files.getUploadURLForFileStore	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.getViewerCounts	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 files.hasShares	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1221,7 +1221,7 @@ files.revokePermission	undocumented	existence-only	params	-	-	write	(from intern
 files.revokePublicURL	documented	docs-only	params	-	-	write	Revokes public/external sharing access for a file
 files.setExcludeFromSlackAi	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 files.share	undocumented	not-live-tested	params	-	-	write	Share an already-uploaded file into a channel
-files.sharedPublicURL	documented	docs-only	params	-	-	write	Enables a file for public/external sharing.
+files.sharedPublicURL	documented	docs-only (live-tested 2026-10-23, not_allowed_token_type with a bot xoxb; missing_scope with the workspace user token)	params	-	-	write	Enables a file for public/external sharing.
 files.slack.com	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 files.suggestions.list	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 files.undelete	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

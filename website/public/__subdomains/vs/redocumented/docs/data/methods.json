@@ -18557,8 +18557,8 @@
   {
    "name": "blocks.validate",
    "status": "documented",
-   "tokens": "per official docs",
-   "verified": "docs-only",
+   "tokens": "Live-tested 2026-10-28: needs no token (ok:true / invalid_blocks with no Authorization header), also works with a bot xoxb. table column_settings with null entries is rejected (invalid_type \"must provide an object\") despite the docs; data_visualization, table, section and context blocks validated. See methods/chat.md.",
+   "verified": "docs + live-tested",
    "purpose": "Validates blocks, messages, and views Block Kit JSON payloads.",
    "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
    "params": {
@@ -20982,8 +20982,8 @@
   {
    "name": "chat.postMessage",
    "status": "documented",
-   "tokens": "per official docs",
-   "verified": "docs-only",
+   "tokens": "Live-tested 2026-10-28 with a bot xoxb (chat:write, chat:write.customize): username + icon_url + blocks accepted, including on a thread_ts reply; section accessory button, context, table and data_visualization (bar, line) blocks posted ok. See methods/chat.md.",
+   "verified": "docs + live-tested",
    "purpose": "Sends a message to a channel.",
    "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
    "params": {
@@ -37020,8 +37020,8 @@
   {
    "name": "files.completeUploadExternal",
    "status": "documented",
-   "tokens": "per official docs",
-   "verified": "docs-only",
+   "tokens": "Live-tested 2026-10-23 with a bot xoxb (files:write): ok:true with just files:[{id,title}] and no channel_id; the file stays unshared (channels: [], is_public: false). See methods/files.md.",
+   "verified": "docs + live-tested",
    "purpose": "Finishes an upload started with files.getUploadURLExternal",
    "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
    "params": {
@@ -38394,8 +38394,8 @@
   {
    "name": "files.getUploadURLExternal",
    "status": "documented",
-   "tokens": "per official docs",
-   "verified": "docs-only",
+   "tokens": "Live-tested 2026-10-23 with a bot xoxb (files:write): ok:true. See methods/files.md.",
+   "verified": "docs + live-tested",
    "purpose": "Gets a URL for an edge external file upload",
    "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
    "params": {
@@ -39744,8 +39744,8 @@
   {
    "name": "files.sharedPublicURL",
    "status": "documented",
-   "tokens": "per official docs",
-   "verified": "docs-only",
+   "tokens": "Live-tested 2026-10-23: a bot xoxb returned not_allowed_token_type, the workspace's configured user token returned missing_scope (needed/provided not captured). The web client's \"Copy public link\" does work; its URL https://slack-files.com/T…-F…-<secret> is an HTML viewer page, and the raw image is files.slack.com/files-pri/T…-F…/<name>?pub_secret=<secret> (no auth). See methods/files.md.",
+   "verified": "docs-only (live-tested 2026-10-23, not_allowed_token_type with a bot xoxb; missing_scope with the workspace user token)",
    "purpose": "Enables a file for public/external sharing.",
    "source": "docs.slack.dev / slack-ruby/slack-api-ref mirror",
    "params": {

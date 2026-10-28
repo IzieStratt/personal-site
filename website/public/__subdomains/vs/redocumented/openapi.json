@@ -8684,11 +8684,11 @@
    "post": {
     "operationId": "blocks.validate",
     "summary": "Validates blocks, messages, and views Block Kit JSON payloads.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/blocks.validate.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/blocks.validate.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -10154,11 +10154,11 @@
    "post": {
     "operationId": "chat.postMessage",
     "summary": "Sends a message to a channel.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/chat.postMessage.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/chat.postMessage.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
@@ -16161,11 +16161,11 @@
    "post": {
     "operationId": "files.completeUploadExternal",
     "summary": "Finishes an upload started with files.getUploadURLExternal",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.completeUploadExternal.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.completeUploadExternal.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -16671,11 +16671,11 @@
    "post": {
     "operationId": "files.getUploadURLExternal",
     "summary": "Gets a URL for an edge external file upload",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.getUploadURLExternal.md",
+    "description": "status: documented; verified: docs + live-tested; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.getUploadURLExternal.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs + live-tested",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -17384,11 +17384,11 @@
    "post": {
     "operationId": "files.sharedPublicURL",
     "summary": "Enables a file for public/external sharing.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.sharedPublicURL.md",
+    "description": "status: documented; verified: docs-only (live-tested 2026-10-23, not_allowed_token_type with a bot xoxb; missing_scope with the workspace user token); params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.sharedPublicURL.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "docs-only (live-tested 2026-10-23, not_allowed_token_type with a bot xoxb; missing_scope with the workspace user token)",
     "x-write-shaped": true,
     "requestBody": {
      "content": {
