@@ -3526,6 +3526,18 @@ called for real unless marked otherwise.
   `<!date^…|fallback>` token), `width: "wide"`, an `icon` image, and `child_blocks` of `section`, `image`, `context` and `actions` were all
   accepted. This is the block `ingoau/huddlefm` builds its player message from (`src/coordinator.ts`). Not tested: the `card` block (docs: up
   to 3 buttons, `danger` left, `primary`/default right) and `carousel`. An icon URL ending in `.ico` is a poor bet; stick to png/jpg/gif.
+- **`carousel` and `card` blocks in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok): a `carousel`
+  takes 1 to 10 `card` blocks. A `card` accepted a `plain_text` `title`, a `mrkdwn` `subtitle` (with a `<!date^…|…>` token), a `hero_image`
+  (`image` element), a `mrkdwn` `body` (docs: 200 chars) and `actions` buttons (docs: up to 3). Button `action_id`s must be unique across the
+  whole message, so number them per card. We use one carousel when a feed has several new items at once.
+- **`data_table` block in a message** (docs read 2026-10-28, a message with it validated and posted; the same limits as `table` but richer): the
+  first row is the header, every row needs the same number of cells, header cells need non-empty text (an empty header cell is rejected with
+  `must be more than 0 characters`), `caption` is required, `page_size` 1-100, up to 200 body rows and 20 columns. A cell can be `raw_text`,
+  `raw_number`, `rich_text` (not in the header) or an `action_cell` holding a `button` with an optional `fallback` cell for clients without
+  action cells. Per the docs the buttons are disabled in a shared or copied message, and a `data_table` can't sit inside a `container`.
+- **Mobile.** Slack's blog post on the new blocks (slack.dev/build-richer-agent-experiences-with-block-kit) says they render natively on web,
+  desktop, iOS and Android and lists Card, Alert and Carousel as available and Data Table as "coming soon"; neither it nor the block docs
+  give a per-client matrix or say what an unsupported client shows. We have not tested a phone. Always send a useful top-level `text`.
 - **Link buttons still send a click to the app.** A button with `url` opens the link in the client, but Slack also delivers a
   `block_actions` payload for it, so the app should acknowledge it. Give the button a fixed `action_id` and register one no-op handler; with a
   Bolt app and no handler the click is "unhandled" (the app returns a 404). We did not test how the client shows an unacknowledged click.
