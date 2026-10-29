@@ -169,8 +169,7 @@ called for real unless marked otherwise.
 - **The `container` block works in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok, and
   `conversations.history` returns it as `blocks[0].type == "container"`): `title` (plain_text, 150), `subtitle` (we sent `mrkdwn`, including a
   `<!date^…|fallback>` token), `width: "wide"`, an `icon` image, and `child_blocks` of `section`, `image`, `context` and `actions` were all
-  accepted. This is the block `ingoau/huddlefm` builds its player message from (`src/coordinator.ts`). Not tested: the `card` block (docs: up
-  to 3 buttons, `danger` left, `primary`/default right) and `carousel`. An icon URL ending in `.ico` is a poor bet; stick to png/jpg/gif.
+  accepted. This is the block `ingoau/huddlefm` builds its player message from (`src/coordinator.ts`). Card and carousel are covered in the next bullet. An icon URL ending in `.ico` is a poor bet; stick to png/jpg/gif.
 - **`carousel` and `card` blocks in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok): a `carousel`
   takes 1 to 10 `card` blocks. A `card` accepted a `plain_text` `title`, a `mrkdwn` `subtitle` (with a `<!date^…|…>` token), a `hero_image`
   (`image` element), a `mrkdwn` `body` (docs: 200 chars) and `actions` buttons (docs: up to 3). Button `action_id`s must be unique across the
