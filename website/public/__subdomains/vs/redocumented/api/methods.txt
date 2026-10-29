@@ -356,7 +356,7 @@ ai.alpha.canvas.getTopicSuggestions	undocumented	existence-only (sample-checked)
 ai.alpha.canvas.refineContent	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.canvas.resolveDraft	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.canvas.reviseContentWithSources	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-ai.alpha.canvases.drafts.view	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.canvases.drafts.view	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.digest.addToDigest	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 ai.alpha.digest.info	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 ai.alpha.digest.list	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -734,6 +734,7 @@ client.codeChannels.join	undocumented	existence-only	-	-	-	write	Code channels: 
 client.codeChannels.listSupportedApps	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.mergePullRequest	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.requestReviewers	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.setReviewThreadResolved	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.submitReview	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.counts	undocumented	live-verified	params	-	-	-	Unread/mention counts
 client.dms	undocumented	existence-only	params	-	-	-	DM history filters (Edge-style sync)
@@ -743,7 +744,7 @@ client.getWebSocketURL	undocumented	existence-only	params	-	-	-	(from internal-c
 client.init	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 client.shouldReload	undocumented	partial	params	-	-	-	Client build-staleness check
 client.tbd.codeChannels.open	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-client.userBoot	undocumented	live-verified	params	-	-	-	Boot org-wide user/client state
+client.userBoot	undocumented	live-verified	params	-	not-in-client	-	Boot org-wide user/client state
 codeChannels.action	undocumented	existence-only	-	-	not-in-client	-	Code channels: perform an action in a code channel, e.g. PR actions (inferred from name; see methods/code-channels.md).
 codeChannels.createAndStart	undocumented	existence-only	-	-	not-in-client	write	Code channels: create a code channel and start its agent session in one call (inferred from name + client strings; see methods/code-channels.md).
 codeChannels.getDiff	undocumented	existence-only	-	-	not-in-client	-	Code channels: fetch the diff shown in a code channel (inferred from name + client strings; see methods/code-channels.md).
@@ -1398,6 +1399,7 @@ meetings.transcribeChunk	undocumented	existence-only	-	-	-	-	(from internal-canv
 meetings.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 meetings.usersetdata	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 megaphone.executeEvent	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+megaphone.journeys.dismiss	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 megaphone.notifications.list	undocumented	partial	params	-	-	-	"What's new" announcement notifications
 megaphone.setNotificationAsSeen	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 megaphone.visualizer.notifications.get	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

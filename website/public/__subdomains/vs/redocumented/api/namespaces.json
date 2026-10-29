@@ -1198,6 +1198,7 @@
   "client.codeChannels.listSupportedApps",
   "client.codeChannels.mergePullRequest",
   "client.codeChannels.requestReviewers",
+  "client.codeChannels.setReviewThreadResolved",
   "client.codeChannels.submitReview"
  ],
  "client.tbd.codeChannels": [
@@ -2215,6 +2216,9 @@
  "megaphone": [
   "megaphone.executeEvent",
   "megaphone.setNotificationAsSeen"
+ ],
+ "megaphone.journeys": [
+  "megaphone.journeys.dismiss"
  ],
  "megaphone.notifications": [
   "megaphone.notifications.list"
