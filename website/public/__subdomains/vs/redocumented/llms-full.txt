@@ -3517,6 +3517,15 @@ called for real unless marked otherwise.
   attachment card. Passing `blocks` means Slack no longer adds its own `rich_text` block for `text`; `text` is then only the notification
   fallback. A `section` with a `button` accessory that has a `url` and an `action_id` passed `blocks.validate` and posted. Use it to
   keep a call to action (a podcast's Listen button) from being cut off under a long attachment `text`.
+- **Where a button ends up** (observed 2026-10-28 in the site owner's client): a `section` block's `accessory` button is drawn on the **right** of
+  its text, and blocks are drawn **above** a message's `attachments`, so a button put in `blocks` next to an attachment card sits at the
+  very top of the message. Buttons in an `actions` block are drawn at the **left**, under the content above them. To get a card with the
+  button at the bottom left, build the whole card from blocks and drop the attachment.
+- **The `container` block works in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok, and
+  `conversations.history` returns it as `blocks[0].type == "container"`): `title` (plain_text, 150), `subtitle` (we sent `mrkdwn`, including a
+  `<!date^…|fallback>` token), `width: "wide"`, an `icon` image, and `child_blocks` of `section`, `image`, `context` and `actions` were all
+  accepted. This is the block `ingoau/huddlefm` builds its player message from (`src/coordinator.ts`). Not tested: the `card` block (docs: up
+  to 3 buttons, `danger` left, `primary`/default right) and `carousel`. An icon URL ending in `.ico` is a poor bet; stick to png/jpg/gif.
 - **Link buttons still send a click to the app.** A button with `url` opens the link in the client, but Slack also delivers a
   `block_actions` payload for it, so the app should acknowledge it. Give the button a fixed `action_id` and register one no-op handler; with a
   Bolt app and no handler the click is "unhandled" (the app returns a 404). We did not test how the client shows an unacknowledged click.
