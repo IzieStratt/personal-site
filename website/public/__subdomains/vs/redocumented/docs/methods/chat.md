@@ -179,6 +179,12 @@ called for real unless marked otherwise.
   `must be more than 0 characters`), `caption` is required, `page_size` 1-100, up to 200 body rows and 20 columns. A cell can be `raw_text`,
   `raw_number`, `rich_text` (not in the header) or an `action_cell` holding a `button` with an optional `fallback` cell for clients without
   action cells. Per the docs the buttons are disabled in a shared or copied message, and a `data_table` can't sit inside a `container`.
+- **`data_table` with button cells, as built and validated by us** (live 2026-10-28, `blocks.validate` `ok:true` for the channel-scoped and the
+  all-channels versions, and a message with one posted ok): header cells as `raw_text`; a number column as `raw_number` with `value` and `text`;
+  a link as a `rich_text` cell containing a `link` element; a channel as a `rich_text` cell containing a `channel` element
+  (`{"type":"channel","channel_id":"C…"}`); and a button as an `action_cell` with `element` (a `button` with `action_id` and `value`) and a
+  `fallback` `raw_text` cell. We put the row's id in the button `value` and its verb in the `action_id`
+  (`feed_pause_3`), then answer the click with one `app.action` regex handler. A click arrives as a normal `block_actions` payload.
 - **Mobile.** Slack's blog post on the new blocks (slack.dev/build-richer-agent-experiences-with-block-kit) says they render natively on web,
   desktop, iOS and Android and lists Card, Alert and Carousel as available and Data Table as "coming soon"; neither it nor the block docs
   give a per-client matrix or say what an unsupported client shows. We have not tested a phone. Always send a useful top-level `text`.
