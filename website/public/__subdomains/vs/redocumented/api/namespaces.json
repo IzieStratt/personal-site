@@ -1192,6 +1192,7 @@
   "client.codeChannels.getPrWorkObject",
   "client.codeChannels.getPullRequest",
   "client.codeChannels.getPullRequestConnection",
+  "client.codeChannels.getPullRequestSummary",
   "client.codeChannels.getSummary",
   "client.codeChannels.getView",
   "client.codeChannels.join",
