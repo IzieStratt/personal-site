@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Hole.io</title>
+	<meta name="description" content="Play Hole.io online for free! Dive into the ultimate multiplayer black hole game. Consume objects, grow your hole, dominate the leaderboard, and challenge players worldwide. No downloads needed – play now!" />
+	<meta name="keywords" content="Hole.io, play Hole.io, online multiplayer games, black hole game, browser games" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta property="og:image" content="images/hole-share.jpg">	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="https://holeio.com">
+	<meta name="twitter:title" content="Hole.io">
+	<meta name="twitter:description" content="Absorb everyone into your black hole in the new game - Hole.io! Play for free online.">
+	<meta name="twitter:image:src" content="https://holeio.com/images/hole-share.jpg">
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="stylesheet" href="TemplateData/style64.css%3Fv1.css">
+	<link rel="stylesheet" href="libs/tingle.min.css">
+	<link rel="preload" href="TemplateData/roadbg.jpg" as="image">
+	<script>(function(){var open=XMLHttpRequest.prototype.open;var remote={"antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle":"https://raw.githubusercontent.com/IzieStratt/holeio-assets/main/antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle"};XMLHttpRequest.prototype.open=function(m,u){var s=String(u);for(var k in remote){if(s.indexOf(k)>=0){u=remote[k];break;}}return open.apply(this,[m,u].concat([].slice.call(arguments,2)));};})();</script>
+	<script type="text/javascript"> var CONFIG = {}; CONFIG.BuildPath = "b/4"</script>
+	<script src="TemplateData/UnityProgress.js%3Fv1"></script>
+	<script src="b/4/gameWebGL.js" async></script>
+</head>
+
+<body>
+
+	<div class="webgl-content">
+		<canvas id="gameContainer"></canvas>
+		<div id="bg"></div>
+		<div id="loadingBox">
+          <div id="loadingInfo">Loading...</div><div id="loadingPercent"></div>
+          <div id="bgBar"></div>
+          <div id="progressBar"></div>
+          <img id="spinner" class="rotate" src="TemplateData/loading_rotate_white.png"/>  
+        </div>
+		<div id="links">
+			<ul>
+				<li><a onclick="showAboutGameModal();" href="index.html#popup-about">About Game</a></li>
+</li>
+			</ul>
+		</div>
+		<div id="leaderboard">
+			<div id="fullBoardScore">
+				<h2 class="leaderboardHeading">Today's top scores:</h2>
+				<table id="scoreBoard" cellpadding="0" cellspacing="0">
+					<tbody id="boardScore">
+					</tbody>
+				</table>
+			</div>
+			<div id="fullBoardKills">
+				<h2 class="leaderboardHeading">Today's top killers:</h2>
+				<table id="killBoard" cellpadding="0" cellspacing="0">
+					<tbody id="boardKills">
+					</tbody>
+				</table>
+			</div>
+			<div id="switchBoard">
+				<a id="switchLeaderbBtn" onclick="window.switchLeaderboard();"  href="index.html#">Switch</a>
+			</div>
+		</div>
+
+		<div id="banner">
+</script>
+		</div>
+
+		<div id="popup-about">
+			<h1>Play Hole.io Online – Free Multiplayer Game</h1>
+			<p>Welcome to <strong>Hole.io</strong>, the thrilling multiplayer game where you become a powerful black hole and compete to swallow the city! Dive into this fun, fast-paced world and challenge players worldwide in a quest to grow your black hole and dominate the leaderboard.</p>
+			<h2>What Is Hole.io?</h2>
+			<p><strong>Hole.io</strong> is an addictive online game that blends strategy, action, and competition. Players start as small black holes and must consume objects, cars, buildings, and even opponents to grow larger. With simple controls, dynamic gameplay, and intense multiplayer battles, Hole.io offers endless entertainment.</p>
+			<h3>Key Features of Hole.io:</h3>
+            <ul>
+                <li><strong>Exciting Multiplayer Mode:</strong> Compete against real players from around the world.</li>
+                <li><strong>Dynamic Maps:</strong> Explore diverse maps filled with unique challenges and opportunities.</li>
+                <li><strong>Easy to Play, Hard to Master:</strong> Simple controls make it accessible for everyone, while strategy and timing are key to victory.</li>
+                <li><strong>Leaderboard Challenges:</strong> Rise to the top and showcase your skills in global rankings.</li>
+                <li><strong>Play Anytime, Anywhere:</strong> No downloads needed – play directly in your browser.</li>
+            </ul>
+            <h2>How to Play Hole.io Online</h2>
+            <ol>
+                <li>Start small and navigate through the city.</li>
+                <li>Consume smaller objects to grow your black hole.</li>
+                <li>Strategize to outsmart opponents and devour them before they get you.</li>
+                <li>The bigger your hole, the more powerful you become!</li>
+                <li>Win by growing the largest black hole within the time limit.</li>
+            </ol>
+            <h2>Why Choose Hole.io?</h2>
+            <ul>
+                <li><strong>Free to Play:</strong> Enjoy unlimited access to the game without any hidden costs.</li>
+                <li><strong>No Downloads Required:</strong> Play instantly on your browser without wasting time.</li>
+                <li><strong>Global Community:</strong> Join millions of players worldwide in this addictive game.</li>
+                <li><strong>Constant Updates:</strong> Experience new maps, features, and challenges regularly.</li>
+            </ul>
+			<h2>Tips & Tricks for Winning Hole.io</h2>
+            <ul>
+                <li>Focus on smaller objects at the start to grow quickly.</li>
+                <li>Avoid larger opponents until you’re big enough to compete.</li>
+                <li>Use the map strategically to corner other players.</li>
+                <li>Timing is everything – plan your moves carefully to stay ahead of the competition.</li>
+            </ul>
+            <h2>Start Playing Hole.io Now!</h2>
+            <p>Ready to conquer the city and become the ultimate black hole? Click the <a href="index.html" title="Play Hole.io Now">Play Now</a> button and jump into the action! Whether you’re here to unwind, challenge friends, or climb the global leaderboard, Hole.io guarantees hours of fun and excitement.</p>
+			<p><img style="float: center; margin-right: 10px; margin-top: 3px;" width="150" src="images/hole-io.png" alt="Hole.io" /></p>
+		</div>
+
+		
+	</div>
+
+	
+
+	<script type="text/javascript">
+console.log('v25');
+window.player_id = 1072122198;
+
+var ldr = document.getElementById('leaderboard'); //ACASE
+ldr.style.display = 'none';
+
+
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}		var ResizeCompleted = 0;
+		function resize() {
+			//if( inIframe && (ResizeCompleted == 1) ) return;
+			var gc = document.getElementById("gameContainer");
+			var h = document.documentElement.clientHeight - 3;
+			gc.style.height = h + "px";
+			gc.style.position = "relative";
+			if( inIframe() )
+			{
+				var ldr = document.getElementById('leaderboard');
+				ldr.style.right = '15px';
+				ldr.style.width = '220px';
+				//var lnks = document.getElementById('links');
+				//lnks.style.right='10px';
+				console.log('resize in iframe');
+			}
+			//ResizeCompleted = 1;
+		}
+		resize();
+		window.onresize = function () {
+			//resize();
+		};
+	</script>
+	<script>
+		window.HasAdBlock = false;
+	</script>
+	<script src="libs/jquery-3.3.1.min.js"></script>
+	<script src="libs/tingle.min.js"></script>
+	<script>
+		window.gameLoaded = function () {
+			window.sendMessageToUnity("{\"eventName\": \"setBundlesPath\",\"data\": {\"path\": \"" + CONFIG.BuildPath +"\"}}");
+			void 0;
+		}
+
+        window.showAdsBanner = function (show) {
+            if (show) {
+                void 0;
+            } else {
+                void 0;
+            }
+        }
+        
+        window.onGamePlayPressed = function (showPreroll) {
+                void 0;
+			$("#shares").hide();
+			$("#links").hide();
+			$("#leaderboard").hide();
+			$("#ideaBlock").hide();
+			$("#banner").hide();
+			$("#rl1").hide();
+			$("#rl2").hide();
+			window.sendMessageToUnity("{\"eventName\": \"adsComplete\",\"data\": {\"allow\": \"true\"}}");
+		}
+		
+		window.gameStart = function () {
+		}
+
+		window.gameOverParent = function () {
+			void 0;
+			$("#shares").show();
+			$("#links").show();
+			//$("#leaderboard").show(); //ACASE
+			$("#ideaBlock").show();
+			$("#banner").show();
+			$("#rl1").show();
+			$("#rl2").show();
+			//GameAdsRenew("banner");
+		}
+		
+		window.mapsOpen = function(){   
+			void 0;
+			$("#shares").hide();
+			$("#links").hide();
+			$("#leaderboard").hide();
+			$("#ideaBlock").hide();
+			$("#banner").hide();
+			$("#rl1").hide();
+			$("#rl2").hide();
+		}
+		
+		window.mapsClose = function(){
+			void 0;
+			$("#shares").show();
+			$("#links").show();
+			//$("#leaderboard").show(); //ACASE
+			$("#ideaBlock").show();
+			$("#banner").show();
+			$("#rl1").show();
+			$("#rl2").show();
+		}
+
+		function showAboutGameModal() {
+			var modal = new tingle.modal({
+				footer: false,
+				stickyFooter: false,
+				closeMethods: ['overlay', 'button', 'escape'],
+				closeLabel: "Close",
+				cssClass: ['custom-class-1', 'custom-class-2'],
+				onOpen: function () {
+					console.log('modal open');
+				},
+				onClose: function () {
+					console.log('modal closed');
+				},
+				beforeClose: function () {
+					return true;
+				}
+			});
+			modal.setContent($("#popup-about").html());
+			modal.open();
+		}
+		function showHowToPlayModal() {
+			var modal = new tingle.modal({
+				footer: false,
+				stickyFooter: false,
+				closeMethods: ['overlay', 'button', 'escape'],
+				closeLabel: "Close",
+				cssClass: ['custom-class-1', 'custom-class-2'],
+				onOpen: function () {
+					console.log('modal open');
+				},
+				onClose: function () {
+					console.log('modal closed');
+				},
+				beforeClose: function () {
+					return true;
+				}
+			});
+			modal.setContent($("#popup-howtoplay").html());
+			modal.open();
+		}
+
+		function showTipsAndTricksModal() {
+			var modal = new tingle.modal({
+				footer: false,
+				stickyFooter: false,
+				closeMethods: ['overlay', 'button', 'escape'],
+				closeLabel: "Close",
+				cssClass: ['custom-class-1', 'custom-class-2'],
+				onOpen: function () {
+					console.log('modal open');
+				},
+				onClose: function () {
+					console.log('modal closed');
+				},
+				beforeClose: function () {
+					return true;
+				}
+			});
+			modal.setContent($("#popup-tipsandtricks").html());
+			modal.open();
+		}
+
+		window.switchBoard = 'Score';
+
+		window.updateLeaderboards = function () {
+			if (window.switchBoard === 'Score') {
+				$("#fullBoardKills").hide();
+				$("#fullBoardScore").show();
+				$("#fullBoardPumpkins").hide();
+				$("#switchLeaderbBtn").html("Switch to kills");
+			} else if (window.switchBoard === 'Kills') {
+				$("#fullBoardKills").show();
+				$("#fullBoardScore").hide();
+				$("#fullBoardPumpkins").hide();
+				$("#switchLeaderbBtn").html("Switch to score");
+			} 
+		}
+
+		window.switchLeaderboard = function () {
+			 if (window.switchBoard === 'Score') {
+				window.switchBoard = 'Kills';
+			} else if (window.switchBoard === 'Kills') {
+				window.switchBoard = 'Score';
+			} 
+			window.updateLeaderboards();
+		}
+
+		window.checkGameOverScreenOn = function () {
+			return false;
+		}
+
+		window.makeLeaderBoard = function (id, ar, colName, fontSize) {
+			console.log('makeLeaderboard - '.concat(id));
+			//ACASE
+			return;	
+			var table = document.getElementById(id);
+			if (table === null)
+				return;
+			table.innerHTML = "";
+			table.innerHTML += '<th><tr style="background-color: #959595; font-size: 22px; height: 30px "><td>' + "Rank" +
+				'</td><td style="width:50%;">' + "Name" + '</td><td style="font-size: ' + fontSize + 'px;" valign="middle">' + colName + '</td></tr></th>'
+			let counterIncrement = 1;
+			var top10 = ar.slice(0,10);
+			top10.forEach(function (e) {
+				var userName = e.userName;
+				if( userName.length > 11 ) userName = userName.substring(0,11);
+				table.innerHTML += '<tr><td>' + counterIncrement + '</td><td style="width:50%; height: 30px">' + userName +
+					'</td><td>' + e.leaderboardValue + '</td></tr>';
+				counterIncrement++;
+			})
+		}
+
+		window.sendToApi = function () {
+			return;
+		}
+
+		window.fetchApi = function () {
+			console.log('received from api');
+			fetch('https://topgamedata.com/json/hole_kills_1.json')
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (myJson) {
+					console.log("kills:");
+					window.makeLeaderBoard('boardKills', myJson, 'Kills', '22');
+				});
+			fetch('https://topgamedata.com/json/hole_score_1.json')
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (myJson) {
+					console.log("score:");
+					window.makeLeaderBoard('boardScore', myJson, 'Score', '22');
+				});
+
+		}
+
+		window.updateLeaderboards();
+		window.fetchApi();
+
+	</script>
+	<script>
+	</script>
+	</body>
+</html>
