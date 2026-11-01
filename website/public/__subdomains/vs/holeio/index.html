@@ -18,11 +18,10 @@
 	<link rel="stylesheet" href="TemplateData/style64.css%3Fv1.css">
 	<link rel="stylesheet" href="libs/tingle.min.css">
 	<link rel="preload" href="TemplateData/roadbg.jpg" as="image">
+	<script>(function(){var open=XMLHttpRequest.prototype.open;var remote={"antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle":"https://raw.githubusercontent.com/IzieStratt/holeio-assets/main/antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle"};XMLHttpRequest.prototype.open=function(m,u){var s=String(u);for(var k in remote){if(s.indexOf(k)>=0){u=remote[k];break;}}return open.apply(this,[m,u].concat([].slice.call(arguments,2)));};})();</script>
 	<script type="text/javascript"> var CONFIG = {}; CONFIG.BuildPath = "b/4"</script>
-	<script>window.aiptag={cmd:{display:{push:function(){}},player:{push:function(){}}},consented:true};window.gtag=function(){};</script>
 	<script src="TemplateData/UnityProgress.js%3Fv1"></script>
 	<script src="b/4/gameWebGL.js" async></script>
-	<script>window.dataLayer=[];window.gtag=function(){};</script>
 </head>
 
 <body>
@@ -110,7 +109,6 @@
 	</div>
 
 	
-	<div id="preroll"></div>
 
 	<script type="text/javascript">
 console.log('v25');
@@ -148,61 +146,9 @@ function inIframe () {
 		window.onresize = function () {
 			//resize();
 		};
-		function PageIsLoaded()
-		{
-			console.log('PageIsLoaded start');
-			var aipW = document.documentElement.clientWidth+20;
-			var aipH = document.documentElement.clientHeight-29;
-			aiptag.cmd.player.push(function() {
-				try 
-				{
-					adplayer = new aipPlayer({
-					AD_WIDTH: aipW,
-					AD_HEIGHT: aipH,
-					AD_FULLSCREEN: false,
-					AD_CENTERPLAYER: false,
-					LOADING_TEXT: 'loading advertisement',
-					DESCRIPTION_URL: 'https://holeio.com/info.php',
-					PREROLL_ELEM: function(){return document.getElementById('preroll')},
-					AIP_COMPLETE: function ()  {
-						/*******************
-						 ***** WARNING *****
-						 *******************
-						 Please do not remove the PREROLL_ELEM
-						 from the page, it will be hidden automaticly.
-						 If you do want to remove it use the AIP_REMOVE callback.
-						*/
-						$("#preroll").hide();
-						document.activeElement.blur();
-						document.body.focus();
-						window.sendMessageToUnity("{\"eventName\": \"adsComplete\",\"data\": {\"allow\": \"true\"}}");
-					//alert("Ad Completed");
-					},
-					AIP_REMOVE: function ()  {
-						// Here it's save to remove the PREROLL_ELEM from the page.
-						// But it's not necessary.
-					}
-					});
-				} catch(err3)
-				{
-					console.log("Error preroll " + e.name + ":" + e.message);
-				}
-			});
-			console.log('PageIsLoaded end');
-		}
-		var aiptag = aiptag || {};
-		aiptag.cmd = aiptag.cmd || [];
-		aiptag.cmd.display = aiptag.cmd.display || [];	aiptag.cmd.player = aiptag.cmd.player || [];
-		// Settings
-		aiptag.consented = true; // GDPR setting, please set this value to false if an EU user has declined or not yet accepted marketing cookies, for users outside the EU please use true and for users accepted the GDPR also use true
-		aiptag.gdprShowConsentTool = true;
-		document.addEventListener("DOMContentLoaded", PageIsLoaded);
 	</script>
 	<script>
 		window.HasAdBlock = false;
-		window.adBlockFunction = function(){
-			window.HasAdBlock = true;
-		}
 	</script>
 	<script src="libs/jquery-3.3.1.min.js"></script>
 	<script src="libs/tingle.min.js"></script>
@@ -210,17 +156,6 @@ function inIframe () {
 		window.gameLoaded = function () {
 			window.sendMessageToUnity("{\"eventName\": \"setBundlesPath\",\"data\": {\"path\": \"" + CONFIG.BuildPath +"\"}}");
 			void 0;
-			if( document.documentElement.clientWidth > 1000 )
-			{
-				console.log("getting ads");
-				try
-				{
-					aiptag.cmd.display.push(function() { try{ console.log('adinplay push start'); aipDisplayTag.display('hole-io-com_300x250'); console.log('adinplay push end'); } catch(err2) { console.log('adinplay err'); } });
-				} catch(err) {
-					console.log("Error " + e.name + ":" + e.message);
-				}
-				console.log("got ads.");
-			}
 		}
 
         window.showAdsBanner = function (show) {
@@ -240,25 +175,7 @@ function inIframe () {
 			$("#banner").hide();
 			$("#rl1").hide();
 			$("#rl2").hide();
-			gtag('event', 'GAplay');
-			$("#preroll").show();
-            console.log("[html] showPreroll: " + showPreroll);
-			if( typeof adplayer ==='undefined' )
-			{ 
-                console.log("[html] ads blocked path");
-				$("#preroll").hide();
-				document.activeElement.blur();
-				document.body.focus();
-				window.sendMessageToUnity("{\"eventName\": \"adsComplete\",\"data\": {\"allow\": \"true\"}}");
-			} else {
-                console.log("[html] NON ads blocked path");
-                if (showPreroll) {
-                    aiptag.cmd.player.push(function() { adplayer.startPreRoll(); });
-                } else {
-                    $("#preroll").hide();
-                    window.sendMessageToUnity("{\"eventName\": \"adsComplete\",\"data\": {\"allow\": \"true\"}}");
-                }
-			}							
+			window.sendMessageToUnity("{\"eventName\": \"adsComplete\",\"data\": {\"allow\": \"true\"}}");
 		}
 		
 		window.gameStart = function () {
@@ -274,11 +191,6 @@ function inIframe () {
 			$("#rl1").show();
 			$("#rl2").show();
 			//GameAdsRenew("banner");
-			gtag('event', 'GAgameOver');
-			if( document.documentElement.clientWidth > 1000 )
-			{
-				aiptag.cmd.display.push(function() { aipDisplayTag.display('hole-io-com_300x250'); });
-			}
 		}
 		
 		window.mapsOpen = function(){   
@@ -445,178 +357,6 @@ function inIframe () {
 
 	</script>
 	<script>
-(function() {
-	//------------------
-	//Ad configuration
-	//------------------
-	var adIds = ['hole-io-com_300x250_2', 'hole-io-com_300x600_2'];
-	const adConfigurations = [
-	  {
-		width: "(min-width: 1900px)",
-		height: "(max-height: 600px)",
-		sidebarWidth: "300",
-		ads: {
-			'hole-io-com_300x250_2': [[300, 250]]
-		}
-	  },
-	  {
-		width: "(min-width: 1900px)",
-		height: "(min-height: 600px) and (max-height: 850px)",
-		sidebarWidth: "300",
-		ads: {
-			'hole-io-com_300x250_2': [[300, 250]],
-			'hole-io-com_300x600_2': [[300, 250]]
-		}
-	  },
-	  {
-		width: "(min-width: 1900px)",
-		height: "(min-height: 850px)",
-		sidebarWidth: "300",
-		ads: {
-			'hole-io-com_300x250_2': [[300, 250]],
-			'hole-io-com_300x600_2': [[300, 600], [300, 250], [160, 600], [120, 600]]
-		}
-	  },
-	  {
-		width: "(min-width: 1360px) and (max-width: 1900px)",
-		height: "(min-height: 600px)",
-		sidebarWidth: "160",
-		ads: {
-			'hole-io-com_300x600_2': [[120, 600]]
-		}
-	  }
-	];
-
-	//------------------
-	// code starts here
-	//------------------
-	function showSidebarAds(sidebarWidth) {
-		if(!document.getElementById('aip-sidebarads')) {
-			createSidebarContainer();
-		}
-
-		try {
-		// Set the custom CSS styles for the elements
-		document.querySelector('.webgl-content').style.width = 'calc(100% - '+sidebarWidth+'px)';
-		document.getElementById('gameContainer').style.width = '100%';
-		document.getElementById('rl1').style.right = (sidebarWidth+34)+'px';
-		document.getElementById('rl2').style.right = (sidebarWidth+34)+'px';
-
-		//set default css
-		document.getElementById('aip-sidebarads').style.display = "block";
-		document.getElementById('aip-sidebarads').style.width = sidebarWidth+'px';
-		document.getElementById('aip-sidebarads').style.maxWidth = sidebarWidth+'px';
-		} catch (e) {}
-	}
-
-	function hideSidebarAds() {
-		if(document.getElementById('aip-sidebarads')) {
-			try {
-			// Set the CSS styles for the elements
-			document.getElementById('aip-sidebarads').style.display = "none";
-			document.querySelector('.webgl-content').style.width = '';
-			document.getElementById('gameContainer').style.width = '';
-			document.getElementById('rl1').style.right = '';
-			document.getElementById('rl2').style.right = '';
-			} catch (e) {}
-		}
-	}
-
-	function createSidebarContainer() {
-		//create sidebar
-		var sideBarAds = document.createElement('div');
-		sideBarAds.id = 'aip-sidebarads';
-		sideBarAds.style.backgroundColor = '#000000';
-		sideBarAds.style.position = 'absolute';
-		sideBarAds.style.top = '0';
-		sideBarAds.style.bottom = '0';
-		sideBarAds.style.right = '0px';
-		//sideBarAds.style.paddingTop = '100px';
-		document.body.appendChild(sideBarAds);
-
-		//create advertisements divs
-		for (var i = 0; i < adIds.length; i++) {
-			var adDiv = document.createElement('div');
-			adDiv.id = adIds[i];
-			adDiv.style.display = 'none';
-			adDiv.style.margin = '10px 0';
-			adDiv.setAttribute('aip-sidabarads-rendered', 'false');
-			sideBarAds.appendChild(adDiv);
-		}
-	}
-
-	function checkSidebarAdsMedia() {
-		var sideBarShown = false;
-		var forceRefresh = false;
-
-		// Iterate through the adConfigurations array and find the matching condition
-		for (const config of adConfigurations) {
-			if (window.matchMedia(config.width).matches && window.matchMedia(config.height).matches) {
-				try {
-					//check if sidebarWidth is smaller if so refresh the ads
-					if(config.sidebarWidth < parseInt(document.getElementById('aip-sidebarads').style.width)) {
-						forceRefresh = true;
-					}
-				} catch (e) {}
-
-				//show sidebar on screen wider then sidebarConfiguration
-				sideBarShown = true;
-				showSidebarAds(config.sidebarWidth);
-				// Display ads based on the matched configuration
-				displaySidebarAd(config.ads, forceRefresh);
-				break; // Exit the loop once a matching condition is found
-			}
-		}
-
-		if(sideBarShown === false) {
-			hideSidebarAds();
-		}
-	}
-
-	function displaySidebarAd(slotId, forceRefresh) {
-		// Find values in adIds that are not in slotId
-		var hideSlotIds = adIds.filter(function (value) {
-			return !Object.keys(slotId).includes(value);
-		});
-		for (var i = 0; i < hideSlotIds.length; i++) {
-			var slotElement = document.getElementById(hideSlotIds[i]);
-			if(slotElement) {
-				slotElement.style.display = "none";
-			}
-		}
-
-		//show ads
-		for (var i = 0; i < Object.keys(slotId).length; i++) {
-			try {
-			aiptag.settings.iSizeMappingOnResize = true;
-			aipAPItag.adSlots[Object.keys(slotId)[i]]['sizes'] = Object.values(slotId)[i];
-			aipAPItag.adUnits[Object.keys(slotId)[i]][0]['mediaTypes']['banner']['sizes'] = Object.values(slotId)[i];
-			} catch(e){}
-
-			var slotElement = document.getElementById(Object.keys(slotId)[i]);
-			if(slotElement) {
-				slotElement.style.display = "block";
-
-				if(forceRefresh === true) {
-					showSidebarAd(Object.keys(slotId)[i]);
-				} else if(slotElement.getAttribute('aip-sidabarads-rendered') == "false") {
-					slotElement.setAttribute('aip-sidabarads-rendered', 'true');
-					showSidebarAd(Object.keys(slotId)[i]);
-				}
-			}
-		}
-	}
-
-	function showSidebarAd(slotId) {
-		aiptag.cmd.display.push(function() {
-			aipDisplayTag.display(slotId);
-		}.bind(slotId));
-	}
-
-	//init the sidebar ads
-	// Attach the handleResize function to the window resize event
-	// Initial call to checkSidebarAdsMedia to get the window dimensions on page load
-})();
 	</script>
 	</body>
 </html>
