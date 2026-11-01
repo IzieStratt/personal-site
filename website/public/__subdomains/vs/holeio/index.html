@@ -18,7 +18,27 @@
 	<link rel="stylesheet" href="TemplateData/style64.css%3Fv1.css">
 	<link rel="stylesheet" href="libs/tingle.min.css">
 	<link rel="preload" href="TemplateData/roadbg.jpg" as="image">
-	<script>(function(){var open=XMLHttpRequest.prototype.open;var remote={"antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle":"https://raw.githubusercontent.com/IzieStratt/holeio-assets/main/antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle"};XMLHttpRequest.prototype.open=function(m,u){var s=String(u);for(var k in remote){if(s.indexOf(k)>=0){u=remote[k];break;}}return open.apply(this,[m,u].concat([].slice.call(arguments,2)));};})();</script>
+	<script>(function(){
+		// Client-only build: nothing leaves the page except the game's own bundle host.
+		var here = location.origin;
+		var allowed = [here, "https://raw.githubusercontent.com/IzieStratt/holeio-assets/"];
+		var bundle = "antiquetown_scenes_all_9376851347bf9c3d4e7ac6b4e032fd01.bundle";
+		var bundleUrl = "https://raw.githubusercontent.com/IzieStratt/holeio-assets/main/" + bundle;
+		function ok(u) { return allowed.some(function (a) { return u.indexOf(a) === 0; }); }
+		var open = XMLHttpRequest.prototype.open;
+		XMLHttpRequest.prototype.open = function (m, u) {
+			var s = String(u);
+			if (s.indexOf(bundle) >= 0) { u = bundleUrl; }
+			else if (/^https?:\/\//i.test(s) && !ok(s)) { u = "/blocked"; }
+			return open.apply(this, [m, u].concat([].slice.call(arguments, 2)));
+		};
+		var realFetch = window.fetch;
+		window.fetch = function (input) {
+			var s = String(input && input.url ? input.url : input);
+			if (/^https?:\/\//i.test(s) && !ok(s)) { return Promise.reject(new TypeError("blocked")); }
+			return realFetch.apply(this, arguments);
+		};
+	})();</script>
 	<script type="text/javascript"> var CONFIG = {}; CONFIG.BuildPath = "b/4"</script>
 	<script src="TemplateData/UnityProgress.js%3Fv1"></script>
 	<script src="b/4/gameWebGL.js" async></script>
@@ -333,22 +353,6 @@ function inIframe () {
 
 		window.fetchApi = function () {
 			console.log('received from api');
-			fetch('https://topgamedata.com/json/hole_kills_1.json')
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (myJson) {
-					console.log("kills:");
-					window.makeLeaderBoard('boardKills', myJson, 'Kills', '22');
-				});
-			fetch('https://topgamedata.com/json/hole_score_1.json')
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (myJson) {
-					console.log("score:");
-					window.makeLeaderBoard('boardScore', myJson, 'Score', '22');
-				});
 
 		}
 

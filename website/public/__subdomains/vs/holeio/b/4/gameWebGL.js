@@ -154,14 +154,13 @@ window.sendMessageToUnity = function (data) {
     }
 };
 
+// Client-only build: the skin server is gone, so no request is made.
 async function fetchAsync (url) {
-  let response = await fetch(url);
-  let data = await response.json();
-  return data;
+  throw new Error("skins server disabled");
 }
 
 function getUserGeneratedSkins() {
-	fetchAsync("https://skins.hole-io.com/skins/getAll").then(function(result) {
+	fetchAsync("/skins-disabled/skins/getAll").then(function(result) {
 		//console.log( result );
 		var struct = {
 			eventName : "userGeneratedSkins",
@@ -175,7 +174,7 @@ function getUserGeneratedSkins() {
 }
 
 function getSkin(id){
-	fetchAsync("https://skins.hole-io.com/skins/" + id).then(function(result) {
+	fetchAsync("/skins-disabled/skins/" + id).then(function(result) {
 		//console.log( result );
 		var struct = {
 			eventName : "getUserGeneratedSkin",
@@ -189,7 +188,7 @@ function getSkin(id){
 }
 
 function getSkinPreview(id){
-	fetchAsync("https://skins.hole-io.com/skins/" + id + "/activePreview").then(function(result) {
+	fetchAsync("/skins-disabled/skins/" + id + "/activePreview").then(function(result) {
 		console.log( result );
 		var struct = {
 			eventName : "userGeneratedSkinPreview",
