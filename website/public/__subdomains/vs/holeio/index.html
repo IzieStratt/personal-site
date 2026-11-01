@@ -29,8 +29,14 @@
 		XMLHttpRequest.prototype.open = function (m, u) {
 			var s = String(u);
 			if (s.indexOf(bundle) >= 0) { u = bundleUrl; }
-			else if (/^https?:\/\//i.test(s) && !ok(s)) { u = "/blocked"; }
+			else if (/^https?:\/\//i.test(s) && !ok(s)) { u = "http://127.0.0.1:9/blocked"; }
 			return open.apply(this, [m, u].concat([].slice.call(arguments, 2)));
+		};
+		var realOpen = window.open;
+		window.open = function (url) {
+			var s = String(url || "");
+			if (/^https?:\/\//i.test(s) && !ok(s)) { return null; }
+			return realOpen.apply(this, arguments);
 		};
 		var realFetch = window.fetch;
 		window.fetch = function (input) {
