@@ -1,8 +1,11 @@
-// UI and controller. Rules live in game-core.js. Game state is saved to localStorage after every move,
-// so a reload or a dropped connection resumes the same game. Themes live in cookies.
+// UI and controller. Rules live in game-core.js. Vs-computer games run in the browser and are saved to
+// localStorage after every move. Online games are run by the server (shiritori-lobby.js): the browser
+// renders what the server sends and reconnects with a saved token if the connection drops.
 (() => {
   const C = window.ShiritoriCore;
   const STORE_KEY = "shiritori.game.v1";
+  const SESSION_KEY = "shiritori.online.v1";
+  const NAME_KEY = "shiritori.name";
   const THEME_COOKIE = "shiritori_theme";
   const THEMES_COOKIE = "shiritori_themes";
   const COOKIE_BUDGET = 3500; // browsers allow about 4 KB per cookie; stay under it
@@ -25,7 +28,7 @@
 
   const $ = (id) => document.getElementById(id);
   const els = {
-    menu: $("menu"), game: $("game"), over: $("over"), builder: $("builder"),
+    menu: $("menu"), game: $("game"), over: $("over"), builder: $("builder"), lobby: $("lobby"),
     resume: $("resume"), resumeBtn: $("resume-btn"), discardBtn: $("discard-btn"),
     form: $("form"), word: $("word"), pass: $("pass"), error: $("error"),
     letter: $("letter"), clockFill: $("clock-fill"), clockText: $("clock-text"),
@@ -35,10 +38,14 @@
     themeName: $("theme-name"), swatches: $("swatches"), themeSave: $("theme-save"),
     themeCancel: $("theme-cancel"), themeDelete: $("theme-delete"), builderError: $("builder-error"),
     suggestText: $("suggest-text"), suggestSend: $("suggest-send"), suggestStatus: $("suggest-status"),
+    lobbyConn: $("lobby-conn"), lobbyName: $("lobby-name"), hostBtn: $("host-btn"), lobbyList: $("lobby-list"),
+    lobbyEmpty: $("lobby-empty"), joinForm: $("join-form"), joinCode: $("join-code"), lobbyWaiting: $("lobby-waiting"),
+    lobbyCode: $("lobby-code"), lobbyCancel: $("lobby-cancel"), lobbyBrowse: $("lobby-browse"),
+    lobbyError: $("lobby-error"), lobbyBack: $("lobby-back"),
   };
 
   let dict = null;
-  let game = null;
+  let game = null;                     // the state being shown: local (vs computer) or from the server (online)
   let botTimer = null;
   let loop = null;
   let lastLetter = undefined;
@@ -47,6 +54,13 @@
   let editing = null;                  // theme id being edited in the builder, or "new"
   let roundRejects = new Set();        // words typed this round that weren't in the dictionary
   let inlineKeys = [];                 // CSS properties we set inline, so built-in themes can clear them
+
+  // online state
+  let ws = null;
+  let wsRetry = null;
+  let wsDelay = 1000;
+  let online = null;                   // { room, seat, token, waiting, clockOffset }
+  let lobbyRooms = [];
 
   // ---------- cookies ----------
   function readCookie(name) {
@@ -81,10 +95,10 @@
     return writeCookie(THEMES_COOKIE, JSON.stringify(list));
   }
 
-  // ---------- persistence of the game ----------
+  // ---------- persistence ----------
   function save() {
     try {
-      if (game && !game.over) localStorage.setItem(STORE_KEY, JSON.stringify(game));
+      if (game && !game.over && game.mode !== "online") localStorage.setItem(STORE_KEY, JSON.stringify(game));
       else localStorage.removeItem(STORE_KEY);
     } catch (_) { /* storage full or disabled: the game still works, it just won't survive a reload */ }
   }
@@ -99,6 +113,23 @@
     } catch (_) {
       return null;
     }
+  }
+
+  function loadSession() {
+    try {
+      const s = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      return s && s.room && s.token ? s : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function saveSession(s) {
+    try { localStorage.setItem(SESSION_KEY, JSON.stringify(s)); } catch (_) {}
+  }
+
+  function clearSession() {
+    try { localStorage.removeItem(SESSION_KEY); } catch (_) {}
   }
 
   // ---------- themes ----------
@@ -212,9 +243,7 @@
     }
     els.themeDelete.hidden = !edit;
     els.builderError.textContent = "";
-    els.menu.hidden = true;
-    els.game.hidden = true;
-    els.over.hidden = true;
+    hideScreens();
     els.builder.hidden = false;
     els.themeName.focus();
     preview();
@@ -229,8 +258,14 @@
     els.builder.hidden = true;
     editing = null;
     if (restore) applyTheme(activeId, { persist: false });
-    if (game && !game.over) showGame();
-    else showMenu();
+    returnToCurrent();
+  }
+
+  // After the builder closes, go back to whatever screen was showing before.
+  function returnToCurrent() {
+    if (online) return showGame();
+    if (game && !game.over) return showGame();
+    showMenu();
   }
 
   function saveBuilder() {
@@ -249,8 +284,7 @@
     applyTheme(id);
     els.builder.hidden = true;
     editing = null;
-    if (game && !game.over) showGame();
-    else showMenu();
+    returnToCurrent();
   }
 
   function deleteBuilderTheme() {
@@ -262,8 +296,7 @@
     applyTheme(BUILTIN[0].id);
     els.builder.hidden = true;
     editing = null;
-    if (game && !game.over) showGame();
-    else showMenu();
+    returnToCurrent();
   }
 
   function showBuilderError(msg) {
@@ -271,19 +304,25 @@
   }
 
   // ---------- screens ----------
-  function showMenu() {
-    stopBot();
-    stopLoop();
+  function hideScreens() {
+    els.menu.hidden = true;
     els.game.hidden = true;
     els.over.hidden = true;
     els.builder.hidden = true;
+    els.lobby.hidden = true;
+  }
+
+  function showMenu() {
+    stopBot();
+    stopLoop();
+    hideScreens();
     els.menu.hidden = false;
     els.resume.hidden = !loadSaved();
   }
 
   function startGame(mode, difficulty) {
     difficulty ||= document.querySelector('input[name="difficulty"]:checked').value;
-    const names = mode === "bot" ? ["You", "Computer"] : ["Player 1", "Player 2"];
+    const names = ["You", "Computer"];
     game = C.newGame({ mode, difficulty, names, now: Date.now() });
     lastLetter = undefined;
     roundRejects = new Set();
@@ -293,8 +332,7 @@
 
   function resumeSaved(g) {
     game = g;
-    // The clock for a human turn keeps running across reloads. The computer's turn restarts,
-    // because its move is scheduled in memory and was lost with the page.
+    // The computer's turn restarts after a reload, because its move was scheduled in memory.
     if (game.mode === "bot" && game.turn !== HUMAN) game.turnStart = Date.now();
     lastLetter = undefined;
     roundRejects = new Set();
@@ -302,18 +340,28 @@
   }
 
   function showGame() {
-    els.menu.hidden = true;
-    els.over.hidden = true;
-    els.builder.hidden = true;
+    hideScreens();
     els.game.hidden = false;
     els.error.textContent = "";
     startLoop();
     afterMove(false);
   }
 
-  // ---------- turn flow ----------
+  // ---------- turn flow (vs computer) ----------
   function isBotTurn() {
-    return game && game.mode === "bot" && game.turn !== HUMAN;
+    return !!game && game.mode === "bot" && game.turn !== HUMAN;
+  }
+
+  // Whether the local player may type or pass right now.
+  function myTurn() {
+    if (!game || game.over) return false;
+    if (game.mode === "online") return online && game.turn === online.seat;
+    return !isBotTurn();
+  }
+
+  // Current time on the clock's own scale. Online games use the server's clock.
+  function clockNow() {
+    return Date.now() + (online ? online.clockOffset : 0);
   }
 
   function afterMove(persist = true) {
@@ -322,11 +370,9 @@
     if (game.over) return showOver();
     render();
     scheduleBot();
-    if (!isBotTurn()) {
-      els.word.disabled = false;
-      els.pass.disabled = false;
-      if (!els.game.hidden) els.word.focus({ preventScroll: true });
-    }
+    els.word.disabled = !myTurn();
+    els.pass.disabled = !myTurn();
+    if (myTurn() && !els.game.hidden) els.word.focus({ preventScroll: true });
   }
 
   function scheduleBot() {
@@ -366,9 +412,9 @@
 
   function tick() {
     if (!game || game.over) return;
-    const now = Date.now();
+    if (game.mode === "online") return renderClock(C.remainingMs(game, clockNow()));
     if (!isBotTurn()) {
-      const rem = C.remainingMs(game, now);
+      const rem = C.remainingMs(game, Date.now());
       if (rem <= 0) return humanTimeout();
       renderClock(rem);
     }
@@ -376,7 +422,17 @@
 
   function submitWord(e) {
     e.preventDefault();
-    if (!game || game.over || isBotTurn()) return;
+    if (!myTurn()) return;
+    if (game.mode === "online") {
+      const verdict = C.validateWord(els.word.value, game, dict); // instant feedback; the server checks again
+      if (!verdict.ok) {
+        if (verdict.code === "not-in-dict") roundRejects.add(verdict.word || els.word.value.trim().toLowerCase());
+        return showError(verdict.reason);
+      }
+      send({ t: "word", word: verdict.word });
+      els.word.value = "";
+      return;
+    }
     const now = Date.now();
     if (C.remainingMs(game, now) <= 0) return humanTimeout();
     const verdict = C.validateWord(els.word.value, game, dict);
@@ -401,10 +457,11 @@
   function render() {
     if (!game) return;
     const bot = game.mode === "bot";
+    const online_ = game.mode === "online";
 
     for (let i = 0; i < 2; i++) {
       const side = $("side-" + i);
-      side.querySelector(".name").textContent = game.names[i];
+      side.querySelector(".name").textContent = game.names[i] + (online_ && online && online.seat === i ? " (you)" : "");
       side.querySelector(".fill").style.width = `${(game.left[i] / C.START_SCORE) * 100}%`;
       side.querySelector(".pts").textContent = `${game.left[i]} left`;
       side.classList.toggle("active", !game.over && game.turn === i);
@@ -420,14 +477,18 @@
     lastLetter = game.letter;
 
     let status;
-    if (isBotTurn()) status = "Computer is thinking…";
+    if (online_) {
+      const who = game.names[game.turn];
+      status = myTurn()
+        ? (game.letter ? `Your turn. Start with ${game.letter.toUpperCase()}.` : "Your turn. Any letter to start.")
+        : `${who}'s turn.` + (game.letter ? ` Start with ${game.letter.toUpperCase()}.` : "");
+      if (online && online.notice) status = online.notice;
+    } else if (isBotTurn()) status = "Computer is thinking…";
     else if (bot) status = game.letter ? `Your turn. Start with ${game.letter.toUpperCase()}.` : "Your turn. Any letter to start.";
-    else status = `${game.names[game.turn]}'s turn.` + (game.letter ? ` Start with ${game.letter.toUpperCase()}.` : " Any letter to start.");
+    else status = "";
     els.status.textContent = status;
 
-    els.word.disabled = isBotTurn();
-    els.pass.disabled = isBotTurn();
-    renderClock(isBotTurn() ? C.TURN_SECONDS * 1000 : C.remainingMs(game, Date.now()));
+    renderClock(isBotTurn() ? C.TURN_SECONDS * 1000 : C.remainingMs(game, clockNow()));
     renderHistory();
   }
 
@@ -474,17 +535,18 @@
     save();
     render();
     const w = game.winner;
+    const mine = game.mode === "online" ? online?.seat : HUMAN;
     let title;
     let text;
     if (w === null) {
       title = "Stalemate";
       text = "Four passes in a row. Nobody wins.";
-    } else if (game.mode === "bot") {
-      title = w === HUMAN ? "You win!" : "The computer wins";
-      text = w === HUMAN ? "The computer ran out of points first." : "You ran out of points first. Try again?";
+    } else if (w === mine) {
+      title = "You win!";
+      text = game.reason === "opponent left" ? "Your opponent left the game." : `${game.names[1 - w]} ran out of points first.`;
     } else {
-      title = `${game.names[w]} wins!`;
-      text = `${game.names[1 - w]} ran out of points first.`;
+      title = game.mode === "bot" ? "The computer wins" : `${game.names[w]} wins`;
+      text = game.reason === "opponent left" ? "You left the game." : `${game.names[w]} ran out of points first.`;
     }
     els.overTitle.textContent = title;
     els.overText.textContent = text;
@@ -493,6 +555,11 @@
     els.suggestText.value = [...roundRejects].join(", ");
     els.suggestStatus.textContent = "";
     els.suggestSend.disabled = false;
+
+    if (game.mode === "online") {
+      clearSession();
+      stopSocketIfIdle();
+    }
 
     els.over.hidden = false;
     els.again.focus();
@@ -539,6 +606,215 @@
     }
   }
 
+  // ---------- online: connection ----------
+  function wsUrl() {
+    return (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/shatori/ws";
+  }
+
+  function send(msg) {
+    if (ws && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
+    else setLobbyConn("Not connected. Reconnecting…");
+  }
+
+  function setLobbyConn(text) {
+    els.lobbyConn.textContent = text;
+  }
+
+  // Opens the socket if needed. When a game is saved, it rejoins with the saved token.
+  function connect() {
+    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+    clearTimeout(wsRetry);
+    try {
+      ws = new WebSocket(wsUrl());
+    } catch (_) {
+      return scheduleReconnect();
+    }
+    ws.onopen = () => {
+      wsDelay = 1000;
+      const session = loadSession();
+      if (session) {
+        send({ t: "resume", room: session.room, token: session.token });
+      } else {
+        send({ t: "list" });
+        setLobbyConn("Connected.");
+      }
+      if (online && game && !game.over) setNotice(null);
+    };
+    ws.onmessage = (e) => {
+      let msg;
+      try { msg = JSON.parse(e.data); } catch (_) { return; }
+      handle(msg);
+    };
+    ws.onclose = () => {
+      ws = null;
+      const playing = online && game && !game.over;
+      if (playing) setNotice("Connection lost. Reconnecting, your clock keeps running…");
+      if (!els.lobby.hidden) setLobbyConn("Connection lost. Reconnecting…");
+      if (playing || !els.lobby.hidden || loadSession()) scheduleReconnect();
+    };
+    ws.onerror = () => {
+      /* onclose follows and handles reconnecting */
+    };
+  }
+
+  function scheduleReconnect() {
+    clearTimeout(wsRetry);
+    wsRetry = setTimeout(connect, wsDelay);
+    wsDelay = Math.min(wsDelay * 2, 15000);
+  }
+
+  function stopSocketIfIdle() {
+    if (!ws) return;
+    if (!els.lobby.hidden) return;
+    ws.close();
+    ws = null;
+  }
+
+  function setNotice(text) {
+    if (!online) return;
+    online.notice = text;
+    if (game && game.mode === "online" && !game.over) render();
+  }
+
+  function handle(msg) {
+    switch (msg.t) {
+      case "lobbies":
+        lobbyRooms = msg.rooms || [];
+        renderLobbyList();
+        break;
+
+      case "joined":
+        online = { room: msg.room, seat: msg.seat, token: msg.token, waiting: msg.seat === 0, clockOffset: 0, notice: null };
+        saveSession({ room: msg.room, token: msg.token, seat: msg.seat });
+        if (msg.seat === 0) {
+          els.lobbyCode.textContent = msg.room;
+          els.lobbyWaiting.hidden = false;
+          els.lobbyBrowse.hidden = true;
+          setLobbyConn("Your lobby is open.");
+        }
+        break;
+
+      case "state":
+        if (!online) return;
+        online.clockOffset = (msg.serverNow || Date.now()) - Date.now();
+        if (msg.waiting && !msg.state) return;
+        if (msg.state) {
+          const first = !game || game.mode !== "online";
+          game = { ...msg.state, mode: "online", difficulty: "normal", names: msg.state.names };
+          if (msg.notice) online.notice = msg.notice;
+          else if (!msg.state.over) online.notice = null;
+          if (first) {
+            lastLetter = undefined;
+            roundRejects = new Set();
+            els.lobbyWaiting.hidden = true;
+            els.lobbyBrowse.hidden = false;
+            showGame();
+          } else if (!game.over) {
+            afterMove(false);
+          } else {
+            showOver();
+          }
+        }
+        break;
+
+      case "error":
+        if (!els.game.hidden) showError(msg.msg);
+        else setLobbyError(msg.msg);
+        // a saved session that the server no longer knows: forget it
+        if (/gone|ended|seat in that game/.test(msg.msg)) {
+          clearSession();
+          online = null;
+          send({ t: "list" });
+        }
+        break;
+    }
+  }
+
+  function setLobbyError(msg) {
+    els.lobbyError.textContent = msg;
+  }
+
+  // ---------- online: lobby screens ----------
+  function showLobby() {
+    stopBot();
+    stopLoop();
+    hideScreens();
+    els.lobby.hidden = false;
+    els.lobbyName.value = localStorage.getItem(NAME_KEY) || "";
+    els.lobbyError.textContent = "";
+    els.lobbyWaiting.hidden = true;
+    els.lobbyBrowse.hidden = false;
+    setLobbyConn("Connecting…");
+    connect();
+    renderLobbyList();
+  }
+
+  function renderLobbyList() {
+    els.lobbyList.textContent = "";
+    els.lobbyEmpty.hidden = lobbyRooms.length > 0;
+    for (const r of lobbyRooms) {
+      const li = document.createElement("li");
+      const label = document.createElement("span");
+      label.textContent = `${r.host}'s lobby `;
+      const code = document.createElement("span");
+      code.className = "code";
+      code.textContent = r.room;
+      label.appendChild(code);
+      const join = document.createElement("button");
+      join.type = "button";
+      join.className = "primary";
+      join.textContent = "Join";
+      join.addEventListener("click", () => joinRoom(r.room));
+      li.append(label, join);
+      els.lobbyList.appendChild(li);
+    }
+  }
+
+  function currentName() {
+    const name = els.lobbyName.value.trim();
+    if (!name) {
+      setLobbyError("Type your name first.");
+      return null;
+    }
+    localStorage.setItem(NAME_KEY, name);
+    return name;
+  }
+
+  function hostRoom() {
+    const name = currentName();
+    if (!name) return;
+    setLobbyError("");
+    send({ t: "host", name });
+  }
+
+  function joinRoom(code) {
+    const name = currentName();
+    if (!name) return;
+    setLobbyError("");
+    send({ t: "join", room: String(code || "").toUpperCase(), name });
+  }
+
+  function cancelLobby() {
+    send({ t: "leave" });
+    clearSession();
+    online = null;
+    els.lobbyWaiting.hidden = true;
+    els.lobbyBrowse.hidden = false;
+    setLobbyConn("Lobby closed.");
+    send({ t: "list" });
+  }
+
+  // Leaving a live game forfeits it, so the button says so.
+  function quitOnline() {
+    if (!game.over && !confirm("Leaving now counts as a forfeit. Leave the game?")) return;
+    send({ t: "leave" });
+    clearSession();
+    online = null;
+    game = null;
+    stopLoop();
+    showLobby();
+  }
+
   // ---------- events ----------
   function init() {
     activeId = readCookie(THEME_COOKIE) || (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "classic");
@@ -570,7 +846,10 @@
         document.querySelectorAll("button.card").forEach((b) => (b.disabled = false));
         els.resumeBtn.disabled = false;
         const saved = loadSaved();
-        if (saved) resumeSaved(saved); // pick up a game that was in progress
+        if (saved) resumeSaved(saved); // pick up a vs-computer game that was in progress
+        else if (loadSession()) {
+          showLobby(); // an online game is still saved: rejoin it through the socket
+        }
       })
       .catch(() => {
         loading.textContent = "Couldn't load the dictionary. Check your connection and reload.";
@@ -583,7 +862,10 @@
     els.themeDelete.addEventListener("click", deleteBuilderTheme);
 
     document.querySelectorAll("button.card").forEach((b) => {
-      b.addEventListener("click", () => startGame(b.dataset.mode));
+      b.addEventListener("click", () => {
+        if (b.dataset.mode === "online") showLobby();
+        else startGame(b.dataset.mode);
+      });
     });
     els.resumeBtn.addEventListener("click", () => {
       const g = loadSaved();
@@ -597,25 +879,53 @@
     });
     els.form.addEventListener("submit", submitWord);
     els.pass.addEventListener("click", () => {
-      if (!game || game.over || isBotTurn()) return;
+      if (!myTurn()) return;
+      if (game.mode === "online") return send({ t: "pass" });
       humanTimeout();
     });
     els.quit.addEventListener("click", () => {
+      if (game && game.mode === "online") return quitOnline();
       save();
       showMenu();
     });
     els.again.addEventListener("click", () => {
+      if (game && game.mode === "online") {
+        game = null;
+        online = null;
+        return showLobby();
+      }
       if (!game) return showMenu();
       startGame(game.mode, game.difficulty);
     });
     els.toMenu.addEventListener("click", () => {
       game = null;
+      online = null;
+      clearSession();
       showMenu();
     });
+
+    els.hostBtn.addEventListener("click", hostRoom);
+    els.joinForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      joinRoom(els.joinCode.value.trim());
+    });
+    els.lobbyCancel.addEventListener("click", cancelLobby);
+    els.lobbyBack.addEventListener("click", () => {
+      if (!online) {
+        // not in a lobby: close the socket and go back
+        if (ws) ws.close();
+        ws = null;
+      }
+      showMenu();
+    });
+
     els.suggestSend.addEventListener("click", sendSuggestions);
     // Background tabs throttle timers; catch up when the tab comes back.
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") tick();
+      if (document.visibilityState === "visible") {
+        tick();
+        if (!online && !els.lobby.hidden) connect();
+      }
     });
     window.addEventListener("pagehide", save);
     window.addEventListener("beforeunload", save);

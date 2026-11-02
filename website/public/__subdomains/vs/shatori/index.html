@@ -25,9 +25,9 @@
           <strong>vs Computer</strong>
           <span>Race the computer down to zero</span>
         </button>
-        <button class="card" data-mode="pair">
-          <strong>Two players</strong>
-          <span>Pass the device between turns</span>
+        <button class="card" data-mode="online">
+          <strong>Play online</strong>
+          <span>Join an open lobby or host one</span>
         </button>
       </div>
 
@@ -56,6 +56,38 @@
           <li>Four passes in a row is a stalemate.</li>
         </ul>
       </details>
+    </section>
+
+    <section id="lobby" class="panel" hidden aria-labelledby="lobby-title">
+      <h2 id="lobby-title">Online lobby</h2>
+      <p class="status" id="lobby-conn" aria-live="polite">Connecting…</p>
+
+      <div id="lobby-waiting" hidden>
+        <p>Waiting for someone to join. Share this code: <strong class="code" id="lobby-code"></strong></p>
+        <div class="row"><button class="ghost" id="lobby-cancel">Cancel lobby</button></div>
+      </div>
+
+      <div id="lobby-browse">
+        <label class="field">Your name
+          <input id="lobby-name" type="text" maxlength="20" placeholder="Your name">
+        </label>
+        <div class="row">
+          <button class="primary" id="host-btn">Host a lobby</button>
+        </div>
+
+        <h3>Open lobbies</h3>
+        <ul class="lobby-list" id="lobby-list" aria-live="polite"></ul>
+        <p class="muted" id="lobby-empty">No open lobbies right now. Host one, or check back in a moment.</p>
+
+        <form class="join-form" id="join-form" autocomplete="off">
+          <label class="visually-hidden" for="join-code">Lobby code</label>
+          <input id="join-code" type="text" maxlength="4" placeholder="Code, e.g. K7PX" autocapitalize="characters" spellcheck="false">
+          <button class="ghost" type="submit">Join by code</button>
+        </form>
+      </div>
+
+      <p class="error" id="lobby-error" role="alert"></p>
+      <div class="game-actions"><button class="ghost" id="lobby-back">Back to menu</button></div>
     </section>
 
     <section id="builder" class="panel" hidden aria-labelledby="builder-title">

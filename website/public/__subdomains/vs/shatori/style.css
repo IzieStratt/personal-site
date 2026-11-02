@@ -216,6 +216,21 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 18
 
 footer a { color: var(--accent); }
 
+/* Online lobby */
+#lobby h3 { margin: 18px 0 8px; font-size: 1rem; }
+.lobby-list { list-style: none; padding: 0; margin: 0; }
+.lobby-list li {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; background: var(--bg);
+}
+.code { font-family: ui-monospace, Menlo, monospace; letter-spacing: .15em; font-weight: 700; color: var(--accent); }
+.join-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.join-form input {
+  flex: 1 1 140px; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--line);
+  background: var(--bg); color: var(--text); text-transform: uppercase; letter-spacing: .15em;
+}
+#lobby-waiting p { margin: 0 0 12px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }

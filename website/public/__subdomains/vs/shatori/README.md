@@ -1,12 +1,12 @@
 # Shiritori
 
-A browser version of the Japanese word-chain game, in English. Plays against the computer or a second player on the same device. Runs entirely in the browser: no server calls during play, so a dropped connection doesn't interrupt a game.
+A browser version of the Japanese word-chain game, in English. Play against the computer, or online against another player in a lobby. Computer games run entirely in the browser. Online games are run by a Durable Object (`shiritori-lobby.js` in the site repo): it checks every word and runs the clock, and the browser reconnects with a saved token if the connection drops.
 
 ## Files
 
 - `index.html`: page and layout
 - `style.css`: layout and five themes (Classic, Night, Sakura, Matcha, Indigo) as CSS variables
-- `game-core.js`: rules, scoring, and the computer player (no DOM; testable in Node)
+- `game-core.js`: rules, scoring, and the computer player (no DOM; testable in Node). The online server uses the same file.
 - `app.js`: UI, turn clock, saving to `localStorage`
 - `words.txt`: dictionary, one lowercase word per line (4 to 29 letters)
 

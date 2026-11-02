@@ -27,6 +27,11 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
+  // online lobby for the Shiritori game (shiritori-lobby.js); SQLite-backed, which the free plan supports
+  "durable_objects": {
+    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }],
   "kv_namespaces": [
     {
       "binding": "HMOJI_TOKENS",
