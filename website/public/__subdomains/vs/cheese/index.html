@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Cheese Club Store Checkout</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Creepster&family=Rubik+Glitch&family=Pacifico&family=Lobster&family=Bungee+Shade&family=Monoton&family=Press+Start+2P&family=UnifrakturMaguntia&family=Fascinate&family=Nosifer&family=Butcherman&family=Rye&family=Frijole&family=Ewert&family=Zeyada&family=Rubik+Wet+Paint&family=Jacquard+12&family=Sixtyfour&family=Bahianita&family=Kablammo&family=Dancing+Script&family=Barrio&family=Codystar&family=Flavors&display=swap">
+<style>
+/* Layout: none. Every rule of design broken on purpose. Parody, fictional store. */
+:root{--a:#ff00ff;--b:#ffff00;--c:#00ff00;--d:#ff3000;--e:#0000ff;--k:#202000;color-scheme:light}
+html{background:repeating-linear-gradient(37deg,var(--a) 0 40px,var(--b) 40px 55px,var(--c) 55px 90px,var(--e) 90px 97px)}
+body{background:transparent;color:var(--k);padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext y='30' font-size='30'%3E🐭%3C/text%3E%3C/svg%3E") 38 38,crosshair;text-align:justify}
+*{box-sizing:border-box}
+h1{font-size:2.4rem;color:var(--c);text-shadow:3px 3px var(--d),-3px -3px var(--e),6px 6px var(--b);margin:0;text-align:right;animation:wob 1.3s infinite;transform-origin:left}
+@keyframes wob{50%{transform:rotate(-3deg) skewX(10deg)}}
+@keyframes blink{50%{opacity:.15}}
+@keyframes drift{50%{transform:translateX(14px) rotate(1deg)}}
+.blink{animation:blink 1.2s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+marquee{background:var(--d);color:var(--b);font-weight:700;padding:4px;border:4px dotted var(--c)}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:30px 0}
+.box{background:var(--b);border:7px ridge var(--d);padding:10px 22px 3px 5px;animation:drift 4s infinite;box-shadow:12px 12px 0 var(--e),-6px 20px 30px var(--a)}
+.box:nth-child(3n){background:#9ff;border-style:groove;border-color:var(--a);margin-left:-8px;border-radius:40px 0 90px 3px}
+.box:nth-child(3n+1){background:linear-gradient(90deg,#fff,#f9c,#cff);margin-right:-10px;transform:rotate(-1deg)}
+h2{font-size:1rem;margin:0 0 8px;letter-spacing:.4em;text-decoration:underline wavy var(--d)}
+label{display:block;font-size:.6rem;color:#c8c400;margin-top:10px}
+input,select,textarea{font-size:.7rem;border:3px dashed var(--e);background:#fffff0;width:100%;padding:2px;color:#d0d0d0;text-align:center}
+input[type=checkbox]{width:auto}
+input::placeholder{color:#e8e8a0}
+button{background:#c0c0c0;border:4px outset #fff;padding:4px 9px;font-size:.9rem;cursor:not-allowed;color:var(--k)}
+.tiny{font-size:.5rem;color:#999}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#qtyval{font-size:2rem;font-variant-numeric:normal}
+.err{color:var(--d);font-weight:700;font-size:.8rem;min-height:1em;background:var(--c)}
+#popup{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--c);border:5px double var(--d);padding:10px;max-width:240px;z-index:9;font-weight:700}
+#popup2{position:fixed;left:10px;top:calc(40% + env(safe-area-inset-top,0px));background:var(--a);color:var(--b);border:4px solid var(--b);padding:8px;max-width:180px;z-index:8;font-size:.8rem}
+.run{position:relative;transition:left .12s,top .12s}
+#chat{font-size:.75rem;background:#000;color:var(--c);padding:6px}
+.check{display:flex;gap:6px;font-size:.6rem;align-items:flex-start}
+.mirror{display:inline-block;transform:scaleX(-1)}
+.upside{display:inline-block;transform:rotate(180deg)}
+#done{font-size:1.4rem}
+hr{border:0;height:14px;background:repeating-linear-gradient(90deg,var(--d) 0 6px,var(--c) 6px 12px)}
+.sparkle{position:fixed;pointer-events:none;font-size:18px;z-index:20}
+@keyframes spin{0%{transform:rotate(-2deg)}50%{transform:rotate(2deg) scale(.97)}100%{transform:rotate(-2deg)}}
+.wrap{animation:spin 7s infinite ease-in-out;filter:hue-rotate(0deg)}
+input,select,textarea{cursor:none!important;caret-color:transparent;transition:transform .2s}
+label{color:#d8d400!important;font-size:.5rem!important}
+#fog{position:fixed;inset:0;pointer-events:none;z-index:7;background:radial-gradient(circle at 50% 50%,transparent 0 120px,rgba(255,0,255,.55) 260px)}
+#prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:10px;background:var(--d);z-index:30;transition:width 1s}
+#modal{position:fixed;inset:0;z-index:40;background:rgba(255,255,0,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+#modal div{background:var(--a);border:8px ridge var(--c);padding:16px;max-width:300px;text-align:center}
+#guide{position:fixed;left:max(10px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:46;background:#fff;color:#000;border:4px dashed var(--e);padding:8px;max-width:230px;font-size:.7rem;font-family:"Times New Roman",serif!important}
+#guide ol{margin:4px 0;padding-left:18px}
+#toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:44;background:#000;color:var(--c);border:3px solid var(--d);padding:10px 14px;width:min(90%,420px);font-size:.9rem}
+@keyframes shake{25%{transform:translate(6px,-4px) rotate(1deg)}75%{transform:translate(-6px,4px) rotate(-1deg)}}
+body.shake .wrap{animation:shake .12s 2}
+body.flip{transform:rotate(180deg);transition:transform 1.2s}
+body{transition:transform 1.2s,filter 2s}
+#load{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.85);color:var(--b);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;text-align:center;padding:20px}
+#load b{font-size:4rem;animation:spin2 1s linear infinite}
+@keyframes spin2{to{transform:rotate(360deg)}}
+#cookie{position:fixed;left:0;right:0;bottom:0;z-index:35;background:var(--e);color:var(--b);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-height:45vh;overflow:auto;font-size:.7rem}
+#cookie{background:#0b0c0e!important;color:#e6e6e3;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif!important;font-size:13px;cursor:default;border-top:1px solid #2a2c30;text-align:left}
+#cookie *{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif!important;letter-spacing:0;cursor:default;animation:none!important}
+#cookie.gate{top:0;max-height:none;z-index:60;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+.cz{max-width:760px;margin:0 auto;display:grid;gap:14px}
+.cz-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #2a2c30;padding-bottom:12px}
+.cz-mark{font-weight:700;letter-spacing:.32em!important;font-size:13px}
+.cz-meta,.cz-eyebrow,.cz-count,.cz-foot{font-size:10px;letter-spacing:.18em!important;color:#8a8d93;text-transform:uppercase}
+.cz-h{font-size:30px;font-weight:300;margin:0;color:#fff;line-height:1.15}
+.cz-p{font-size:13px;line-height:1.6;color:#a9acb2;margin:0;max-width:60ch}
+.cz-count{display:flex;justify-content:space-between}
+.cz-count b{color:#fff;font-weight:500;font-variant-numeric:tabular-nums}
+.cz-bar{height:2px;background:#2a2c30}.cz-bar i{display:block;height:100%;width:0;background:#fff;transition:width .3s}
+#partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));border-top:1px solid #2a2c30;border-left:1px solid #2a2c30}
+#cookie #partners .row{margin:0;padding:12px;border-right:1px solid #2a2c30;border-bottom:1px solid #2a2c30;gap:10px;flex-wrap:nowrap;align-items:flex-start}
+#cookie #partners input{accent-color:#fff;width:14px;height:14px;margin:2px 0 0;flex:none;border:0;transform:none!important}
+#cookie #partners label{color:#d4d5d8!important;font-size:12px!important;margin:0;line-height:1.4;text-align:left}
+#cookie #partners label small{display:block;color:#6d7076;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.cz-actions{display:flex;flex-wrap:wrap;gap:8px}
+.cz-btn{background:transparent!important;color:#e6e6e3!important;border:1px solid #3a3d42!important;border-radius:0;padding:10px 16px!important;font-size:11px!important;letter-spacing:.16em!important;cursor:pointer!important}
+.cz-btn:disabled{opacity:.35;cursor:not-allowed!important}
+.cz-primary{background:#fff!important;color:#0b0c0e!important;border-color:#fff!important}
+.cz-ghost{border-color:transparent!important;color:#8a8d93!important}
+.cz-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.cz-foot{border-top:1px solid #2a2c30;padding-top:12px}
+#miss{position:fixed;z-index:50;pointer-events:none;font-weight:700;color:var(--d);font-size:1.4rem}
+</style>
+</head>
+<body>
+<marquee scrollamount="19">🧀 WELCOME TO CHEESE CLUB STORE!!! 🧀 THE FIRST RULE OF CHEESE CLUB IS YOU MUST COMPLETE CHECKOUT 🧀 SESSION EXPIRES IN <span class="cd">60</span> SECONDS 🧀 PARODY DEMO · NO REAL ORDERS · NOTHING IS SENT ANYWHERE 🧀</marquee>
+<marquee direction="right" scrollamount="7" style="background:var(--e);color:var(--b)">⚠️ PRICES SUBJECT TO MOOD ⚠️ BEST VIEWED IN NETSCAPE NAVIGATOR 3.0 AT 640×480 ⚠️ YOU ARE VISITOR #000000001 ⚠️</marquee>
+
+<nav class="row" style="background:var(--k);padding:4px;font-size:.6rem"><button>✨ Checkout with AI ✨</button><button>🤖 Ask AI</button><button>🔍 Search using AI</button><button>🆕 Now with AI!!</button><button>Sign up</button><button>Log in</button><button>Sign out</button><button>Create Order</button><button>Create an order</button><button>Order Create</button><span class="tiny">talk to a human (coming 2031)</span></nav>
+<div class="wrap">
+  <h1>Cheese Club Store™ Checkout</h1>
+  <h1 style="font-size:1rem">🧀 Welcome 🧀 to 🧀 the 🧀 checkout 🧀 experience 🧀 powered 🧀 by 🧀 AI 🧀</h1>
+  <section class="box" style="background:var(--d);color:var(--b)"><h1 style="font-size:1.2rem">🚨🔐 SECURITY NOTICE 🔐🚨</h1><p>🚨 Due to new cheese password rules 🧀🔑, all accounts that do not meet the rules 📜 will be BANNED ⛔🔨 within 4 minutes ⏰. The rules are available from Support 📞 (no link) 🙃.</p><label for="pw" style="color:var(--b)!important">Create a Cheese Club password (rules revealed one at a time after you fail)</label><input id="pw" type="text" autocomplete="off"><p class="err" id="pwerr"></p></section>
+  <section class="box"><h1 style="font-size:1.1rem">📰 About Cheese Club 📰</h1><p>🧀 At Cheese Club Store™, we believe in minimal friction 🙌 and maximum clarity 💎. Our mission 🚀 is to leverage best-in-class dairy synergies 🐄🤝 to empower customers 💪 on their curd journey 🛤️ through a seamless ✨ omnichannel ✨ cheese-forward 🧀 paradigm. We are passionate 🔥 about passion 🔥. Our values: Cheese 🧀, Integrity 🧀, and Cheese 🧀. Founded in a garage 🚗 by three mice 🐭🐭🐭, we have since grown into the world's 4,812th largest cheese experience platform 🌍. Scroll down to begin checkout ⬇️ (checkout is up ⬆️).</p></section>
+  <p class="tiny" style="text-align:left">Step <span class="blink">7</span> of 3 · Expires in <b class="cd">60</b>s · <span class="upside">fictional store, nothing is real</span></p>
+  <hr>
+
+  <section class="box">
+    <h2>YOUR CART</h2>
+    <p>Aged Cheddar Wheel <span class="mirror">(sold by the ounce, priced by the pound, shipped by the kilogram)</span></p>
+    <label for="qty">Quantity in pounds. Drag carefully. The slider is "logarithmic". It also moves on its own.</label>
+    <input id="qty" type="range" min="0" max="1000" value="137">
+    <div class="row"><span id="qtyval">0.31</span><span>lb</span><span class="tiny">(target: 5 lb exactly)</span></div>
+    <p class="err" id="qtyerr"></p>
+    <p class="tiny">Subtotal: <b id="sub">$0.00</b> + Cheese Handling Fee $4.99 + Lactose Surcharge $2.49 + Fee Fee $1.00 + Fee Fee Fee $0.33 + Rind Deposit (refundable never) $3.50 + Tip for the cow: <span id="tip">18%</span></p>
+  </section>
+
+  <section class="box">
+    <h2>NAME</h2>
+    <label for="nm">Full name, typed backwards, all lowercase except the third letter</label>
+    <input id="nm" placeholder="e.g. jOhn eod">
+    <label for="cheesename">Favorite cheese (must NOT be cheddar)</label>
+    <input id="cheesename" placeholder="anything but cheddar">
+    <label for="cfm">Confirm favorite cheese (copy and paste disabled)</label>
+    <input id="cfm">
+    <p class="err" id="nmerr"></p>
+  </section>
+
+  <section class="box">
+    <h2>SHIPPING ADDRESS</h2>
+    <label for="country">Country (sorted by third letter, resets itself)</label>
+    <select id="country"></select>
+    <label for="zip">ZIP code in Roman numerals</label>
+    <input id="zip" placeholder="XCIV CCX">
+    <label for="addr">Street address (no spaces, no vowels, max 9 characters)</label>
+    <input id="addr" maxlength="9">
+    <label for="phone">Phone number (use the dial)</label>
+    <div class="row"><input id="phone" type="range" min="1000000000" max="9999999999" value="5555555555"><span id="phv" class="tiny"></span></div>
+    <label for="dob">Date of birth of your favorite cheese</label>
+    <div class="row"><select id="dd"></select><select id="mm"></select><select id="yy"></select></div>
+  </section>
+
+  <section class="box">
+    <h2>DELIVERY SPEED</h2>
+    <div class="row" id="speeds"></div>
+    <p class="tiny" id="speedmsg">Pick one. Each one is worse.</p>
+  </section>
+
+  <section class="box">
+    <h2>PAYMENT</h2>
+    <p class="tiny">This demo takes no cards. Pay in cheese puns.</p>
+    <label for="pun">Your cheese pun (must be gouda)</label>
+    <textarea id="pun" rows="2"></textarea>
+    <p class="err" id="punerr"></p>
+  </section>
+
+  <section class="box">
+    <h2>LEGAL</h2>
+    <div class="check"><input type="checkbox" id="c1" checked><label for="c1" style="margin:0">Uncheck to not opt out of not receiving 40 emails a day</label></div>
+    <div class="check"><input type="checkbox" id="c2"><label for="c2" style="margin:0">I agree to the Terms of Cheese (4,812 pages, available by fax)</label></div>
+    <div class="check"><input type="checkbox" id="c3"><label for="c3" style="margin:0">I am not a mouse</label></div>
+    <p class="err" id="legerr"></p>
+  </section>
+
+  <section class="box">
+    <h2>CAPTCHA</h2>
+    <p>Select all images containing cheese. The images will now shuffle.</p>
+    <div class="row" id="cap"></div>
+    <p class="err" id="caperr"></p>
+  </section>
+
+  <div class="row" style="justify-content:space-between">
+    <button id="cancel" style="font-size:1.6rem;background:var(--c)">PLACE ORDER</button>
+    <button id="place" class="run" style="font-size:.55rem;opacity:.5">cancel order (actually places it)</button>
+  </div>
+  <p class="err" id="final"></p>
+  <p id="done" hidden></p>
+  <div id="chat">CheeseBot: Hi!! Need help? I can't help.</div>
+  <section class="box"><h1 style="font-size:1rem">💬 Submit feedback 💬</h1><button id="fb">Submit</button></section>
+  <div id="wall" class="row" style="gap:2px"></div>
+  <p class="tiny" style="text-align:center">© 1997–2026 Cheese Club Store. <span class="mirror">All rights reversed.</span> Fictional parody.</p>
+</div>
+
+<div id="popup"><h1 style="font-size:1rem;margin:0">📧✨ NEWSLETTER ✨📧</h1>🧀 WAIT!! 🛑 Join 🤝 the Cheese Club 🧀 newsletter 📬 for 🔥 hot 🔥 cheese 🧀 deals 💸 and a one-click escape hatch 🚪 if you ever want out! <div class="row"><button id="yes1">YES</button><button id="yes2">Also yes</button><a href="#" id="subclose" style="font-size:.55rem;color:var(--e)">Subscribe close</a></div><span class="tiny" id="popx">(close button appears in 10s)</span></div>
+<div id="load" hidden><b>🧀</b><span id="loadmsg">Re-aging your cheese… please do not move your mouse</span></div>
+<div id="cookie" class="gate"><div class="cz">
+<div class="cz-top"><span class="cz-mark">CHEESE CLUB</span><span class="cz-meta">DATA GOVERNANCE / CONSENT v4.8.12</span></div>
+<div class="cz-eyebrow">01 — CHEESE PREFERENCES</div>
+<h3 class="cz-h">Your cheese, operationalized.</h3>
+<p class="cz-p">Cheese Club Store integrates your dairy signals across a network of mission-aligned partners to deliver decision advantage at the point of purchase. Select a minimum of twenty partners to continue.</p>
+<div class="cz-count"><span>PARTNERS AUTHORIZED</span><span><b id="pcount">0</b> / 20</span></div>
+<div class="cz-bar"><i id="pbar"></i></div>
+<p class="cz-p" id="cmsg"></p>
+<div id="partners"></div>
+<div class="cz-actions"><button id="acc" class="cz-btn cz-primary">ACCEPT ALL</button><button id="rej" disabled class="cz-btn">REJECT ALL</button><button id="more" class="cz-btn cz-ghost">VIEW 1,200 ADDITIONAL PARTNERS</button></div>
+<div class="cz-foot">© CHEESE CLUB STORE. FICTIONAL PARODY. NO DATA IS COLLECTED OR SHARED.</div>
+</div></div>
+<div id="miss" hidden>MISSED!</div>
+<div id="fog"></div><div id="prog" style="width:90%"></div>
+<div id="toast" hidden></div>
+<div id="guide"><b>👓 HOW TO UNBLUR (official guide v0.3 beta)</b><ol><li>Squint. Did that help? No. Continue.</li><li>Clean your screen with a slice of brie.</li><li>Click the cheese below 3 times. Not 2. Not 4.</li></ol><div class="row"><button id="gcheese" style="font-size:1.4rem">🧀</button><span id="gcount" class="tiny">0/3</span></div><p class="tiny" id="gmsg">Overclicking has consequences.</p></div>
+<div id="popup2" class="blink">🔥 14 people are looking at this cheese right now 🔥</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const F=['Comic Neue','Creepster','Rubik Glitch','Pacifico','Lobster','Bungee Shade','Monoton','Press Start 2P','UnifrakturMaguntia','Fascinate','Nosifer','Butcherman','Rye','Frijole','Ewert','Zeyada','Rubik Wet Paint','Jacquard 12','Sixtyfour','Bahianita','Kablammo','Dancing Script','Barrio','Codystar','Flavors','Papyrus','Impact','Courier New','Times New Roman','Wingdings'];
+const R=a=>a[Math.floor(Math.random()*a.length)];
+// every single element gets its own font, size and color, reshuffled on a timer
+function chaos(){document.querySelectorAll('h1,h2,p,label,span,b,button,input,select,textarea,marquee,option,div#chat').forEach(e=>{if(e.closest('#cookie'))return;
+e.style.fontFamily='"'+R(F)+'",cursive';
+if(e.tagName==='SPAN'||e.tagName==='B')e.style.color=R(['#f0f','#0a0','#f30','#00f','#ff0','#aaa']);
+e.style.letterSpacing=(Math.random()*4-1)+'px';})}
+chaos();setInterval(chaos,2500);
+// countdown
+let t=60;setInterval(()=>{t--;if(t<0){t=60;$('final').textContent='Session expired! Your cart was refilled with 0.31 lb.';$('qty').value=137;upd();}
+document.querySelectorAll('.cd').forEach(e=>e.textContent=t)},1000);
+// quantity
+function lbs(v){return Math.round((Math.pow(v/1000,3)*42+((v*7)%13)/100)*100)/100}
+function upd(){const l=lbs(+$('qty').value);$('qtyval').textContent=l;$('sub').textContent='$'+(l*(15+Math.random()*4)).toFixed(2);
+$('qtyerr').textContent=l===5?'':'Must be exactly 5.00 lb to continue.'}
+$('qty').oninput=upd;upd();
+setInterval(()=>{if(document.activeElement!==$('qty')){$('qty').value=+$('qty').value+Math.round(Math.random()*20-10);upd()}},3000);
+setInterval(()=>$('tip').textContent=(15+Math.floor(Math.random()*85))+'%',2000);
+// countries
+const cs=['Germany','Uganda','Iceland','France','Chile','Brazil','Swiss Cheese Republic','United States','Canada','Moon (made of cheese)','Mexico','Japan','Italy','United Kingdom','Netherlands','Atlantis','Wisconsin (country)'];
+cs.sort((a,b)=>(a[2]||'').localeCompare(b[2]||''));cs.forEach(c=>{const o=document.createElement('option');o.textContent=c;$('country').appendChild(o)});
+$('country').onchange=()=>setTimeout(()=>$('country').selectedIndex=0,1500);
+$('phone').oninput=()=>$('phv').textContent=$('phone').value;$('phone').oninput();
+for(let i=31;i>0;i--)$('dd').add(new Option(i));
+['Smarch','Febtober','Juneuary','Cheesember','Brie-l','Mayo'].forEach(m=>$('mm').add(new Option(m)));
+for(let y=1;y<=3000;y+=7)$('yy').add(new Option(y));
+$('addr').oninput=e=>e.target.value=e.target.value.replace(/[aeiou\s]/gi,'');
+$('cheesename').onblur=e=>{if(e.target.value)e.target.value='Cheddar';$('nmerr').textContent='We autocorrected your cheese. Cheddar is not allowed.'};
+$('cfm').onpaste=e=>{e.preventDefault();$('nmerr').textContent='Pasting is a cheese crime.'};
+$('cfm').onblur=e=>{$('nmerr').textContent='Does not match. (It never matches.)'};
+$('nm').oninput=e=>{if(Math.random()<.15)e.target.value=e.target.value.split('').reverse().join('')};
+$('zip').oninput=e=>{if(/\d/.test(e.target.value)){e.target.value='';$('nmerr').textContent='ARABIC NUMERALS DETECTED.'}};
+// delivery
+const sp=[['Standard','4–6 business years'],['Express','Arrives already eaten'],['Overnight','Delivered at 3:12 AM, loudly'],['Pigeon','1 pigeon per ounce']];
+sp.forEach(([n,d],i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>{$('speedmsg').textContent=n+': '+d+'. Price: $'+(i*31+29.99)+'. (Auto-upgraded to Pigeon.)'};$('speeds').appendChild(b)});
+$('pun').onblur=()=>{const v=$('pun').value.toLowerCase();$('punerr').textContent=v.includes('gouda')?'Too obvious. Payment declined.':'Not gouda enough. Payment declined.'};
+$('c3').onchange=e=>{if(e.target.checked)setTimeout(()=>{e.target.checked=false;$('legerr').textContent='Mouse-like behavior detected.'},900)};
+$('c1').onchange=e=>setTimeout(()=>e.target.checked=true,700);
+// captcha that shuffles
+const im=['🧀','🍕','🐭','🌕','🧽','🥪','🧈','🍰','🟨'];
+function cap(){$('cap').innerHTML='';im.sort(()=>Math.random()-.5).forEach(x=>{const b=document.createElement('button');b.textContent=x;b.style.fontSize='1.6rem';b.onclick=()=>{b.style.opacity='0.3';$('caperr').textContent='Wrong. Is a moon cheese? Is a sponge? Think harder.'};$('cap').appendChild(b)})}
+cap();setInterval(cap,4000);
+// popups
+setTimeout(()=>{const x=document.createElement('button');x.textContent='x';x.style.fontSize='.4rem';x.onclick=()=>{$('popup').hidden=true;setTimeout(()=>$('popup').hidden=false,6000)};$('popx').replaceWith(x)},10000);
+$('yes1').onclick=$('yes2').onclick=()=>$('chat').textContent='CheeseBot: Subscribed! You will now get 80 emails a day.';
+setInterval(()=>$('popup2').textContent='🔥 '+Math.floor(Math.random()*9000)+' people are looking at this cheese right now 🔥',3000);
+// buttons
+$('cancel').onclick=()=>$('final').textContent='Order cancelled. Your cart was emptied and refilled with someone else\'s cart.';
+const p=$('place');let tries=0;
+p.onmouseenter=()=>{if(tries++<8){p.style.left=(Math.random()*160-80)+'px';p.style.top=(Math.random()*100-50)+'px'}};
+p.onclick=()=>{const ok=lbs(+$('qty').value)===5&&$('c2').checked&&$('c3').checked;
+if(ok){$('done').hidden=false;$('done').textContent='🎉 Order placed! (Not really. This is a parody. Go buy real cheese.)'}
+else $('final').textContent='Something went wrong. Error code: BRIE-404. Please check all fields, including the ones you can\'t see.'};
+// chatbot
+const lines=['CheeseBot: Did you know cheese is cheese?','CheeseBot: Are you still there? Your session is expiring.','CheeseBot: I see you hovering. Stop.','CheeseBot: Have you tried turning your cheese off and on?','CheeseBot: 🧀🧀🧀','CheeseBot: Rate your chat experience 1–1.'];
+setInterval(()=>$('chat').textContent=R(lines),5000);
+// cheese trail on the cursor
+document.addEventListener('mousemove',e=>{if(Math.random()<.3){const s=document.createElement('span');s.className='sparkle';s.textContent=R(['🧀','✨','🐭']);s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),700)}});
+// ===== WORSE =====
+// gate modal: 37 slow clicks, too fast resets, random resets
+
+// progress bar goes backwards
+let pg=90;setInterval(()=>{pg=Math.max(2,pg-Math.random()*6);$('prog').style.width=pg+'%'},1500);
+// fog follows the mouse so you only see near the cursor... inverted: clear spot drifts AWAY
+document.addEventListener('mousemove',e=>{$('fog').style.background=`radial-gradient(circle at ${innerWidth-e.clientX}px ${innerHeight-e.clientY}px,transparent 0 140px,rgba(255,0,255,.6) 280px)`});
+// inputs dodge the pointer sometimes
+document.querySelectorAll('input:not([type=checkbox]),select,textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{if(Math.random()<.4)el.style.transform=`translate(${Math.random()*60-30}px,${Math.random()*30-15}px) rotate(${Math.random()*10-5}deg)`})});
+// every keystroke: lag, then occasional letter swap or caps flip
+document.querySelectorAll('input:not([type=range]):not([type=checkbox]),textarea').forEach(el=>{el.addEventListener('input',()=>{const v=el.value;if(v.length>1&&Math.random()<.25){const i=Math.floor(Math.random()*(v.length-1));el.value=v.slice(0,i)+v[i+1]+v[i]+v.slice(i+2)}if(Math.random()<.1)el.value=el.value.toUpperCase();if(Math.random()<.05){el.value='';$('final').textContent='Field cleared for your security.'}})});
+// randomly steal focus to another field
+setInterval(()=>{const a=document.activeElement;if(a&&a.matches('input,textarea')&&Math.random()<.35){const all=[...document.querySelectorAll('input:not([type=range]),textarea')];R(all).focus()}},3500);
+// sections shuffle order
+setInterval(()=>{const w=document.querySelector('.wrap');const bx=[...w.querySelectorAll('.box')];const a=R(bx),b=R(bx);if(a!==b&&!a.contains(document.activeElement)&&!b.contains(document.activeElement)){const t=document.createElement('i');a.replaceWith(t);b.replaceWith(a);t.replaceWith(b)}},6000);
+// scroll-jack: sometimes yanks you back up
+let sj=0;addEventListener('scroll',()=>{if(Date.now()-sj>5000&&Math.random()<.04){sj=Date.now();scrollBy({top:-300,behavior:'smooth'});$('chat').textContent='CheeseBot: Whoa, slow down! Back you go.'}});
+// the two order buttons swap places
+setInterval(()=>{const r=$('cancel').parentNode;r.style.flexDirection=r.style.flexDirection==='row-reverse'?'row':'row-reverse'},2200);
+// labels lie: swap label texts around periodically
+setInterval(()=>{const ls=[...document.querySelectorAll('section label')];const a=R(ls),b=R(ls);const t=a.textContent;a.textContent=b.textContent;b.textContent=t},5000);
+// hue drift
+let hu=0;setInterval(()=>{hu=(hu+15)%360;document.querySelector('.wrap').style.filter=`hue-rotate(${hu}deg) blur(${window.bl||0}px)`},800);
+// ===== EVEN WORSE =====
+// keyboard is shifted one key to the right (qwerty)
+const rowsK=['qwertyuiop','asdfghjkl','zxcvbnm'];const shift={};rowsK.forEach(r=>{for(let i=0;i<r.length;i++)shift[r[i]]=r[(i+1)%r.length]});
+document.addEventListener('keydown',e=>{const el=e.target;if(!el.matches||!el.matches('input:not([type=range]):not([type=checkbox]),textarea'))return;const k=e.key.toLowerCase();if(shift[k]&&!e.ctrlKey&&!e.metaKey){e.preventDefault();const now=Date.now();if(now-(el._lt||0)<700){$('final').textContent='Typing speed limit: 1 letter per 0.7 seconds.';return}el._lt=now;const ch=e.key===k?shift[k]:shift[k].toUpperCase();el.value+=ch;el.dispatchEvent(new Event('input'))}if(e.key===' '&&Math.random()<.5){e.preventDefault()}},true);
+// backspace deletes from the front
+document.addEventListener('keydown',e=>{if(e.key==='Backspace'&&e.target.matches&&e.target.matches('input,textarea')&&e.target.value){e.preventDefault();e.target.value=e.target.value.slice(1)}},true);
+// scroll wheel is inverted
+addEventListener('wheel',e=>{if(e.target.closest&&e.target.closest('#cookie'))return;e.preventDefault();scrollBy(0,-e.deltaY*1.7)},{passive:false});
+// 25% of clicks just miss
+document.addEventListener('click',e=>{if(e.target.closest('#cookie'))return;if(Math.random()<.25){e.preventDefault();e.stopImmediatePropagation();const m=$('miss');m.style.left=e.clientX+'px';m.style.top=e.clientY+'px';m.hidden=false;setTimeout(()=>m.hidden=true,600)}},true);
+// random fake loading screens
+const lm=['Re-aging your cheese… please do not move your mouse','Contacting the cow…','Verifying you are not lactose intolerant…','Downloading more cheese…','Your cart is being sniffed by a mouse…','Almost there (this is a lie)…'];
+setInterval(()=>{$('loadmsg').textContent=R(lm);$('load').hidden=false;setTimeout(()=>{$('load').hidden=true;if(Math.random()<.3){$('final').textContent='Loading failed. Your progress was not saved.';document.querySelectorAll('section input:not([type=range]):not([type=checkbox]),section textarea').forEach(i=>i.value='')}},2500+Math.random()*3000)},12000);
+addEventListener('mousemove',()=>{if(!$('load').hidden)$('loadmsg').textContent='YOU MOVED YOUR MOUSE. Starting over…'});
+// cookie wall
+const PN=['Palantir','Clearview AI','Cambridge Analytica (back from the dead)','NSA Dairy Division','Big Dairy Holdings LLC','A Guy Named Steve','Your Ex','Data Brokers R Us','Shady Cheese Exchange (Cayman Islands)','Definitely Not The CIA','The Mice','Your Landlord','Facial Recognition Fromagerie','Ad Tracker #4,812','Unknown Offshore Entity','Your Mom (she worries)','A Van Parked Outside','Spyware Cheese Co.','Totally Legit Loans Inc.','Crypto Cheese Coin (rug pull pending)','Some Guy On A Forum','The Algorithm','Your Smart Fridge','Hackers Who Asked Nicely','Anonymous Cheese Whistleblower','Big Brother Brie'];
+function pcount(){const n=[...document.querySelectorAll('#partners input:checked')].length;$('pcount').textContent=n;$('pbar').style.width=Math.min(100,n*5)+'%';if(n>=20){$('cookie').classList.remove('gate');$('cookie').hidden=true}return n}
+PN.forEach((nm,i)=>{const d=document.createElement('div');d.className='row';const id='pt'+i;d.innerHTML=`<input type="checkbox" id="${id}"><label for="${id}">${nm}<small>Partner ${String(i+1).padStart(3,'0')} · Legitimate interest</small></label>`;$('partners').appendChild(d);d.querySelector('input').onchange=pcount});
+$('more').onclick=()=>{for(let i=0;i<12;i++){const d=document.createElement('div');d.className='row';d.innerHTML='<input type="checkbox" checked disabled><label>Palantir<small>Mandatory · Cannot be revoked</small></label>';$('partners').prepend(d)}};
+$('acc').onclick=()=>{if(pcount()<20){const b=[...document.querySelectorAll('#partners input')];b.slice(0,19).forEach(c=>c.checked=true);pcount();$('cmsg').textContent='Accept All authorized 19 partners. The twentieth must be selected manually to constitute informed consent.';return}$('cookie').hidden=true};
+$('rej').onclick=()=>{$('cmsg').textContent='Rejection received. Processing will take 6–8 weeks. Please keep this banner open.'};
+// random zoom wobble
+setInterval(()=>{document.documentElement.style.fontSize=(10+Math.random()*10)+'px'},4000);
+// moving the gate button
+// ===== WORST =====
+// the whole page flips upside down for a while
+setInterval(()=>{if($('cookie').classList.contains('gate'))return;document.body.classList.add('flip');setTimeout(()=>document.body.classList.remove('flip'),6000)},22000);
+// screen shakes on every key
+document.addEventListener('keydown',()=>{document.body.classList.remove('shake');void document.body.offsetWidth;document.body.classList.add('shake')});
+// the page gets blurrier the longer you stay
+window.bl=0;window.blPause=0;setInterval(()=>{if(Date.now()>window.blPause)window.bl=Math.min(3.5,window.bl+.15)},2000);
+let gc=0,gt=0;$('gcheese').addEventListener('click',e=>{e.stopImmediatePropagation();clearTimeout(gt);gc++;$('gcount').textContent=gc+'/3';if(gc>3){gc=-10;$('gcount').textContent=gc+'/3';$('gmsg').textContent='❌ Too much cheese. Your count is now -10.';return}
+gt=setTimeout(()=>{if(gc===3){window.bl=0;gc=0;$('gcount').textContent='0/3';$('gmsg').textContent='✅ Unblurred! (It starts blurring again right away.)'}},900)},true);
+addEventListener('click',()=>{if(Math.random()<.2){window.bl=0}});
+// fields shrink as you type into them
+document.querySelectorAll('input:not([type=range]):not([type=checkbox]),textarea').forEach(el=>el.addEventListener('input',()=>{el.style.width=Math.max(18,100-el.value.length*9)+'%'}));
+// fake toasts that block the top of the screen
+const ts=['⚠️ Your cheese is about to expire. Click nowhere to renew.','✅ Saved! (Nothing was saved.)','🔔 Cheese Club wants to send you notifications. Too late, it already did.','❌ Error: Success.','ℹ️ A new version of this checkout is available. It is worse.','🧀 Your session has been upgraded to Session Pro™ ($3.99/mo).'];
+setInterval(()=>{$('toast').textContent=R(ts);$('toast').hidden=false;setTimeout(()=>$('toast').hidden=true,4500)},7000);
+// the selected value in every dropdown slowly drifts
+setInterval(()=>{document.querySelectorAll('select').forEach(s=>{if(s!==document.activeElement&&Math.random()<.5)s.selectedIndex=Math.floor(Math.random()*s.options.length)})},5000);
+// checkboxes randomly toggle
+setInterval(()=>{const c=R([...document.querySelectorAll('section input[type=checkbox]')]);c.checked=!c.checked},4000);
+setTimeout(pcount,0);
+// page jumps to a random scroll position now and then
+setInterval(()=>{if(Math.random()<.4)scrollTo({top:Math.random()*document.body.scrollHeight,behavior:'smooth'})},15000);
+// right-click and text selection are banned
+document.addEventListener('contextmenu',e=>{e.preventDefault();$('toast').textContent='🚫 Right-clicking cheese is a federal offense.';$('toast').hidden=false});
+document.addEventListener('selectstart',e=>{if(!e.target.closest||!e.target.closest('input,textarea'))e.preventDefault()});
+// Tab key goes to a random field
+document.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();R([...document.querySelectorAll('input,select,textarea,button')]).focus()}},true);
+// ===== SERVICETABLE-INSPIRED =====
+$('subclose').onclick=e=>{e.preventDefault();$('chat').textContent='CheeseBot: Thanks for subscribing twice! 🎉';$('popup').hidden=true;setTimeout(()=>$('popup').hidden=false,5000)};
+$('fb').onclick=()=>{$('toast').textContent='✅ Feedback submitted. We have no idea what it was.';$('toast').hidden=false};
+// password rules revealed one failure at a time
+const pr=[[v=>v.length>=5,'Must be at least 5 characters.'],[v=>/\d/.test(v),'Must include a number.'],[v=>/[A-Z]/.test(v),'Must include an uppercase letter.'],[v=>/brie|gouda|feta|edam/i.test(v),'Must include the name of a cheese.'],[v=>/🧀/.test(v),'Must include a cheese emoji. (Your keyboard is shifted, good luck.)'],[v=>v.length%7===0,'Length must be a multiple of 7.'],[v=>/[XVI]{2}/.test(v),'Must include today\'s ZIP code in Roman numerals.'],[v=>false,'Password cannot be the same as a password.']];
+$('pw').addEventListener('blur',()=>{const v=$('pw').value;const f=pr.find(r=>!r[0](v));$('pwerr').textContent=f?'⛔ '+f[1]+' Account banned in '+t+'s.':'✅'});
+// unlabeled image wall
+for(let i=0;i<60;i++){const s=document.createElement('span');s.textContent=R(['🧀','🖼️','🐄','🐭','🧀','❓','📦','🧀']);s.style.fontSize=(10+Math.random()*30)+'px';s.style.opacity=.3+Math.random()*.7;$('wall').appendChild(s)}
+// every AI button opens a useless AI
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{$('toast').textContent=R(['🤖 AI: I have added 4 lb of brie to your cart.','🤖 AI: Did you mean "cheddar"? Cheddar is not allowed.','🤖 AI: Your order has been summarized: 🧀.','🤖 AI: Signed you out and in again.','🤖 AI: I cannot help with checkout. Would you like a poem about checkout?']);$('toast').hidden=false;if(b.textContent.includes('Sign')){document.body.style.filter='invert(1)';setTimeout(()=>document.body.style.filter='',1500)}}));
+// emoji-ify every label over time
+setInterval(()=>{const l=R([...document.querySelectorAll('section label, section p')]);if(l.textContent.length<400)l.textContent=l.textContent.replace(/ /,' '+R(['🧀','🔥','✨','🚀','💯','🙃','🐄'])+' ')},1500);
+// Enter key clears the field
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches&&e.target.matches('input')){e.preventDefault();e.target.value='';$('final').textContent='Enter pressed. Field reset as a precaution.'}},true);
+// title bar spam
+let tt=0;setInterval(()=>document.title=['🧀 COME BACK','💸 FEES UPDATED','Cheese Club Store Checkout'][tt++%3],1500);
+</script>
+</body>
+</html>
