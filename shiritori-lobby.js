@@ -4,7 +4,7 @@
 //
 // Free-plan notes: WebSockets are hibernated while idle (no duration billed), and room state lives in
 // storage, so a hibernated hub loses nothing. Daily free-tier limits fail operations instead of billing.
-import { DurableObject, WebSocketRequestResponsePair } from 'cloudflare:workers'
+import { DurableObject } from 'cloudflare:workers'
 import './website/public/__subdomains/vs/shatori/game-core.js' // sets globalThis.ShiritoriCore
 
 const C = globalThis.ShiritoriCore
