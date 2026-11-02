@@ -4,7 +4,7 @@
 //
 // Free-plan notes: WebSockets are hibernated while idle (no duration billed), and room state lives in
 // storage, so a hibernated hub loses nothing. Daily free-tier limits fail operations instead of billing.
-import { DurableObject } from 'cloudflare:workers'
+import { DurableObject, WebSocketRequestResponsePair } from 'cloudflare:workers'
 import './website/public/__subdomains/vs/shatori/game-core.js' // sets globalThis.ShiritoriCore
 
 const C = globalThis.ShiritoriCore
@@ -38,6 +38,8 @@ export class ShiritoriLobby extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env)
     this.env = env
+    // Heartbeats are answered by the runtime, so they don't wake the object or count as requests.
+    ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('{"t":"ping"}', '{"t":"pong"}'))
   }
 
   async fetch(request) {

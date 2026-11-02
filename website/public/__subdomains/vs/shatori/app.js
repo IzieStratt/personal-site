@@ -12,7 +12,7 @@
   const HUMAN = 0;
 
   const BUILTIN = [
-    { id: "classic", name: "Classic", color: "#c8102e" },
+    { id: "classic", name: "Original", color: "#ff3019" },
     { id: "dark", name: "Night", color: "#ff6b81" },
     { id: "sakura", name: "Sakura", color: "#e0457b" },
     { id: "matcha", name: "Matcha", color: "#4b8b2f" },
@@ -24,7 +24,11 @@
     ["bg", "Background"], ["panel", "Panel"], ["text", "Text"], ["muted", "Muted text"],
     ["accent", "Accent"], ["accentText", "Accent text"], ["line", "Lines"], ["p0", "Player 1"], ["p1", "Player 2"],
   ];
-  const CSS_NAME = { bg: "bg", panel: "panel", text: "text", muted: "muted", accent: "accent", accentText: "accent-text", line: "line", p0: "p0", p1: "p1", track: "track" };
+  const CSS_NAME = { bg: "bg", panel: "panel", text: "text", muted: "muted", accent: "accent", accentText: "accent-text", line: "line", p0: "p0", p1: "p1" };
+  const FULL_NAME = {
+    ...CSS_NAME, track: "track", panel2: "panel-2", input: "input", heading: "heading", hi: "hi",
+    card: "card", card2: "card-2", cardText: "card-text", glow: "glow",
+  };
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -146,11 +150,23 @@
     inlineKeys = [];
   }
 
-  // Sets the page colors from a vars object. Custom themes sit on top of the classic base.
+  // Sets the page colors from a vars object. Custom themes sit on top of the original base.
+  // The builder picks 9 colors; the rest are derived here so every theme keeps the same look.
   function setVars(vars) {
     clearInline();
-    const full = { track: vars.line, ...vars };
-    for (const [key, prop] of Object.entries(CSS_NAME)) {
+    const full = {
+      track: vars.line,
+      panel2: vars.panel,
+      input: vars.bg,
+      heading: vars.text,
+      hi: vars.p0,
+      card: "#d4d4d4",
+      card2: "#bbbbbb",
+      cardText: "#444444",
+      glow: `color-mix(in srgb, ${vars.p0} 55%, transparent)`,
+      ...vars,
+    };
+    for (const [key, prop] of Object.entries(FULL_NAME)) {
       if (!full[key]) continue;
       const name = `--${prop}`;
       document.documentElement.style.setProperty(name, full[key]);
@@ -611,9 +627,40 @@
     return (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/shatori/ws";
   }
 
+  // Moves are never queued: if the socket is down, the player retries once it's back, so a
+  // word can't land twice or late.
   function send(msg) {
-    if (ws && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
-    else setLobbyConn("Not connected. Reconnecting…");
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(msg));
+      return true;
+    }
+    setLobbyConn("Reconnecting…");
+    if (msg.t === "word" || msg.t === "pass") showError("Reconnecting. Try again in a moment.");
+    connect();
+    return false;
+  }
+
+  const HEARTBEAT_MS = 25000;
+  const SILENT_MS = 60000; // no message for this long means the socket is dead even if it looks open
+  let heartbeat = null;
+  let lastHeard = 0;
+
+  function startHeartbeat() {
+    stopHeartbeat();
+    lastHeard = Date.now();
+    heartbeat = setInterval(() => {
+      if (!ws || ws.readyState !== WebSocket.OPEN) return;
+      if (Date.now() - lastHeard > SILENT_MS) {
+        ws.close(); // onclose schedules the reconnect
+        return;
+      }
+      ws.send(JSON.stringify({ t: "ping" }));
+    }, HEARTBEAT_MS);
+  }
+
+  function stopHeartbeat() {
+    if (heartbeat) clearInterval(heartbeat);
+    heartbeat = null;
   }
 
   function setLobbyConn(text) {
@@ -629,39 +676,53 @@
     } catch (_) {
       return scheduleReconnect();
     }
-    ws.onopen = () => {
+    const socket = ws;
+    socket.onopen = () => {
       wsDelay = 1000;
+      startHeartbeat();
       const session = loadSession();
       if (session) {
-        send({ t: "resume", room: session.room, token: session.token });
+        socket.send(JSON.stringify({ t: "resume", room: session.room, token: session.token }));
       } else {
-        send({ t: "list" });
+        socket.send(JSON.stringify({ t: "list" }));
         setLobbyConn("Connected.");
       }
       if (online && game && !game.over) setNotice(null);
     };
-    ws.onmessage = (e) => {
+    socket.onmessage = (e) => {
+      lastHeard = Date.now();
       let msg;
       try { msg = JSON.parse(e.data); } catch (_) { return; }
+      if (msg.t === "pong") return;
       handle(msg);
     };
-    ws.onclose = () => {
-      ws = null;
+    socket.onclose = () => {
+      if (ws === socket) ws = null;
+      stopHeartbeat();
       const playing = online && game && !game.over;
       if (playing) setNotice("Connection lost. Reconnecting, your clock keeps running…");
       if (!els.lobby.hidden) setLobbyConn("Connection lost. Reconnecting…");
+      // always keep trying while the player is in a game, a lobby, or holding a saved seat
       if (playing || !els.lobby.hidden || loadSession()) scheduleReconnect();
     };
-    ws.onerror = () => {
+    socket.onerror = () => {
       /* onclose follows and handles reconnecting */
     };
   }
 
+  // Exponential backoff with jitter, capped at 10 seconds, and it never gives up.
   function scheduleReconnect() {
     clearTimeout(wsRetry);
-    wsRetry = setTimeout(connect, wsDelay);
-    wsDelay = Math.min(wsDelay * 2, 15000);
+    const jitter = Math.random() * 500;
+    wsRetry = setTimeout(connect, wsDelay + jitter);
+    wsDelay = Math.min(wsDelay * 2, 10000);
   }
+
+  // The browser knows when it's back online: skip the wait.
+  window.addEventListener("online", () => {
+    wsDelay = 1000;
+    connect();
+  });
 
   function stopSocketIfIdle() {
     if (!ws) return;
