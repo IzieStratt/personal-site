@@ -142,6 +142,8 @@ waitForElement("#gameContainer").then(
 // this function is called from page to send data to Unity
 window.sendMessageToUnity = function (data) {
 
+
+
     if (!(data instanceof Uint8Array)) {
         //data = msgpack.encode(data)
     }
