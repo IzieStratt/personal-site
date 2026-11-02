@@ -17,6 +17,7 @@
     { id: "sakura", name: "Sakura", color: "#e0457b" },
     { id: "matcha", name: "Matcha", color: "#4b8b2f" },
     { id: "indigo", name: "Indigo", color: "#7aa2ff" },
+    { id: "catppuccin", name: "Catppuccin", color: "#cba6f7" },
   ];
 
   // The colors a custom theme sets. Everything else is derived (track = line, status colors = classic).
@@ -878,7 +879,8 @@
 
   // ---------- events ----------
   function init() {
-    activeId = readCookie(THEME_COOKIE) || (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "classic");
+    // Always the Original theme unless a saved choice exists (no OS dark-mode guess).
+    activeId = readCookie(THEME_COOKIE) || "classic";
     custom = loadCustom();
     if (!findTheme(activeId)) activeId = BUILTIN[0].id;
     buildThemeBar();

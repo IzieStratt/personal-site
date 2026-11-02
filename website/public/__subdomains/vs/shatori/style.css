@@ -42,6 +42,15 @@
   --glow: rgba(155, 178, 255, .45);
 }
 
+/* Catppuccin Mocha (https://catppuccin.com/palette) */
+[data-theme="catppuccin"] {
+  --bg: #1e1e2e; --panel: #181825; --panel-2: #11111b; --text: #cdd6f4; --heading: #cdd6f4; --muted: #a6adc8;
+  --accent: #cba6f7; --accent-text: #1e1e2e; --hi: #89b4fa; --line: #313244; --track: #313244;
+  --card: #45475a; --card-2: #3b3d50; --card-text: #cdd6f4; --input: #11111b;
+  --p0: #89b4fa; --p1: #f38ba8; --ok: #a6e3a1; --warn: #f9e2af; --danger: #f38ba8;
+  --glow: rgba(203, 166, 247, .45);
+}
+
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; }
 body {
