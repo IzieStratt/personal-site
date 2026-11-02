@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neo emoji search</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1rem; padding: 0; list-style: none; }
+      .tabs button { padding: .35rem .8rem; border: 1px solid var(--fg); border-radius: 999px; background: none; color: var(--fg); font: inherit; font-size: .9rem; cursor: pointer; }
+      .tabs button[aria-selected="true"] { background: var(--fg); color: var(--bg); }
+      .tabs button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+      .tabs small { opacity: .7; margin-left: .25rem; }
+      .search { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: .75rem; margin: 0 0 1.25rem; padding: .6rem 0; background: var(--bg); }
+      .search-field { position: relative; flex: 1 1 auto; max-width: 34rem; }
+      .search-field svg { position: absolute; left: .9rem; top: 50%; width: 1.05rem; height: 1.05rem; transform: translateY(-50%); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; opacity: .65; pointer-events: none; }
+      .search input { box-sizing: border-box; width: 100%; padding: .55rem 1rem .55rem 2.6rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: 1rem; -webkit-appearance: none; appearance: none; transition: box-shadow 150ms ease, border-color 150ms ease; }
+      .search input::placeholder { color: var(--fg); opacity: .5; }
+      .search input:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent); }
+      .search input::-webkit-search-cancel-button { cursor: pointer; }
+      #count { white-space: nowrap; opacity: .75; font-size: .95rem; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: .4rem; }
+      .ico { position: relative; display: flex; flex-direction: column; align-items: center; gap: .35rem; padding: .7rem .3rem .5rem; border: 1px solid transparent; border-radius: .6rem; background: none; color: var(--fg); font: inherit; cursor: pointer; content-visibility: auto; contain-intrinsic-size: 6.5rem 5.6rem; }
+      .ico:hover, .ico:focus-visible { border-color: var(--fg); outline: none; }
+      .ico[hidden] { display: none; }
+      .ico img { width: 48px; height: 48px; object-fit: contain; image-rendering: auto; }
+      .ico span { font-size: .72rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+      .ico[data-alias]::after { content: "alias"; position: absolute; top: .25rem; right: .3rem; padding: 0 .35rem; border-radius: 999px; background: var(--fg); color: var(--bg); font-size: .6rem; }
+      .empty { opacity: .7; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+      @media (prefers-reduced-motion: reduce) { .search input, #toast { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Neo emoji search</h1>
+      <p>Every <code>neo*</code> emoji in the workspace, grouped by family. Click one to copy its <code>:name:</code>; shift-click copies the image.</p>
+      <ul class="tabs" id="tabs" role="tablist" aria-label="Emoji families"></ul>
+      <div class="search"><div class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search emoji (e.g. boop, angry, flag)" aria-label="Search emoji" autocomplete="off" spellcheck="false"></div><span id="count" aria-live="polite"></span></div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>No matches.</p>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const tabsEl = document.getElementById('tabs'), grid = document.getElementById('grid'), q = document.getElementById('q'),
+        count = document.getElementById('count'), toast = document.getElementById('toast'), empty = document.getElementById('empty');
+      let byName = new Map(), families = new Map(), tiles = [], active = null, hide, timer, last = null;
+
+      function tileFor(e) {
+        const b = document.createElement('button');
+        b.className = 'ico'; b.type = 'button'; b.dataset.n = e.name;
+        b.title = e.alias ? `:${e.name}: (alias of :${e.alias}:)` : `:${e.name}:`;
+        const img = document.createElement('img');
+        const src = e.file || (byName.get(e.alias) || {}).file;
+        img.src = src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+        const span = document.createElement('span'); span.textContent = e.name;
+        b.append(img, span);
+        if (e.alias) { b.dataset.alias = e.alias; b.dataset.note = 'alias ' + e.alias; }
+        return b;
+      }
+
+      function select(fam) {
+        active = fam;
+        for (const btn of tabsEl.querySelectorAll('button')) btn.setAttribute('aria-selected', String(btn.dataset.fam === fam));
+        grid.replaceChildren(...families.get(fam).map(tileFor));
+        tiles = [...grid.children];
+        last = null; run();
+        if (location.hash.slice(1) !== fam) history.replaceState(null, '', '#' + fam);
+      }
+
+      function run() {
+        const terms = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+        const key = terms.join(' ');
+        if (key === last) return;
+        last = key;
+        let n = 0;
+        for (const t of tiles) {
+          const hay = (t.dataset.n + ' ' + (t.dataset.note || '')).toLowerCase();
+          const ok = terms.every((w) => hay.includes(w));
+          t.hidden = !ok;
+          if (ok) n++;
+        }
+        count.textContent = terms.length ? n + ' of ' + tiles.length : tiles.length + ' emoji';
+        empty.hidden = n !== 0;
+      }
+
+      fetch('emoji.json').then((r) => r.json()).then((list) => {
+        for (const e of list) byName.set(e.name, e);
+        for (const e of list) {
+          const fam = e.family;
+          if (!families.has(fam)) families.set(fam, []);
+          families.get(fam).push(e);
+        }
+        const ordered = [...families.keys()].sort((a, b) => families.get(b).length - families.get(a).length || a.localeCompare(b));
+        for (const fam of ordered) {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button'; btn.dataset.fam = fam; btn.setAttribute('role', 'tab');
+          btn.append(fam, Object.assign(document.createElement('small'), { textContent: families.get(fam).length }));
+          li.append(btn); tabsEl.append(li);
+        }
+        const start = families.has(location.hash.slice(1)) ? location.hash.slice(1) : (families.has('neocat') ? 'neocat' : ordered[0]);
+        select(start);
+      });
+
+      tabsEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-fam]');
+        if (btn) select(btn.dataset.fam);
+      });
+      window.addEventListener('hashchange', () => { const f = location.hash.slice(1); if (families.has(f) && f !== active) select(f); });
+      q.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 60); });
+
+      grid.addEventListener('click', (e) => {
+        const b = e.target.closest('.ico');
+        if (!b) return;
+        const value = `:${b.dataset.n}:`;
+        const show = (msg) => { toast.textContent = msg; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+        if (e.shiftKey) {
+          const src = b.querySelector('img').src;
+          fetch(src).then((r) => r.blob()).then((blob) => {
+            const png = blob.type === 'image/png' ? blob : new Blob([blob], { type: 'image/png' });
+            return navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
+          }).then(() => show('Copied image ' + value), () => show('Image copy failed: ' + value));
+          return;
+        }
+        (navigator.clipboard ? navigator.clipboard.writeText(value) : Promise.reject()).then(() => show('Copied ' + value), () => show(value));
+      });
+    </script>
+  </body>
+</html>
