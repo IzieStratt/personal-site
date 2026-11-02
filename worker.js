@@ -1,4 +1,5 @@
 import { handleComments } from './comments.js'
+import { handleSuggestions } from './suggestions.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 
@@ -45,6 +46,7 @@ export default {
       return handleHmoji(request, env, ctx, url.pathname)
     }
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
     if (url.pathname.startsWith('/api/graphs/')) {
       const response = await fetch(`https://botme.dunkirk.sh${url.pathname}${url.search}`, request)
       const headers = new Headers(response.headers)

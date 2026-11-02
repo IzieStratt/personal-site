@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-theme="classic">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shiritori: play the word-chain game in English</title>
+  <meta name="description" content="Shiritori, the Japanese word-chain game, in English. Play against the computer or a friend on one device. Works offline.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E3%81%97%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1><a href="./">Shiritori <span class="kana">しりとり</span></a></h1>
+    <div class="theme-bar">
+      <div class="themes" id="themes" role="group" aria-label="Theme"></div>
+      <button type="button" class="theme-btn make" id="make-theme">+ Make a theme</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="menu" class="panel" aria-labelledby="menu-title">
+      <h2 id="menu-title">Choose a mode</h2>
+      <div class="modes">
+        <button class="card" data-mode="bot">
+          <strong>vs Computer</strong>
+          <span>Race the computer down to zero</span>
+        </button>
+        <button class="card" data-mode="pair">
+          <strong>Two players</strong>
+          <span>Pass the device between turns</span>
+        </button>
+      </div>
+
+      <fieldset class="difficulty" id="difficulty">
+        <legend>Computer difficulty</legend>
+        <label><input type="radio" name="difficulty" value="easy"> Easy</label>
+        <label><input type="radio" name="difficulty" value="normal" checked> Normal</label>
+        <label><input type="radio" name="difficulty" value="hard"> Hard</label>
+      </fieldset>
+
+      <div class="resume" id="resume" hidden>
+        <p>You have a game in progress.</p>
+        <div class="row">
+          <button class="primary" id="resume-btn">Continue</button>
+          <button class="ghost" id="discard-btn">Discard it</button>
+        </div>
+      </div>
+
+      <details class="rules">
+        <summary>How to play</summary>
+        <ul>
+          <li>Each side starts with 150 points. The first to reach 0 wins.</li>
+          <li>Type a word that starts with the last letter of the previous word. At least 4 letters, and no repeats.</li>
+          <li>A word costs the seconds left on your clock (rounded) plus its letters beyond 4. Faster words cost more, so think fast.</li>
+          <li>Run out of time and you pass: your score goes up by 5 and the next player gets the same letter.</li>
+          <li>Four passes in a row is a stalemate.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section id="builder" class="panel" hidden aria-labelledby="builder-title">
+      <h2 id="builder-title">Make a theme</h2>
+      <p class="muted">Pick colors and watch the page change. Themes are saved in a cookie on this browser.</p>
+      <label class="field">Name
+        <input id="theme-name" type="text" maxlength="24" placeholder="My theme">
+      </label>
+      <div class="swatches" id="swatches"></div>
+      <div class="row">
+        <button class="primary" id="theme-save">Save theme</button>
+        <button class="ghost" id="theme-cancel">Cancel</button>
+        <button class="ghost danger" id="theme-delete" hidden>Delete theme</button>
+      </div>
+      <p class="error" id="builder-error" role="alert"></p>
+    </section>
+
+    <section id="game" class="panel" hidden aria-label="Game">
+      <div class="scoreboard">
+        <div class="side" id="side-0">
+          <div class="name"></div>
+          <div class="bar"><div class="fill"></div></div>
+          <div class="pts"></div>
+        </div>
+        <div class="side" id="side-1">
+          <div class="name"></div>
+          <div class="bar"><div class="fill"></div></div>
+          <div class="pts"></div>
+        </div>
+      </div>
+
+      <div class="turn">
+        <div class="letter-box">
+          <span class="label">Next letter</span>
+          <span class="letter" id="letter">?</span>
+        </div>
+        <div class="clock">
+          <div class="clock-bar"><div class="clock-fill" id="clock-fill"></div></div>
+          <span id="clock-text">12.0s</span>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </div>
+
+      <form id="form" autocomplete="off">
+        <label class="visually-hidden" for="word">Your word</label>
+        <input id="word" name="word" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="type a word">
+        <button class="primary" type="submit">Play</button>
+        <button class="ghost pass" type="button" id="pass">Pass</button>
+      </form>
+      <p class="error" id="error" role="alert"></p>
+
+      <ol class="history" id="history" aria-label="Moves"></ol>
+
+      <div class="game-actions">
+        <button class="ghost" id="quit">Quit to menu</button>
+      </div>
+    </section>
+
+    <div class="overlay" id="over" hidden>
+      <div class="over-card" role="dialog" aria-modal="true" aria-labelledby="over-title">
+        <h2 id="over-title"></h2>
+        <p id="over-text"></p>
+        <div class="row">
+          <button class="primary" id="again">Play again</button>
+          <button class="ghost" id="to-menu">Menu</button>
+        </div>
+
+        <div class="suggest">
+          <h3>Missing a word?</h3>
+          <p class="muted">Send words you think belong in the list. izie reviews them and adds the good ones.</p>
+          <label class="visually-hidden" for="suggest-text">Words to suggest</label>
+          <textarea id="suggest-text" rows="3" maxlength="400" placeholder="e.g. bibimbap, zeppelin"></textarea>
+          <div class="row">
+            <button class="ghost" id="suggest-send" type="button">Send suggestions</button>
+          </div>
+          <p class="status" id="suggest-status" role="status"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Made by <a href="https://izie.top" rel="noopener">izie</a>.
+      Inspired by <a href="https://shiritorigame.com" rel="noopener">Shiritori Game</a>.
+      Dictionary: about 285k English words, plus words suggested by players.</p>
+    <p>Everything runs in your browser, so the game keeps going even if the connection drops.</p>
+  </footer>
+
+  <script src="game-core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
