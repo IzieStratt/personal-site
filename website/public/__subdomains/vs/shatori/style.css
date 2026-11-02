@@ -238,6 +238,46 @@ form button:disabled { opacity: .5; cursor: not-allowed; }
 }
 .swatch input[type="color"] { width: 34px; height: 28px; padding: 0; border: none; background: none; cursor: pointer; }
 
+/* Game layout: two panels side by side, as in the original multiplayer view */
+.game { max-width: 760px; margin: 0 auto; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+@media (max-width: 620px) { .cols { grid-template-columns: 1fr; gap: 16px; } }
+.col-title { text-align: center; font-size: 1.5rem; font-weight: 300; color: var(--muted); margin-bottom: 10px; }
+.panel-game {
+  background: var(--panel); border-radius: 4px; padding: 14px 14px 16px; min-height: 420px;
+  transition: box-shadow .35s, background-color .35s;
+}
+.panel-game:not(.active) { background: var(--panel-2); }
+.panel-game.active { box-shadow: 0 0 30px var(--glow); }
+.panel-head { display: flex; justify-content: space-between; align-items: center; min-height: 40px; }
+.pts { font-size: 2.1rem; font-weight: 300; color: var(--heading); font-variant-numeric: tabular-nums; }
+.clock-badge {
+  width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--heading); color: var(--panel); font-weight: 700; font-size: .95rem; font-variant-numeric: tabular-nums;
+}
+.clock-badge.mid { background: var(--warn); color: #111; }
+.clock-badge.low { background: var(--danger); color: #111; }
+
+.entry { margin: 10px 0 0; }
+.entry input { font-size: 1.25rem; }
+.entry .primary { display: none; } /* Enter submits, as in the original */
+
+.cards { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.card-word {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 3px; background: var(--card); color: var(--card-text); font-size: 1.15rem;
+}
+.panel-game:not(.active) .card-word { background: var(--card-2); }
+.card-word .text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-word.suggest { cursor: pointer; }
+.card-word.suggest:hover { outline: 2px solid var(--hi); }
+.card-word .typed { opacity: .5; }
+.card-word .rest { color: var(--hi); font-weight: 700; }
+.card-word .badge {
+  flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center;
+  justify-content: center; background: #333; color: #fff; font-size: .95rem; font-weight: 700;
+}
+
 /* Online lobby */
 #lobby h3 { margin: 16px 0 8px; font-size: 1rem; }
 .lobby-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }

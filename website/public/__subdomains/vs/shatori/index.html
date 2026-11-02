@@ -7,7 +7,7 @@
   <meta name="description" content="Shiritori, the Japanese word-chain game, in English. Play against the computer or a friend on one device. Works offline.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E3%81%97%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <header class="topbar">
@@ -106,17 +106,32 @@
       <p class="error" id="builder-error" role="alert"></p>
     </section>
 
-    <section id="game" class="panel" hidden aria-label="Game">
-      <div class="scoreboard">
-        <div class="side" id="side-0">
-          <div class="name"></div>
-          <div class="bar"><div class="fill"></div></div>
-          <div class="pts"></div>
+    <section id="game" class="game" hidden aria-label="Game">
+      <div class="cols">
+        <div class="col" id="col-0">
+          <div class="col-title" id="title-0"></div>
+          <div class="panel-game" id="panel-0">
+            <div class="panel-head">
+              <span class="pts" id="pts-0"></span>
+              <span class="clock-badge" hidden></span>
+            </div>
+            <form id="form" class="entry" autocomplete="off">
+              <label class="visually-hidden" for="word">Your word</label>
+              <input id="word" name="word" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="type a word">
+              <button class="primary" type="submit">Play</button>
+            </form>
+            <ul class="cards" id="cards-0" aria-label="Words"></ul>
+          </div>
         </div>
-        <div class="side" id="side-1">
-          <div class="name"></div>
-          <div class="bar"><div class="fill"></div></div>
-          <div class="pts"></div>
+        <div class="col" id="col-1">
+          <div class="col-title" id="title-1"></div>
+          <div class="panel-game" id="panel-1">
+            <div class="panel-head">
+              <span class="pts" id="pts-1"></span>
+              <span class="clock-badge" hidden></span>
+            </div>
+            <ul class="cards" id="cards-1" aria-label="Words"></ul>
+          </div>
         </div>
       </div>
 
@@ -130,17 +145,9 @@
           <span id="clock-text">12.0s</span>
         </div>
         <p class="status" id="status" aria-live="polite"></p>
+        <p class="error" id="error" role="alert"></p>
+        <div class="row"><button class="ghost" type="button" id="pass">Pass</button></div>
       </div>
-
-      <form id="form" autocomplete="off">
-        <label class="visually-hidden" for="word">Your word</label>
-        <input id="word" name="word" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="type a word">
-        <button class="primary" type="submit">Play</button>
-        <button class="ghost pass" type="button" id="pass">Pass</button>
-      </form>
-      <p class="error" id="error" role="alert"></p>
-
-      <ol class="history" id="history" aria-label="Moves"></ol>
 
       <div class="game-actions">
         <button class="ghost" id="quit">Quit to menu</button>
@@ -178,6 +185,6 @@
   </footer>
 
   <script src="game-core.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

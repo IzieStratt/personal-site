@@ -37,7 +37,7 @@
     resume: $("resume"), resumeBtn: $("resume-btn"), discardBtn: $("discard-btn"),
     form: $("form"), word: $("word"), pass: $("pass"), error: $("error"),
     letter: $("letter"), clockFill: $("clock-fill"), clockText: $("clock-text"),
-    status: $("status"), history: $("history"), quit: $("quit"),
+    status: $("status"), quit: $("quit"),
     overTitle: $("over-title"), overText: $("over-text"), again: $("again"), toMenu: $("to-menu"),
     themes: $("themes"), makeTheme: $("make-theme"),
     themeName: $("theme-name"), swatches: $("swatches"), themeSave: $("theme-save"),
@@ -429,11 +429,27 @@
 
   function tick() {
     if (!game || game.over) return;
-    if (game.mode === "online") return renderClock(C.remainingMs(game, clockNow()));
+    if (game.mode === "online") {
+      renderClock(C.remainingMs(game, clockNow()));
+      return refreshCardsOncePerSecond();
+    }
     if (!isBotTurn()) {
       const rem = C.remainingMs(game, Date.now());
       if (rem <= 0) return humanTimeout();
       renderClock(rem);
+    } else {
+      renderClock(C.remainingMs(game, Date.now()));
+    }
+    refreshCardsOncePerSecond();
+  }
+
+  // suggestion costs depend on the clock, so refresh them as the seconds change
+  let lastCardSecond = -1;
+  function refreshCardsOncePerSecond() {
+    const sec = Math.ceil(C.remainingMs(game, clockNow()) / 1000);
+    if (sec !== lastCardSecond) {
+      lastCardSecond = sec;
+      renderCards();
     }
   }
 
@@ -476,12 +492,14 @@
     const bot = game.mode === "bot";
     const online_ = game.mode === "online";
 
-    for (let i = 0; i < 2; i++) {
-      const side = $("side-" + i);
-      side.querySelector(".name").textContent = game.names[i] + (online_ && online && online.seat === i ? " (you)" : "");
-      side.querySelector(".fill").style.width = `${(game.left[i] / C.START_SCORE) * 100}%`;
-      side.querySelector(".pts").textContent = `${game.left[i]} left`;
-      side.classList.toggle("active", !game.over && game.turn === i);
+    // left column: the local player; right column: their opponent
+    const me = online_ ? online?.seat ?? 0 : HUMAN;
+    columns = [me, 1 - me];
+    for (let c = 0; c < 2; c++) {
+      const s = columns[c];
+      $("title-" + c).textContent = game.names[s];
+      $("pts-" + c).textContent = `${game.left[s]}`;
+      $("panel-" + c).classList.toggle("active", !game.over && game.turn === s);
     }
 
     const letterText = game.letter ? game.letter.toUpperCase() : "Any";
@@ -505,8 +523,8 @@
     else status = "";
     els.status.textContent = status;
 
-    renderClock(isBotTurn() ? C.TURN_SECONDS * 1000 : C.remainingMs(game, clockNow()));
-    renderHistory();
+    renderClock(C.remainingMs(game, clockNow()));
+    renderCards();
   }
 
   function renderClock(rem) {
@@ -514,35 +532,86 @@
     els.clockFill.style.width = `${(ms / (C.TURN_SECONDS * 1000)) * 100}%`;
     els.clockFill.className = "clock-fill" + (ms < 3000 ? " low" : ms < 6000 ? " mid" : "");
     els.clockText.textContent = `${(ms / 1000).toFixed(1)}s`;
+    // the round timer sits in the top right of whichever panel is up
+    for (let c = 0; c < 2; c++) {
+      const badge = document.querySelector(`#panel-${c} .clock-badge`);
+      const active = !game?.over && game?.turn === columns[c];
+      badge.hidden = !active;
+      if (active) {
+        badge.textContent = Math.ceil(ms / 1000);
+        badge.className = "clock-badge" + (ms < 3000 ? " low" : ms < 6000 ? " mid" : "");
+      }
+    }
   }
 
-  function renderHistory() {
-    const list = els.history;
-    list.textContent = "";
-    if (!game.history.length) {
-      const li = document.createElement("li");
-      li.className = "empty";
-      li.textContent = "No moves yet.";
-      list.appendChild(li);
-      return;
+  // Words for both panels. The local player's panel suggests words that fit the current letter and
+  // what's typed (typed letters grey, the rest violet, as in the original). Otherwise it shows the
+  // player's own words, and the opponent's panel shows theirs.
+  let columns = [0, 1];
+
+  function suggestions(typed, limit = 6) {
+    const used = new Set(game.used);
+    const letters = game.letter ? [game.letter] : Object.keys(dict.byLetter);
+    const out = [];
+    for (const letter of letters) {
+      for (const w of dict.byLetter[letter] || []) {
+        if (w.length < C.MIN_LENGTH || used.has(w) || !w.startsWith(typed)) continue;
+        out.push(w);
+        if (out.length >= limit) return out;
+      }
     }
-    for (let i = game.history.length - 1; i >= 0; i--) {
-      const m = game.history[i];
-      const li = document.createElement("li");
-      li.className = (m.pass ? "pass " : "") + "p" + m.by;
-      const left = document.createElement("div");
-      const who = document.createElement("span");
-      who.className = "who";
-      who.textContent = game.names[m.by] + " ";
-      const word = document.createElement("span");
-      word.className = "word";
-      word.textContent = m.pass ? "passed" : m.word;
-      left.append(who, word);
-      const cost = document.createElement("span");
-      cost.className = "cost";
-      cost.textContent = m.pass ? `+${-m.cost}` : `−${m.cost}`;
-      li.append(left, cost);
-      list.appendChild(li);
+    return out;
+  }
+
+  function renderCards() {
+    if (!game || !dict) return;
+    const typed = els.word.value.trim().toLowerCase().replace(/[^a-z]/g, "");
+    const rem = C.remainingMs(game, clockNow());
+    for (let c = 0; c < 2; c++) {
+      const s = columns[c];
+      const list = $("cards-" + c);
+      list.textContent = "";
+      const mine = c === 0 && !isBotTurn() && game.turn === s && !game.over && (game.mode !== "online" || myTurn());
+      if (mine) {
+        for (const w of suggestions(typed)) {
+          const li = document.createElement("li");
+          li.className = "card-word suggest";
+          const text = document.createElement("span");
+          text.className = "text";
+          const hit = document.createElement("span");
+          hit.className = "typed";
+          hit.textContent = w.slice(0, typed.length);
+          const rest = document.createElement("span");
+          rest.className = "rest";
+          rest.textContent = w.slice(typed.length);
+          text.append(hit, rest);
+          const cost = document.createElement("span");
+          cost.className = "badge";
+          cost.title = "cost if you answer now";
+          cost.textContent = C.wordCost(w, Math.max(0, rem) / 1000);
+          li.append(text, cost);
+          li.addEventListener("click", () => {
+            els.word.value = w;
+            els.word.focus();
+            renderCards();
+          });
+          list.appendChild(li);
+        }
+      } else {
+        const moves = game.history.filter((m) => m.by === s && !m.pass);
+        for (const m of moves) {
+          const li = document.createElement("li");
+          li.className = "card-word";
+          const text = document.createElement("span");
+          text.className = "text";
+          text.textContent = m.word;
+          const cost = document.createElement("span");
+          cost.className = "badge";
+          cost.textContent = m.cost;
+          li.append(text, cost);
+          list.appendChild(li);
+        }
+      }
     }
   }
 
@@ -887,6 +956,7 @@
     applyTheme(activeId, { persist: false });
 
     els.word.setAttribute("maxlength", String(C.MAX_LENGTH));
+    els.word.addEventListener("input", renderCards);
     document.querySelectorAll("button.card").forEach((b) => (b.disabled = true));
     els.resumeBtn.disabled = true;
     const loading = document.createElement("p");
