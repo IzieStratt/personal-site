@@ -261,7 +261,7 @@ admin.sessions.reset	undocumented	existence-only	-	-	not-in-client	write	(from i
 admin.settings.export	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.slackbot.channelExclusions.add	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.slackbot.channelExclusions.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-admin.slackbot.channelExclusions.remove	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+admin.slackbot.channelExclusions.remove	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.slackbot.channelResponses.listRedactions	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 admin.teams.admins.list	documented	docs-only	params	-	-	-	List all of the admins on a given workspace.
 admin.teams.create	documented	docs-only	params	-	-	write	Create an Enterprise team.
@@ -726,6 +726,7 @@ client.codeChannels.createAndStart	undocumented	datamine-only (not oracle-tested
 client.codeChannels.deleteComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.deleteReviewComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.editComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.editPullRequestDescription	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.editReviewComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getBlockKitView	undocumented	existence-only	-	-	-	-	Code channels: fetch the Block Kit view for a code channel (inferred from name); see methods/code-channels.md.
 client.codeChannels.getDiff	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -1304,7 +1305,7 @@ helpdesk.getSectionsAndArticlesByCategory	undocumented	existence-only	-	observed
 huddles.cancelKnock	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 huddles.external.end	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 huddles.external.generate	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-huddles.external.kick	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+huddles.external.kick	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 huddles.external.linkInfo	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 huddles.external.listExternalParticipants	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 huddles.external.new	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1384,6 +1385,8 @@ lists.updateMyItemReminder	undocumented	existence-only	-	-	not-in-client	write	(
 lists.upsertToTaskList	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.views.create	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.views.delete	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+lists.views.pins.add	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
+lists.views.pins.remove	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 lists.views.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 mc.deprecations.getByAppId	undocumented	ambiguous (internal access-elevation gate, see methods/internal-canvas-2026.md)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 mc.deprecations.list	undocumented	ambiguous (internal access-elevation gate, see methods/internal-canvas-2026.md)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1563,7 +1566,7 @@ rooms.notifyMember	undocumented	existence-only	-	-	-	-	(inferred from name only;
 rooms.request	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 rooms.sendHuddleInvite	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	write	(inferred from name only; webpack string, not oracle-tested)
 rooms.startTranscription	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-rooms.stopTranscription	undocumented	existence-only	-	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+rooms.stopTranscription	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 rtm.connect	documented	docs + live-tested	params	-	-	-	Starts a Real Time Messaging session.
 rtm.start	documented	docs-only	params	-	-	-	Deprecated: Starts a Real Time Messaging session. Use rtm.connect instead.
 salesHome.admin.addMembers	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1828,7 +1831,7 @@ signup.confirmEmail	undocumented	existence-only	-	-	-	-	(from internal-canvas cr
 signup.createTeam	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 signup.getGroup	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 slackAi.permissions.getForUser	undocumented	partial	params	-	-	-	Slack AI feature permission state
-slackConnect.domain.setPrimary	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+slackConnect.domain.setPrimary	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 slackLists.access.delete	documented	docs-only	params	-	-	write	Revoke access to a List for specified entities.
 slackLists.access.set	documented	docs-only	params	-	-	write	Set the access level to a List for specified entities.
 slackLists.create	documented	docs-only	params	-	-	write	Create a List.

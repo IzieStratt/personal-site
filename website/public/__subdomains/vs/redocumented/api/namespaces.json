@@ -1190,6 +1190,7 @@
   "client.codeChannels.deleteComment",
   "client.codeChannels.deleteReviewComment",
   "client.codeChannels.editComment",
+  "client.codeChannels.editPullRequestDescription",
   "client.codeChannels.editReviewComment",
   "client.codeChannels.getBlockKitView",
   "client.codeChannels.getDiff",
@@ -2183,6 +2184,10 @@
   "lists.views.create",
   "lists.views.delete",
   "lists.views.update"
+ ],
+ "lists.views.pins": [
+  "lists.views.pins.add",
+  "lists.views.pins.remove"
  ],
  "mc.deprecations": [
   "mc.deprecations.getByAppId",
