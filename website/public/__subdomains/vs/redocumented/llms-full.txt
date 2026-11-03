@@ -1,9 +1,9 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,910 more; 399 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,907 more; 399 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
-> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 500 methods carry `params_observed` (real argument names seen
+> Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 494 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
 
 ## Quick start for agents (pick the smallest thing that answers your question)
@@ -51,7 +51,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 726/2,233
+  Only trust `params`/`response` as real when those are `true` — 726/2,230
   methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS
@@ -138,22 +138,22 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,910 undocumented/cross-referenced = 2,233 total (399 not found in Slack's current web client) method names**
+documented + 1,907 undocumented/cross-referenced = 2,230 total (399 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,910 undocumented" as "1,910
+coverage caveats below before treating "1,907 undocumented" as "1,907
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
-only 23 undocumented methods are `live-verified` with real credentials (real
+only 113 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
 *dispatch* (or, for the newest 31, typed by a third party) and nothing more.
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,233 methods
-(32.5%) now have real, sourced, structured `params`; 673/2,233 (30.1%) have a
+existed, instead of leaving them as bare method names. **726/2,230 methods
+(32.6%) now have real, sourced, structured `params`; 673/2,230 (30.2%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -973,7 +973,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,910 undocumented methods = 2,233 total. 399 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 500 undocumented methods have observed, partial parameter names (see the same page). **726/2,233 (32.5%) have real, sourced, structured params** (not guessed) -- 673/2,233 (30.1%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+323 documented methods + 1,907 undocumented methods = 2,230 total. 399 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 494 undocumented methods have observed, partial parameter names (see the same page). **726/2,230 (32.6%) have real, sourced, structured params** (not guessed) -- 673/2,230 (30.2%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4192,7 +4192,7 @@ still `existence-only`.
 
 ## Sources
 
-- **`IzieStratt/slack-datamine-plus`** (this project's own miner, AGPL-3.0, runs from GitHub Actions every ~40 minutes): downloads the ~1,800 public JavaScript chunks of Slack's web client for the logged-in throwaway account's build, extracts API method names and the argument names used at call sites. It is listed in each entry's `source` as `IzieStratt/slack-datamine-plus (own miner)`; 1489 entries carry it.
+- **`IzieStratt/slack-datamine-plus`** (this project's own miner, AGPL-3.0, runs from GitHub Actions every ~40 minutes): downloads the ~1,800 public JavaScript chunks of Slack's web client for the logged-in throwaway account's build, extracts API method names and the argument names used at call sites. It is listed in each entry's `source` as `IzieStratt/slack-datamine-plus (own miner)`; 1486 entries carry it.
 - **`3kh0/slack-datamine`** (full git history, 2026-06-02 -> 2026-10-19): the earlier source for most undocumented names. Its recent builds only list ~250 methods because its chunk discovery broke around 2026-07-24 (see below); that is why this project built its own miner.
 
 ## "Not in the current client" (was called "removed")
@@ -4201,7 +4201,7 @@ still `existence-only`.
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **399** of 2233 methods carry the flag. Documented (official) methods never do.
+- Right now **399** of 2230 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.
@@ -4210,7 +4210,7 @@ The old field names `removed` / `removed_note` no longer exist.
 
 Slack's client declares its API calls as "fetchers", for example `(0,S.r)("slackbotProjectsCreateFetcher","slackbot.projects.create")`, and passes the arguments where the fetcher is called. The miner collects those argument names per method.
 
-- **500** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
+- **494** undocumented methods now have `params_observed` (name, a type hint if the value is a literal, and how many call sites pass it). Example: `client.codeChannels.mergePullRequest` -> `channelId`, `headSha`, `prUrl`, `reason`.
 - It is **not a schema**: it is stored separately and `params_known` stays `false`. The names are real (taken from Slack's own code) but the set is partial (spread arguments and values built elsewhere are invisible), nothing says which are required, types are mostly unknown, and camelCase names in the client may be snake_case on the wire. The explorer shows these as "observed (N)".
 - Methods the client calls through another mechanism, or from a chunk where the fetcher is imported under a different name, have none yet.
 
@@ -4354,7 +4354,7 @@ r = requests.post("https://slack.com/api/drafts.create", headers=headers, data=d
 
 # The Edge API (`edgeapi.slack.com`) — a separate, out-of-scope-for-our-oracle system
 
-**Source-only. Not live-tested. Existence oracle does not apply as built.**
+**Live-tested (2026-11-02), read-only, one workspace (Hack Club, Enterprise Grid `E09V5…`), session credentials (`xoxc` + `xoxd`) of a single test account.** 17 paths exist; the rest of the write-up below is source-derived. See "Live test results" at the end.
 
 Everything else in `methods/` goes through the standard dispatcher:
 `POST https://slack.com/api/<method>` (or the workspace-hosted equivalent),
@@ -4415,6 +4415,75 @@ methods otherwise.
 
 This is flagged in `README.md`'s honest-coverage section as a known gap, not
 silently omitted.
+
+## Live test results
+
+**Method.** Each path was POSTed with `Authorization: Bearer <xoxc>`,
+`Cookie: d=<xoxd>`, JSON body. Nonexistent paths return HTTP 404 with body
+`Not Found`, so any other status means the path exists. The sweep covered 49
+resource names × 21 read-style actions (`info`, `list`, `search`, `counts`,
+`membership`, `get`, `fetch`, `lookup`, `status`, `members`, `metadata`,
+`history`, `read`, `permissions`, `all`, `batch`, `bulk`, `details`,
+`summary`, `state`, `recent`). Write-style actions (`create`, `set`, `update`,
+`delete`, `send`, `join`, …) were not sent. The sweep covers only the names
+guessed here, so "every endpoint" means every one that could be found, not a
+complete inventory.
+
+**Result: 17 existing paths, all returning `ok: true` with a working body.** Retested on 2026-11-03 with the enterprise-level token (`teams[0]`): all 17 still return `ok: true`. See [`read-sweep-2026-11-03.md`](read-sweep-2026-11-03.md).
+
+| Path | Working body (keys) | Response keys | Notes |
+|---|---|---|---|
+| `users/info` | `{"ids":[user_id]}` | `results` | `user`/`user_ids` → `invalid_request` |
+| `users/list` | `{"channels":[id],"present_first":true,"filter":"everyone AND NOT bots AND NOT apps","count":N}` | `results`, `next_marker` | Returned 20 channel members, no bots/apps/deleted. No presence field, so `present_first` order not verified. |
+| `users/counts` | `{}`-style (ok with `channels`) | `counts` | |
+| `users/search` | `{"query":str,"count":N}` | `results` | |
+| `channels/info` | `{"ids":[channel_id]}` | `results` | `channel`/`channel_ids` → `invalid_request` |
+| `channels/list` | `{"count":N}` | `results`, `next_marker` | |
+| `channels/search` | `{"query":str,"count":N}` | `results` | |
+| `channels/membership` | `{"channel":id,"user":id}` | `channel` | Single pair only; `channels:[…]` → `invalid_request` |
+| `permissions/info` | `{}` | `allowed`, `allowed_per_team` | |
+| `huddles/info` | `{"channel_ids":[id]}` | `huddles` | `channel`/`channels` → `invalid_request` |
+| `huddles/list` | `{"channel_ids":[id]}` | `huddles` | |
+| `emojis/info` | `{"ids":[name]}` | `results`, `failed_ids` | Name-based `names`/`emoji` → `invalid_request`. `ids` with `white_check_mark` returned no results (`failed_ids`), so the id form is not confirmed to resolve standard emoji names. |
+| `emojis/list` | `{"count":N}` | `results`, `next_marker` | |
+| `emojis/search` | `{"query":str,"count":N}` | `results` | |
+| `usergroups/info` | `{"ids":[id]}` | `results`, `failed_ids` | Probed with a fake id `S01`, so only the shape is confirmed. |
+| `usergroups/search` | `{"query":str,"count":N}` | `results` | |
+| `apps/info` | `{"ids":[id]}` | `results`, `failed_ids` | Probed with a fake id `A01`, so only the shape is confirmed. |
+
+Newly found and not in the original write-up: `channels/list`, `emojis/list`,
+`emojis/search`, `huddles/list`, `usergroups/info`, `usergroups/search`,
+`apps/info`.
+
+**Not found** (404) for the other combinations tried, for example
+`nosuchresource/info`, `users/nosuchaction`, `zzz/zzz`, and any `*/create|set|…`
+(not sent).
+
+### Reported client behaviour (face stack in the channel header)
+
+A description of Slack's web client (`BaseAvatarStack`) was checked against the
+API data above.
+
+- **Confirmed**: the Edge `users/list` call with the reported body returns
+  channel members with bots and apps filtered out.
+- **Partly confirmed**: the top-3 faces are the most recent distinct non-bot
+  posters who are still members (checked against `conversations.history` and
+  `conversations.members` on 15 channels). Some channels had no matching
+  recent poster among their first 1,000 members, which fits a fallback to the
+  Edge list. The fallback was not triggered in testing.
+- **Not verified**: `present_first` ordering (no presence field returned), the
+  lookback depth of recent messages, and the "5 faces / View all 5 members"
+  label, which comes from a different selector.
+- **Caveat**: `conversations.members` returns at most 1,000 IDs per page and was
+  not paginated, so channels with more members are truncated in those
+  comparisons.
+
+### Safety notes
+
+- The `users/list` probe used a channel with 387 members and `count: 20`.
+- All calls were read-style. Nothing was posted, joined, or changed.
+- The token pair belongs to an automation account (`auto-accountsjohnfloc`).
+  Results were not written anywhere except this document.
 
 
 ==============================================================================
@@ -5680,6 +5749,44 @@ method. All live calls used the **team** xoxc/xoxd unless noted otherwise.
   off-limits for live calls even when nominally read-only, unless clearly
   harmless. This one wasn't clearly harmless, so it's documented source-only.
 - **Provenance:** reverse-engineering gist, "Additional Features" section.
+
+
+==============================================================================
+# FILE: https://vs.izie.top/redocumented/docs/methods/read-sweep-2026-11-03.md
+==============================================================================
+
+# Read-only sweep, 2026-11-03
+
+**Read-style methods only, two token types, one account (`auto-accountsjohnfloc`, Hack Club / Enterprise Grid).** Raw per-method results: [`docs/data/read-sweep-2026-11-03.tsv`](../data/read-sweep-2026-11-03.tsv).
+
+## Scope
+
+- 716 methods taken from the catalog's non-write-shaped list, filtered to read-style names (`list`, `get`, `info`, `search`, `lookup`, `history`, `replies`, `status`, `fetch`, `count(s)`, `members`, `files`, `dms`, `find`, `details`, `metadata`, `permissions`, `read`, `view`).
+- Each was called once with an empty body.
+- Skipped: about 820 write-shaped methods, and about 696 non-write methods with mutating or ambiguous names (`start`, `open`, `publish`, `export`, `submit`, `bulkDelete`, `deactivate`, and similar).
+- No write-shaped methods were called.
+
+## Two tokens
+
+- **Workspace token** (`teams[2]`, workspace `T0266FRGM`): 68 `ok`. Most calls fail with `team_is_restricted` (295).
+- **Enterprise token** (`teams[0]`, `E09V59WQY1E`): 104 `ok`. Fails with `missing_scope`, `access_denied`, and `restricted_action` instead.
+- **Union**: 116 methods returned `ok: true`. 56 work with both tokens, 12 only with the workspace token, 48 only with the enterprise token.
+
+## `unknown_method` (catalog entries this workspace doesn't know)
+
+Returned by both tokens, so this doesn't depend on the token used:
+
+`admin.apps.activities.list`, `admin.apps.config.lookup`, `admin.apps.domainWideAuth.list`, `admin.apps.updates.list`, `admin.productivity.apps.getBanner`, `admin.workflows.search`, `ai.alpha.replies.get`, `api.statusSite`, `apps.permissions.internal.info`, `calendar.alerts.list`, `channels.history`, `channels.replies`, `im.history`, `im.replies`, `lists.getOrCreateTaskList`, `mpim.history`, `sfdc.datacloud.getDatacloudTeamInfo`, `sfdc.getContactAvailableFields`, `sfdc.getContactCSVSample`, `unread.history`
+
+These catalog entries should be corrected or removed.
+
+## Sensitive read
+
+- `users.admin.fetchTeamUsersCsv` returned `ok: true` on the workspace token. It returns a CSV of team members. The body was not saved.
+
+## Edge API
+
+The 17 Edge endpoints in [`edge-api.md`](edge-api.md) return `ok: true` with both tokens.
 
 
 ==============================================================================

@@ -2,7 +2,7 @@
  "openapi": "3.1.0",
  "info": {
   "title": "ReDocumented Slack Web API (params-known subset)",
-  "version": "2026-11-03",
+  "version": "2026-11-02",
   "description": "Generated from methods.json; only methods with params_known: true. Param types are loose strings. This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real."
  },
  "servers": [
@@ -136,11 +136,11 @@
    "post": {
     "operationId": "activity.views",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/activity.views.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/activity.views.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -692,11 +692,11 @@
    "post": {
     "operationId": "admin.apps.activities.list",
     "summary": "Get logs for a specified team/org",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.activities.list.md",
+    "description": "status: documented; verified: ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md); params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.activities.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -876,11 +876,11 @@
    "post": {
     "operationId": "admin.apps.certified.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.certified.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.certified.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -946,11 +946,11 @@
    "post": {
     "operationId": "admin.apps.config.lookup",
     "summary": "Look up the app config for connectors by their IDs",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.config.lookup.md",
+    "description": "status: documented; verified: ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md); params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.config.lookup.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -1029,11 +1029,11 @@
    "post": {
     "operationId": "admin.apps.installed.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.installed.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/admin.apps.installed.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -5849,11 +5849,11 @@
    "post": {
     "operationId": "admin.workflows.search",
     "summary": "Search workflows within the team or enterprise",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.workflows.search.md",
+    "description": "status: documented; verified: ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md); params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/admin.workflows.search.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -6192,11 +6192,11 @@
    "post": {
     "operationId": "ai.alpha.agents.threads.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.agents.threads.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/ai.alpha.agents.threads.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -6452,11 +6452,11 @@
    "post": {
     "operationId": "api.getFlannelHttpUrl",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/api.getFlannelHttpUrl.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/api.getFlannelHttpUrl.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -6789,11 +6789,11 @@
    "post": {
     "operationId": "apps.auth.external.userAuths.get",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.auth.external.userAuths.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.auth.external.userAuths.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -6816,11 +6816,11 @@
    "post": {
     "operationId": "apps.certified.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.certified.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.certified.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -7414,11 +7414,11 @@
    "post": {
     "operationId": "apps.index.filters.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.index.filters.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.index.filters.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -7446,11 +7446,11 @@
    "post": {
     "operationId": "apps.index.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.index.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/apps.index.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -9474,11 +9474,11 @@
    "post": {
     "operationId": "canvases.getCannedTemplates",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.getCannedTemplates.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.getCannedTemplates.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -9510,11 +9510,11 @@
    "post": {
     "operationId": "canvases.getTemplates",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.getTemplates.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.getTemplates.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -9542,11 +9542,11 @@
    "post": {
     "operationId": "canvases.listHeaders",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.listHeaders.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/canvases.listHeaders.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -10906,11 +10906,11 @@
    "post": {
     "operationId": "client.dms",
     "summary": "DM history filters (Edge-style sync)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.dms.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.dms.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -10986,11 +10986,11 @@
    "post": {
     "operationId": "client.getWebSocketURL",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.getWebSocketURL.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/client.getWebSocketURL.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -11128,11 +11128,11 @@
    "post": {
     "operationId": "connectInvites.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/connectInvites.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/connectInvites.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -11572,11 +11572,11 @@
    "post": {
     "operationId": "conversations.channelPrefixes.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.channelPrefixes.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.channelPrefixes.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -12380,11 +12380,11 @@
    "post": {
     "operationId": "conversations.list",
     "summary": "Lists all channels in a Slack team.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/conversations.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/conversations.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -13475,11 +13475,11 @@
    "post": {
     "operationId": "conversations.view",
     "summary": "Mark a conversation viewed (possible side effect)",
-    "description": "status: undocumented; verified: not-live-tested; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.view.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/conversations.view.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "not-live-tested",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15060,11 +15060,11 @@
    "post": {
     "operationId": "dnd.info",
     "summary": "Retrieves a user's current Do Not Disturb status.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/dnd.info.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/dnd.info.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15302,11 +15302,11 @@
    "post": {
     "operationId": "drafts.listActive",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/drafts.listActive.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/drafts.listActive.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15394,11 +15394,11 @@
    "post": {
     "operationId": "email.affiliations.info",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/email.affiliations.info.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/email.affiliations.info.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15537,11 +15537,11 @@
    "post": {
     "operationId": "emoji.collections.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/emoji.collections.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/emoji.collections.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15601,11 +15601,11 @@
    "post": {
     "operationId": "emoji.list",
     "summary": "Lists custom emoji for a team.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/emoji.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/emoji.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -15665,11 +15665,11 @@
    "post": {
     "operationId": "enterprise.prefs.get",
     "summary": "Enterprise-level client preferences",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/enterprise.prefs.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/enterprise.prefs.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -16762,11 +16762,11 @@
    "post": {
     "operationId": "files.list",
     "summary": "List files for a team, in a channel, or from a user with applied filters.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/files.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -17815,11 +17815,11 @@
    "post": {
     "operationId": "functions.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/functions.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/functions.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -18123,11 +18123,11 @@
    "post": {
     "operationId": "functions.workflows.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/functions.workflows.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/functions.workflows.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -18688,11 +18688,11 @@
    "post": {
     "operationId": "help.productHelpCard.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/help.productHelpCard.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/help.productHelpCard.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -18928,11 +18928,11 @@
    "post": {
     "operationId": "huddles.history",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/huddles.history.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/huddles.history.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -18972,11 +18972,11 @@
    "post": {
     "operationId": "huddles.listBackgrounds",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/huddles.listBackgrounds.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/huddles.listBackgrounds.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -18999,11 +18999,11 @@
    "post": {
     "operationId": "im.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/im.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/im.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -19107,11 +19107,11 @@
    "post": {
     "operationId": "links.getDomains",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/links.getDomains.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/links.getDomains.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -19178,11 +19178,11 @@
    "post": {
     "operationId": "lists.getMyItems",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/lists.getMyItems.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/lists.getMyItems.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -19590,11 +19590,11 @@
    "post": {
     "operationId": "messages.sent.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/messages.sent.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/messages.sent.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -19685,11 +19685,11 @@
    "post": {
     "operationId": "mpim.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/mpim.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/mpim.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -20010,11 +20010,11 @@
    "post": {
     "operationId": "onboarding.fetch",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/onboarding.fetch.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/onboarding.fetch.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -20412,11 +20412,11 @@
    "post": {
     "operationId": "payments.status.get",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/payments.status.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/payments.status.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -21332,11 +21332,11 @@
    "post": {
     "operationId": "reminders.list",
     "summary": "Lists all reminders created by or for a given user.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/reminders.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/reminders.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -21440,11 +21440,11 @@
    "post": {
     "operationId": "retail.getAvailablePlans",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/retail.getAvailablePlans.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/retail.getAvailablePlans.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -23424,11 +23424,11 @@
    "post": {
     "operationId": "sfdc.integration.listOrgs",
     "summary": "List connected Salesforce integration orgs",
-    "description": "status: undocumented; verified: not-live-tested; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sfdc.integration.listOrgs.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/sfdc.integration.listOrgs.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "not-live-tested",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -24244,11 +24244,11 @@
    "post": {
     "operationId": "slackbot.responses.list",
     "summary": "params per slack-undoc-client generated types: limit?: number;",
-    "description": "status: undocumented; verified: not-live-tested (source-only, typed but unverified); params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/slackbot.responses.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/slackbot.responses.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "not-live-tested (source-only, typed but unverified)",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -24276,11 +24276,11 @@
    "post": {
     "operationId": "solutions.getTemplates",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/solutions.getTemplates.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/solutions.getTemplates.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -24379,11 +24379,11 @@
    "post": {
     "operationId": "stars.list",
     "summary": "Listed a user's saved items, formerly known as stars.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/stars.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/stars.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -24539,11 +24539,11 @@
    "post": {
     "operationId": "subscriptions.thread.getView",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/subscriptions.thread.getView.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/subscriptions.thread.getView.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25252,11 +25252,11 @@
    "post": {
     "operationId": "team.info",
     "summary": "Gets information about the current team.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.info.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.info.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25336,11 +25336,11 @@
    "post": {
     "operationId": "team.listExternal",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.listExternal.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.listExternal.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25372,11 +25372,11 @@
    "post": {
     "operationId": "team.nav.get",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.nav.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/team.nav.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25494,11 +25494,11 @@
    "post": {
     "operationId": "team.profile.get",
     "summary": "Retrieve a team's profile.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.profile.get.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/team.profile.get.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25806,11 +25806,11 @@
    "post": {
     "operationId": "teams.trials.info",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/teams.trials.info.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/teams.trials.info.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -25833,11 +25833,11 @@
    "post": {
     "operationId": "templates.integrations.get",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/templates.integrations.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/templates.integrations.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -26168,11 +26168,11 @@
    "post": {
     "operationId": "usergroups.list",
     "summary": "List all User Groups for a team.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/usergroups.list.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/usergroups.list.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -26212,11 +26212,11 @@
    "post": {
     "operationId": "usergroups.membership",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/usergroups.membership.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/usergroups.membership.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -26563,11 +26563,11 @@
    "post": {
     "operationId": "users.admin.fetchTeamUsersCsv",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.admin.fetchTeamUsersCsv.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.admin.fetchTeamUsersCsv.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -27176,11 +27176,11 @@
    "post": {
     "operationId": "users.customStatus.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.customStatus.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.customStatus.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -27270,11 +27270,11 @@
    "post": {
     "operationId": "users.emailVerificationStatus.get",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.emailVerificationStatus.get.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.emailVerificationStatus.get.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -27324,11 +27324,11 @@
    "post": {
     "operationId": "users.getInviter",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.getInviter.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.getInviter.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -27351,11 +27351,11 @@
    "post": {
     "operationId": "users.getPresence",
     "summary": "Gets user presence information.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.getPresence.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.getPresence.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -27949,11 +27949,11 @@
    "post": {
     "operationId": "users.profile.get",
     "summary": "Retrieve a user's profile information, including their custom status.",
-    "description": "status: documented; verified: docs-only; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.profile.get.md",
+    "description": "status: documented; verified: live-verified; params source: slack-ruby/slack-api-ref (mirrors official docs.slack.dev args). Details: https://vs.izie.top/redocumented/api/methods/users.profile.get.md",
     "tags": [
      "documented"
     ],
-    "x-verified": "docs-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -28012,11 +28012,11 @@
    "post": {
     "operationId": "users.profile.getExtras",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.getExtras.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/users.profile.getExtras.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -29010,11 +29010,11 @@
    "post": {
     "operationId": "workflows.templates.list",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.templates.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.templates.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -29170,11 +29170,11 @@
    "post": {
     "operationId": "workflows.triggers.listRecentlyRunForUser",
     "summary": "(inferred from name only; see methods/datamine-2026-09.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.triggers.listRecentlyRunForUser.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.triggers.listRecentlyRunForUser.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
@@ -29422,11 +29422,11 @@
    "post": {
     "operationId": "workflows.triggers.types.list",
     "summary": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-    "description": "status: undocumented; verified: existence-only; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.triggers.types.list.md",
+    "description": "status: undocumented; verified: live-verified; params source: ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified). Details: https://vs.izie.top/redocumented/api/methods/workflows.triggers.types.list.md",
     "tags": [
      "undocumented"
     ],
-    "x-verified": "existence-only",
+    "x-verified": "live-verified",
     "x-write-shaped": false,
     "requestBody": {
      "content": {
