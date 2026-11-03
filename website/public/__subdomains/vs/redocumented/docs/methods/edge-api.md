@@ -75,7 +75,7 @@ resource names × 21 read-style actions (`info`, `list`, `search`, `counts`,
 guessed here, so "every endpoint" means every one that could be found, not a
 complete inventory.
 
-**Result: 17 existing paths, all returning `ok: true` with a working body.**
+**Result: 17 existing paths, all returning `ok: true` with a working body.** Retested on 2026-11-03 with the enterprise-level token (`teams[0]`): all 17 still return `ok: true`. See [`read-sweep-2026-11-03.md`](read-sweep-2026-11-03.md).
 
 | Path | Working body (keys) | Response keys | Notes |
 |---|---|---|---|
