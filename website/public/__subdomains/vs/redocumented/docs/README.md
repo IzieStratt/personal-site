@@ -34,7 +34,7 @@ not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
 coverage caveats below before treating "1,907 undocumented" as "1,907
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
-only 23 undocumented methods are `live-verified` with real credentials (real
+only 113 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
 *dispatch* (or, for the newest 31, typed by a third party) and nothing more.
 
