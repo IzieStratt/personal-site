@@ -1,4 +1,6 @@
 import { handleComments } from './comments.js'
+import { handleSuggestions } from './suggestions.js'
+export { ShiritoriLobby } from './shiritori-lobby.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 
@@ -45,6 +47,11 @@ export default {
       return handleHmoji(request, env, ctx, url.pathname)
     }
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
+      // one hub holds every lobby and game (see shiritori-lobby.js)
+      return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
+    }
     if (url.pathname.startsWith('/api/graphs/')) {
       const response = await fetch(`https://botme.dunkirk.sh${url.pathname}${url.search}`, request)
       const headers = new Headers(response.headers)

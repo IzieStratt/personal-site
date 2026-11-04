@@ -1,15 +1,15 @@
 {
- "generated": "2026-10-28",
+ "generated": "2026-11-04",
  "counts": {
-  "total": 2220,
+  "total": 2238,
   "documented": 323,
-  "undocumented": 1897,
-  "not_in_client": 393,
-  "params_observed": 476,
-  "live_verified_undocumented": 23,
+  "undocumented": 1915,
+  "not_in_client": 400,
+  "params_observed": 507,
+  "live_verified_undocumented": 113,
   "params_known": 726,
   "response_known": 673,
-  "own_miner_sourced": 1476
+  "own_miner_sourced": 1494
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -160,7 +160,7 @@
   {
    "name": "activity.views",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -589,7 +589,7 @@
   {
    "name": "admin.apps.activities.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -628,7 +628,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.apps.allowlistAutomation.rules.delete",
@@ -732,7 +732,7 @@
   {
    "name": "admin.apps.certified.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -754,7 +754,7 @@
   {
    "name": "admin.apps.config.lookup",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -820,7 +820,7 @@
   {
    "name": "admin.apps.domainWideAuth.list",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -864,7 +864,7 @@
   {
    "name": "admin.apps.installed.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -1161,7 +1161,7 @@
   {
    "name": "admin.apps.updates.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -2102,7 +2102,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.enterpriseSearch.searchApps.setEnabled",
@@ -2113,7 +2113,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.features.list",
@@ -2481,7 +2481,7 @@
   {
    "name": "admin.productivity.apps.getBanner",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -2842,6 +2842,28 @@
    "params_observed": false
   },
   {
+   "name": "admin.sessions.dbsc.countAffectedUsers",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "admin.sessions.dbsc.enforceAllSessions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "admin.sessions.reset",
    "status": "undocumented",
    "verified": "existence-only",
@@ -2894,7 +2916,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.slackbot.channelResponses.listRedactions",
@@ -3191,7 +3213,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.users.externalUsers.removeFromAllConversations",
@@ -3268,7 +3290,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.users.resetPassword",
@@ -3493,7 +3515,7 @@
   {
    "name": "admin.workflows.search",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -3645,6 +3667,17 @@
    "params_observed": false
   },
   {
+   "name": "agents.sessions.setResponseMode",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "agents.sessions.setStatus",
    "status": "documented",
    "verified": "docs-only",
@@ -3669,7 +3702,7 @@
   {
    "name": "agents.sunroof.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -3746,7 +3779,7 @@
   {
    "name": "ai.alpha.agents.channels.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -3768,7 +3801,7 @@
   {
    "name": "ai.alpha.agents.sessions.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -3790,7 +3823,7 @@
   {
    "name": "ai.alpha.agents.threads.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -3939,7 +3972,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.digest.addToDigest",
@@ -4065,7 +4098,7 @@
   {
    "name": "ai.alpha.replies.get",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -4163,6 +4196,28 @@
   },
   {
    "name": "ai.alpha.singer.remoteResponse",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.singer.window",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.singer.windowThread",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -4379,7 +4434,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.slackbot.skills.addToLibrary",
@@ -4489,7 +4544,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.slackbot.skills.listEnabled",
@@ -4747,7 +4802,7 @@
   {
    "name": "ai.alpha.slackiversary.fetch",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -4841,7 +4896,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.summarize.unreadsSnapshot",
@@ -5275,7 +5330,7 @@
   {
    "name": "api.getFlannelHttpUrl",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -5286,7 +5341,7 @@
   {
    "name": "api.statusSite",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -5473,7 +5528,7 @@
   {
    "name": "apps.auth.external.userAuths.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -5495,7 +5550,7 @@
   {
    "name": "apps.certified.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -5572,7 +5627,7 @@
   {
    "name": "apps.datasources.external.list",
    "status": "undocumented",
-   "verified": "existence-only (sample-checked)",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -5781,7 +5836,7 @@
   {
    "name": "apps.index.filters.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -5792,7 +5847,7 @@
   {
    "name": "apps.index.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -5891,7 +5946,7 @@
   {
    "name": "apps.onboarding.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -5957,7 +6012,7 @@
   {
    "name": "apps.permissions.internal.info",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -6034,7 +6089,7 @@
   {
    "name": "apps.productivity.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -6776,18 +6831,18 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
    "name": "calendar.alerts.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -6798,7 +6853,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -6809,7 +6864,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -6886,7 +6941,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -7002,7 +7057,7 @@
   {
    "name": "calendar.user.status",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -7046,7 +7101,7 @@
   {
    "name": "calls.apps.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -7222,7 +7277,7 @@
   {
    "name": "canvases.getCannedTemplates",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -7244,7 +7299,7 @@
   {
    "name": "canvases.getTemplates",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -7255,7 +7310,7 @@
   {
    "name": "canvases.listHeaders",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -7365,7 +7420,7 @@
   {
    "name": "channels.history",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -7398,7 +7453,7 @@
   {
    "name": "channels.replies",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -7880,6 +7935,28 @@
    "params_observed": false
   },
   {
+   "name": "client.codeChannels.addPullRequestComment",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.codeChannels.addReaction",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "client.codeChannels.addReviewComment",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -7946,7 +8023,40 @@
    "params_observed": false
   },
   {
+   "name": "client.codeChannels.deleteReviewComment",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "client.codeChannels.editComment",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "client.codeChannels.editPullRequestDescription",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "client.codeChannels.editReviewComment",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -8012,7 +8122,29 @@
    "params_observed": false
   },
   {
+   "name": "client.codeChannels.getPullRequestCommits",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "client.codeChannels.getPullRequestConnection",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.codeChannels.getPullRequestSummary",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -8056,9 +8188,20 @@
    "params_observed": false
   },
   {
-   "name": "client.codeChannels.listSupportedApps",
+   "name": "client.codeChannels.listPullRequests",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.codeChannels.listSupportedApps",
+   "status": "undocumented",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -8078,12 +8221,34 @@
    "params_observed": true
   },
   {
+   "name": "client.codeChannels.removeReaction",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "client.codeChannels.requestReviewers",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "client.codeChannels.setReviewThreadResolved",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
@@ -8113,7 +8278,7 @@
   {
    "name": "client.dms",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -8140,13 +8305,13 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
    "name": "client.getWebSocketURL",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -8195,7 +8360,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "Boot org-wide user/client state",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -8245,7 +8410,7 @@
   {
    "name": "codeChannels.listSupportedApps",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -8344,7 +8509,7 @@
   {
    "name": "connectInvites.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -8575,7 +8740,7 @@
   {
    "name": "conversations.channelPrefixes.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -8817,7 +8982,7 @@
   {
    "name": "conversations.getGeneral",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -8861,7 +9026,7 @@
   {
    "name": "conversations.historyChanges",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -9004,7 +9169,7 @@
   {
    "name": "conversations.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -9455,7 +9620,7 @@
   {
    "name": "conversations.view",
    "status": "undocumented",
-   "verified": "not-live-tested",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -9862,7 +10027,7 @@
   {
    "name": "developer.apps.config.listSelectableAppCategories",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -10467,7 +10632,7 @@
   {
    "name": "dnd.info",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -10544,7 +10709,7 @@
   {
    "name": "dotcom.templates.search",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -10610,7 +10775,7 @@
   {
    "name": "drafts.listActive",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -10643,7 +10808,7 @@
   {
    "name": "email.affiliations.info",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -10786,7 +10951,7 @@
   {
    "name": "emailConnectorSelfServe.info",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -10885,7 +11050,7 @@
   {
    "name": "emoji.collections.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -10907,7 +11072,7 @@
   {
    "name": "emoji.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -11336,7 +11501,7 @@
   {
    "name": "enterprise.info",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -11556,7 +11721,7 @@
   {
    "name": "enterprise.prefs.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -12128,7 +12293,7 @@
   {
    "name": "enterpriseSearch.getConnectorFilters",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -12139,7 +12304,7 @@
   {
    "name": "enterpriseSearch.getConnectors",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -12667,13 +12832,13 @@
   {
    "name": "files.collections.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.collections.rename",
@@ -13228,7 +13393,7 @@
   {
    "name": "files.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -13690,7 +13855,7 @@
   {
    "name": "functions.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -13866,7 +14031,7 @@
   {
    "name": "functions.workflows.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14141,7 +14306,7 @@
   {
    "name": "help.productHelpCard.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14268,7 +14433,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "huddles.external.linkInfo",
@@ -14328,7 +14493,7 @@
   {
    "name": "huddles.getTrackUrls",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -14339,7 +14504,7 @@
   {
    "name": "huddles.history",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14372,7 +14537,7 @@
   {
    "name": "huddles.listBackgrounds",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14471,7 +14636,7 @@
   {
    "name": "i18n.translations.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -14493,7 +14658,7 @@
   {
    "name": "im.history",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -14504,7 +14669,7 @@
   {
    "name": "im.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14515,7 +14680,7 @@
   {
    "name": "im.replies",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -14614,7 +14779,7 @@
   {
    "name": "links.getDomains",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14779,7 +14944,7 @@
   {
    "name": "lists.getMyItems",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -14790,7 +14955,7 @@
   {
    "name": "lists.getOrCreateTaskList",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -15140,6 +15305,28 @@
    "params_observed": true
   },
   {
+   "name": "lists.views.pins.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "lists.views.pins.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "lists.views.update",
    "status": "undocumented",
    "verified": "existence-only",
@@ -15393,6 +15580,17 @@
    "params_observed": false
   },
   {
+   "name": "megaphone.journeys.dismiss",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "megaphone.notifications.list",
    "status": "undocumented",
    "verified": "partial",
@@ -15428,7 +15626,7 @@
   {
    "name": "megaphone.visualizer.notifications.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -15450,7 +15648,7 @@
   {
    "name": "megaphone.visualizer.reducers.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -15472,7 +15670,7 @@
   {
    "name": "megaphone.visualizer.spaces.list",
    "status": "undocumented",
-   "verified": "existence-only (sample-checked)",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -15494,7 +15692,7 @@
   {
    "name": "messages.sent.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -15736,7 +15934,7 @@
   {
    "name": "mpim.history",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -15747,7 +15945,7 @@
   {
    "name": "mpim.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -15835,7 +16033,7 @@
   {
    "name": "onboarding.fetch",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -16011,7 +16209,7 @@
   {
    "name": "payments.status.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -16149,7 +16347,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "presence.set",
@@ -16242,7 +16440,7 @@
   {
    "name": "productui.static.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -16462,7 +16660,7 @@
   {
    "name": "quip.getControllerInitData",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -16803,7 +17001,7 @@
   {
    "name": "recordChannels.objectTypes.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -16957,7 +17155,7 @@
   {
    "name": "reminders.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -16979,7 +17177,7 @@
   {
    "name": "retail.getAvailablePlans",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -17001,7 +17199,7 @@
   {
    "name": "rooms.appOptions.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -17106,7 +17304,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "rtm.connect",
@@ -18371,12 +18569,12 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.agentforce.listAccessible",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -18398,13 +18596,13 @@
   {
    "name": "sfdc.agentforce.listInstalled",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.agentforce.provisionCka",
@@ -18563,7 +18761,7 @@
   {
    "name": "sfdc.datacloud.getDatacloudTeamInfo",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -18893,7 +19091,7 @@
   {
    "name": "sfdc.getContactAvailableFields",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -18904,7 +19102,7 @@
   {
    "name": "sfdc.getContactCSVSample",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -19355,7 +19553,7 @@
   {
    "name": "sfdc.integration.listOrgs",
    "status": "undocumented",
-   "verified": "not-live-tested",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -19801,7 +19999,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sharedInvites.get",
@@ -19883,7 +20081,7 @@
   {
    "name": "sidebar.dms",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -20021,7 +20219,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "slackLists.access.delete",
@@ -20653,7 +20851,7 @@
   {
    "name": "slackbot.responses.list",
    "status": "undocumented",
-   "verified": "not-live-tested (source-only, typed but unverified)",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -20774,7 +20972,7 @@
   {
    "name": "solutions.getTemplates",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -20818,7 +21016,7 @@
   {
    "name": "stars.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -20884,7 +21082,7 @@
   {
    "name": "subscriptions.thread.getView",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21005,7 +21203,7 @@
   {
    "name": "team.admins.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -21170,7 +21368,7 @@
   {
    "name": "team.counts",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -21280,7 +21478,7 @@
   {
    "name": "team.info",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21302,7 +21500,7 @@
   {
    "name": "team.listExternal",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21313,7 +21511,7 @@
   {
    "name": "team.nav.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21390,7 +21588,7 @@
   {
    "name": "team.profile.get",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21572,12 +21770,12 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "teams.selfReportedSegmentation.info",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -21588,7 +21786,7 @@
   {
    "name": "teams.trials.info",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21643,7 +21841,7 @@
   {
    "name": "templates.integrations.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21748,7 +21946,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "today.items.markUnread",
@@ -21863,7 +22061,7 @@
   {
    "name": "unread.history",
    "status": "undocumented",
-   "verified": "datamine-only (not oracle-tested)",
+   "verified": "ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -21929,7 +22127,7 @@
   {
    "name": "usergroups.list",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21940,7 +22138,7 @@
   {
    "name": "usergroups.membership",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -21951,7 +22149,7 @@
   {
    "name": "usergroups.search",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -22072,7 +22270,7 @@
   {
    "name": "users.admin.fetchTeamUsersCsv",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22479,7 +22677,7 @@
   {
    "name": "users.customStatus.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22556,7 +22754,7 @@
   {
    "name": "users.emailVerificationStatus.get",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22600,7 +22798,7 @@
   {
    "name": "users.getInviter",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22611,7 +22809,7 @@
   {
    "name": "users.getPresence",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22743,7 +22941,7 @@
   {
    "name": "users.listOutgoingInvites",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -22875,7 +23073,7 @@
   {
    "name": "users.profile.get",
    "status": "documented",
-   "verified": "docs-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -22897,7 +23095,7 @@
   {
    "name": "users.profile.getExtras",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -23194,7 +23392,7 @@
   {
    "name": "visits.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -24069,7 +24267,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "workflows.taskRuns.list",
@@ -24184,7 +24382,7 @@
   {
    "name": "workflows.templates.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -24206,7 +24404,7 @@
   {
    "name": "workflows.templates.listForUser",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": false,
    "response_known": false,
    "write_shaped": false,
@@ -24316,7 +24514,7 @@
   {
    "name": "workflows.triggers.listRecentlyRunForUser",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,
@@ -24415,7 +24613,7 @@
   {
    "name": "workflows.triggers.types.list",
    "status": "undocumented",
-   "verified": "existence-only",
+   "verified": "live-verified",
    "params_known": true,
    "response_known": true,
    "write_shaped": false,

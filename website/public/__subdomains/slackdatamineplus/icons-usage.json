@@ -885,6 +885,11 @@
    "d\",size:\"20\"}),[c.$.Hangout]:(0,n.jsx)(l.Ah,{name:\"brand-google-hangouts-filled\",size:\"20\"}),[c.$.Webex]:(0,n.jsx)(\"img\",{src:o,alt:\"\"}),[c.$.Skype]:(0,n.jsx)(\"img\",{src:s,alt:\"\"}),[c.$.GoogleMeet]:(0"
   ]
  },
+ "brand-granola-filled": {
+  "count": 0,
+  "labels": [],
+  "snippets": []
+ },
  "brand-instagram-filled": {
   "count": 0,
   "labels": [],
