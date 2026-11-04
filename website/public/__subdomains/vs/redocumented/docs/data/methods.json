@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-02",
+ "generated": "2026-11-04",
  "counts": {
-  "total": 2230,
+  "total": 2238,
   "documented": 323,
-  "undocumented": 1907,
-  "not_in_client": 399,
-  "params_observed": 494,
+  "undocumented": 1915,
+  "not_in_client": 400,
+  "params_observed": 507,
   "live_verified_undocumented": 113,
   "params_known": 726,
   "response_known": 673,
-  "own_miner_sourced": 1486
+  "own_miner_sourced": 1494
  },
  "methods": [
   {
@@ -67,38 +67,18 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 2,
-     "type": "string"
+     "sites": 6,
+     "type": "unknown"
+    },
+    "salesforceOrgId": {
+     "sites": 6,
+     "type": "unknown"
+    },
+    "background": {
+     "sites": 3,
+     "type": "boolean"
     },
     "beforeTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "files": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "fileTypeCategories": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "itemIds": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "nextCursor": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "recordId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "totalCount": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "view": {
      "sites": 1,
      "type": "unknown"
     }
@@ -2056,6 +2036,14 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "channelId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "prUrl": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -2190,26 +2178,6 @@
     },
     "teamId": {
      "sites": 2,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "cursorIndex": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "draftId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "ops": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "threadTs": {
-     "sites": 1,
      "type": "unknown"
     }
    },
@@ -2593,7 +2561,7 @@
      "sites": 2,
      "type": "unknown"
     },
-    "sessionId": {
+    "slackFileId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -2746,14 +2714,6 @@
      "type": "unknown"
     },
     "pauseNotifications": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "props": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "suggestion": {
      "sites": 1,
      "type": "unknown"
     },
@@ -3008,11 +2968,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 11,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 3,
+     "sites": 10,
      "type": "unknown"
     },
     "appId": {
@@ -3020,6 +2976,10 @@
      "type": "unknown"
     },
     "channel": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "channelId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -3116,10 +3076,6 @@
      "type": "unknown"
     },
     "preference": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "prUrl": {
      "sites": 1,
      "type": "unknown"
     },
@@ -4869,18 +4825,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "blockId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "messageTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "query": {
      "sites": 1,
      "type": "unknown"
@@ -4890,7 +4834,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client build f8c9a4481197 (2026-10-29). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.conversations.getConversationPrefs",
@@ -6349,7 +6293,18 @@
     "workspace_token": "not_an_enterprise",
     "enterprise_token": "missing_scope",
     "method": "empty-body POST, read-style names only, see methods/read-sweep-2026-11-03.md"
-   }
+   },
+   "params_observed": {
+    "callId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.enterpriseSearch.searchApps.setEnabled",
@@ -6370,11 +6325,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 9,
+     "sites": 8,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 8,
+     "sites": 6,
      "type": "unknown"
     },
     "appId": {
@@ -6417,19 +6372,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "agentResponseMode": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "allowance": {
      "sites": 1,
      "type": "unknown"
     },
     "attachmentId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "botUserId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -6522,14 +6469,6 @@
      "type": "unknown"
     },
     "messageTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "newHistoryInvalidTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "newUpdatedTs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -6803,14 +6742,6 @@
      "sites": 3,
      "type": "unknown"
     },
-    "appId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "name": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 2,
      "type": "string"
@@ -6819,15 +6750,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "blocks": {
+    "appId": {
      "sites": 1,
      "type": "unknown"
     },
     "emoji": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "entrypoint": {
      "sites": 1,
      "type": "unknown"
     },
@@ -6855,19 +6782,11 @@
      "sites": 1,
      "type": "boolean"
     },
-    "isPrivate": {
+    "name": {
      "sites": 1,
      "type": "unknown"
     },
     "nextChannelSectionId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "origin": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "teamId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -7844,7 +7763,15 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "afterTabId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "allTeams": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "bookmark": {
      "sites": 1,
      "type": "unknown"
     },
@@ -7852,7 +7779,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "destinationIndex": {
+    "fileId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -7873,10 +7800,6 @@
      "type": "unknown"
     },
     "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sourceIndex": {
      "sites": 1,
      "type": "unknown"
     },
@@ -8574,6 +8497,56 @@
    "response_source": "ImShyMike/slack-undoc-client (generated TS types, cross-referenced not independently verified)"
   },
   {
+   "name": "admin.sessions.dbsc.countAffectedUsers",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 5b9a1e6760af",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "5b9a1e6760af",
+    "first_seen": "2026-11-04"
+   },
+   "params_observed": {
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+  },
+  {
+   "name": "admin.sessions.dbsc.enforceAllSessions",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 5b9a1e6760af",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "5b9a1e6760af",
+    "first_seen": "2026-11-04"
+   },
+   "params_observed": {
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+  },
+  {
    "name": "admin.sessions.reset",
    "status": "undocumented",
    "tokens": "unknown",
@@ -8674,7 +8647,82 @@
    "datamine": {
     "first_build": "7e4bbaa06ce5",
     "first_seen": "2026-10-23"
-   }
+   },
+   "params_observed": {
+    "channelId": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "container": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "forceFocus": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "options": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "uiState": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "attachments": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "messageBlocks": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "ts": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "windowId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "cropSize": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "cropX": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "cropY": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "endpoint": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "EXPEDITED": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "imageId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "promise": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "workflow": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 2169028e671c (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "admin.slackbot.channelResponses.listRedactions",
@@ -9629,6 +9677,14 @@
     "first_seen": "2026-10-23"
    },
    "params_observed": {
+    "disconnectReason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "memberId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -9680,10 +9736,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "callId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -9736,7 +9788,7 @@
    },
    "params_observed": {
     "salesforceOrgId": {
-     "sites": 1,
+     "sites": 2,
      "type": "unknown"
     }
    },
@@ -9830,9 +9882,21 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "method": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
+    },
+    "recordId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "salesforceOrgId": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -10796,7 +10860,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build b0694a7a8385 (2026-11-02). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "agents.sessions.setStatus",
@@ -11025,10 +11089,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "added": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "allowlistConfig": {
      "sites": 1,
      "type": "unknown"
@@ -11037,19 +11097,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "items": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "snapshot": {
      "sites": 1,
      "type": "unknown"
     },
     "taskClogs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "undo": {
      "sites": 1,
      "type": "unknown"
     }
@@ -11180,7 +11232,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
+     "sites": 3,
      "type": "string"
     },
     "channel": {
@@ -11191,7 +11243,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "listId": {
+    "fileId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "lastReadTs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -11199,23 +11255,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "navigateParams": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "nextViewSet": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "priorityList": {
-     "sites": 1,
-     "type": "array"
-    },
     "provider": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -11439,7 +11479,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 3f71449df7c8 (2026-11-02). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.canvas.getTopicSuggestions",
@@ -11497,52 +11537,16 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "listId": {
-     "sites": 2,
+    "roomId": {
+     "sites": 3,
      "type": "unknown"
     },
-    "on": {
-     "sites": 2,
-     "type": "boolean"
-    },
-    "canvasId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "delta": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "fileIdsToSave": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isDLPErrorRestoredEdit": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "pendingSlugUrls": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "ts": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "useOpaqueBlockEmbeds": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewContext": {
-     "sites": 1,
+    "windowId": {
+     "sites": 3,
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client build 11df15a434cb (2026-10-30). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "ai.alpha.canvas.resolveDraft",
@@ -11608,14 +11612,22 @@
    },
    "params_observed": {
     "externalDirectory": {
-     "sites": 3,
+     "sites": 2,
      "type": "unknown"
     },
-    "isFetchingMoreUsers": {
-     "sites": 3,
+    "isDisconnectingAccount": {
+     "sites": 2,
      "type": "boolean"
     },
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
     "canvasId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -11627,21 +11639,37 @@
      "sites": 1,
      "type": "unknown"
     },
-    "promptData": {
+    "itemId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "payload": {
      "sites": 1,
      "type": "object"
     },
-    "reason": {
+    "promptData": {
      "sites": 1,
-     "type": "string"
+     "type": "object"
     },
     "sessionPromptHistory": {
      "sites": 1,
      "type": "unknown"
     },
+    "skipApi": {
+     "sites": 1,
+     "type": "boolean"
+    },
     "sources": {
      "sites": 1,
      "type": "unknown"
+    },
+    "templateId": {
+     "sites": 1,
+     "type": "string"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -11692,8 +11720,20 @@
      "sites": 2,
      "type": "unknown"
     },
+    "entryPoint": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "invocationId": {
      "sites": 2,
+     "type": "unknown"
+    },
+    "nextStepOption": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "creationPath": {
+     "sites": 1,
      "type": "unknown"
     },
     "salesforceOrgId": {
@@ -12006,6 +12046,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "canvasContentId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "channelId": {
      "sites": 1,
      "type": "unknown"
@@ -12085,11 +12129,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 8,
+     "sites": 9,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 5,
+     "sites": 6,
      "type": "unknown"
     },
     "confirmMessageUnfurl": {
@@ -12112,6 +12156,10 @@
      "sites": 2,
      "type": "unknown"
     },
+    "line": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "message": {
      "sites": 2,
      "type": "unknown"
@@ -12120,7 +12168,23 @@
      "sites": 2,
      "type": "unknown"
     },
+    "path": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "pending": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "permalink": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "prUrl": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "revision": {
      "sites": 2,
      "type": "unknown"
     },
@@ -12128,7 +12192,19 @@
      "sites": 2,
      "type": "unknown"
     },
+    "side": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "switchToUrl": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "text": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "threadRootId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -12148,37 +12224,17 @@
      "sites": 1,
      "type": "unknown"
     },
-    "inviteToChannel": {
-     "sites": 1,
-     "type": "boolean"
-    },
     "listId": {
      "sites": 1,
      "type": "unknown"
     },
-    "noteBlocks": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "postMention": {
-     "sites": 1,
-     "type": "boolean"
-    },
     "prefs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "prUrl": {
      "sites": 1,
      "type": "unknown"
     },
     "retry": {
      "sites": 1,
      "type": "unknown"
-    },
-    "userIds": {
-     "sites": 1,
-     "type": "array"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -12290,10 +12346,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "externalUrl": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "instructions": {
      "sites": 1,
      "type": "unknown"
@@ -12301,14 +12353,6 @@
     "knowledge": {
      "sites": 1,
      "type": "unknown"
-    },
-    "loggers": {
-     "sites": 1,
-     "type": "object"
-    },
-    "logParams": {
-     "sites": 1,
-     "type": "object"
     },
     "model": {
      "sites": 1,
@@ -12325,14 +12369,6 @@
     "reason": {
      "sites": 1,
      "type": "string"
-    },
-    "remoteFilePreviewTokens": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "suppressAnimations": {
-     "sites": 1,
-     "type": "unknown"
     },
     "title": {
      "sites": 1,
@@ -12458,11 +12494,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "draftId": {
+    "externalDirectory": {
      "sites": 1,
      "type": "unknown"
     },
-    "externalDirectory": {
+    "externalUrl": {
      "sites": 1,
      "type": "unknown"
     },
@@ -12474,9 +12510,13 @@
      "sites": 1,
      "type": "unknown"
     },
-    "onClose": {
+    "loggers": {
      "sites": 1,
-     "type": "unknown"
+     "type": "object"
+    },
+    "logParams": {
+     "sites": 1,
+     "type": "object"
     },
     "permalink": {
      "sites": 1,
@@ -12490,6 +12530,10 @@
      "sites": 1,
      "type": "string"
     },
+    "remoteFilePreviewTokens": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "searchTabs": {
      "sites": 1,
      "type": "unknown"
@@ -12498,11 +12542,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "sendMessage": {
+    "solutionTemplateId": {
      "sites": 1,
      "type": "unknown"
     },
-    "solutionTemplateId": {
+    "suppressAnimations": {
      "sites": 1,
      "type": "unknown"
     }
@@ -12528,7 +12572,7 @@
    },
    "params_observed": {
     "channelId": {
-     "sites": 3,
+     "sites": 2,
      "type": "unknown"
     },
     "listId": {
@@ -12537,10 +12581,6 @@
     },
     "messageTs": {
      "sites": 2,
-     "type": "unknown"
-    },
-    "actionKey": {
-     "sites": 1,
      "type": "unknown"
     },
     "apiName": {
@@ -12648,6 +12688,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "draftId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "effort": {
      "sites": 1,
      "type": "unknown"
@@ -12668,7 +12712,15 @@
      "sites": 1,
      "type": "unknown"
     },
+    "onClose": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "persona": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "sendMessage": {
      "sites": 1,
      "type": "unknown"
     },
@@ -12721,6 +12773,42 @@
    "datamine": {
     "first_build": "2dedf15cd793",
     "first_seen": "2026-10-26"
+   }
+  },
+  {
+   "name": "ai.alpha.singer.window",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 73f7ba1cc11d",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "73f7ba1cc11d",
+    "first_seen": "2026-11-04"
+   }
+  },
+  {
+   "name": "ai.alpha.singer.windowThread",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 73f7ba1cc11d",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "73f7ba1cc11d",
+    "first_seen": "2026-11-04"
    }
   },
   {
@@ -13122,26 +13210,22 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 3,
-     "type": "string"
+     "sites": 4,
+     "type": "unknown"
     },
     "action": {
      "sites": 1,
      "type": "number"
     },
-    "attachments": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "channel": {
      "sites": 1,
      "type": "unknown"
     },
-    "componentType": {
+    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
-    "draft": {
+    "componentType": {
      "sites": 1,
      "type": "unknown"
     },
@@ -13178,6 +13262,10 @@
      "type": "unknown"
     },
     "offsetMs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "prUrl": {
      "sites": 1,
      "type": "unknown"
     },
@@ -13492,11 +13580,19 @@
      "sites": 1,
      "type": "string"
     },
+    "attachments": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "code": {
      "sites": 1,
      "type": "unknown"
     },
     "compositeRecordId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "draft": {
      "sites": 1,
      "type": "unknown"
     },
@@ -13721,7 +13817,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 14,
+     "sites": 16,
      "type": "unknown"
     },
     "pref": {
@@ -13732,9 +13828,21 @@
      "sites": 4,
      "type": "unknown"
     },
+    "channelId": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "action": {
      "sites": 2,
      "type": "number"
+    },
+    "agentResponseMode": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "botUserId": {
+     "sites": 2,
+     "type": "unknown"
     },
     "callId": {
      "sites": 2,
@@ -13772,6 +13880,10 @@
      "sites": 2,
      "type": "unknown"
     },
+    "threadTs": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "uiStep": {
      "sites": 2,
      "type": "unknown"
@@ -13801,10 +13913,6 @@
      "type": "unknown"
     },
     "channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -14062,6 +14170,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "addToSpreadsheetStep": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "appId": {
      "sites": 1,
      "type": "unknown"
@@ -14110,7 +14222,15 @@
      "sites": 1,
      "type": "unknown"
     },
+    "formatVariableBeforeInsert": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "frontline": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "googleAccessToken": {
      "sites": 1,
      "type": "unknown"
     },
@@ -14143,6 +14263,10 @@
      "type": "unknown"
     },
     "onInvitationSuccess": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "openFormSteps": {
      "sites": 1,
      "type": "unknown"
     },
@@ -14179,6 +14303,14 @@
      "type": "unknown"
     },
     "ultraRestricted": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "variables": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "workflowId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -14222,7 +14354,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 18,
+     "sites": 13,
      "type": "unknown"
     },
     "hasError": {
@@ -14235,10 +14367,6 @@
     },
     "channelId": {
      "sites": 5,
-     "type": "unknown"
-    },
-    "draftId": {
-     "sites": 4,
      "type": "unknown"
     },
     "error": {
@@ -14269,19 +14397,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "memberId": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "msg": {
      "sites": 2,
      "type": "unknown"
     },
     "openInTileEligible": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "query": {
      "sites": 2,
      "type": "unknown"
     },
@@ -14333,15 +14453,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "limitPerTier": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "listId": {
      "sites": 1,
      "type": "unknown"
     },
     "locale": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "memberId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -14365,6 +14485,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "suggestion_sub_type": {
      "sites": 1,
      "type": "string"
@@ -14373,19 +14497,11 @@
      "sites": 1,
      "type": "string"
     },
-    "team": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "threadTs": {
      "sites": 1,
      "type": "unknown"
     },
     "updatedTimestamp": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "url": {
      "sites": 1,
      "type": "unknown"
     },
@@ -15255,6 +15371,18 @@
      "sites": 1,
      "type": "unknown"
     },
+    "activityItem": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isDmTab": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isPeekMode": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "previousStatus": {
      "sites": 1,
      "type": "unknown"
@@ -15377,24 +15505,20 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "id": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "previousTs": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "trigger": {
      "sites": 3,
      "type": "unknown"
     },
+    "id": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "optimistic": {
+     "sites": 2,
+     "type": "boolean"
+    },
     "ts": {
-     "sites": 3,
+     "sites": 2,
      "type": "unknown"
     },
     "campaign": {
@@ -15417,11 +15541,19 @@
      "sites": 1,
      "type": "unknown"
     },
+    "cursorMark": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "entryPoint": {
      "sites": 1,
      "type": "unknown"
     },
     "expirationTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "filters": {
      "sites": 1,
      "type": "unknown"
     },
@@ -15437,15 +15569,19 @@
      "sites": 1,
      "type": "unknown"
     },
-    "lastFailureReason": {
+    "megaphoneReason": {
      "sites": 1,
-     "type": "unknown"
+     "type": "string"
     },
     "memberId": {
      "sites": 1,
      "type": "unknown"
     },
     "message": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
      "sites": 1,
      "type": "unknown"
     },
@@ -15458,10 +15594,6 @@
      "type": "unknown"
     },
     "restricted": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "retries": {
      "sites": 1,
      "type": "unknown"
     },
@@ -15913,22 +16045,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "bypassExternalEmailWarning": {
-     "sites": 2,
-     "type": "boolean"
-    },
-    "draft": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "fromKeyboardShortcut": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "isFromModal": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 2,
      "type": "string"
@@ -15959,42 +16075,34 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 2,
+     "sites": 4,
      "type": "unknown"
     },
     "appId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "customStatusId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "dangerouslyOverrideRouting": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "delta": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "engagementEntryPoint": {
-     "sites": 1,
+     "sites": 2,
      "type": "unknown"
     },
     "fileId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "ids": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "windowId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "container": {
      "sites": 1,
      "type": "unknown"
     },
-    "onSend": {
+    "domain": {
      "sites": 1,
      "type": "unknown"
     },
-    "openThreadForRootMessage": {
+    "fetchConditionally": {
      "sites": 1,
      "type": "unknown"
     },
@@ -16010,23 +16118,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "shouldOpenInSplitView": {
+    "teamId": {
      "sites": 1,
      "type": "unknown"
     },
-    "shouldOpenInTile": {
+    "testEmail": {
      "sites": 1,
      "type": "unknown"
     },
     "versionId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "windowId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "workflowLinkTriggerUIContext": {
      "sites": 1,
      "type": "unknown"
     }
@@ -16237,11 +16337,27 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "channel": {
-     "sites": 2,
-     "type": "object"
+    "channelId": {
+     "sites": 7,
+     "type": "unknown"
     },
-    "view": {
+    "reason": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "data": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "didFetchFileForViewer": {
+     "sites": 2,
+     "type": "boolean"
+    },
+    "id": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "skipNavigationToEntity": {
      "sites": 2,
      "type": "unknown"
     },
@@ -16249,11 +16365,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "attempt": {
+    "channelName": {
      "sites": 1,
      "type": "unknown"
     },
-    "collection": {
+    "channelTemplateId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "clearId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -16265,29 +16385,85 @@
      "sites": 1,
      "type": "unknown"
     },
+    "customTemplateId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "emoji": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "excludedItems": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "feedbackRating": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "file": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "fileId": {
      "sites": 1,
      "type": "unknown"
     },
-    "id": {
+    "isPrivate": {
      "sites": 1,
      "type": "unknown"
     },
-    "reactionKey": {
+    "isScreenshareEnabled": {
      "sites": 1,
      "type": "unknown"
     },
-    "reason": {
+    "lastReadTs": {
      "sites": 1,
-     "type": "string"
+     "type": "unknown"
     },
-    "source": {
+    "lastSeenMessageSequenceTs": {
      "sites": 1,
-     "type": "string"
+     "type": "unknown"
     },
-    "suppressToast": {
+    "messageTs": {
      "sites": 1,
-     "type": "boolean"
+     "type": "unknown"
+    },
+    "msg": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "name": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "quipCommentThreadId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "salesforceOrgId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "salesforceRecordId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "team": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "teamId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "trackingId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "userMarkUnread": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -20638,10 +20814,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "appId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "cacheTs": {
      "sites": 1,
      "type": "unknown"
@@ -23762,24 +23934,12 @@
     "first_seen": "2026-10-19"
    },
    "params_observed": {
-    "createDefaultTractorChannel": {
-     "sites": 4,
-     "type": "boolean"
-    },
     "externalDirectory": {
-     "sites": 4,
+     "sites": 6,
      "type": "unknown"
     },
-    "isApiRequestLoading": {
-     "sites": 4,
-     "type": "boolean"
-    },
-    "itemId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "skipApi": {
-     "sites": 2,
+    "isFetchingMoreUsers": {
+     "sites": 6,
      "type": "boolean"
     }
    },
@@ -24513,22 +24673,6 @@
     "first_seen": "2026-10-19"
    },
    "params_observed": {
-    "reason": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "fileId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "ts": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "appId": {
      "sites": 2,
      "type": "unknown"
@@ -24545,23 +24689,39 @@
      "sites": 2,
      "type": "unknown"
     },
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
     "teamId": {
      "sites": 2,
      "type": "unknown"
     },
-    "threadTs": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "fileIds": {
+    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
-    "permalink": {
+    "fileId": {
      "sites": 1,
      "type": "unknown"
     },
-    "plan": {
+    "imageUrl": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "locale": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "onBack": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "onSave": {
      "sites": 1,
      "type": "unknown"
     },
@@ -24569,23 +24729,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "shareType": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "skipShares": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "targetTeamIds": {
-     "sites": 1,
-     "type": "array"
-    },
-    "viewContext": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewId": {
+    "sidekickName": {
      "sites": 1,
      "type": "unknown"
     }
@@ -24644,7 +24788,119 @@
    "datamine": {
     "first_build": "723aa25cd7d2",
     "first_seen": "2026-10-28"
-   }
+   },
+   "params_observed": {
+    "channelId": {
+     "sites": 6,
+     "type": "unknown"
+    },
+    "container": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "forceFocus": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "options": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "uiState": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "attachments": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "commentNodeId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "messageBlocks": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "prUrl": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
+    "text": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "ts": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "windowId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "workflow": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "endpoint": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "EXPEDITED": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "promise": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+  },
+  {
+   "name": "client.codeChannels.editPullRequestDescription",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 9eba7b12e318",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "9eba7b12e318",
+    "first_seen": "2026-11-03"
+   },
+   "params_observed": {
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "expectedBodySource": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "prUrl": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "text": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "client.codeChannels.editReviewComment",
@@ -24951,6 +25207,24 @@
    }
   },
   {
+   "name": "client.codeChannels.listPullRequests",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 5b9a1e6760af",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "5b9a1e6760af",
+    "first_seen": "2026-11-04"
+   }
+  },
+  {
    "name": "client.codeChannels.listSupportedApps",
    "status": "undocumented",
    "tokens": "unknown - not live-tested",
@@ -24969,56 +25243,8 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 2,
+     "sites": 1,
      "type": "string"
-    },
-    "blocks": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "message_channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "message_ts": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "messageChannelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "messageTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "pendingSlugUrls": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "respond_in_channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "shareChannelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "skipDlpUserWarning": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "text": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "time": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewContext": {
-     "sites": 1,
-     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -25046,6 +25272,10 @@
     "first_seen": "2026-10-19"
    },
    "params_observed": {
+    "canvasAiContext": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "channelId": {
      "sites": 2,
      "type": "unknown"
@@ -25061,6 +25291,30 @@
     "reason": {
      "sites": 2,
      "type": "string"
+    },
+    "searchViewContext": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "isQueryUserGenerated": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "measurementContext": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "providedOmniswitcherMode": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "providedSearchyMode": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "textyOps": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -25150,31 +25404,27 @@
     "first_seen": "2026-10-29"
    },
    "params_observed": {
-    "channelId": {
-     "sites": 6,
-     "type": "unknown"
-    },
-    "container": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "forceFocus": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "options": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 3,
      "type": "unknown"
     },
-    "uiState": {
-     "sites": 3,
+    "attempt": {
+     "sites": 2,
      "type": "unknown"
     },
-    "attachments": {
+    "channel": {
+     "sites": 2,
+     "type": "object"
+    },
+    "channelId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "collection": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "fileId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -25182,27 +25432,27 @@
      "sites": 2,
      "type": "unknown"
     },
-    "messageBlocks": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "prUrl": {
      "sites": 2,
      "type": "unknown"
+    },
+    "reactionKey": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "source": {
+     "sites": 2,
+     "type": "string"
+    },
+    "suppressToast": {
+     "sites": 2,
+     "type": "boolean"
     },
     "threadNodeId": {
      "sites": 2,
      "type": "unknown"
     },
-    "ts": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "windowId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "workflow": {
+    "view": {
      "sites": 2,
      "type": "unknown"
     },
@@ -25218,19 +25468,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "endpoint": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "EXPEDITED": {
-     "sites": 1,
-     "type": "boolean"
-    },
     "imageId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "promise": {
      "sites": 1,
      "type": "unknown"
     }
@@ -25609,8 +25847,12 @@
    "response_source": null,
    "datamine": {
     "first_build": "125207",
-    "first_seen": "2026-06-02"
-   }
+    "first_seen": "2026-06-02",
+    "last_build": "300a8f66a47f",
+    "last_seen": "2026-11-03"
+   },
+   "not_in_client": true,
+   "not_in_client_note": "Not found in Slack's web client as of the latest mined build (last seen in build 300a8f66a47f, 2026-11-03). The client no longer references it; that is not proof the API stopped answering."
   },
   {
    "name": "client.getWebSocketURL",
@@ -26859,23 +27101,11 @@
     "first_seen": "2026-07-14"
    },
    "params_observed": {
-    "reason": {
-     "sites": 3,
+    "numInactiveDays": {
+     "sites": 1,
      "type": "string"
     },
-    "draftIds": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "entry": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "entryMessage": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "numInactiveDays": {
+    "reason": {
      "sites": 1,
      "type": "string"
     }
@@ -26928,13 +27158,41 @@
     "first_seen": "2026-07-17"
    },
    "params_observed": {
-    "reason": {
-     "sites": 2,
-     "type": "string"
+    "activityItem": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "assumeActivityContainer": {
+     "sites": 1,
+     "type": "unknown"
     },
     "channelIds": {
      "sites": 1,
      "type": "unknown"
+    },
+    "commentThreadId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "event": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isActivityRead": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "message": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "preventMoveFocus": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
     },
     "salesforceOrgId": {
      "sites": 1,
@@ -28795,23 +29053,11 @@
      "sites": 3,
      "type": "unknown"
     },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "includeDMTargetedandThirdPartyOwnedFiles": {
      "sites": 1,
      "type": "boolean"
     },
-    "next": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "onlyActionable": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "undo": {
      "sites": 1,
      "type": "unknown"
     }
@@ -28868,10 +29114,6 @@
     },
     "sig": {
      "sites": 4,
-     "type": "unknown"
-    },
-    "salesforceOrgId": {
-     "sites": 1,
      "type": "unknown"
     },
     "userId": {
@@ -30095,18 +30337,10 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
+     "sites": 3,
      "type": "unknown"
     },
     "invites": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "name": {
      "sites": 1,
      "type": "unknown"
     },
@@ -30494,9 +30728,25 @@
      "sites": 1,
      "type": "unknown"
     },
+    "availableLicenses": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "membersMap": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
+    },
+    "refetchMembers": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "salesforceOrg": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -30596,7 +30846,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 3f71449df7c8 (2026-11-02). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "conversations.sharedInviteLinkCopied",
@@ -35855,7 +36105,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 2169028e671c (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "enterprise.ekm.getClearCacheTs",
@@ -37150,22 +37400,6 @@
     "first_seen": "2026-07-06"
    },
    "params_observed": {
-    "reason": {
-     "sites": 2,
-     "type": "string"
-    },
-    "agentName": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "agentSubtype": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "ipAddressCidrs": {
      "sites": 1,
      "type": "unknown"
@@ -37174,17 +37408,9 @@
      "sites": 1,
      "type": "unknown"
     },
-    "salesforceBotId": {
+    "reason": {
      "sites": 1,
-     "type": "unknown"
-    },
-    "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "threadTs": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "string"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -37207,11 +37433,15 @@
     "first_seen": "2026-10-23"
    },
    "params_observed": {
+    "csvFile": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
-     "sites": 2,
+     "sites": 1,
      "type": "string"
     },
-    "csvFile": {
+    "userId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -37651,10 +37881,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "quipCommentThreadId": {
      "sites": 1,
      "type": "unknown"
@@ -37684,7 +37910,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 2169028e671c (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
    "read_sweep_2026-11-03": {
     "workspace_token": "not_an_enterprise",
     "enterprise_token": "invalid_arguments",
@@ -37929,33 +38155,17 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "userIds": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "permissionType": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
-    },
-    "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "serverKey": {
-     "sites": 1,
-     "type": "unknown"
     },
     "team": {
      "sites": 1,
      "type": "unknown"
     },
-    "usergroupIds": {
+    "userIds": {
      "sites": 1,
-     "type": "unknown"
+     "type": "array"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -38446,28 +38656,8 @@
      "sites": 7,
      "type": "unknown"
     },
-    "entryPoints": {
-     "sites": 5,
-     "type": "object"
-    },
-    "items": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "liveness": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "priorities": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "result": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "item": {
-     "sites": 2,
+    "change": {
+     "sites": 1,
      "type": "unknown"
     },
     "channelId": {
@@ -38691,6 +38881,22 @@
     "first_seen": "2026-10-19"
    },
    "params_observed": {
+    "reason": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "campaignSubType": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "campaignType": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "context": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "experimentGroup": {
      "sites": 1,
      "type": "unknown"
@@ -38702,10 +38908,6 @@
     "memberType": {
      "sites": 1,
      "type": "unknown"
-    },
-    "reason": {
-     "sites": 1,
-     "type": "string"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -38892,16 +39094,12 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "channels": {
+    "channel": {
      "sites": 1,
-     "type": "unknown"
-    },
-    "source": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "object"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 300a8f66a47f (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
    "read_sweep_2026-11-03": {
     "workspace_token": "invalid_arguments",
     "enterprise_token": "invalid_arguments",
@@ -38926,13 +39124,21 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "inviteIds": {
      "sites": 1,
      "type": "unknown"
     },
-    "reason": {
+    "name": {
      "sites": 1,
-     "type": "string"
+     "type": "unknown"
     },
     "workspaceId": {
      "sites": 1,
@@ -39420,10 +39626,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "channelId": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "accessLevel": {
      "sites": 2,
      "type": "unknown"
@@ -39442,10 +39644,6 @@
     },
     "requestorId": {
      "sites": 2,
-     "type": "unknown"
-    },
-    "ts": {
-     "sites": 1,
      "type": "unknown"
     }
    },
@@ -39670,7 +39868,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 15,
+     "sites": 16,
      "type": "unknown"
     },
     "channelId": {
@@ -39686,6 +39884,10 @@
      "type": "unknown"
     },
     "limit": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "listId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -39730,10 +39932,6 @@
      "type": "unknown"
     },
     "key": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "listId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -40404,7 +40602,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 10,
+     "sites": 9,
      "type": "unknown"
     },
     "channelId": {
@@ -40475,6 +40673,10 @@
      "sites": 1,
      "type": "string"
     },
+    "attachments": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "channelSectionsListResponse": {
      "sites": 1,
      "type": "unknown"
@@ -40488,6 +40690,10 @@
      "type": "unknown"
     },
     "dangerouslyOverrideRouting": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "draft": {
      "sites": 1,
      "type": "unknown"
     },
@@ -40552,10 +40758,6 @@
      "type": "unknown"
     },
     "uiComponentVariant": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "url": {
      "sites": 1,
      "type": "unknown"
     },
@@ -40971,87 +41173,63 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "clogContext": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "openMethod": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "prompt": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "searchQuery": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "source": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "bypassCache": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "channelId": {
      "sites": 1,
      "type": "unknown"
     },
-    "fetchForAgentforce": {
+    "dateDue": {
      "sites": 1,
      "type": "unknown"
     },
-    "fetchNew": {
+    "draftId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "emails": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "hasReminder": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isCustomDateDue": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isLaterTodo": {
      "sites": 1,
      "type": "boolean"
     },
-    "filter": {
+    "keyValueObject": {
      "sites": 1,
      "type": "unknown"
     },
-    "includeShares": {
+    "messageTs": {
      "sites": 1,
      "type": "unknown"
     },
-    "incompleteFetchDataCursor": {
+    "options": {
      "sites": 1,
      "type": "unknown"
     },
-    "isUnreadMode": {
+    "parameter": {
      "sites": 1,
      "type": "unknown"
     },
-    "limit": {
+    "segmentId": {
      "sites": 1,
      "type": "unknown"
     },
-    "mode": {
+    "stepFunctionId": {
      "sites": 1,
      "type": "unknown"
     },
-    "navigateAfterSend": {
+    "stepInputs": {
      "sites": 1,
      "type": "unknown"
     },
-    "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "reason": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "threadTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "types": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "useSearchAgentFirstTurn": {
+    "triggerType": {
      "sites": 1,
      "type": "unknown"
     },
@@ -41099,7 +41277,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 6,
+     "sites": 5,
      "type": "unknown"
     },
     "agentAppId": {
@@ -41111,10 +41289,6 @@
      "type": "unknown"
     },
     "channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -41143,10 +41317,6 @@
      "type": "unknown"
     },
     "preference": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "prUrl": {
      "sites": 1,
      "type": "unknown"
     }
@@ -41255,35 +41425,15 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "error": {
-     "sites": 6,
-     "type": "unknown"
-    },
     "externalDirectory": {
-     "sites": 6,
+     "sites": 4,
      "type": "unknown"
     },
-    "reason": {
+    "groupStatus": {
      "sites": 4,
-     "type": "string"
-    },
-    "channelId": {
-     "sites": 3,
      "type": "unknown"
     },
     "fileUrl": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "inviteId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "listId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "message": {
      "sites": 2,
      "type": "unknown"
     },
@@ -41291,31 +41441,39 @@
      "sites": 2,
      "type": "unknown"
     },
-    "recordId": {
+    "reason": {
      "sites": 2,
+     "type": "string"
+    },
+    "channelId": {
+     "sites": 1,
      "type": "unknown"
     },
-    "skipApi": {
-     "sites": 2,
-     "type": "boolean"
+    "huddleId": {
+     "sites": 1,
+     "type": "unknown"
     },
-    "triggerId": {
-     "sites": 2,
+    "includeOffLayoutFields": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "objectApiName": {
+     "sites": 1,
      "type": "unknown"
     },
     "peerId": {
      "sites": 1,
      "type": "unknown"
     },
-    "promptText": {
+    "recordTypeId": {
      "sites": 1,
      "type": "unknown"
     },
-    "targetWindow": {
+    "salesforceOrgId": {
      "sites": 1,
      "type": "unknown"
     },
-    "ts": {
+    "userId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -42911,8 +43069,8 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 8,
-     "type": "string"
+     "sites": 9,
+     "type": "unknown"
     },
     "channelId": {
      "sites": 7,
@@ -42930,11 +43088,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "addToSpreadsheetStep": {
+    "channelIds": {
      "sites": 1,
      "type": "unknown"
     },
-    "channelIds": {
+    "count": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42943,14 +43101,6 @@
      "type": "unknown"
     },
     "fileId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "formatVariableBeforeInsert": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "googleAccessToken": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42966,7 +43116,23 @@
      "sites": 1,
      "type": "unknown"
     },
-    "openFormSteps": {
+    "includeDangling": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "includeGuests": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "nextCursorMark": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "searchTerm": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42974,11 +43140,11 @@
      "sites": 1,
      "type": "boolean"
     },
-    "teamId": {
+    "sortBy": {
      "sites": 1,
      "type": "unknown"
     },
-    "timeSeen": {
+    "teamId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42986,15 +43152,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "variables": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "workflow": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "workflowId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -43307,16 +43465,28 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "reason": {
+     "sites": 5,
+     "type": "unknown"
+    },
     "channelId": {
      "sites": 4,
      "type": "unknown"
     },
-    "reason": {
-     "sites": 4,
-     "type": "string"
-    },
     "workflowId": {
      "sites": 4,
+     "type": "unknown"
+    },
+    "browse": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "browserType": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "browseSessionId": {
+     "sites": 1,
      "type": "unknown"
     },
     "closeOptimistically": {
@@ -43324,6 +43494,10 @@
      "type": "unknown"
     },
     "collection": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "context": {
      "sites": 1,
      "type": "unknown"
     },
@@ -43336,6 +43510,10 @@
      "type": "unknown"
     },
     "fileId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "fileTitleOnly": {
      "sites": 1,
      "type": "unknown"
     },
@@ -43355,11 +43533,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "megaphoneReason": {
-     "sites": 1,
-     "type": "string"
-    },
     "memberId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "module": {
      "sites": 1,
      "type": "unknown"
     },
@@ -43375,11 +43553,23 @@
      "sites": 1,
      "type": "unknown"
     },
+    "page": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "pageSize": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "query": {
      "sites": 1,
      "type": "unknown"
     },
-    "savedViewState": {
+    "querySessionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "restrictions": {
      "sites": 1,
      "type": "unknown"
     },
@@ -43950,10 +44140,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "trial_redemption_status": {
-     "sites": 4,
-     "type": "unknown"
-    },
     "channelId": {
      "sites": 2,
      "type": "unknown"
@@ -44087,31 +44273,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "listId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "navigateParams": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
     },
     "threadTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "view": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "viewSet": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "windowId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -46293,11 +46459,11 @@
      "type": "unknown"
     },
     "reason": {
-     "sites": 7,
+     "sites": 5,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 6,
+     "sites": 4,
      "type": "unknown"
     },
     "data": {
@@ -46308,19 +46474,7 @@
      "sites": 2,
      "type": "unknown"
     },
-    "line": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "onCreate": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "path": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "pending": {
      "sites": 2,
      "type": "unknown"
     },
@@ -46332,18 +46486,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "prUrl": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "revision": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "side": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "source": {
      "sites": 2,
      "type": "unknown"
@@ -46352,15 +46494,7 @@
      "sites": 2,
      "type": "unknown"
     },
-    "text": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "threadLastRead": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "threadRootId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -46439,7 +46573,22 @@
    "datamine": {
     "first_build": "76531814a11d",
     "first_seen": "2026-10-23"
-   }
+   },
+   "params_observed": {
+    "channelId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
+    "userId": {
+     "sites": 2,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "huddles.external.linkInfo",
@@ -46478,7 +46627,7 @@
    },
    "params_observed": {
     "channelId": {
-     "sites": 3,
+     "sites": 2,
      "type": "unknown"
     },
     "includeIsInvitable": {
@@ -46488,10 +46637,6 @@
     "reason": {
      "sites": 2,
      "type": "string"
-    },
-    "messageTs": {
-     "sites": 1,
-     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -46971,11 +47116,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "slackFileId": {
-     "sites": 2,
+    "actionId": {
+     "sites": 1,
      "type": "unknown"
     },
-    "actionId": {
+    "agentId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -46987,7 +47132,23 @@
      "sites": 1,
      "type": "array"
     },
+    "currentTabbedChannelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "externalDirectory": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "focusedSectionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "goal": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "initialSelectionData": {
      "sites": 1,
      "type": "unknown"
     },
@@ -46995,13 +47156,41 @@
      "sites": 1,
      "type": "unknown"
     },
+    "markdownContentToRefine": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "messageTs": {
      "sites": 1,
      "type": "unknown"
     },
+    "promptData": {
+     "sites": 1,
+     "type": "object"
+    },
     "scrollmark": {
      "sites": 1,
      "type": "unknown"
+    },
+    "sessionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "showPreview": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "slackFileId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "sourceChannels": {
+     "sites": 1,
+     "type": "array"
+    },
+    "sourceFiles": {
+     "sites": 1,
+     "type": "array"
     },
     "threadKey": {
      "sites": 1,
@@ -47059,30 +47248,6 @@
      "sites": 4,
      "type": "unknown"
     },
-    "container": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "removedView": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "shouldAnnounceViewClosure": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "shouldTransitionFocus": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "sideEffectPayload": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "threadExitViewId": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "channelId": {
      "sites": 2,
      "type": "unknown"
@@ -47122,6 +47287,10 @@
     "ts": {
      "sites": 1,
      "type": "unknown"
+    },
+    "view": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -47145,11 +47314,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 29,
+     "sites": 28,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 7,
+     "sites": 6,
      "type": "unknown"
     },
     "threadTs": {
@@ -47277,10 +47446,6 @@
      "type": "unknown"
     },
     "uri": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "userId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -47416,10 +47581,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "actionableApprovalsCount": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "includeUsers": {
      "sites": 1,
      "type": "boolean"
@@ -47934,11 +48095,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
+     "sites": 5,
      "type": "string"
     },
     "suite": {
-     "sites": 3,
+     "sites": 4,
      "type": "unknown"
     },
     "channelId": {
@@ -48252,16 +48413,12 @@
     "first_seen": "2026-07-07"
    },
    "params_observed": {
-    "channel": {
-     "sites": 1,
-     "type": "unknown"
+    "loopSong": {
+     "sites": 2,
+     "type": "boolean"
     },
-    "externalDirectory": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "functionExecutionId": {
-     "sites": 1,
+    "songKey": {
+     "sites": 2,
      "type": "unknown"
     },
     "listId": {
@@ -48272,13 +48429,9 @@
      "sites": 1,
      "type": "string"
     },
-    "threadKey": {
+    "registerOnEndedCallback": {
      "sites": 1,
-     "type": "unknown"
-    },
-    "threadTs": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "boolean"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -49076,17 +49229,17 @@
      "sites": 11,
      "type": "unknown"
     },
+    "channelId": {
+     "sites": 4,
+     "type": "unknown"
+    },
     "reason": {
-     "sites": 3,
+     "sites": 4,
      "type": "string"
     },
     "announceContentAsAssertive": {
      "sites": 2,
      "type": "boolean"
-    },
-    "channelId": {
-     "sites": 2,
-     "type": "unknown"
     },
     "conversationId": {
      "sites": 2,
@@ -49096,7 +49249,15 @@
      "sites": 2,
      "type": "unknown"
     },
+    "latest": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "listId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "oldest": {
      "sites": 2,
      "type": "unknown"
     },
@@ -49116,6 +49277,14 @@
      "sites": 1,
      "type": "unknown"
     },
+    "dateJoined": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "deleted": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "emoji": {
      "sites": 1,
      "type": "unknown"
@@ -49124,7 +49293,27 @@
      "sites": 1,
      "type": "unknown"
     },
+    "hasMore": {
+     "sites": 1,
+     "type": "object"
+    },
+    "isLimited": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isSubjectToMessageLimit": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "limitPerTier": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "messages": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "msgs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -49140,6 +49329,14 @@
      "sites": 1,
      "type": "unknown"
     },
+    "pinCount": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "recordId": {
      "sites": 1,
      "type": "unknown"
@@ -49147,6 +49344,10 @@
     "skipSimpleArraySerializationInGetFormData": {
      "sites": 1,
      "type": "boolean"
+    },
+    "team": {
+     "sites": 1,
+     "type": "unknown"
     },
     "threadTs": {
      "sites": 1,
@@ -49203,10 +49404,6 @@
     "first_seen": "2026-07-07"
    },
    "params_observed": {
-    "reason": {
-     "sites": 2,
-     "type": "string"
-    },
     "listId": {
      "sites": 1,
      "type": "unknown"
@@ -49223,16 +49420,16 @@
      "sites": 1,
      "type": "array"
     },
-    "provider": {
+    "reason": {
      "sites": 1,
-     "type": "unknown"
+     "type": "string"
     },
     "viewId": {
      "sites": 1,
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client build fdd321be8598 (2026-10-31). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.setupTodos",
@@ -49588,6 +49785,80 @@
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+  },
+  {
+   "name": "lists.views.pins.add",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 9eba7b12e318",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "9eba7b12e318",
+    "first_seen": "2026-11-03"
+   },
+   "params_observed": {
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "delta": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "replyToTs": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+  },
+  {
+   "name": "lists.views.pins.remove",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build 9eba7b12e318",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "9eba7b12e318",
+    "first_seen": "2026-11-03"
+   },
+   "params_observed": {
+    "source": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "isOpeningFromRedirect": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "onCloseCallback": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "onCompleteCallback": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 2169028e671c (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.views.update",
@@ -53251,20 +53522,16 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
-     "sites": 5,
-     "type": "unknown"
-    },
     "facet": {
      "sites": 4,
      "type": "string"
     },
-    "values": {
+    "reason": {
      "sites": 4,
      "type": "unknown"
     },
-    "query": {
-     "sites": 2,
+    "values": {
+     "sites": 4,
      "type": "unknown"
     },
     "canvasTemplateTypeFilter": {
@@ -53279,10 +53546,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "currentChannelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "excludeOrgVisible": {
      "sites": 1,
      "type": "unknown"
@@ -53292,10 +53555,6 @@
      "type": "string"
     },
     "isSplitView": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "listViews": {
      "sites": 1,
      "type": "unknown"
     },
@@ -53315,9 +53574,9 @@
      "sites": 1,
      "type": "unknown"
     },
-    "salesforceOrgId": {
+    "query": {
      "sites": 1,
-     "type": "unknown"
+     "type": "string"
     },
     "searchExcludeBots": {
      "sites": 1,
@@ -53335,19 +53594,11 @@
      "sites": 1,
      "type": "string"
     },
-    "strictExposureRules": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "tab": {
      "sites": 1,
      "type": "unknown"
     },
     "trace": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "triggerTypes": {
      "sites": 1,
      "type": "unknown"
     },
@@ -53675,11 +53926,19 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "id": {
+    "openedListId": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "isAnyPrivateMembershipAllowed": {
      "sites": 2,
      "type": "unknown"
     },
-    "response": {
+    "unchangedChannelsJoinedIds": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "unchangedChannelsLeftIds": {
      "sites": 2,
      "type": "unknown"
     },
@@ -54008,6 +54267,10 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "botUserId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "contentSnippet": {
      "sites": 1,
      "type": "unknown"
@@ -54025,6 +54288,10 @@
      "type": "unknown"
     },
     "isSourceDeleted": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
      "sites": 1,
      "type": "unknown"
     },
@@ -54395,7 +54662,15 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 1,
+     "sites": 3,
+     "type": "string"
+    },
+    "salesforceOrgId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "status": {
+     "sites": 2,
      "type": "string"
     },
     "recordId": {
@@ -54480,14 +54755,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "cursorMark": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "filters": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "query": {
      "sites": 2,
      "type": "unknown"
@@ -54496,8 +54763,8 @@
      "sites": 2,
      "type": "unknown"
     },
-    "sort": {
-     "sites": 2,
+    "channelId": {
+     "sites": 1,
      "type": "unknown"
     },
     "choices": {
@@ -54508,7 +54775,15 @@
      "sites": 1,
      "type": "unknown"
     },
+    "cursorMark": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "filteredAgentIdSet": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "filters": {
      "sites": 1,
      "type": "unknown"
     },
@@ -54516,15 +54791,19 @@
      "sites": 1,
      "type": "boolean"
     },
-    "megaphoneReason": {
-     "sites": 1,
-     "type": "string"
-    },
     "onInsertAgent": {
      "sites": 1,
      "type": "unknown"
     },
+    "savedViewState": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "solutionTemplateId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "sort": {
      "sites": 1,
      "type": "unknown"
     },
@@ -54541,6 +54820,10 @@
      "type": "unknown"
     },
     "trigger": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "ts": {
      "sites": 1,
      "type": "unknown"
     },
@@ -54746,7 +55029,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 300a8f66a47f (2026-11-03). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
    "read_sweep_2026-11-03": {
     "workspace_token": "ok",
     "enterprise_token": "ok",
@@ -54871,6 +55154,10 @@
      "sites": 12,
      "type": "unknown"
     },
+    "channelId": {
+     "sites": 4,
+     "type": "unknown"
+    },
     "pref": {
      "sites": 4,
      "type": "unknown"
@@ -54886,10 +55173,6 @@
     "apiReason": {
      "sites": 3,
      "type": "string"
-    },
-    "channelId": {
-     "sites": 3,
-     "type": "unknown"
     },
     "propertyUpdate": {
      "sites": 3,
@@ -54916,10 +55199,6 @@
      "type": "unknown"
     },
     "appIds": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "attachments": {
      "sites": 1,
      "type": "unknown"
     },
@@ -54951,10 +55230,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "draft": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "elementName": {
      "sites": 1,
      "type": "unknown"
@@ -54976,10 +55251,6 @@
      "type": "unknown"
     },
     "ids": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "includeAutomatedTriggers": {
      "sites": 1,
      "type": "unknown"
     },
@@ -55011,7 +55282,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "query": {
+    "prUrl": {
      "sites": 1,
      "type": "unknown"
     },
@@ -55020,10 +55291,6 @@
      "type": "unknown"
     },
     "skillId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "strictExposureRules": {
      "sites": 1,
      "type": "unknown"
     },
@@ -55830,7 +56097,18 @@
    "datamine": {
     "first_build": "125207",
     "first_seen": "2026-06-02"
-   }
+   },
+   "params_observed": {
+    "callId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "rtm.connect",
@@ -56661,14 +56939,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "count": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "keys": {
      "sites": 1,
      "type": "array"
@@ -57009,6 +57279,10 @@
     "locale": {
      "sites": 1,
      "type": "unknown"
+    },
+    "megaphoneReason": {
+     "sites": 1,
+     "type": "string"
     },
     "skipShares": {
      "sites": 1,
@@ -58569,10 +58843,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "clientReqId": {
      "sites": 1,
      "type": "unknown"
@@ -58598,14 +58868,6 @@
      "type": "unknown"
     },
     "searchAppArgs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "threadTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "ts": {
      "sites": 1,
      "type": "unknown"
     }
@@ -60325,9 +60587,25 @@
      "sites": 2,
      "type": "object"
     },
+    "activityTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "listsInlineEdit": {
      "sites": 1,
      "type": "object"
+    },
+    "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "threadTs": {
+     "sites": 1,
+     "type": "unknown"
     },
     "unfurls": {
      "sites": 1,
@@ -60490,17 +60768,9 @@
      "sites": 5,
      "type": "unknown"
     },
-    "salesforceOrgId": {
-     "sites": 3,
-     "type": "unknown"
-    },
     "showSecondaryAction": {
      "sites": 3,
      "type": "boolean"
-    },
-    "channelId": {
-     "sites": 2,
-     "type": "unknown"
     },
     "imageUrl": {
      "sites": 2,
@@ -60522,19 +60792,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "afterTabId": {
-     "sites": 1,
+    "salesforceOrgId": {
+     "sites": 2,
      "type": "unknown"
     },
-    "bookmark": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "fileId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "serverKey": {
+    "channelId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -60589,18 +60851,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "activityItem": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isDmTab": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isPeekMode": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -60636,10 +60886,6 @@
    "params_observed": {
     "reason": {
      "sites": 2,
-     "type": "unknown"
-    },
-    "change": {
-     "sites": 1,
      "type": "unknown"
     },
     "domain": {
@@ -60786,18 +61032,30 @@
    },
    "params_observed": {
     "channelId": {
-     "sites": 3,
+     "sites": 5,
      "type": "unknown"
     },
     "reason": {
      "sites": 3,
      "type": "string"
     },
+    "ts": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "handoff": {
      "sites": 1,
      "type": "unknown"
     },
     "knowledgeSource": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "message": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "modelObject": {
      "sites": 1,
      "type": "unknown"
     }
@@ -60872,6 +61130,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "openFormStep": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "params": {
      "sites": 1,
      "type": "object"
@@ -60885,6 +61147,14 @@
      "type": "unknown"
     },
     "sobjects": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "stepFunctionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "workflowId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -60986,7 +61256,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 2,
+     "sites": 3,
      "type": "unknown"
     },
     "activityId": {
@@ -60994,6 +61264,18 @@
      "type": "unknown"
     },
     "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "draftIds": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "entry": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "entryMessage": {
      "sites": 1,
      "type": "unknown"
     },
@@ -61066,6 +61348,10 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "salesforceOrgId": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "agentName": {
      "sites": 1,
      "type": "unknown"
@@ -61078,10 +61364,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "isSingleApproval": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -61090,20 +61372,12 @@
      "sites": 1,
      "type": "unknown"
     },
-    "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "selectedApprovals": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "threadTs": {
      "sites": 1,
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client build d4f98067171e (2026-10-30). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
    "read_sweep_2026-11-03": {
     "workspace_token": "team_is_restricted",
     "enterprise_token": "invalid_arguments",
@@ -61337,6 +61611,10 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "onSeverConfirm": {
      "sites": 1,
      "type": "unknown"
@@ -61438,7 +61716,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 3,
+     "sites": 4,
      "type": "string"
     },
     "categories": {
@@ -61590,14 +61868,6 @@
     "first_seen": "2026-06-17"
    },
    "params_observed": {
-    "memberId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "teamId": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -61681,14 +61951,26 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 1,
+     "sites": 2,
      "type": "string"
+    },
+    "channels": {
+     "sites": 1,
+     "type": "array"
     },
     "recordId": {
      "sites": 1,
      "type": "unknown"
     },
     "salesforceOrgId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "targetTeam": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "user": {
      "sites": 1,
      "type": "unknown"
     },
@@ -61768,10 +62050,6 @@
      "type": "unknown"
     },
     "listId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "onJoin": {
      "sites": 1,
      "type": "unknown"
     },
@@ -61898,19 +62176,19 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "channelId": {
-     "sites": 12,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 12,
      "type": "unknown"
     },
-    "latest": {
-     "sites": 4,
+    "channelId": {
+     "sites": 8,
      "type": "unknown"
     },
-    "oldest": {
+    "audioSwitch": {
+     "sites": 4,
+     "type": "string"
+    },
+    "onConfirm": {
      "sites": 4,
      "type": "unknown"
     },
@@ -61922,39 +62200,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "dateJoined": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "deleted": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "emoji": {
      "sites": 2,
      "type": "unknown"
     },
-    "hasMore": {
-     "sites": 2,
-     "type": "object"
-    },
-    "isLimited": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "isSubjectToMessageLimit": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "msgs": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "name": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "pinCount": {
      "sites": 2,
      "type": "unknown"
     },
@@ -62342,10 +62592,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "canvasContentId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "inviteStatus": {
      "sites": 1,
      "type": "unknown"
@@ -62355,10 +62601,6 @@
      "type": "unknown"
     },
     "searchTerm": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sessionId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -62384,7 +62626,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 5,
+     "sites": 6,
      "type": "unknown"
     },
     "channelId": {
@@ -62399,11 +62641,23 @@
      "sites": 2,
      "type": "unknown"
     },
+    "name": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "salesforceOrgId": {
      "sites": 2,
      "type": "unknown"
     },
     "agents": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "appId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "blocks": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62419,11 +62673,23 @@
      "sites": 1,
      "type": "unknown"
     },
+    "entrypoint": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isPrivate": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "lists": {
      "sites": 1,
      "type": "unknown"
     },
-    "name": {
+    "originChannelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "originMessageTs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62435,11 +62701,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "updatedCollaboratorIds": {
+    "teamId": {
      "sites": 1,
      "type": "unknown"
     },
-    "view": {
+    "updatedCollaboratorIds": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62510,8 +62776,8 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
-     "type": "unknown"
+     "sites": 3,
+     "type": "string"
     },
     "channelId": {
      "sites": 2,
@@ -62521,19 +62787,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "count": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "externalDirectory": {
      "sites": 1,
      "type": "unknown"
     },
-    "includeCounts": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "includeDeleted": {
+    "height": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62541,15 +62799,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "nextCursorMark": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "providerKey": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "query": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62557,15 +62807,7 @@
      "sites": 1,
      "type": "string"
     },
-    "searchTerm": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "setupCreationFlow": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sortBy": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62574,6 +62816,10 @@
      "type": "unknown"
     },
     "users": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "width": {
      "sites": 1,
      "type": "unknown"
     }
@@ -62691,42 +62937,18 @@
    },
    "params_observed": {
     "query": {
-     "sites": 3,
+     "sites": 2,
      "type": "unknown"
     },
     "reason": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "fileTitleOnly": {
      "sites": 2,
-     "type": "unknown"
+     "type": "string"
     },
     "salesforceOrgId": {
      "sites": 2,
      "type": "unknown"
     },
-    "browse": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "browserInstanceId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "browserType": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "browseSessionId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "context": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "cursorMark": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62734,7 +62956,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "filters": {
+    "fileTitleOnly": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62742,31 +62964,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "module": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "msg": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "page": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "pageSize": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "querySessionId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "restrictions": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sort": {
      "sites": 1,
      "type": "unknown"
     }
@@ -62832,6 +63030,26 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "entryPoints": {
+     "sites": 5,
+     "type": "object"
+    },
+    "items": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "liveness": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "priorities": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "result": {
+     "sites": 5,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 4,
      "type": "unknown"
@@ -62840,15 +63058,11 @@
      "sites": 2,
      "type": "unknown"
     },
+    "item": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "fieldApiName": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isUnread": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "key": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62857,14 +63071,6 @@
      "type": "unknown"
     },
     "objectApiName": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "productSurface": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "recommendationKey": {
      "sites": 1,
      "type": "unknown"
     },
@@ -62931,6 +63137,14 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "reason": {
+     "sites": 3,
+     "type": "string"
+    },
+    "salesforceOrgId": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "fieldApiNames": {
      "sites": 2,
      "type": "unknown"
@@ -62940,14 +63154,6 @@
      "type": "unknown"
     },
     "objectApiName": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "reason": {
-     "sites": 2,
-     "type": "string"
-    },
-    "salesforceOrgId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -63396,7 +63602,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
+     "sites": 3,
      "type": "string"
     },
     "allowedDomains": {
@@ -63411,23 +63617,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "cursorMark": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "domain": {
      "sites": 1,
      "type": "unknown"
     },
-    "fetchIdpGroups": {
+    "is_wildcard": {
      "sites": 1,
      "type": "unknown"
     },
-    "filter": {
-     "sites": 1,
-     "type": "object"
-    },
-    "is_wildcard": {
+    "memberId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -63436,22 +63634,6 @@
      "type": "unknown"
     },
     "permissionName": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "searchQuery": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sortBy": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sortDir": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "targetTeam": {
      "sites": 1,
      "type": "unknown"
     }
@@ -63566,15 +63748,19 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 7,
+     "sites": 8,
      "type": "string"
     },
     "channelId": {
-     "sites": 6,
+     "sites": 7,
      "type": "unknown"
     },
     "fileId": {
      "sites": 6,
+     "type": "unknown"
+    },
+    "prUrl": {
+     "sites": 3,
      "type": "unknown"
     },
     "salesforceOrgId": {
@@ -63605,19 +63791,11 @@
      "sites": 2,
      "type": "unknown"
     },
-    "prUrl": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "recordId": {
      "sites": 2,
      "type": "unknown"
     },
     "step": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "text": {
      "sites": 2,
      "type": "unknown"
     },
@@ -63661,9 +63839,9 @@
      "sites": 1,
      "type": "unknown"
     },
-    "kickedUserId": {
+    "inviteToChannel": {
      "sites": 1,
-     "type": "unknown"
+     "type": "boolean"
     },
     "limit": {
      "sites": 1,
@@ -63673,7 +63851,19 @@
      "sites": 1,
      "type": "unknown"
     },
+    "noteBlocks": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "pendingFileId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "postMention": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "query": {
      "sites": 1,
      "type": "unknown"
     },
@@ -63700,6 +63890,10 @@
     "url": {
      "sites": 1,
      "type": "unknown"
+    },
+    "userIds": {
+     "sites": 1,
+     "type": "array"
     },
     "window": {
      "sites": 1,
@@ -63770,11 +63964,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 14,
+     "sites": 17,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 6,
+     "sites": 7,
      "type": "unknown"
     },
     "channelSectionsPrefs": {
@@ -63783,6 +63977,10 @@
     },
     "element": {
      "sites": 6,
+     "type": "unknown"
+    },
+    "draftId": {
+     "sites": 5,
      "type": "unknown"
     },
     "href": {
@@ -63849,10 +64047,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "draftId": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "event": {
      "sites": 1,
      "type": "number"
@@ -63897,11 +64091,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "name": {
+    "navigationMethod": {
      "sites": 1,
      "type": "unknown"
     },
-    "navigationMethod": {
+    "newHistoryInvalidTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "newUpdatedTs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -63950,10 +64148,6 @@
      "type": "unknown"
     },
     "team": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "teamId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -64133,9 +64327,25 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "activityTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "columnId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "listId": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
+    },
+    "recordId": {
+     "sites": 1,
+     "type": "unknown"
     },
     "salesforceOrgId": {
      "sites": 1,
@@ -64315,14 +64525,6 @@
     "reason": {
      "sites": 1,
      "type": "string"
-    },
-    "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "serverKey": {
-     "sites": 1,
-     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -64432,41 +64634,13 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "domain": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "isEnabled": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "instanceUrl": {
      "sites": 1,
      "type": "unknown"
     },
-    "itemCount": {
+    "reason": {
      "sites": 1,
-     "type": "number"
-    },
-    "name": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "pageSize": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "salesforceListId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "searchTerm": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "string"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -64507,6 +64681,22 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "appId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "elementName": {
+     "sites": 1,
+     "type": "string"
+    },
+    "promptText": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -64537,8 +64727,8 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 8,
-     "type": "unknown"
+     "sites": 6,
+     "type": "string"
     },
     "salesforceOrgId": {
      "sites": 6,
@@ -64561,14 +64751,6 @@
      "type": "unknown"
     },
     "isSlackbotInChannelsEnabled": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "searchChannelTypes": {
      "sites": 1,
      "type": "unknown"
     }
@@ -64867,6 +65049,10 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "container": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -64874,9 +65060,13 @@
     "salesforceOrgId": {
      "sites": 1,
      "type": "unknown"
+    },
+    "windowId": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in Slack's web client build 9a70207dc3e2 (2026-10-27). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.layouts.info",
@@ -64916,10 +65106,6 @@
      "sites": 2,
      "type": "object"
     },
-    "clogLinkClick": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "externalDirectory": {
      "sites": 1,
      "type": "unknown"
@@ -64932,10 +65118,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "isRawLink": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "messageTs": {
      "sites": 1,
      "type": "unknown"
@@ -64943,10 +65125,6 @@
     "skipApi": {
      "sites": 1,
      "type": "boolean"
-    },
-    "url": {
-     "sites": 1,
-     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -64987,7 +65165,7 @@
      "type": "string"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 3f71449df7c8 (2026-11-02). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
    "read_sweep_2026-11-03": {
     "workspace_token": "team_is_restricted",
     "enterprise_token": "invalid_arguments",
@@ -65013,7 +65191,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 57,
+     "sites": 58,
      "type": "unknown"
     },
     "salesforceOrgId": {
@@ -65032,11 +65210,11 @@
      "sites": 4,
      "type": "unknown"
     },
-    "cursor": {
-     "sites": 3,
+    "listId": {
+     "sites": 4,
      "type": "unknown"
     },
-    "listId": {
+    "cursor": {
      "sites": 3,
      "type": "unknown"
     },
@@ -65322,7 +65500,7 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 24,
+     "sites": 23,
      "type": "unknown"
     },
     "salesforceOrgId": {
@@ -65616,11 +65794,11 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "listViewId": {
-     "sites": 1,
+    "reason": {
+     "sites": 2,
      "type": "unknown"
     },
-    "reason": {
+    "listViewId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -65650,7 +65828,15 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 5,
+     "sites": 8,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "appId": {
+     "sites": 2,
      "type": "unknown"
     },
     "fileId": {
@@ -65661,10 +65847,6 @@
      "sites": 2,
      "type": "number"
     },
-    "query": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "skipShares": {
      "sites": 2,
      "type": "unknown"
@@ -65673,7 +65855,15 @@
      "sites": 1,
      "type": "unknown"
     },
+    "filters": {
+     "sites": 1,
+     "type": "object"
+    },
     "includeTranscription": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "name": {
      "sites": 1,
      "type": "unknown"
     },
@@ -65688,6 +65878,10 @@
     "skipDlpUserWarning": {
      "sites": 1,
      "type": "boolean"
+    },
+    "teamId": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -65807,11 +66001,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 12,
+     "sites": 10,
      "type": "unknown"
     },
     "channelId": {
-     "sites": 8,
+     "sites": 6,
      "type": "unknown"
     },
     "fileId": {
@@ -65843,10 +66037,6 @@
      "type": "unknown"
     },
     "channelDigestId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "commentNodeId": {
      "sites": 2,
      "type": "unknown"
     },
@@ -65887,10 +66077,6 @@
      "type": "unknown"
     },
     "notifyNewOwner": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "prUrl": {
      "sites": 2,
      "type": "unknown"
     },
@@ -66069,6 +66255,14 @@
      "sites": 2,
      "type": "unknown"
     },
+    "isUnread": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "key": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "label": {
      "sites": 1,
      "type": "unknown"
@@ -66133,6 +66327,10 @@
     "first_seen": "2026-06-03"
    },
    "params_observed": {
+    "reason": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "action_api_name": {
      "sites": 2,
      "type": "unknown"
@@ -66149,10 +66347,6 @@
      "sites": 2,
      "type": "unknown"
     },
-    "reason": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "record_id": {
      "sites": 2,
      "type": "unknown"
@@ -66166,6 +66360,18 @@
      "type": "unknown"
     },
     "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "includeAutomatedTriggers": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "strictExposureRules": {
      "sites": 1,
      "type": "unknown"
     },
@@ -66236,8 +66442,8 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 3,
-     "type": "string"
+     "sites": 4,
+     "type": "unknown"
     },
     "dealAmount": {
      "sites": 2,
@@ -66263,7 +66469,19 @@
      "sites": 1,
      "type": "unknown"
     },
+    "includeAutomatedTriggers": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "response": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "strictExposureRules": {
      "sites": 1,
      "type": "unknown"
     },
@@ -66292,7 +66510,39 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "availableLicenses": {
+    "channelId": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "folderBookmarkId": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "folderName": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "bookmark": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "linkTitle": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "linkUrl": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "fileId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "filePermalink": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "fileTitle": {
      "sites": 1,
      "type": "unknown"
     },
@@ -66300,23 +66550,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "membersMap": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
     },
-    "refetchMembers": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "salesforceOrg": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "salesforceOrgId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "tabId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -66723,43 +66965,31 @@
      "sites": 3,
      "type": "string"
     },
+    "query": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 3,
      "type": "unknown"
     },
-    "ts": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "id": {
+    "cursorMark": {
      "sites": 2,
      "type": "unknown"
     },
-    "optimistic": {
+    "filters": {
      "sites": 2,
-     "type": "boolean"
+     "type": "unknown"
     },
     "promptId": {
      "sites": 2,
      "type": "unknown"
     },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "cursorMark": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "filters": {
-     "sites": 1,
+    "sort": {
+     "sites": 2,
      "type": "unknown"
     },
     "key": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "query": {
      "sites": 1,
      "type": "unknown"
     }
@@ -66888,7 +67118,22 @@
     "workspace_token": "invalid_arguments",
     "enterprise_token": "invalid_arguments",
     "method": "empty-body POST, read-style names only, see methods/read-sweep-2026-11-03.md"
-   }
+   },
+   "params_observed": {
+    "navigateParams": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "nextViewSet": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "priorityList": {
+     "sites": 1,
+     "type": "array"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sharedInvites.get",
@@ -66908,17 +67153,9 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
+    "channel": {
      "sites": 1,
-     "type": "string"
-    },
-    "skipNavigationProcessing": {
-     "sites": 1,
-     "type": "boolean"
-    },
-    "tab": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "object"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key.",
@@ -68723,7 +68960,42 @@
    "datamine": {
     "first_build": "125207",
     "first_seen": "2026-06-02"
-   }
+   },
+   "params_observed": {
+    "reason": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "domain": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "isEnabled": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "itemCount": {
+     "sites": 1,
+     "type": "number"
+    },
+    "name": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "pageSize": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "salesforceListId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "searchTerm": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "slackLists.access.delete",
@@ -69285,14 +69557,6 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "appId": {
-     "sites": 2,
-     "type": "unknown"
-    },
     "channelId": {
      "sites": 2,
      "type": "unknown"
@@ -69305,15 +69569,27 @@
      "sites": 2,
      "type": "unknown"
     },
-    "query": {
+    "reason": {
      "sites": 2,
+     "type": "string"
+    },
+    "actionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "blockId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "blockState": {
+     "sites": 1,
      "type": "unknown"
     },
     "browserInstanceId": {
      "sites": 1,
      "type": "unknown"
     },
-    "counts": {
+    "containerId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -69329,10 +69605,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "fileChannelCounts": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "fileId": {
      "sites": 1,
      "type": "unknown"
@@ -69343,7 +69615,7 @@
     },
     "filters": {
      "sites": 1,
-     "type": "object"
+     "type": "unknown"
     },
     "hasMore": {
      "sites": 1,
@@ -69365,17 +69637,29 @@
      "sites": 1,
      "type": "unknown"
     },
+    "page": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "pinCount": {
      "sites": 1,
      "type": "unknown"
     },
-    "skipMissingChannelFetch": {
+    "plan": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
      "sites": 1,
      "type": "unknown"
     },
     "skipSimpleArraySerializationInGetFormData": {
      "sites": 1,
      "type": "boolean"
+    },
+    "sort": {
+     "sites": 1,
+     "type": "unknown"
     }
    },
    "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
@@ -69399,18 +69683,10 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "appId": {
-     "sites": 1,
+     "sites": 3,
      "type": "unknown"
     },
     "approvalType": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "blocks": {
      "sites": 1,
      "type": "unknown"
     },
@@ -69422,19 +69698,11 @@
      "sites": 1,
      "type": "unknown"
     },
-    "entrypoint": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "feedbackLabelOverride": {
      "sites": 1,
      "type": "unknown"
     },
     "feedbackType": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isPrivate": {
      "sites": 1,
      "type": "unknown"
     },
@@ -69446,27 +69714,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "name": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "openMethod": {
-     "sites": 1,
-     "type": "string"
-    },
-    "originChannelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "originMessageTs": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "queryOps": {
      "sites": 1,
      "type": "unknown"
     },
@@ -69485,10 +69733,6 @@
     "targetTeamIds": {
      "sites": 1,
      "type": "array"
-    },
-    "teamId": {
-     "sites": 1,
-     "type": "unknown"
     },
     "text": {
      "sites": 1,
@@ -70656,6 +70900,18 @@
     "columnsToExport": {
      "sites": 1,
      "type": "array"
+    },
+    "companyName": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "destinationStage": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "error": {
+     "sites": 1,
+     "type": "unknown"
     },
     "filter": {
      "sites": 1,
@@ -72569,6 +72825,30 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "container": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "removedView": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "shouldAnnounceViewClosure": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "shouldTransitionFocus": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "sideEffectPayload": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "threadExitViewId": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "channelId": {
      "sites": 2,
      "type": "unknown"
@@ -72585,6 +72865,18 @@
      "sites": 1,
      "type": "unknown"
     },
+    "fetchForAgentforce": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "fetchNew": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "filter": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "hasReminder": {
      "sites": 1,
      "type": "unknown"
@@ -72592,6 +72884,10 @@
     "imsgs": {
      "sites": 1,
      "type": "array"
+    },
+    "incompleteFetchDataCursor": {
+     "sites": 1,
+     "type": "unknown"
     },
     "isCustomDateDue": {
      "sites": 1,
@@ -72601,11 +72897,23 @@
      "sites": 1,
      "type": "boolean"
     },
+    "isUnreadMode": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "keyValueObject": {
      "sites": 1,
      "type": "unknown"
     },
+    "limit": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "mode": {
      "sites": 1,
      "type": "unknown"
     },
@@ -72634,6 +72942,10 @@
      "type": "unknown"
     },
     "triggerType": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "types": {
      "sites": 1,
      "type": "unknown"
     },
@@ -73076,7 +73388,42 @@
    "datamine": {
     "first_build": "125207",
     "first_seen": "2026-06-02"
-   }
+   },
+   "params_observed": {
+    "files": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "fileTypeCategories": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "itemIds": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "nextCursor": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "recordId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "totalCount": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "view": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "today.items.markUnread",
@@ -74360,7 +74707,7 @@
      "type": "unknown"
     }
    },
-   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
+   "params_observed_source": "Argument names seen at call sites in Slack's web client build 3f71449df7c8 (2026-11-02). Later builds no longer show call sites for this method, so these may be out of date. Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "users.admin.removeExpiration",
@@ -74445,6 +74792,18 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
+    "channelOrSectionName": {
+     "sites": 1,
+     "type": "string"
+    },
+    "onConfirmMute": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "onSkipMute": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "reason": {
      "sites": 1,
      "type": "string"
@@ -74597,25 +74956,9 @@
      "sites": 1,
      "type": "unknown"
     },
-    "domain": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "domainId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "method": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
-    },
-    "salesforceOrgId": {
-     "sites": 1,
-     "type": "unknown"
     },
     "targetTeam": {
      "sites": 1,
@@ -74688,7 +75031,11 @@
    },
    "params_observed": {
     "reason": {
-     "sites": 7,
+     "sites": 10,
+     "type": "unknown"
+    },
+    "ts": {
+     "sites": 4,
      "type": "unknown"
     },
     "appId": {
@@ -74704,6 +75051,14 @@
      "type": "unknown"
     },
     "enterpriseId": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "id": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "previousTs": {
      "sites": 3,
      "type": "unknown"
     },
@@ -74779,10 +75134,6 @@
      "sites": 1,
      "type": "unknown"
     },
-    "filters": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "huddleId": {
      "sites": 1,
      "type": "unknown"
@@ -74791,11 +75142,15 @@
      "sites": 1,
      "type": "unknown"
     },
-    "objects": {
+    "lastFailureReason": {
      "sites": 1,
      "type": "unknown"
     },
-    "page": {
+    "megaphoneReason": {
+     "sites": 1,
+     "type": "string"
+    },
+    "objects": {
      "sites": 1,
      "type": "unknown"
     },
@@ -74803,7 +75158,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "query": {
+    "retries": {
      "sites": 1,
      "type": "unknown"
     },
@@ -74811,15 +75166,7 @@
      "sites": 1,
      "type": "unknown"
     },
-    "sort": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "templateId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "ts": {
      "sites": 1,
      "type": "unknown"
     },
@@ -77324,6 +77671,10 @@
      "sites": 5,
      "type": "unknown"
     },
+    "channelId": {
+     "sites": 5,
+     "type": "unknown"
+    },
     "decoratedWorkflow": {
      "sites": 5,
      "type": "unknown"
@@ -77334,10 +77685,6 @@
     },
     "trigger": {
      "sites": 5,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 3,
      "type": "unknown"
     },
     "huddleId": {
@@ -77388,6 +77735,10 @@
      "sites": 1,
      "type": "unknown"
     },
+    "isExcluded": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "isLaterTodo": {
      "sites": 1,
      "type": "boolean"
@@ -77400,7 +77751,15 @@
      "sites": 1,
      "type": "boolean"
     },
+    "threadTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "toUserId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "ts": {
      "sites": 1,
      "type": "unknown"
     }
@@ -80234,8 +80593,28 @@
    },
    "params_observed": {
     "reason": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "bypassCache": {
      "sites": 1,
-     "type": "string"
+     "type": "unknown"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "includeShares": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "languageGroups": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
     },
     "templateId": {
      "sites": 1,
@@ -81544,8 +81923,8 @@
   }
  },
  "datamine_latest_build": {
-  "build": "b0694a7a8385",
-  "captured": "2026-11-02",
+  "build": "73f7ba1cc11d",
+  "captured": "2026-11-04",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
 }
