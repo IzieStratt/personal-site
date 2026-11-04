@@ -1,0 +1,757 @@
+/* same palette and type as the main site (/style.css); this one adds the post bits */
+@font-face {
+  font-family: "xkcd Script";
+  src: url("/cdn/xkcd-script.woff") format("woff");
+  font-display: swap;
+}
+
+/* light by default; dark when the browser asks for it, unless the toggle (/cdn/theme.js) set
+   data-theme on <html> to override it either way */
+:root {
+  color-scheme: light;
+  --bg: #fffdf7;
+  --fg: #222;
+  --focus: #315f9d;
+  --code-bg: #eee9dc;
+  --code-fg: #594733;
+  --muted: #5c5346;
+  --card: #ede6d6;
+  --card-hover: #e6decb;
+  --line: #e4dccb;
+  --quote-line: #c9bfa8;
+  --quote-fg: #4b4438;
+  --link: #a8442a;
+  --link-visited: #7b3f61;
+  --link-hover: #6e2410;
+  --tag-bg: #dce6f1;
+  --tag-fg: #234670;
+  --input-bg: #fff;
+  --bad: #a33;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #1b1a17;
+    --fg: #ece6d8;
+    --focus: #8fb3e6;
+    --code-bg: #2e2b25;
+    --code-fg: #dcc6a6;
+    --muted: #b5ab99;
+    --card: #2a2722;
+    --card-hover: #34302a;
+    --line: #3b372f;
+    --quote-line: #5c5548;
+    --quote-fg: #cbc2b1;
+    --link: #f0a083;
+    --link-visited: #dca5c6;
+    --link-hover: #ffc7b3;
+    --tag-bg: #24324a;
+    --tag-fg: #b7cfee;
+    --input-bg: #24221e;
+    --bad: #f28b82;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1b1a17;
+  --fg: #ece6d8;
+  --focus: #8fb3e6;
+  --code-bg: #2e2b25;
+  --code-fg: #dcc6a6;
+  --muted: #b5ab99;
+  --card: #2a2722;
+  --card-hover: #34302a;
+  --line: #3b372f;
+  --quote-line: #5c5548;
+  --quote-fg: #cbc2b1;
+  --link: #f0a083;
+  --link-visited: #dca5c6;
+  --link-hover: #ffc7b3;
+  --tag-bg: #24324a;
+  --tag-fg: #b7cfee;
+  --input-bg: #24221e;
+  --bad: #f28b82;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "xkcd Script", cursive;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+main {
+  width: min(42rem, calc(100% - 3rem));
+  margin: 3rem auto 4rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+code {
+  padding: 0.08em 0.35em;
+  border-radius: 0.35em;
+  background: var(--code-bg);
+  color: var(--code-fg);
+  font: inherit;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--code-bg);
+  line-height: 1.35;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.8em;
+}
+
+nav {
+  margin: 0 0 2.5rem;
+}
+
+nav ul,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.tags a {
+  display: block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  text-decoration: none;
+}
+
+.tags a:hover,
+.tags a:focus-visible {
+  background: var(--tag-fg);
+  color: var(--bg);
+}
+
+.subtitle {
+  margin-top: -0.5rem;
+}
+
+/* links in running text: our own colours instead of the browser's blue and purple */
+.post a,
+.subtitle a,
+.hint a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.post a:visited {
+  color: var(--link-visited);
+}
+
+.post a:hover,
+.post a:focus-visible,
+.subtitle a:hover {
+  color: var(--link-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* tags under a post or list item are smaller than the nav pills */
+.tags {
+  gap: 0.4rem;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.tags a::before {
+  content: "#";
+  content: "#" / ""; /* decorative: not read out */
+  opacity: 0.55;
+}
+
+.tags.cloud {
+  font-size: 1.15rem;
+}
+
+.tags span {
+  opacity: 0.9;
+}
+
+.posts {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each post is a box; its tags sit underneath, outside it */
+.card {
+  display: block;
+  padding: 0.9rem 1.2rem 1rem;
+  border-radius: 1.2rem;
+  corner-shape: squircle;
+  background: var(--card);
+  color: var(--fg);
+  text-decoration: none;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  background: var(--card-hover);
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.card time {
+  display: block;
+  font-size: 1rem;
+  opacity: 0.65;
+}
+
+.card .title {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.posts .tags {
+  margin: 0.55rem 0 0 0.4rem;
+}
+
+article > .tags {
+  margin-bottom: 1.5rem;
+}
+
+.post {
+  padding-bottom: 1rem;
+}
+
+.post img,
+.post video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.post audio {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.post blockquote {
+  margin: 1rem 0;
+  padding: 0.1rem 1.1rem;
+  border-radius: 0.75rem;
+  background: var(--code-bg);
+}
+
+.post blockquote > :first-child { margin-top: 0; }
+.post blockquote > :last-child { margin-bottom: 0; }
+
+.post hr {
+  width: 3rem;
+  margin: 2rem 0;
+  border: 0;
+  border-top: 3px dotted var(--fg);
+}
+
+/* the archived copy of a link, small and raised next to the original */
+sup.archive {
+  margin-left: 0.15em;
+  font-size: 0.6em;
+  line-height: 0;
+}
+
+sup.archive a {
+  color: inherit;
+}
+
+/* nutshell: expandable explanations. it brings its own dotted underline; this just
+   makes the bubbles sit in the page's font */
+.nutshell-bubble {
+  font-family: "xkcd Script", cursive;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* nutshell fades the "from ..." line to 69% opacity, which drops it to about 3.2:1 on cream */
+.nutshell-bubble-from {
+  opacity: 1;
+  color: var(--muted);
+}
+
+.nutshell-bubble-from a {
+  color: var(--link);
+}
+
+/* tag filter on the front page: a button with a tapered-bars icon that opens a panel of tag chips.
+   without javascript the chips are just links to the tag pages and the panel stays open */
+.filter {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.8rem;
+}
+
+.filter-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  align-items: center;
+  min-height: 2.1rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.filter-top p {
+  margin: 0;
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.9rem 0.25rem 0.8rem;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.filter-toggle[hidden],
+.filter-clear[hidden] {
+  display: none;
+}
+
+.filter-toggle:hover,
+.filter-toggle:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.filter-toggle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.filter-toggle[aria-expanded="true"] {
+  border-color: var(--tag-fg);
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+}
+
+.filter-toggle[aria-expanded="true"]:hover,
+.filter-toggle[aria-expanded="true"]:focus-visible {
+  background: var(--tag-fg);
+  color: var(--bg);
+}
+
+/* the three bars: closed they taper like a funnel; opening makes them slide out to full width
+   one after another, and closing sends them back */
+.filter-toggle .bars {
+  flex: none;
+  overflow: visible;
+}
+
+.filter-toggle .bars path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.filter-toggle[aria-expanded="true"] .bars path:nth-child(2) {
+  transform: scaleX(1.3);
+  transition-delay: 50ms;
+}
+
+.filter-toggle[aria-expanded="true"] .bars path:nth-child(3) {
+  transform: scaleX(2.2);
+  transition-delay: 100ms;
+}
+
+.filter-toggle:active .bars path {
+  transform: scaleX(0.7);
+  transition-duration: 80ms;
+}
+
+/* the panel grows open from nothing; the chips then pop in one by one */
+.filter-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 280ms ease, opacity 200ms ease, visibility 0s;
+}
+
+.filter-panel > div {
+  min-height: 0;
+  padding: 0.2rem;
+  margin: -0.2rem;
+  overflow: hidden;
+}
+
+.filter-panel[data-open="false"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 280ms ease, opacity 200ms ease, visibility 0s 280ms;
+}
+
+.filter-panel[data-open="true"] .tags li {
+  animation: chip-in 320ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 28ms + 90ms);
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.85);
+  }
+}
+
+.filter-panel .tags a {
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.filter-panel .tags a:active {
+  transform: scale(0.94);
+}
+
+.filter .tags a[aria-pressed="true"] {
+  background: var(--focus);
+  color: var(--bg);
+}
+
+.filter .tags a[aria-pressed="true"]::before {
+  content: "\2212" / "";
+  opacity: 1;
+}
+
+.filter-clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--link);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.filter-clear:hover,
+.filter-clear:focus-visible {
+  color: var(--link-hover);
+}
+
+.posts li[hidden] {
+  display: none;
+}
+
+.no-match {
+  margin: 0;
+}
+
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* anyone who asked their system for less motion gets none */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .card:hover,
+  .card:focus-visible,
+  .theme-toggle:hover .theme-face,
+  .theme-toggle:focus-visible .theme-face {
+    transform: none;
+  }
+}
+
+/* comments */
+.comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--fg);
+}
+
+.comment-list .thread,
+.comment-list .replies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thread > li,
+.replies > li {
+  margin-top: 1rem;
+}
+
+.comment-list .replies {
+  margin-left: 0.4rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line);
+}
+
+.comment {
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  corner-shape: squircle;
+  background: var(--card);
+}
+
+.comment header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.7rem;
+  align-items: baseline;
+}
+
+.comment .site,
+.comment time {
+  font-size: 1rem;
+}
+
+.comment time {
+  color: var(--muted);
+}
+
+.comment .text > :first-child {
+  margin-top: 0.4rem;
+}
+
+.comment .text > :last-child {
+  margin-bottom: 0;
+}
+
+.comment .text blockquote {
+  margin-left: 0;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--quote-line);
+  color: var(--quote-fg);
+}
+
+.comment .text code {
+  padding: 0 0.3rem;
+  border-radius: 0.4rem;
+  background: var(--line);
+  font-size: 0.9em;
+}
+
+.comments a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.comments a:visited {
+  color: var(--link-visited);
+}
+
+.comments a:hover {
+  color: var(--link-hover);
+}
+
+.comment .reply,
+.comments button {
+  padding: 0.25rem 0.9rem;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.comment .reply {
+  margin-top: 0.4rem;
+}
+
+/* a locked post keeps its comments but takes no replies */
+.comments[data-mode="locked"] .reply,
+.comments[data-mode="off"] .reply {
+  display: none;
+}
+
+.comments button:hover,
+.comments button:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.comments button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.comments [hidden] {
+  display: none;
+}
+
+.comments form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.comments form h3 {
+  margin: 0;
+}
+
+.comments label {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.comments label > span,
+.comments .hint,
+.comment-note {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.comments .hint,
+.comment-note,
+.comment-status {
+  margin: 0;
+}
+
+.comments input,
+.comments textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border: 2px solid var(--fg);
+  border-radius: 0.75rem;
+  background: var(--input-bg);
+  color: var(--fg);
+  font: inherit;
+}
+
+.comments input[aria-invalid="true"],
+.comments textarea[aria-invalid="true"] {
+  border-color: var(--bad);
+}
+
+.comments textarea {
+  resize: vertical;
+}
+
+.comments .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.comment-status.bad {
+  color: var(--bad);
+}
+
+/* the honeypot: out of sight and out of the tab order for people, still there for bots */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* the light/dark toggle (made by /cdn/theme.js), styled like the GitHub button on the main site; same trick:
+   the button stays put and only .theme-face lifts */
+.theme-toggle {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.75rem;
+  z-index: 1;
+  padding: 6px;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.theme-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.7rem 0.25rem 0.5rem;
+  border: 2px solid var(--fg);
+  border-radius: 0.75rem;
+  background: var(--bg);
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.theme-toggle:hover .theme-face,
+.theme-toggle:focus-visible .theme-face {
+  background: var(--fg);
+  color: var(--bg);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.theme-icon {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

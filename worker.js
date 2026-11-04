@@ -1,9 +1,22 @@
+import { handleComments } from './comments.js'
+import { handleSuggestions } from './suggestions.js'
+export { ShiritoriLobby } from './shiritori-lobby.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
+    // sdmp.izie.top is the main address for the Slack datamine pages; the long name redirects to it, keeping the path and query string
+    // browsers fetch /favicon.ico unasked and refuse a favicon that redirects across origins, so the icon is served in place on both names
+    if (url.pathname === '/favicon.ico') url.pathname = '/favicon.svg'
+    const sharedPath = url.pathname === '/favicon.svg' || url.pathname.startsWith('/cdn/')
+    if (url.hostname === 'slackdatamineplus.izie.top' && !sharedPath) {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: `https://sdmp.izie.top${url.pathname}${url.search}` },
+      })
+    }
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse
     if (url.hostname === 'izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
@@ -33,6 +46,12 @@ export default {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
+    if (url.pathname === '/api/comments') return handleComments(request, env, url)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
+      // one hub holds every lobby and game (see shiritori-lobby.js)
+      return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
+    }
     if (url.pathname.startsWith('/api/graphs/')) {
       const response = await fetch(`https://botme.dunkirk.sh${url.pathname}${url.search}`, request)
       const headers = new Headers(response.headers)
@@ -48,13 +67,16 @@ export default {
       return new Response(response.body, { status: response.status, headers })
     }
     const match = url.hostname.match(/^([a-z0-9-]+)\.izie\.top$/)
-    const prefix = match ? `/__subdomains/${match[1]}` : null
+    const prefix = match ? `/__subdomains/${SUBDOMAIN_ALIASES[match[1]] || match[1]}` : null
     // shared root assets (fonts, buttons, favicon) are served as-is on every subdomain
     const sharedAsset = url.pathname.startsWith('/cdn/') || url.pathname === '/favicon.svg'
 
     if (prefix && !sharedAsset) {
+      const originalPath = url.pathname
       url.pathname = `${prefix}${url.pathname}`
       const response = await env.ASSETS.fetch(new Request(url, request))
+      // subdomains without their own stylesheet (e.g. a bare 404 page) fall back to the root one
+      if (response.status === 404 && originalPath === '/style.css') return env.ASSETS.fetch(request)
       const location = response.headers.get('Location')
 
       if (location?.startsWith(prefix)) {
@@ -66,9 +88,12 @@ export default {
       return response
     }
 
-    return env.ASSETS.fetch(request)
+    return env.ASSETS.fetch(new Request(url, request))
   }
 }
+
+// subdomains that serve another subdomain's files (sdmp is the main address for the slackdatamineplus folder; the long hostname redirects to it, see the top of fetch)
+const SUBDOMAIN_ALIASES = { sdmp: 'slackdatamineplus' }
 
 // ReDocumented: make the docs easy for agents to fetch.
 // - `Accept: text/markdown` (or ?format=md) on the SPA root returns llms.txt instead of a JS shell
@@ -163,6 +188,7 @@ function redocMethodMarkdown(m) {
   const lines = [`# ${m.name}`, '',
     `- status: ${m.status}`,
     `- verified: ${m.verified}`,
+    ...(m.not_in_client ? [`- not in the current client: ${m.not_in_client_note || 'missing from recent web client builds'}`] : []),
     `- tokens: ${m.tokens || 'unknown'}`,
     `- write-shaped name: ${m.write_shaped ? 'yes, do not call without a human in the loop' : 'no'}`,
     `- source: ${m.source || 'unknown'}`,
@@ -175,6 +201,11 @@ function redocMethodMarkdown(m) {
       lines.push(`| \`${k}\` | ${v.required ? 'yes' : 'no'} | ${cell(v.type)} | ${cell(v.desc)} |`)
     }
     lines.push('', `Source: ${m.params_source}`)
+  } else if (m.params_observed) {
+    lines.push('', 'Not a schema. These argument names were seen at call sites in Slack\'s web client; the set is partial and says nothing about which are required.',
+      '', '| name | type hint | call sites |', '|---|---|---|')
+    for (const [k, v] of Object.entries(m.params_observed)) lines.push(`| \`${k}\` | ${cell(v.type)} | ${v.sites} |`)
+    lines.push('', `Source: ${m.params_observed_source}`)
   } else {
     lines.push('', 'Unknown. Nothing here is guessed; do not invent params for this method.')
   }

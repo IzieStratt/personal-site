@@ -8,10 +8,13 @@ const state = {
   query: "",
   status: "all", // all | documented | undocumented
   paramsFilter: "all", // all | known | unknown
+  showAbsent: false, // methods the current web client no longer references
   sortKey: "name",
   sortDir: 1,
   limit: 50,
 };
+
+const isAbsent = (m) => !!(m.not_in_client || m.removed); // `removed` is the pre-2026-10-20 field name
 
 const els = {
   root: document.getElementById("explorer-root"),
@@ -22,6 +25,10 @@ function fmtPct(n, d) {
 }
 
 function paramsSummary(m) {
+  if (!m.params_known && m.params_observed) {
+    const n = Object.keys(m.params_observed).length;
+    return { text: `observed (${n})`, cls: "tag-observed" };
+  }
   if (!m.params_known) return { text: "unknown", cls: "tag-unknown" };
   const p = m.params || {};
   const keys = Object.keys(p);
@@ -44,10 +51,13 @@ function responseSummary(m) {
 }
 
 function renderStats() {
-  const total = state.data.methods.length;
-  const paramsKnown = state.data.methods.filter((m) => m.params_known).length;
-  const respKnown = state.data.methods.filter((m) => m.response_known).length;
-  const documented = state.data.methods.filter((m) => m.status === "documented").length;
+  const all = state.showAbsent ? state.data.methods : state.data.methods.filter((m) => !isAbsent(m));
+  const absent = state.data.methods.length - state.data.methods.filter((m) => !isAbsent(m)).length;
+  const observed = all.filter((m) => !m.params_known && m.params_observed).length;
+  const total = all.length;
+  const paramsKnown = all.filter((m) => m.params_known).length;
+  const respKnown = all.filter((m) => m.response_known).length;
+  const documented = all.filter((m) => m.status === "documented").length;
   return `
     <div class="stats-row">
       <div class="stat"><b>${total}</b><span>total methods</span></div>
@@ -55,6 +65,8 @@ function renderStats() {
       <div class="stat"><b>${total - documented}</b><span>undocumented</span></div>
       <div class="stat"><b>${paramsKnown}</b><span>params known (${fmtPct(paramsKnown, total)})</span></div>
       <div class="stat"><b>${respKnown}</b><span>response known (${fmtPct(respKnown, total)})</span></div>
+      <div class="stat"><b>${observed}</b><span>params observed (not a full schema)</span></div>
+      <div class="stat"><b>${absent}</b><span>not in the current client (${state.showAbsent ? "shown" : "hidden"})</span></div>
     </div>`;
 }
 
@@ -68,9 +80,11 @@ function applyFilters() {
   }
   const q = state.query.trim().toLowerCase();
   state.filtered = state.data.methods.filter((m) => {
+    if (isAbsent(m) && !state.showAbsent) return false;
     if (state.status !== "all" && m.status !== state.status) return false;
     if (state.paramsFilter === "known" && !m.params_known) return false;
-    if (state.paramsFilter === "unknown" && m.params_known) return false;
+    if (state.paramsFilter === "unknown" && (m.params_known || m.params_observed)) return false;
+    if (state.paramsFilter === "observed" && (m.params_known || !m.params_observed)) return false;
     if (!q) return true;
     return (
       m._hay.includes(q)
@@ -110,7 +124,7 @@ function renderTable() {
       const r = responseSummary(m);
       return `
       <tr class="method-row" data-idx="${m._idx}">
-        <td><code>${escapeHtml(m.name)}</code></td>
+        <td><code>${escapeHtml(m.name)}</code>${isAbsent(m) ? ' <span class="tag tag-absent" title="' + escapeHtml(m.not_in_client_note || m.removed_note || "") + '">not in client</span>' : ""}</td>
         <td><span class="tag tag-${m.status}">${m.status}</span></td>
         <td><span class="tag tag-verified">${escapeHtml(m.verified)}</span></td>
         <td><span class="tag ${p.cls}">${p.text}</span></td>
@@ -139,7 +153,10 @@ function renderTable() {
 }
 
 function renderDetail(m) {
-  const paramsHtml = m.params_known
+  const observedHtml = (!m.params_known && m.params_observed)
+    ? `<table class="observed-table"><thead><tr><th>name</th><th>type hint</th><th>call sites</th></tr></thead><tbody>${Object.entries(m.params_observed).map(([k, v]) => `<tr><td><code>${escapeHtml(k)}</code></td><td>${escapeHtml(v.type)}</td><td>${v.sites}</td></tr>`).join("")}</tbody></table><p class="detail-src">${escapeHtml(m.params_observed_source || "")}</p>`
+    : "";
+  const paramsHtml = observedHtml ? observedHtml : m.params_known
     ? `<pre>${escapeHtml(JSON.stringify(m.params, null, 2))}</pre><p class="detail-src">Source: ${escapeHtml(m.params_source || "")}</p>`
     : `<p class="unknown-note">No known params. Not guessed, not inferred — genuinely undocumented in every source this project checked.</p>`;
   const responseHtml = m.response_known
@@ -162,6 +179,8 @@ function renderDetail(m) {
         <h4>Meta</h4>
         <p><b>Purpose:</b> ${escapeHtml(m.purpose || "(none recorded)")}</p>
         <p><b>Tokens:</b> ${escapeHtml(m.tokens || "unknown")}</p>
+        ${isAbsent(m) ? `<p><b>Not in the current client:</b> ${escapeHtml(m.not_in_client_note || m.removed_note || "")}</p>` : ""}
+        ${m.datamine ? `<p><b>Datamine:</b> first seen build ${escapeHtml(m.datamine.first_build)} (${escapeHtml(m.datamine.first_seen)})${m.datamine.last_build ? `, last seen build ${escapeHtml(m.datamine.last_build)} (${escapeHtml(m.datamine.last_seen)})` : ", still in the client"}</p>` : ""}
         <p><b>Call:</b> <code>POST https://slack.com/api/${escapeHtml(m.name)}</code></p>
       </div>
     </div>`;
@@ -205,6 +224,7 @@ function attachRowHandlers() {
 }
 
 function renderAll() {
+  els.root.querySelector("#explorer-stats").innerHTML = renderStats();
   els.root.querySelector("#explorer-table-wrap").innerHTML = renderTable();
   attachRowHandlers();
 }
@@ -223,7 +243,7 @@ async function init() {
   }
   applyFilters();
   els.root.innerHTML = `
-    ${renderStats()}
+    <div id="explorer-stats">${renderStats()}</div>
     ${callout("safety-note", "redoc.hide.safety", `<b>Safety note (from the catalog's own metadata):</b> ${escapeHtml(state.data.schema?.safety_note_for_agents || "")}`)}
     ${callout("contribute-note", "redoc.hide.contribute", `<b>Know something this catalog doesn't?</b> If you've verified a method marked <i>unknown</i> / <i>existence-only</i> / <i>not-live-tested</i>, found a missing method, or spotted something wrong, please
       <a href="https://github.com/IzieStratt/personal-site/tree/main/website/public/__subdomains/vs/redocumented/docs" target="_blank" rel="noreferrer">open a PR</a>
@@ -238,8 +258,10 @@ async function init() {
       <select id="explorer-params">
         <option value="all">Any params state</option>
         <option value="known">Params known only</option>
+        <option value="observed">Params observed only</option>
         <option value="unknown">Params unknown only</option>
       </select>
+      <label class="explorer-toggle" title="Methods whose names were found in Slack's web client earlier but are missing from several recent builds. The client no longer references them; the API may still answer."><input type="checkbox" id="explorer-absent" /> Show methods not in the current client</label>
     </div>
     <div id="explorer-table-wrap"></div>`;
   for (const el of els.root.querySelectorAll("[data-hide]")) {
@@ -261,6 +283,12 @@ async function init() {
   });
   document.getElementById("explorer-params").addEventListener("change", (e) => {
     state.paramsFilter = e.target.value;
+    state.limit = PAGE_SIZE;
+    applyFilters();
+    renderAll();
+  });
+  document.getElementById("explorer-absent").addEventListener("change", (e) => {
+    state.showAbsent = e.target.checked;
     state.limit = PAGE_SIZE;
     applyFilters();
     renderAll();

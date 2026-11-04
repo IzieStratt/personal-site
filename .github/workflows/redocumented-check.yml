@@ -1,0 +1,37 @@
+name: redocumented-check
+
+# Fails when a ReDocumented count quoted in the docs, llms.txt, the entry pages or any generated file no longer
+# matches the catalog (website/public/__subdomains/vs/redocumented/docs/data/methods.json).
+# Fix: python3 scripts/build-redocumented-agent.py   and commit the result.
+
+on:
+  pull_request:
+    paths:
+      - 'website/public/__subdomains/vs/**'
+      - 'scripts/build-redocumented-agent.py'
+      - 'scripts/redocumented_counts.py'
+      - 'scripts/test_redocumented_counts.py'
+      - '.github/workflows/redocumented-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'website/public/__subdomains/vs/**'
+      - 'scripts/build-redocumented-agent.py'
+      - 'scripts/redocumented_counts.py'
+      - 'scripts/test_redocumented_counts.py'
+      - '.github/workflows/redocumented-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  counts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Unit tests for the count definitions and the drift check
+        run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Catalog, docs and generated files agree
+        run: python3 scripts/build-redocumented-agent.py --check

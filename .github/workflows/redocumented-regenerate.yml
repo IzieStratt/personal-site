@@ -1,0 +1,48 @@
+name: redocumented-regenerate
+
+# On PRs from this repo, rebuild the ReDocumented agent files from docs/data/methods.json and commit any changes
+# back to the PR branch. Fork PRs can't be pushed to, so there this job only reports that files are stale
+# (the redocumented-check workflow fails them).
+# Runs build-redocumented-agent.py (not --check), then --check to confirm the result is consistent.
+
+on:
+  pull_request:
+    paths:
+      - 'website/public/__subdomains/vs/**'
+      - 'scripts/build-redocumented-agent.py'
+      - 'scripts/redocumented_counts.py'
+      - 'scripts/test_redocumented_counts.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: redocumented-regenerate-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Regenerate the catalog and generated files
+        run: python3 scripts/build-redocumented-agent.py
+      - name: Confirm the regenerated tree is consistent
+        run: python3 scripts/build-redocumented-agent.py --check
+      - name: Commit regenerated files to the PR branch
+        run: |
+          git add -A website/public/__subdomains/vs/redocumented
+          if git diff --cached --quiet; then
+            echo "Generated files already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "redocumented: regenerate catalog and generated files"
+          git push origin HEAD:"${{ github.head_ref || github.ref_name }}"

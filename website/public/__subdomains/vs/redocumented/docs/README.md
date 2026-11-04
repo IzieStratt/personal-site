@@ -26,22 +26,22 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,599 undocumented/cross-referenced = 1,922 total method names**
+documented + 1,915 undocumented/cross-referenced = 2,238 total (400 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,599 undocumented" as "1,599
+coverage caveats below before treating "1,915 undocumented" as "1,915
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
-only 19 undocumented methods are `live-verified` with real credentials (real
+only 113 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
 *dispatch* (or, for the newest 31, typed by a third party) and nothing more.
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **725/1,922 methods
-(37.7%) now have real, sourced, structured `params`; 672/1,922 (35.0%) have a
+existed, instead of leaving them as bare method names. **726/2,238 methods
+(32.4%) now have real, sourced, structured `params`; 673/2,238 (30.1%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -334,6 +334,10 @@ number of times (never more than 4-5 param/token combinations per method).
   the limits of the undocumented section/layout evidence. No new writes or
   catalog verification upgrades were made for this revision.
 
+### Sixth/seventh pass (2026-10-19/20): our own miner, `slack-datamine-plus`
+
+3kh0's miner stopped finding most of Slack's code in late July (see `methods/datamine-2026-10.md`), so this project built its own: [`IzieStratt/slack-datamine-plus`](https://github.com/IzieStratt/slack-datamine-plus) (AGPL-3.0, GitHub Actions, about every 40 minutes). It reads the web client's webpack manifest, downloads the ~1,800 chunks, and tracks every method name with first/last seen. It is credited in the `source` of every entry it has seen. It also collects **observed parameter names** from the client's call sites (`params_observed`, not a schema). A method missing from 3 consecutive builds is marked `not_in_client`, which only means the client no longer references it. A bot opens a pull request here whenever something changes.
+
 ## Honest coverage statement
 
 This is **not** a complete map of Slack's private API surface, and cannot be:
@@ -444,3 +448,10 @@ This is **not** a complete map of Slack's private API surface, and cannot be:
   existing catalog. No oracle sweep either (the 31 new names are recorded as
   unverified, honestly, rather than spending more live-adjacent calls on a
   third-party-typed but unconfirmed list).
+
+## Community-reported client experiments (October 2026)
+
+[Client experiments guide](guides/client-experiments-2026-10.md): seven exact
+web-client override parameters from a community post pasted by the site owner,
+plus `slackDebug=1` and feature mentions without flag IDs. Source-reported only,
+not live-tested or bundle-verified; these are not Web API catalog entries.

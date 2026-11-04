@@ -17,6 +17,46 @@ undocumented methods (`files.edit`, `files.share`).
 - **Gotcha:** the same `file_id` can be attached to **multiple** drafts — files
   aren't consumed/exclusive.
 
+## Hosting an image for a bot's `icon_url` (live-tested 2026-10-23, bot `xoxb`)
+
+Goal: get a Slack-hosted image that `chat.postMessage`'s `icon_url` (or an
+image block) can load, because Slack fetches those with no auth.
+
+- **Uploading works with a bot token** (`files:write`). `files.getUploadURLExternal`
+  returned `ok:true`; a `multipart/form-data` `POST` (field `file`) to
+  `upload_url` returned HTTP 200; `files.completeUploadExternal` with just
+  `files: [{id, title}]` returned `ok:true`. The file is then private to the
+  uploader: `files.info` shows `channels: []`, `groups: []`, `ims: []`,
+  `is_public: false`, `public_url_shared: false`.
+- **`permalink_public` is present but dead until a public link exists.**
+  `files.info` on that unshared file already returns a
+  `https://slack-files.com/T…-F…-<secret>` value in `permalink_public`, but it
+  returns HTTP 404 until a public link is actually created.
+- **`files.sharedPublicURL` could not create the link from either token we
+  have.** The bot `xoxb` got `not_allowed_token_type`. The workspace's
+  configured user token got `missing_scope` (we did not capture the
+  `needed`/`provided` fields, so which scope is missing is unconfirmed).
+- **The web/desktop client's "Copy public link" does work** (tried by hand;
+  the workspace allows public file links). It yields
+  `https://slack-files.com/T…-F…-<10 hex chars>`. That URL serves an **HTML
+  viewer page** (200, `text/html`), not the image. Its `og:image` meta tag
+  points at the real bytes:
+  `https://files.slack.com/files-pri/T…-F…/<name>?pub_secret=<the same 10 hex chars>`.
+  That URL returns the raw PNG (200, `image/png`) with no auth, so it is the
+  one to use as `icon_url`.
+- **Without `pub_secret`, a `files-pri` URL is not fetchable.** The bare
+  `https://files.slack.com/files-pri/T…-F…/<name>` answers `302` to the
+  workspace login page (`https://<workspace>.slack.com/?redir=…`).
+- **A bot cannot see a file a user uploaded and never shared with it:**
+  `files.info` on such a file returned `file_not_found`.
+- **Caveats:** the public link only lasts while the workspace allows public
+  links and nobody revokes it, and an uploaded file counts as workspace
+  storage. We ended up hosting the image on our own CDN instead.
+- **Slack's own RSS app icon** is served from
+  `https://a.slack-edge.com/80588/img/services/rss_<size>.png`: sizes 72, 96,
+  128, 192, 512 and 1024 all returned 200; 256 returned 403 (live `curl`,
+  2026-10-23). The `80588` segment is a build id and may change.
+
 ## `files.delete` (documented)
 
 - Standard cleanup call, `file` param = file id. Used here for sandbox cleanup

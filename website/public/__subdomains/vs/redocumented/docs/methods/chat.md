@@ -82,3 +82,120 @@ one undocumented method (`chat.command`).
   `channel=U…` (bot token, `chat:write`) delivers to the bot's DM with that
   user, with no `conversations.open` step needed.
 
+## `chat.postMessage` as an RSS-style bot: identity, newer blocks, threads (documented method)
+
+Observed 2026-10-28 on the Hack Club workspace with a bot `xoxb` that has
+`chat:write`, `chat:write.customize` and `files:write`. Everything below was
+called for real unless marked otherwise.
+
+- **Custom name and icon.** `username` and `icon_url` were accepted on the
+  same call as `blocks`, and again on a **thread reply** (`thread_ts` set), so a
+  reply can look like it came from the same persona. We did not test a bot
+  without `chat:write.customize`, so what happens without it is unconfirmed.
+- **Newer blocks post fine as a bot.** A message with a `section` (button
+  `accessory`) and a `context` block, then a thread reply with a
+  `data_visualization` block (a `bar` chart with a negative series, and a
+  `line` chart), a `table` block and a `section`, all returned `ok:true`.
+  `conversations.replies` then listed the reply's blocks as
+  `['data_visualization', 'table', 'section']`. We did not check how they
+  render. Per the docs a message may hold at most 2 `data_visualization`
+  blocks, and `alert` blocks are modal-only (docs, not tested).
+- **`table` + `column_settings`.** The docs say to use `null` for a column
+  that should keep the defaults. `blocks.validate` rejects that:
+  `invalid_blocks`, `{"code":"invalid_type","message":"must provide an object","pointer":"/1/column_settings/0"}`.
+  An explicit object per column (`{"align": "left"}`, `{"align": "right"}`)
+  passed. A table cell used here was `{"type":"raw_text","text":"…"}`.
+- **Top-level `text` is still the notification fallback** when `blocks` are
+  present; send a short plain summary there.
+- **Escape feed text.** `&`, `<` and `>` in text you did not write must be
+  escaped (`&amp;`, `&lt;`, `&gt;`) or `<!channel>` / `<@U…>` in it will
+  notify people.
+- **Attachments with mrkdwn.** For legacy `attachments`, `text` is only parsed
+  as mrkdwn if the attachment lists it in `mrkdwn_in` (`["text"]`); the
+  `<url|label>` link syntax, `*bold*` and bullets then render.
+
+### `blocks.validate` (documented method)
+
+- **It needs no token.** Called with no `Authorization` header, it returned
+  `{"ok": true}` for valid blocks and the `invalid_blocks` shape above for
+  invalid ones (live, 2026-10-28). It also works with a bot token.
+- **Error shape.** `{"ok":false,"error":"invalid_blocks","errors":[{"code":…,"message":…,"pointer":"/1/column_settings/0"}]}`
+  — `pointer` is a JSON pointer into the `blocks` array you sent.
+- **Passes:** `section` with a `button` accessory, `context` with `mrkdwn`,
+  `table`, and `data_visualization` (`bar` and `line`) validated `ok:true`.
+- **Pass the array as `blocks=<json>`** (form-encoded). A whole message works
+  as `message=`, a modal/home view as `view=`, per the docs.
+
+### What Slack's own RSS app posts (source: a message event the site owner pasted, not an API call)
+
+- `subtype: "bot_message"` with the feed item title as `text`, the feed's name
+  as `username` (for example `xkcd.com`), `bot_id`, and an `edited` object stamped
+  about 2 seconds after `ts` (presumably Slack adding the unfurl; not confirmed).
+- `icons.image_36`, `image_48`, `image_72`: `https://a.slack-edge.com/…/img/services/rss_<size>.png`.
+- One `attachments` entry per item: `title`, `title_link`, `from_url`,
+  `original_url`, `fallback` (`"<feed>: <title>"`), `author_name`/`author_link`
+  (the feed's site), `service_icon`, `text` (here the xkcd alt text),
+  `image_url` with `image_width`/`image_height`/`image_bytes`, and
+  `media_type: "external_link"`. The `blocks` are a single `rich_text` link to
+  the item. That is the shape to copy for an RSS-like bot.
+- **Where the native bot's fields come from** (inferred by putting a native post next to the item's feed XML on 2026-10-28; not tested by
+  subscribing a feed): xkcd's item `description` is only
+  `<img src="…" title="…" alt="…">`, and the native post's `image_url` is that `src` while its `text` is
+  `[Title text] "<the img title>"`. So the bot reads the first `<img>` for the image and an image's `title` attribute for the text. For a feed
+  whose `description` is a whole HTML document (sdmp.izie.top before 2026-10-28), the post's text was the tags stripped with nothing
+  between list items (`…(6)+ ai.alpha.…`), so a plain-text `description` with its own separators reads far better, with the full markup
+  in `content:encoded` for readers.
+- **Legacy attachment fields accepted by `chat.postMessage`** (xoxb, live 2026-10-28, `ok:true`; rendering not inspected): `footer`,
+  `footer_icon` (we passed a site's `.ico` favicon, which may not render, since the docs list image types), `ts` (shown beside the
+  footer), `author_name`/`author_link`, `color`, `title_link`, `from_url`, `image_url`, and `mrkdwn_in: ["text"]`.
+- **Slack's RSS app, per its help page** (docs, not tested by us; <https://slack.com/help/articles/218688467>): `/feed subscribe <address>`,
+  `/feed list` (shows each feed's unique ID number), `/feed remove <ID>`, `/feed help`; feeds can also be managed across channels from the
+  app's page in the Marketplace. It keeps a bookmark with the date of the last item and only posts items dated later, so an item that
+  arrives with an older date is never posted. Everyone except guests can use it. RSS and Atom only.
+- **Guests in the API** (docs): `users.info` returns `is_restricted` (multi-channel guest) and `is_ultra_restricted` (single-channel guest) on the
+  `user` object; either being true is how you recognise a guest. We use that to keep guests out of a feed command.
+- **`footer` text is linkified.** A bare domain sent as `footer` (`xkcd.com`) came back from `conversations.history` as
+  `<http://xkcd.com|xkcd.com>` (live, 2026-10-28), so Slack auto-links it. Sent `ts` came back unchanged as the attachment's `ts`.
+- **`conversations.history` shows custom-identity posts with a `username`** (the persona name) alongside the bot's `bot_id`; the text and
+  attachments are returned as sent.
+- **`blocks` and `attachments` in one `chat.postMessage`** (xoxb, live 2026-10-28): both are accepted, and `blocks` render above the
+  attachment card. Passing `blocks` means Slack no longer adds its own `rich_text` block for `text`; `text` is then only the notification
+  fallback. A `section` with a `button` accessory that has a `url` and an `action_id` passed `blocks.validate` and posted. Use it to
+  keep a call to action (a podcast's Listen button) from being cut off under a long attachment `text`.
+- **Where a button ends up** (observed 2026-10-28 in the site owner's client): a `section` block's `accessory` button is drawn on the **right** of
+  its text, and blocks are drawn **above** a message's `attachments`, so a button put in `blocks` next to an attachment card sits at the
+  very top of the message. Buttons in an `actions` block are drawn at the **left**, under the content above them. To get a card with the
+  button at the bottom left, build the whole card from blocks and drop the attachment.
+- **The `container` block works in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok, and
+  `conversations.history` returns it as `blocks[0].type == "container"`): `title` (plain_text, 150), `subtitle` (we sent `mrkdwn`, including a
+  `<!date^…|fallback>` token), `width: "wide"`, an `icon` image, and `child_blocks` of `section`, `image`, `context` and `actions` were all
+  accepted. This is the block `ingoau/huddlefm` builds its player message from (`src/coordinator.ts`). Card and carousel are covered in the next bullet. An icon URL ending in `.ico` is a poor bet; stick to png/jpg/gif.
+- **`carousel` and `card` blocks in a bot message** (xoxb, live 2026-10-28; `blocks.validate` `ok:true`, `chat.postMessage` ok): a `carousel`
+  takes 1 to 10 `card` blocks. A `card` accepted a `plain_text` `title`, a `mrkdwn` `subtitle` (with a `<!date^…|…>` token), a `hero_image`
+  (`image` element), a `mrkdwn` `body` (docs: 200 chars) and `actions` buttons (docs: up to 3). Button `action_id`s must be unique across the
+  whole message, so number them per card. We use one carousel when a feed has several new items at once.
+- **`data_table` block in a message** (docs read 2026-10-28, a message with it validated and posted; the same limits as `table` but richer): the
+  first row is the header, every row needs the same number of cells, header cells need non-empty text (an empty header cell is rejected with
+  `must be more than 0 characters`), `caption` is required, `page_size` 1-100, up to 200 body rows and 20 columns. A cell can be `raw_text`,
+  `raw_number`, `rich_text` (not in the header) or an `action_cell` holding a `button` with an optional `fallback` cell for clients without
+  action cells. Per the docs the buttons are disabled in a shared or copied message, and a `data_table` can't sit inside a `container`.
+- **`data_table` with button cells, as built and validated by us** (live 2026-10-28, `blocks.validate` `ok:true` for the channel-scoped and the
+  all-channels versions, and a message with one posted ok): header cells as `raw_text`; a number column as `raw_number` with `value` and `text`;
+  a link as a `rich_text` cell containing a `link` element; a channel as a `rich_text` cell containing a `channel` element
+  (`{"type":"channel","channel_id":"C…"}`); and a button as an `action_cell` with `element` (a `button` with `action_id` and `value`) and a
+  `fallback` `raw_text` cell. We put the row's id in the button `value` and its verb in the `action_id`
+  (`feed_pause_3`), then answer the click with one `app.action` regex handler. A click arrives as a normal `block_actions` payload.
+- **Mobile.** Slack's blog post on the new blocks (slack.dev/build-richer-agent-experiences-with-block-kit) says they render natively on web,
+  desktop, iOS and Android and lists Card, Alert and Carousel as available and Data Table as "coming soon"; neither it nor the block docs
+  give a per-client matrix or say what an unsupported client shows. We have not tested a phone. Always send a useful top-level `text`.
+- **Link buttons still send a click to the app.** A button with `url` opens the link in the client, but Slack also delivers a
+  `block_actions` payload for it, so the app should acknowledge it. Give the button a fixed `action_id` and register one no-op handler; with a
+  Bolt app and no handler the click is "unhandled" (the app returns a 404). We did not test how the client shows an unacknowledged click.
+- **Reading custom-identity posts back.** `conversations.history` returned each message's own `username` correctly with both a bot and a
+  user token (live, 2026-10-28). A reader that labels messages by `bot_id` can show them all under one name: the Slack MCP channel reader we
+  tried named every message from our bot after the oldest custom `username` in the page it read (6 messages -> the first name; the newest 3 ->
+  the oldest of those 3). The site owner's own Slack client showed the correct names, so this is the reader, not what Slack stores. Don't
+  trust a bot_id-keyed name when checking what a persona posted; read `username` per message.
+- **A pasted bare domain** (`blog.izie.top/feed.xml`) arrives with `text` as the
+  bare text and a `rich_text` `link` element whose `url` is the full
+  `https://…` and `truncated: true` (message event, pasted by the site owner).

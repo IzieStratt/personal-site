@@ -5,17 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>blog</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <style>
-      @font-face { font-family: "xkcd Script"; src: url("/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
-      body { max-width: 42rem; margin: 20vh auto 0; padding: 0 1.5rem; background: #fffdf7; color: #222; font: 1.35rem/1.5 "xkcd Script", cursive; } /* TODO: make my own font inspired by this one :D */
-    </style>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <link rel="alternate" type="application/atom+xml" title="blog" href="/feed.xml">
   </head>
   <body>
     <main>
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="/">all posts</a></li>
+          <li><a href="https://izie.top">home</a></li>
+          <li><a href="/feed.xml">feed</a></li>
+        </ul>
+      </nav>
       <h1>BLOG</h1>
-      <p>huh, why's nothing here?</p>
-      <p>meoww mrrpp meoeweawww</p>
-      <p><a href="/">back home</a></p>
+      <div class="filter" id="filter">
+        <div class="filter-top">
+          <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel" hidden><svg class="bars" viewBox="0 0 16 12" width="16" height="12" aria-hidden="true" focusable="false"><path d="M1 1.5h14" /><path d="M3.5 6h9" /><path d="M6 10.5h4" /></svg><span class="label">filter</span></button>
+          <p id="filter-label" class="vh">filter by tag</p>
+          <p id="filter-count" role="status"></p>
+          <button type="button" class="filter-clear" hidden>clear filter</button>
+        </div>
+        <div id="filter-panel" class="filter-panel" data-open="true"><div>
+          <ul class="tags cloud" aria-labelledby="filter-label"><li style="--i:0"><a href="/tag/testing/">testing <span>1</span></a></li></ul>
+        </div></div>
+      </div>
+      <ol class="posts" id="post-list">
+        <li>
+          <a class="card" href="/post/meow/">
+            <time datetime="2026-10-17T20:58">10/17/2026</time>
+            <span class="title">meow</span>
+          </a>
+          <ul class="tags"><li><a href="/tag/testing/">testing</a></li></ul>
+        </li>
+      </ol>
     </main>
+    <script src="/filter.js" defer></script>
   </body>
 </html>
