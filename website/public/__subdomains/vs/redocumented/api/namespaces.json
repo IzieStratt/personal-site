@@ -632,7 +632,16 @@
   "ai.alpha.singer.device",
   "ai.alpha.singer.remoteResponse",
   "ai.alpha.singer.window",
+  "ai.alpha.singer.windowConversation",
   "ai.alpha.singer.windowThread"
+ ],
+ "ai.alpha.singer.browsers": [
+  "ai.alpha.singer.browsers.control",
+  "ai.alpha.singer.browsers.forgetSession",
+  "ai.alpha.singer.browsers.getSettings",
+  "ai.alpha.singer.browsers.info",
+  "ai.alpha.singer.browsers.updateSettings",
+  "ai.alpha.singer.browsers.viewer"
  ],
  "ai.alpha.slackbot": [
   "ai.alpha.slackbot.createSlackbotInitiatedThread",
@@ -1209,6 +1218,7 @@
   "client.codeChannels.getSummary",
   "client.codeChannels.getView",
   "client.codeChannels.join",
+  "client.codeChannels.listPullRequestComments",
   "client.codeChannels.listPullRequests",
   "client.codeChannels.listSupportedApps",
   "client.codeChannels.mergePullRequest",
@@ -3480,7 +3490,8 @@
   "workflows.notificationOptOut.set"
  ],
  "workflows.taskRuns": [
-  "workflows.taskRuns.list"
+  "workflows.taskRuns.list",
+  "workflows.taskRuns.start"
  ],
  "workflows.templates": [
   "workflows.templates.create",
