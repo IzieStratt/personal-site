@@ -44,6 +44,7 @@ export default {
       return handleRedocumented(request, env, url)
     }
     if (url.hostname === 'vs.izie.top' && url.pathname === '/dgd/api/ngram') return handleDgdNgram(request, url)
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/dgd/api/words') return handleDgdWords(request, url)
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
@@ -236,3 +237,14 @@ async function handleDgdNgram(request, url) {
     headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=86400' },
   })
 }
+
+// DeGoogledDict (/dgd): Datamuse's CDN caches responses without varying on Origin, so the browser
+// often gets an access-control-allow-origin meant for someone else and blocks the fetch. Relay the JSON.
+async function handleDgdWords(request, url) {
+  if (request.method !== 'GET') return new Response('[]', { status: 405, headers: { 'content-type': 'application/json' } })
+  const upstream = await fetch(`https://api.datamuse.com/words${url.search}`, { cf: { cacheTtl: 86400, cacheEverything: true } })
+  return new Response(upstream.ok ? upstream.body : '[]', {
+    status: upstream.ok ? 200 : 502,
+    headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=86400' },
+  })
+                                          }
