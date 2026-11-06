@@ -1349,6 +1349,9 @@
   "conversations.channelPrefixes.delete",
   "conversations.channelPrefixes.list"
  ],
+ "conversations.dms": [
+  "conversations.dms.mark"
+ ],
  "conversations.emailaddresses": [
   "conversations.emailaddresses.create",
   "conversations.emailaddresses.delete",

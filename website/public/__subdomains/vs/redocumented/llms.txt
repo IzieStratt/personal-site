@@ -1,7 +1,7 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,924 more; 403 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,925 more; 403 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
 > Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 516 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
@@ -30,7 +30,7 @@ Don't know the name? Search first:
 Need more:
 
 - https://vs.izie.top/redocumented/openapi.json   OpenAPI 3.1 for every method whose params are
-  known (726, including ones known to take none). Usable as tool definitions. Each operation
+  known (894, including ones known to take none). Usable as tool definitions. Each operation
   has `x-verified` and `x-write-shaped`.
 - https://vs.izie.top/redocumented/llms-full.txt   this file plus every markdown write-up (~650 KB)
 - https://vs.izie.top/redocumented/docs/data/methods.json   the full catalog (~1.9 MB), only if
@@ -51,7 +51,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 726/2,247
+  Only trust `params`/`response` as real when those are `true` — 894/2,248
   methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS

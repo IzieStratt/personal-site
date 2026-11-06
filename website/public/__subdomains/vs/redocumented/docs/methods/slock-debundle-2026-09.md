@@ -17,10 +17,15 @@ verified in its own README.
 
 ## What changed in `data/methods.json`
 
-> **Not applied in this repo.** The 2026-09-24 patch replaced `data/methods.json`
-> wholesale with Felix's 2,002-method file. The shipped file has since grown to
-> 2,247 methods through later daily syncs, so that swap would roll the catalog
-> back. The numbers below describe Felix's file, not the current shipped data.
+> **Merged selectively in this repo, not swapped.** The 2026-09-24 patch replaced
+> `data/methods.json` wholesale with Felix's 2,002-method file. The shipped file
+> has since grown to 2,247 methods through later daily syncs, so a full swap would
+> roll it back. Instead, the merge added the one method Felix had that the catalog
+> lacked (`conversations.dms.mark`) and filled in params or responses only where
+> the catalog had none (167 params records). Existing verification levels and
+> params were kept, since Felix's file has lower verification on 206 records and
+> different params on 135 that are already known. The numbers below describe
+> Felix's file, not the current shipped data.
 
 Felix's generated 2026-09-24 file (identical schema, 2-space pretty-printed):
 

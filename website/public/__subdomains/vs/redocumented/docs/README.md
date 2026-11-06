@@ -26,13 +26,13 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,924 undocumented/cross-referenced = 2,247 total (403 not found in Slack's current web client) method names**
+documented + 1,925 undocumented/cross-referenced = 2,248 total (403 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,924 undocumented" as "1,924
+coverage caveats below before treating "1,925 undocumented" as "1,925
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
 only 113 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
@@ -40,8 +40,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,247 methods
-(32.3%) now have real, sourced, structured `params`; 673/2,247 (30.0%) have a
+existed, instead of leaving them as bare method names. **894/2,248 methods
+(39.8%) now have real, sourced, structured `params`; 697/2,248 (31.0%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of

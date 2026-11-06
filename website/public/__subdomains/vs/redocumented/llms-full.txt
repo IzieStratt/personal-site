@@ -1,7 +1,7 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
 > Personal reference cataloging Slack's official Web API (~323 methods) plus
-> internal/undocumented methods discovered by source-mining (~1,924 more; 403 of them flagged `not_in_client: true`,
+> internal/undocumented methods discovered by source-mining (~1,925 more; 403 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
 > Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 516 methods carry `params_observed` (real argument names seen
 > in Slack's client code; partial, NOT a schema).
@@ -30,7 +30,7 @@ Don't know the name? Search first:
 Need more:
 
 - https://vs.izie.top/redocumented/openapi.json   OpenAPI 3.1 for every method whose params are
-  known (726, including ones known to take none). Usable as tool definitions. Each operation
+  known (894, including ones known to take none). Usable as tool definitions. Each operation
   has `x-verified` and `x-write-shaped`.
 - https://vs.izie.top/redocumented/llms-full.txt   this file plus every markdown write-up (~650 KB)
 - https://vs.izie.top/redocumented/docs/data/methods.json   the full catalog (~1.9 MB), only if
@@ -51,7 +51,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 726/2,247
+  Only trust `params`/`response` as real when those are `true` — 894/2,248
   methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS
@@ -138,13 +138,13 @@ undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
 into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,924 undocumented/cross-referenced = 2,247 total (403 not found in Slack's current web client) method names**
+documented + 1,925 undocumented/cross-referenced = 2,248 total (403 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
 not merely flagged; the 31 `slack-undoc-client` additions carry real typed
 params but were not independently oracle- or live-tested this pass. See the
-coverage caveats below before treating "1,924 undocumented" as "1,924
+coverage caveats below before treating "1,925 undocumented" as "1,925
 confirmed hidden APIs": existence-tested is not the same as behavior-tested —
 only 113 undocumented methods are `live-verified` with real credentials (real
 params/response shapes independently confirmed); the rest are confirmed to
@@ -152,8 +152,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **726/2,247 methods
-(32.3%) now have real, sourced, structured `params`; 673/2,247 (30.0%) have a
+existed, instead of leaving them as bare method names. **894/2,248 methods
+(39.8%) now have real, sourced, structured `params`; 697/2,248 (31.0%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -985,7 +985,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,924 undocumented methods = 2,247 total. 403 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 516 undocumented methods have observed, partial parameter names (see the same page). **726/2,247 (32.3%) have real, sourced, structured params** (not guessed) -- 673/2,247 (30.0%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+323 documented methods + 1,925 undocumented methods = 2,248 total. 403 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 516 undocumented methods have observed, partial parameter names (see the same page). **894/2,248 (39.8%) have real, sourced, structured params** (not guessed) -- 697/2,248 (31.0%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4213,7 +4213,7 @@ still `existence-only`.
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **403** of 2247 methods carry the flag. Documented (official) methods never do.
+- Right now **403** of 2248 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.
@@ -11343,10 +11343,15 @@ verified in its own README.
 
 ## What changed in `data/methods.json`
 
-> **Not applied in this repo.** The 2026-09-24 patch replaced `data/methods.json`
-> wholesale with Felix's 2,002-method file. The shipped file has since grown to
-> 2,247 methods through later daily syncs, so that swap would roll the catalog
-> back. The numbers below describe Felix's file, not the current shipped data.
+> **Merged selectively in this repo, not swapped.** The 2026-09-24 patch replaced
+> `data/methods.json` wholesale with Felix's 2,002-method file. The shipped file
+> has since grown to 2,247 methods through later daily syncs, so a full swap would
+> roll it back. Instead, the merge added the one method Felix had that the catalog
+> lacked (`conversations.dms.mark`) and filled in params or responses only where
+> the catalog had none (167 params records). Existing verification levels and
+> params were kept, since Felix's file has lower verification on 206 records and
+> different params on 135 that are already known. The numbers below describe
+> Felix's file, not the current shipped data.
 
 Felix's generated 2026-09-24 file (identical schema, 2-space pretty-printed):
 
