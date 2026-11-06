@@ -28,6 +28,13 @@ files:
   elevation" error referencing `mc.tinyspeck.com`, suggesting a real but
   employee-gated internal namespace, not a normal client-facing dispatch).
   See that file for the full NOT_FOUND/ambiguous lists and detail.
+- **`../methods/slock-debundle-2026-09.md`** -- 80 net-new methods
+  from Felix Gao's [slock](https://github.com/itsfelix5/slock) full-client
+  debundle mining pass (real call sites in application code, not bare string
+  refs), merged 2026-09-24; also upgraded real-sourced params on 148 existing
+  methods (726 -> 894 `params_known`). Zero verification-level changes. The
+  biggest new family: `slackbot.*` / `ai.alpha.slackbot.*` (MCP server
+  management, projects, memories).
 - **`../methods/slack-undoc-client-2026.md`** -- a follow-up source-mining
   pass on [`ImShyMike/slack-undoc-client`](https://github.com/ImShyMike/slack-undoc-client),
   a real generated TypeScript client with typed params/responses for 468
