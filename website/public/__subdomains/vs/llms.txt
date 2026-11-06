@@ -4,7 +4,7 @@
 
 ## Docs
 
-- [ReDocumented](https://vs.izie.top/redocumented/llms.txt): Slack Web API reference covering ~323 documented methods and ~1,925 undocumented or internal ones, with per-method JSON/markdown, a greppable index and OpenAPI.
+- [ReDocumented](https://vs.izie.top/redocumented/llms.txt): Slack Web API reference covering ~323 documented methods and ~1,932 undocumented or internal ones, with per-method JSON/markdown, a greppable index and OpenAPI.
 
 ## Apps
 

@@ -546,6 +546,9 @@
   "agents.sessions.setStatus",
   "agents.sessions.stop"
  ],
+ "agents.socialProof": [
+  "agents.socialProof.info"
+ ],
  "agents.sunroof": [
   "agents.sunroof.get"
  ],
@@ -570,7 +573,8 @@
   "ai.alpha.agents.channels.list"
  ],
  "ai.alpha.agents.sessions": [
-  "ai.alpha.agents.sessions.list"
+  "ai.alpha.agents.sessions.list",
+  "ai.alpha.agents.sessions.listForChannel"
  ],
  "ai.alpha.agents.threads": [
   "ai.alpha.agents.threads.list"
@@ -832,6 +836,11 @@
  ],
  "apps.activities": [
   "apps.activities.list"
+ ],
+ "apps.alwaysAllowedInDms": [
+  "apps.alwaysAllowedInDms.add",
+  "apps.alwaysAllowedInDms.info",
+  "apps.alwaysAllowedInDms.remove"
  ],
  "apps.approvals.requests": [
   "apps.approvals.requests.create"
@@ -1209,6 +1218,7 @@
   "client.codeChannels.editReviewComment",
   "client.codeChannels.getBlockKitView",
   "client.codeChannels.getDiff",
+  "client.codeChannels.getFileLines",
   "client.codeChannels.getMergeStatus",
   "client.codeChannels.getPrWorkObject",
   "client.codeChannels.getPullRequest",
@@ -1383,6 +1393,9 @@
   "conversations.sharedApprovals.bulkApprove",
   "conversations.sharedApprovals.bulkDecline",
   "conversations.sharedApprovals.list"
+ ],
+ "conversations.threads": [
+  "conversations.threads.list"
  ],
  "dataResidency": [
   "dataResidency.backfillStatus",
