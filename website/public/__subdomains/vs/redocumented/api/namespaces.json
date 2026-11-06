@@ -419,6 +419,10 @@
   "admin.sessions.accessLogs",
   "admin.sessions.reset"
  ],
+ "admin.sessions.dbsc": [
+  "admin.sessions.dbsc.countAffectedUsers",
+  "admin.sessions.dbsc.enforceAllSessions"
+ ],
  "admin.settings": [
   "admin.settings.export"
  ],
@@ -626,7 +630,18 @@
  ],
  "ai.alpha.singer": [
   "ai.alpha.singer.device",
-  "ai.alpha.singer.remoteResponse"
+  "ai.alpha.singer.remoteResponse",
+  "ai.alpha.singer.window",
+  "ai.alpha.singer.windowConversation",
+  "ai.alpha.singer.windowThread"
+ ],
+ "ai.alpha.singer.browsers": [
+  "ai.alpha.singer.browsers.control",
+  "ai.alpha.singer.browsers.forgetSession",
+  "ai.alpha.singer.browsers.getSettings",
+  "ai.alpha.singer.browsers.info",
+  "ai.alpha.singer.browsers.updateSettings",
+  "ai.alpha.singer.browsers.viewer"
  ],
  "ai.alpha.slackbot": [
   "ai.alpha.slackbot.createSlackbotInitiatedThread",
@@ -1190,6 +1205,7 @@
   "client.codeChannels.deleteComment",
   "client.codeChannels.deleteReviewComment",
   "client.codeChannels.editComment",
+  "client.codeChannels.editPullRequestDescription",
   "client.codeChannels.editReviewComment",
   "client.codeChannels.getBlockKitView",
   "client.codeChannels.getDiff",
@@ -1202,6 +1218,8 @@
   "client.codeChannels.getSummary",
   "client.codeChannels.getView",
   "client.codeChannels.join",
+  "client.codeChannels.listPullRequestComments",
+  "client.codeChannels.listPullRequests",
   "client.codeChannels.listSupportedApps",
   "client.codeChannels.mergePullRequest",
   "client.codeChannels.removeReaction",
@@ -2183,6 +2201,10 @@
   "lists.views.create",
   "lists.views.delete",
   "lists.views.update"
+ ],
+ "lists.views.pins": [
+  "lists.views.pins.add",
+  "lists.views.pins.remove"
  ],
  "mc.deprecations": [
   "mc.deprecations.getByAppId",
@@ -3468,7 +3490,8 @@
   "workflows.notificationOptOut.set"
  ],
  "workflows.taskRuns": [
-  "workflows.taskRuns.list"
+  "workflows.taskRuns.list",
+  "workflows.taskRuns.start"
  ],
  "workflows.templates": [
   "workflows.templates.create",

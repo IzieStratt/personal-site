@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-02",
+ "generated": "2026-11-05",
  "counts": {
-  "total": 2230,
+  "total": 2247,
   "documented": 323,
-  "undocumented": 1907,
-  "not_in_client": 399,
-  "params_observed": 494,
+  "undocumented": 1924,
+  "not_in_client": 403,
+  "params_observed": 516,
   "live_verified_undocumented": 113,
   "params_known": 726,
   "response_known": 673,
-  "own_miner_sourced": 1486
+  "own_miner_sourced": 1503
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -2102,7 +2102,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.enterpriseSearch.searchApps.setEnabled",
@@ -2630,7 +2630,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.roles.entity.listAssignments",
@@ -2842,6 +2842,28 @@
    "params_observed": false
   },
   {
+   "name": "admin.sessions.dbsc.countAffectedUsers",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "admin.sessions.dbsc.enforceAllSessions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "admin.sessions.reset",
    "status": "undocumented",
    "verified": "existence-only",
@@ -2894,7 +2916,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.slackbot.channelResponses.listRedactions",
@@ -3202,7 +3224,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "admin.users.getExpiration",
@@ -4162,6 +4184,72 @@
    "params_observed": true
   },
   {
+   "name": "ai.alpha.singer.browsers.control",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "ai.alpha.singer.browsers.forgetSession",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "ai.alpha.singer.browsers.getSettings",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "ai.alpha.singer.browsers.info",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "ai.alpha.singer.browsers.updateSettings",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "ai.alpha.singer.browsers.viewer",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "ai.alpha.singer.device",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -4174,6 +4262,39 @@
   },
   {
    "name": "ai.alpha.singer.remoteResponse",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.singer.window",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.singer.windowConversation",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.singer.windowThread",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -7249,7 +7370,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -7976,7 +8097,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "client.codeChannels.deleteReviewComment",
@@ -7998,7 +8119,18 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
+  },
+  {
+   "name": "client.codeChannels.editPullRequestDescription",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
   },
   {
    "name": "client.codeChannels.editReviewComment",
@@ -8133,6 +8265,28 @@
    "params_observed": false
   },
   {
+   "name": "client.codeChannels.listPullRequestComments",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.codeChannels.listPullRequests",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "client.codeChannels.listSupportedApps",
    "status": "undocumented",
    "verified": "live-verified",
@@ -8239,7 +8393,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -11363,7 +11517,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -12871,7 +13025,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "files.createExternal",
@@ -14367,7 +14521,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "huddles.external.linkInfo",
@@ -14421,7 +14575,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -15235,6 +15389,28 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "lists.views.pins.add",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "lists.views.pins.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
   },
@@ -17216,7 +17392,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "rtm.connect",
@@ -19911,7 +20087,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sharedInvites.get",
@@ -20131,7 +20307,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "slackLists.access.delete",
@@ -21858,7 +22034,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "today.items.markUnread",
@@ -24191,6 +24367,17 @@
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
+  },
+  {
+   "name": "workflows.taskRuns.start",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
   },
   {
    "name": "workflows.template_approval_request",
