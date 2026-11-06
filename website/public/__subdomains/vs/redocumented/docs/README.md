@@ -91,6 +91,10 @@ field or the published `llms.txt` for the same note in agent-facing form.
   thunk names for the emoji hover card, emoji picker, `:` autocomplete and
   right-click member menu, read from the desktop app's cached bundle (not API
   methods; what client mods hook into).
+- `methods/gateway-events-2026-10.md` — per-event reference for the 341 inbound
+  realtime (RTM "gateway") event types the Slack web client handles, de-bundled
+  from its JS. Payload shapes are inferred from how the client reads them, not
+  from a server schema. Companion to `methods/realtime-websocket.md`.
 - `methods/huddles-and-chime.md` — huddles: the `rooms.*`/`screenhero.*` calls, the
   realtime websocket events, and the AWS Chime media layer. Mostly source-read
   from `ingoau/huddlefm` and `LeafdTK/huddlecast`, plus a live-tested section

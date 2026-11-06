@@ -1,5 +1,7 @@
 # Realtime websocket: how to open one, keep it alive, and send `typing`
 
+See also [`gateway-events-2026-10.md`](gateway-events-2026-10.md): per-event reference for the inbound RTM event types the web client handles (341 types, de-bundled from the web client JS; payload shapes are inferred from client reads, not a server schema).
+
 How a user-token (xoxc + `d` cookie) client opens the same realtime socket the Slack web client uses. **No headless browser is needed:** it is two plain requests and a WebSocket. Sources: [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts/blob/main/src/receivers/rtm.ts) (read, not run) and huddlefm (see `huddles-and-chime.md`, which has a second, direct-URL variant). Nothing on this page was live-called by this project, and the "typing" send shape is **not verified for the web client** (see below).
 
 ## Not Bolt
