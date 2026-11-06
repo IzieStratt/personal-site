@@ -43,6 +43,7 @@ export default {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/redocumented')) {
       return handleRedocumented(request, env, url)
     }
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/dgd/api/ngram') return handleDgdNgram(request, url)
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
@@ -219,4 +220,19 @@ function redocMethodMarkdown(m) {
   else if (m.response_source) lines.push('', `Source: ${m.response_source}`)
   lines.push('', '---', `JSON: ${REDOC_BASE}/api/methods/${m.name}.json · Full catalog: ${REDOC_BASE}/llms.txt`, '')
   return lines.join('\n')
+}
+
+// DeGoogledDict (/dgd): Google Books Ngram sends no CORS headers, so the browser asks us and we relay the JSON.
+async function handleDgdNgram(request, url) {
+  if (request.method !== 'GET') return new Response('[]', { status: 405, headers: { 'content-type': 'application/json' } })
+  const word = (url.searchParams.get('w') || '').trim()
+  if (!word || word.length > 40 || /\s/.test(word)) return new Response('[]', { status: 400, headers: { 'content-type': 'application/json' } })
+  const upstream = await fetch(
+    `https://books.google.com/ngrams/json?content=${encodeURIComponent(word)}&year_start=1800&year_end=2019&corpus=en-2019&smoothing=3`,
+    { cf: { cacheTtl: 604800, cacheEverything: true } },
+  )
+  return new Response(upstream.ok ? upstream.body : '[]', {
+    status: upstream.ok ? 200 : 502,
+    headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=86400' },
+  })
 }
