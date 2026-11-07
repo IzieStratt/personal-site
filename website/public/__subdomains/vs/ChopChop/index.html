@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChopChop YSWS</title>
+<meta name="description" content="ChopChop YSWS: you ship a project, we ship absolutely nothing. A parody.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Press+Start+2P&family=Rubik+Glitch&family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* Parody. Fictional program. Not affiliated with any real YSWS. Nothing is submitted anywhere. */
+:root{
+  --pink:#ff00ff; --yellow:#ffff00; --lime:#00ff00; --red:#ff3000; --blue:#0000ff; --ink:#202000; --grey:#e0e0e0;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{
+  background:repeating-linear-gradient(37deg,var(--pink) 0 40px,var(--yellow) 40px 55px,var(--lime) 55px 90px,var(--blue) 90px 97px);
+  min-height:100%;
+}
+body{
+  margin:0;padding:12px 16px 40px;color:var(--ink);
+  font:16px "Comic Neue",Roboto,system-ui,sans-serif;
+  text-align:justify;overflow-x:hidden;
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext y='30' font-size='30'%3E🐭%3C/text%3E%3C/svg%3E") 38 38,crosshair;
+}
+a{color:var(--blue)}
+h1,h2,h3{font-family:"Rubik Glitch","Comic Neue",cursive;margin:0}
+h1{
+  font-size:clamp(2rem,8vw,3.4rem);color:var(--lime);text-align:center;line-height:1.05;
+  text-shadow:3px 3px var(--red),-3px -3px var(--blue),6px 6px var(--yellow);
+  animation:wob 1.3s infinite;transform-origin:center;
+}
+h2{font-size:1.1rem;letter-spacing:.3em;text-decoration:underline wavy var(--red);margin-bottom:8px;font-family:"Press Start 2P",monospace}
+.wrap{max-width:780px;margin:0 auto;display:grid;gap:28px 0}
+.box{
+  background:var(--yellow);border:7px ridge var(--red);padding:12px 22px 6px 12px;
+  box-shadow:12px 12px 0 var(--blue),-6px 20px 30px var(--pink);
+}
+.box:nth-of-type(3n){background:#9ff;border-style:groove;border-color:var(--pink);margin-left:-8px;border-radius:40px 0 90px 3px}
+.box:nth-of-type(3n+1){background:linear-gradient(90deg,#fff,#f9c,#cff);margin-right:-10px;transform:rotate(-1deg)}
+.box p{margin:8px 0}
+marquee{background:var(--red);color:var(--yellow);font-weight:700;padding:4px;border:4px dotted var(--lime);font-family:"Press Start 2P",monospace;font-size:.7rem}
+.blink{animation:blink 1.1s steps(1) infinite}
+.mirror{display:inline-block;transform:scaleX(-1)}
+.upside{display:inline-block;transform:rotate(180deg)}
+.tiny{font-size:.7rem;color:#555}
+
+/* ServiceTable-ish Material buttons, badly */
+.btn{
+  font-family:Roboto,Helvetica,Arial,sans-serif;font-weight:500;font-size:.875rem;letter-spacing:.03em;text-transform:uppercase;
+  background:var(--grey);color:rgba(0,0,0,.87);border:0;border-radius:24px;padding:0 16px;height:48px;min-width:48px;
+  box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+  cursor:pointer;transition:background-color 250ms,box-shadow 250ms;
+}
+.btn:hover{background:#f5f5f5}
+.btn:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}
+.btn.big{background:var(--lime);font-size:1.3rem;height:72px;width:100%;border-radius:0;font-family:"Comic Neue",cursive;border:6px outset #fff}
+.btn.big:hover{background:var(--pink)}
+.btn.tiny-btn{height:34px;font-size:.6rem;padding:0 10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+nav.row{background:var(--ink);padding:6px;font-size:.7rem}
+nav.row .btn{height:36px;font-size:.6rem;padding:0 10px}
+nav .tiny{color:#ffea00}
+
+input,select,textarea{
+  font:inherit;font-size:.95rem;width:100%;padding:6px;margin:4px 0 10px;
+  border:3px dashed var(--blue);background:#fffff0;color:var(--ink);
+}
+label{display:block;font-size:.8rem;color:#5a5000;font-weight:700}
+.field-wrap{margin:10px 0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card{
+  background:#fff;border:3px solid var(--blue);padding:10px;text-align:center;
+  animation:drift 4s infinite;transition:transform .2s;
+}
+.card:nth-child(even){transform:rotate(2deg)}
+.card:hover{transform:rotate(-6deg) scale(1.08);background:var(--yellow)}
+.card .emoji{font-size:3rem;display:block;line-height:1.2}
+.card b{font-family:"Press Start 2P",monospace;font-size:.55rem;display:block;margin-top:6px;line-height:1.5}
+
+table{width:100%;border-collapse:collapse;background:#fff;font-size:.95rem}
+th,td{border:3px double var(--red);padding:6px;text-align:left}
+th{background:var(--lime)}
+td.no{color:var(--red);font-weight:700}
+
+.meter{height:38px;border:4px ridge var(--blue);background:repeating-linear-gradient(90deg,var(--lime) 0 14px,#fff 14px 18px);position:relative;overflow:hidden}
+.meter span{position:absolute;left:0;top:0;bottom:0;background:var(--pink);width:0;transition:width 1s steps(7)}
+.meter em{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-family:"Press Start 2P",monospace;font-size:.6rem;color:#000;mix-blend-mode:difference}
+
+.count{font-family:"Press Start 2P",monospace;font-size:1.1rem;color:var(--red);background:#000;padding:8px;text-align:center;letter-spacing:.1em}
+.toast{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;
+  background:#000;color:var(--lime);border:3px solid var(--red);padding:12px 16px;width:min(92%,460px);
+  font-family:"Press Start 2P",monospace;font-size:.6rem;line-height:1.7;display:none;
+}
+.toast.show{display:block;animation:shake .14s 3}
+@keyframes wob{50%{transform:rotate(-3deg) skewX(8deg)}}
+@keyframes blink{50%{opacity:.1}}
+@keyframes drift{50%{transform:translateX(10px) rotate(1deg)}}
+@keyframes shake{25%{transform:translate(-50%,-4px) rotate(1deg)}75%{transform:translate(-50%,4px) rotate(-1deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:520px){
+  .box{padding:10px 12px 6px 8px}
+  .box:nth-of-type(3n),.box:nth-of-type(3n+1){margin-left:0;margin-right:0;transform:none}
+}
+</style>
+</head>
+<body>
+<marquee scrollamount="16">🧀 WELCOME TO CHOPCHOP YSWS 🧀 YOU SHIP A PROJECT · WE SHIP ABSOLUTELY NOTHING 🧀 APPLICATIONS CLOSE IN <span id="cd1">--:--:--</span> 🧀 THIS IS A PARODY, NOT A REAL PROGRAM 🧀</marquee>
+<marquee direction="right" scrollamount="6" style="background:var(--blue);color:var(--yellow)">⚠️ STICKERS ARE SUBJECT TO MOOD ⚠️ BEST VIEWED AT 640×480 IN NETSCAPE ⚠️ YOU ARE VISITOR <span id="visitor">000000001</span> ⚠️</marquee>
+
+<nav class="row">
+  <button class="btn tiny-btn" data-toast="You are being redirected to the Cheese Queue. Please hold.">✨ Apply with AI ✨</button>
+  <button class="btn tiny-btn" data-toast="Our AI is thinking. It has been thinking since 2019.">🤖 Ask AI</button>
+  <button class="btn tiny-btn" data-toast="Search is disabled. Try again never.">🔍 Search</button>
+  <button class="btn tiny-btn" data-toast="You are already signed in. Nobody is signed in.">Sign in</button>
+  <button class="btn tiny-btn" data-toast="Sign up is free. Sign up costs $4.99 (Cheese Handling Fee).">Sign up</button>
+  <span class="tiny">talk to a human (coming 2031)</span>
+</nav>
+
+<main class="wrap">
+  <h1>ChopChop YSWS</h1>
+  <p style="text-align:center;font-weight:700">Ship a project. Get a sticker. Probably. <span class="mirror">Sticker shipping is ✨ on pause ✨</span></p>
+
+  <section class="box" style="background:var(--red);color:var(--yellow)">
+    <h2>🚨 PSA 🚨</h2>
+    <p>All projects must be shipped by the deadline below. Projects shipped after the deadline will be shipped <b>anyway</b>, but on the next cheese cycle (7 to 9 business years). Shipping is free (we don't ship).</p>
+    <div class="count" id="cd2">--d --h --m --s</div>
+  </section>
+
+  <section class="box">
+    <h2>📰 WHAT IS THIS</h2>
+    <p>🧀 ChopChop YSWS is a program where you build a thing and we reward you with a thing. The thing is a sticker. The sticker is a cheese. The cheese is you. 🧀 We believe in minimal friction 🙌 and maximum clarity 💎, so the rules are below, and also in the form, and also a different set of rules once you're in.</p>
+    <p class="tiny">Founded in a garage 🚗 by three mice 🐭🐭🐭. Ranked #4,812 on the list of programs that ship stickers.</p>
+  </section>
+
+  <section class="box">
+    <h2>🎁 REWARDS</h2>
+    <table>
+      <tr><th>You ship</th><th>You get</th></tr>
+      <tr><td>1 project</td><td>A cheese-shaped sticker (ships in 2031)</td></tr>
+      <tr><td>2 projects</td><td>The same sticker, now laminated</td></tr>
+      <tr><td>5 projects</td><td>A Cheese Club newsletter (40 emails/day)</td></tr>
+      <tr><td>10 projects</td><td class="no">Nothing. Nothing at all. 🙃</td></tr>
+      <tr><td>A cow</td><td class="no">Not eligible</td></tr>
+    </table>
+    <p class="tiny">Sticker pictured for illustration only. Actual sticker is a grey square.</p>
+  </section>
+
+  <section class="box">
+    <h2>📦 SHIPPED PROJECTS</h2>
+    <div class="cards">
+      <div class="card"><span class="emoji">🧀</span><b>CHEESE TRACKER 3000</b><span class="tiny">shipped 2019</span></div>
+      <div class="card"><span class="emoji">🐭</span><b>MOUSE ANALYTICS</b><span class="tiny">shipped 2021</span></div>
+      <div class="card"><span class="emoji">🥖</span><b>BAGUETTE COUNTER</b><span class="tiny">still counting</span></div>
+      <div class="card"><span class="emoji">🪤</span><b>NOT A MOUSETRAP</b><span class="tiny">definitely not</span></div>
+      <div class="card"><span class="emoji">🍕</span><b>PIZZA SCHEDULER</b><span class="tiny">unscheduled</span></div>
+      <div class="card"><span class="emoji">🔥</span><b>FIRE (SIMULATED)</b><span class="tiny">don't touch</span></div>
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>🛠️ SHIP METER</h2>
+    <p>Hover the bar to see how much you have shipped. Moving the mouse away resets your progress.</p>
+    <div class="meter" id="meter"><span id="meterfill"></span><em id="meterlabel">0% SHIPPED</em></div>
+    <p class="tiny">Progress is stored nowhere. Refresh to lose it.</p>
+  </section>
+
+  <section class="box">
+    <h2>📝 APPLY</h2>
+    <p class="tiny">This form does not send anything anywhere. It is a parody. Please do not type your real details.</p>
+    <form id="apply" novalidate>
+      <div class="field-wrap">
+        <label for="nm">Full name, typed backwards, all lowercase except the third letter</label>
+        <input id="nm" placeholder="e.g. jOhn eod" autocomplete="off">
+      </div>
+      <div class="field-wrap">
+        <label for="fav">Favorite cheese (must NOT be cheddar)</label>
+        <input id="fav" placeholder="anything but cheddar" autocomplete="off">
+      </div>
+      <div class="field-wrap">
+        <label for="proj">Project link (we will visit it once in 2031)</label>
+        <input id="proj" placeholder="https://" type="text">
+      </div>
+      <div class="field-wrap">
+        <label for="hours">Hours spent on project (it's fine if it's a lot, we don't check)</label>
+        <input id="hours" type="range" min="0" max="500" value="37" oninput="this.nextElementSibling.textContent=this.value+' hrs (verified by vibes)'">
+        <span class="tiny">37 hrs (verified by vibes)</span>
+      </div>
+      <div class="field-wrap">
+        <label for="pun">Your cheese pun (must be gouda)</label>
+        <textarea id="pun" rows="2"></textarea>
+      </div>
+      <div class="field-wrap" style="display:flex;gap:8px;align-items:flex-start">
+        <input type="checkbox" id="c1" checked style="width:auto">
+        <label for="c1" style="margin:0;font-weight:400">Uncheck to not opt out of 40 emails a day</label>
+      </div>
+      <div class="field-wrap" style="display:flex;gap:8px;align-items:flex-start">
+        <input type="checkbox" id="c3" style="width:auto">
+        <label for="c3" style="margin:0;font-weight:400">I am not a mouse</label>
+      </div>
+      <button class="btn big" type="submit">PLACE APPLICATION (it does not send)</button>
+    </form>
+  </section>
+
+  <section class="box">
+    <h2>📜 RULES</h2>
+    <ol>
+      <li>Your project must be made by you. Ghostwriters are fine as long as they're cheese.</li>
+      <li>Your project must be shipped. Shipping means a link. The link must work. The link must not work.</li>
+      <li>Do not ask us what the rules are. The rules are available from Support 📞 (no link) 🙃.</li>
+      <li>By applying you agree to the Terms of Cheese (4,812 pages, available by fax).</li>
+      <li>Rule 1 supersedes Rule 3, unless Rule 2 says otherwise, unless it's Tuesday.</li>
+    </ol>
+  </section>
+
+  <section class="box" style="background:#000;color:var(--lime);font-family:'Press Start 2P',monospace;font-size:.6rem;line-height:1.9">
+    <p>CHEESEBOT&gt; Hi!! Need help? I can't help.</p>
+    <p>CHEESEBOT&gt; Did you mean: "cheddar"? (no)</p>
+    <p>CHEESEBOT&gt; <span class="blink">_</span></p>
+  </section>
+
+  <section class="box" style="text-align:center">
+    <h2>💬 FEEDBACK</h2>
+    <button class="btn" data-toast="Thank you for your feedback. It has been filed under Cheese.">Submit feedback</button>
+  </section>
+
+  <p class="tiny" style="text-align:center">© 1997–2026 ChopChop YSWS. <span class="mirror">All rights reversed.</span> Fictional parody. Not affiliated with any real program.</p>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  // Visitor counter: random, not stored.
+  var v=document.getElementById('visitor');
+  if(v){ v.textContent=String(Math.floor(Math.random()*999999)+1).padStart(9,'0'); }
+
+  // Countdown to a deadline that resets every time the page loads, because it is not a real deadline.
+  var end=Date.now()+ (3*24*3600+13*3600+37*60)*1000;
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(){
+    var left=Math.max(0,end-Date.now());
+    var s=Math.floor(left/1000);
+    var d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
+    var t=pad(h)+':'+pad(m)+':'+pad(sec);
+    var c1=document.getElementById('cd1'); if(c1) c1.textContent=t;
+    var c2=document.getElementById('cd2'); if(c2) c2.textContent=d+'d '+pad(h)+'h '+pad(m)+'m '+pad(sec)+'s';
+    if(left<=0){ end=Date.now()+ 3600e3*24*7; }
+  }
+  tick(); setInterval(tick,1000);
+
+  // Toast
+  var toast=document.getElementById('toast'), tTimer;
+  function say(msg){
+    toast.textContent=msg; toast.classList.remove('show'); void toast.offsetWidth; toast.classList.add('show');
+    toast.style.display='block';
+    clearTimeout(tTimer); tTimer=setTimeout(function(){toast.classList.remove('show');toast.style.display='none'},4200);
+  }
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click',function(){ say(b.getAttribute('data-toast')); });
+  });
+
+  // Ship meter: fills on hover, resets on leave, never goes past 99%.
+  var meter=document.getElementById('meter'), fill=document.getElementById('meterfill'), label=document.getElementById('meterlabel');
+  var pct=0, iv=null;
+  function paint(){ fill.style.width=pct+'%'; label.textContent=pct+'% SHIPPED'+(pct>=99?' (LIE)':''); }
+  meter.addEventListener('mouseenter',function(){
+    clearInterval(iv);
+    iv=setInterval(function(){ pct=Math.min(99, pct+ (Math.random()<.4?7:1)); paint(); },400);
+  });
+  meter.addEventListener('mouseleave',function(){ clearInterval(iv); pct=0; paint(); });
+  meter.addEventListener('click',function(){ say('You cannot click your way to shipping.'); });
+  paint();
+
+  // Application form: fake, nothing is sent.
+  document.getElementById('apply').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('nm').value.trim();
+    var fav=(document.getElementById('fav').value||'').toLowerCase();
+    if(fav.indexOf('cheddar')>-1){ say('ERROR: Favorite cheese may not be cheddar. Cheddar has been notified.'); return; }
+    if(!name){ say('ERROR: Name required. Typed backwards, lowercase, except the third letter.'); return; }
+    say('Application placed in the Cheese Queue. Position: 4,812. Nothing was sent anywhere.');
+  });
+})();
+</script>
+</body>
+</html>

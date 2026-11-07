@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chesentir — Institutional Ship-With-Us</title>
+<meta name="description" content="Chesentir YSWS: a fictional cheese operating system. Satire. Not affiliated with Hack Club, Palantir, Southbag or any real program.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
+<style>
+/* Satire. Fictional program. Not affiliated with Hack Club, Palantir, Southbag or any real company. The agent and all data are simulated. */
+:root{
+  --bg:#0a0b0a; --panel:#111312; --panel2:#171a18; --line:#2a2d2b; --text:#ebe9e2; --muted:#8c8f88; --dim:#5d6059;
+  --accent:#f2c14e; --accent2:#e8956b; --alert:#c4553a; --ok:#9bb58a; --blue:#7f9fd6;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){ --bg:#f5f1e6; --panel:#fffdf4; --panel2:#f1ecdc; --line:#d9d0b4; --text:#131412; --muted:#5f5a44; --dim:#8b8566; --accent:#b8860b; --accent2:#b5532f; --alert:#a23a22; --ok:#4b6b3a; --blue:#2f4f8f; color-scheme:light; }
+}
+:root[data-theme="dark"]{ --bg:#0a0b0a; --panel:#111312; --panel2:#171a18; --line:#2a2d2b; --text:#ebe9e2; --muted:#8c8f88; --dim:#5d6059; --accent:#f2c14e; --accent2:#e8956b; --alert:#c4553a; --ok:#9bb58a; --blue:#7f9fd6; color-scheme:dark; }
+:root[data-theme="light"]{ --bg:#f5f1e6; --panel:#fffdf4; --panel2:#f1ecdc; --line:#d9d0b4; --text:#131412; --muted:#5f5a44; --dim:#8b8566; --accent:#b8860b; --accent2:#b5532f; --alert:#a23a22; --ok:#4b6b3a; --blue:#2f4f8f; color-scheme:light; }
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font:400 15px/1.6 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lbl b{color:var(--accent);font-weight:400}
+
+/* top bar */
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:20px}
+.brand{font-family:"IBM Plex Mono",monospace;font-weight:500;letter-spacing:.22em;font-size:13px}
+.brand i{font-style:normal;color:var(--accent)}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+nav a:hover{color:var(--text)}
+.pill{border:1px solid var(--line);background:transparent;color:var(--text);font:400 11px "IBM Plex Mono",monospace;letter-spacing:.07em;text-transform:uppercase;padding:7px 13px;cursor:pointer}
+.pill:hover{border-color:var(--accent)}
+
+/* hero */
+.hero{position:relative;padding:130px 0 90px;border-bottom:1px solid var(--line);overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:80px 80px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0,transparent 70%);
+}
+.hero .meta{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:30px}
+.hero .meta b{color:var(--ok);font-weight:400}
+h1{font:300 clamp(52px,7.8vw,108px)/0.98 "Cormorant Garamond",Georgia,serif;letter-spacing:-.02em;margin:0 0 30px;max-width:14ch}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:58ch;margin:0 0 40px;font-weight:300}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{background:var(--accent);color:#1a1404;border:1px solid var(--accent);padding:13px 22px;font:500 12px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn:hover{opacity:.88}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.kpis div{padding:28px 22px;border-right:1px solid var(--line)}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font:300 44px/1 "Cormorant Garamond",Georgia,serif;margin:10px 0 8px}
+.kpis .delta{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ok)}
+.kpis .delta.bad{color:var(--alert)}
+
+/* sections */
+section.block{padding:110px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:180px 1fr;gap:30px;margin-bottom:56px}
+.sec-head .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;padding-top:10px}
+h2{font:300 clamp(36px,4.6vw,60px)/1.04 "Cormorant Garamond",Georgia,serif;letter-spacing:-.02em;margin:0 0 18px;max-width:20ch}
+.muted{color:var(--muted);max-width:64ch}
+
+/* panels */
+.panel{background:var(--panel);border:1px solid var(--line);padding:22px}
+.panel h4{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;display:flex;justify-content:space-between;gap:12px}
+.panel h4 span{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+svg text{font-family:"IBM Plex Mono",monospace;fill:var(--muted);font-size:10px}
+.note{font-size:12px;color:var(--dim);margin:12px 0 0;font-family:"IBM Plex Mono",monospace}
+
+/* object explorer */
+.objects{display:grid;grid-template-columns:260px 1fr;border:1px solid var(--line);background:var(--panel);min-height:380px}
+.objects aside{border-right:1px solid var(--line);padding:14px}
+.objects aside button{display:flex;justify-content:space-between;width:100%;background:none;border:0;color:var(--muted);font:400 12px "IBM Plex Mono",monospace;padding:10px 8px;cursor:pointer;text-align:left}
+.objects aside button.on,.objects aside button:hover{color:var(--text);background:var(--panel2)}
+.objects aside button.on span:last-child{color:var(--accent)}
+.objects .detail{padding:26px}
+.objects .detail h3{font:400 30px "Cormorant Garamond",Georgia,serif;margin:0 0 6px}
+.objects .props{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0}
+.objects .props div{background:var(--panel);padding:12px}
+.objects .props small{display:block;font:400 10px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.objects .props span{font-family:"IBM Plex Mono",monospace;font-size:13px}
+.links{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);line-height:2}
+.links b{color:var(--accent);font-weight:400}
+
+/* agent console */
+.agent{border:1px solid var(--line);background:var(--panel);display:grid;grid-template-columns:1fr 1fr}
+.agent .left{padding:24px;border-right:1px solid var(--line)}
+.agent .right{padding:24px;background:var(--panel2);font-family:"IBM Plex Mono",monospace;font-size:12px;min-height:420px}
+.agent textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);font:300 15px "IBM Plex Sans",sans-serif;padding:14px;min-height:110px;resize:vertical}
+.agent textarea:focus{outline:none;border-color:var(--accent)}
+.agent .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:1px solid var(--line);background:none;color:var(--muted);font:400 11px "IBM Plex Mono",monospace;padding:6px 10px;cursor:pointer}
+.chip:hover{border-color:var(--accent);color:var(--text)}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{padding:9px 0;border-bottom:1px dashed var(--line);color:var(--muted);opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+.steps li.in{opacity:1;transform:none}
+.steps li.done::before{content:"✓ ";color:var(--ok)}
+.steps li.run::before{content:"… ";color:var(--accent)}
+.agent .result{margin-top:16px;padding:14px;border:1px solid var(--accent);color:var(--text);min-height:60px;line-height:1.6;font-family:"IBM Plex Sans",sans-serif;font-size:14px}
+.agent .disc{margin-top:14px;font-size:11px;color:var(--dim)}
+.steps small{display:block;margin-top:3px;font-size:11px;color:var(--dim)}
+.steps .call{color:var(--blue)}
+.agent .gate{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.agent .gate[hidden]{display:none}
+.agent .tools{margin:0 0 14px;font-size:11px;color:var(--dim);line-height:1.8}
+
+/* pipeline DAG */
+.dag svg{width:100%;height:auto;display:block}
+
+/* lore */
+.lore{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.lore .card{background:var(--panel);border:1px solid var(--line);padding:26px}
+.lore .card h3{font:400 26px/1.15 "Cormorant Garamond",Georgia,serif;margin:0 0 12px}
+.lore .card p{margin:0;color:var(--muted);font-size:14px}
+.lore .quote{grid-column:1/-1;border-left:2px solid var(--accent);padding:6px 0 6px 24px;font:italic 300 clamp(24px,3vw,36px)/1.3 "Cormorant Garamond",Georgia,serif;margin:6px 0}
+.lore .quote cite{display:block;font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-style:normal;margin-top:14px}
+.venn-wrap{display:grid;grid-template-columns:1fr;gap:6px}
+
+/* deployments */
+.wall{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.wall div{background:var(--bg);padding:24px 12px;text-align:center;font:400 19px "Cormorant Garamond",Georgia,serif;color:var(--muted);transition:color .2s}
+.wall div:hover{color:var(--accent)}
+.wall small{display:block;font:400 9px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+/* rewards */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:16px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:400 10px "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+td:first-child{font:400 20px "Cormorant Garamond",Georgia,serif}
+td.no{color:var(--alert);font-family:"IBM Plex Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.bar{height:6px;background:var(--line);width:160px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+
+/* apply */
+form.apply{display:grid;gap:18px;max-width:640px}
+.field label{display:block;font:400 10px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field input,.field textarea{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);font:300 15px "IBM Plex Sans",sans-serif;padding:12px 14px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.fine{font-size:12px;color:var(--dim);max-width:60ch;margin:0}
+
+/* satire band */
+.satire{padding:34px 0;background:var(--panel);border-bottom:1px solid var(--line)}
+.satire p{margin:0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.03em;color:var(--muted);line-height:1.8}
+.satire b{color:var(--alert);font-weight:500}
+
+footer{padding:50px 0 60px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer p{margin:0;color:var(--dim);font-size:13px}
+footer .mono{font-size:11px;color:var(--dim);line-height:2}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:var(--panel);border:1px solid var(--line);color:var(--text);padding:13px 18px;font:400 12px "IBM Plex Mono",monospace;letter-spacing:.03em;opacity:0;pointer-events:none;transition:all .3s;z-index:20;max-width:92vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis div:nth-child(2){border-right:0}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid2,.grid3,.lore,.agent,.objects{grid-template-columns:1fr}
+  .agent .left,.objects aside{border-right:0;border-bottom:1px solid var(--line)}
+  .wall{grid-template-columns:repeat(2,1fr)}
+  nav{display:none}
+}
+@media (max-width:640px){
+  .sec-head{grid-template-columns:1fr;gap:10px}
+  section.block{padding:80px 0}
+  .hero{padding:110px 0 70px}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">CHESENTIR<i>/</i>YSWS</a>
+    <nav>
+      <a href="#platform">Platform</a>
+      <a href="#agent">Agent</a>
+      <a href="#charts">Metrics</a>
+      <a href="#lore">Lore</a>
+      <a href="#deployments">Deployments</a>
+      <a href="#apply">Apply</a>
+    </nav>
+    <button class="pill" id="themeBtn" aria-label="Toggle theme">Theme</button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="meta lbl"><span>Fiscal 2026</span><span>Cohort Ω</span><span>Status <b>● Monitored</b></span><span>Cheese grade <b>AAA</b></span><span>Agents online <b id="agentCount">3</b></span></div>
+      <h1>Ship the <em>ontology.</em> <br>We keep the <em>curd.</em></h1>
+      <p class="lede">Chesentir is an operating system for the decisions your organisation is too frightened to make on its own. Ship-With-Us connects builders to the platform. Participation is voluntary, observed, and aged for at least eleven years.</p>
+      <div class="cta">
+        <a class="btn" href="#agent">Ask the agent</a>
+        <a class="btn ghost" href="#apply">Begin registration</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div><span class="lbl">Wheels in review</span><b>4,812</b><span class="delta">▲ 312 this week</span></div>
+    <div><span class="lbl">Reply rate</span><b>0.3%</b><span class="delta bad">▼ 0.1 pts</span></div>
+    <div><span class="lbl">Median aging</span><b>11.0 yr</b><span class="delta">● stable</span></div>
+    <div><span class="lbl">"I want to cheese" sightings</span><b id="sightings">1</b><span class="delta">▲ live (simulated)</span></div>
+    <div><span class="lbl">Forward-deployed fromage</span><b>∞</b><span class="delta bad">unpaid</span></div>
+  </div>
+
+  <section class="block" id="platform">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">01 / PLATFORM</div>
+        <div>
+          <h2>Three layers. One governed rind. Every answer traceable to a meeting that was rescheduled.</h2>
+          <p class="muted">Chesentir fuses your data, your models and your quiet dread into a single operating picture. Each projection cites its source. Each source cites a spreadsheet named v7_FINAL_grated.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="panel">
+          <h4>Layer 01 · Ontology <span>Curd</span></h4>
+          <p class="muted" style="margin:0 0 14px">Objects, links and actions. Your Head of Operations recognises the nouns. Nobody agrees on the verbs.</p>
+          <p class="lbl" style="margin:0">14 object types · 0 agreed definitions</p>
+        </div>
+        <div class="panel">
+          <h4>Layer 02 · Pipelines <span>Whey</span></h4>
+          <p class="muted" style="margin:0 0 14px">Three hundred sources, four languages, one dashboard that stays closed until the brie is ready.</p>
+          <p class="lbl" style="margin:0">99.9% dashboard uptime · refresh quarterly</p>
+        </div>
+        <div class="panel">
+          <h4>Layer 03 · Assistant <span>Rind</span></h4>
+          <p class="muted" style="margin:0 0 14px">Drafts recommendations and cites its sources. It has never once been to a dairy.</p>
+          <p class="lbl" style="margin:0">Human in the loop · the loop is mild</p>
+        </div>
+      </div>
+
+      <div class="panel dag" style="margin-top:20px" aria-label="Fictional pipeline graph">
+        <h4>Pipeline graph · cheese_ingest_v3 <span>running</span></h4>
+        <svg viewBox="0 0 900 230" role="img" aria-labelledby="dagt">
+          <title id="dagt">Fictional pipeline: sources flow through transforms into the ontology and out to decisions</title>
+          <g stroke="var(--line)" stroke-width="1.5" fill="none">
+            <path d="M170 50 C 240 50, 250 110, 330 110"/><path d="M170 115 L 330 115"/><path d="M170 180 C 240 180, 250 120, 330 120"/>
+            <path d="M470 115 C 520 115, 530 60, 600 60"/><path d="M470 115 L 600 115"/><path d="M470 115 C 520 115, 530 170, 600 170"/>
+            <path d="M740 60 L 840 60"/><path d="M740 115 L 840 115"/><path d="M740 170 L 840 170"/>
+          </g>
+          <g style="fill:var(--panel2);stroke:var(--line)">
+            <rect x="20" y="28" width="150" height="44"/><rect x="20" y="93" width="150" height="44"/><rect x="20" y="158" width="150" height="44"/>
+            <rect x="330" y="92" width="140" height="48" style="stroke:var(--accent)"/>
+            <rect x="600" y="38" width="140" height="44"/><rect x="600" y="148" width="140" height="44"/>
+            <rect x="600" y="93" width="140" height="44"/>
+            <rect x="740" y="38" width="140" height="44"/><rect x="740" y="93" width="140" height="44"/><rect x="740" y="148" width="140" height="44"/>
+          </g>
+          <g style="font:11px 'IBM Plex Mono',monospace;fill:var(--muted)">
+            <text x="95" y="54" text-anchor="middle">spreadsheet_v7</text><text x="95" y="119" text-anchor="middle">legacy_crm</text><text x="95" y="184" text-anchor="middle">slack_export</text>
+            <text x="400" y="120" text-anchor="middle" style="fill:var(--accent)">ONTOLOGY</text>
+            <text x="670" y="64" text-anchor="middle">decide_fast</text><text x="670" y="119" text-anchor="middle">decide_later</text><text x="670" y="174" text-anchor="middle">decide_in_slack</text>
+            <text x="810" y="64" text-anchor="middle">steering_cmte</text><text x="810" y="119" text-anchor="middle">slide_47</text><text x="810" y="174" text-anchor="middle">pdf_v2_FINAL</text>
+          </g>
+        </svg>
+        <p class="note">Nodes: 14 · edges: 22 · failed: 0 (the failures are in the slides, not the pipeline).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="charts">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">02 / METRICS</div>
+        <div>
+          <h2>Operating picture. Every chart is true, in the sense that it was generated.</h2>
+          <p class="muted">Figures are illustrative. They were produced by the same pipeline as everything else on this site.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="panel">
+          <h4>"I want to cheese" messages per week <span>trend</span></h4>
+          <svg id="lineChart" viewBox="0 0 640 260" role="img" aria-label="Line chart of weekly sightings of the phrase"></svg>
+          <p class="note">Sightings peaked the week the channel started arguing about the definition. Definitions remain unresolved.</p>
+        </div>
+        <div class="panel">
+          <h4>What "cheese" means, per channel <span>share</span></h4>
+          <svg id="donut" viewBox="0 0 300 300" role="img" aria-label="Donut chart of interpretations of cheese"></svg>
+          <div id="donutLegend" class="lbl" style="margin-top:8px;display:grid;gap:6px"></div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:20px">
+        <div class="panel">
+          <h4>Applications by tier <span>count</span></h4>
+          <svg id="barChart" viewBox="0 0 640 280" role="img" aria-label="Bar chart of applications by tier"></svg>
+        </div>
+        <div class="panel">
+          <h4>Reply latency (years) <span>sorted</span></h4>
+          <svg id="hBar" viewBox="0 0 320 280" role="img" aria-label="Horizontal bar chart of reply latency"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="objects">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">03 / OBJECT EXPLORER</div>
+        <div>
+          <h2>Everything is an object. Some objects are cheese.</h2>
+          <p class="muted">Click through the ontology. Each object links to the others, and every link is a meeting.</p>
+        </div>
+      </div>
+      <div class="objects">
+        <aside id="objList"></aside>
+        <div class="detail" id="objDetail"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="agent">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">04 / AGENT</div>
+        <div>
+          <h2>Ask the agent for a plan. It will produce a plan, and then produce a second plan that disagrees with it.</h2>
+          <p class="muted">Simulated. Nothing here calls a model or reads your data. The steps are scripted to look like work.</p>
+        </div>
+      </div>
+      <div class="agent">
+        <div class="left">
+          <p class="lbl" style="margin:0 0 10px">Objective</p>
+          <textarea id="goal" placeholder="e.g. Decide whether we want to cheese."></textarea>
+          <div class="chips">
+            <button class="chip" data-goal="Decide whether we want to cheese.">I WANT TO CHEESE</button>
+            <button class="chip" data-goal="Find the definition of cheese that the channel will accept.">Define cheese</button>
+            <button class="chip" data-goal="Ship the cheese tier to everyone who applied this quarter.">Ship to all applicants</button>
+          </div>
+          <p class="tools lbl">Tools: query_ontology · pull_wheels · cross_check · score_cheese · resurvey · enumerate · check_tiers · estimate_ship · draft · route_kevin</p>
+          <button class="btn" id="run">Run agent</button>
+          <p class="disc">Simulated agent. Tools are local stubs; no model is called and no data is read. Actions are proposed, never executed. Approval is required from Kevin, who is reviewing this page.</p>
+        </div>
+        <div class="right">
+          <p class="lbl" style="margin:0 0 12px">Trace · run <span id="runId">cs-0000</span></p>
+          <ul class="steps" id="steps"></ul>
+          <div class="result" id="result">Awaiting objective.</div>
+          <div class="gate" id="gate" hidden>
+            <button class="btn" id="gateYes" type="button">Approve (simulated)</button>
+            <button class="btn ghost" id="gateNo" type="button">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="lore">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">05 / LORE</div>
+        <div>
+          <h2>On the meaning of "I WANT TO CHEESE."</h2>
+          <p class="muted">Summarised from a long essay by a member of the Hack Club Slack. Nobody has resolved the question. Everybody has a view.</p>
+        </div>
+      </div>
+      <div class="lore">
+        <div class="card">
+          <h3>Five words, no punctuation.</h3>
+          <p>Zach Latta posted "I WANT TO CHEESE" in #zrl-land on the Hack Club Slack. No follow-up, no clarification. The community has been arguing about it ever since.</p>
+        </div>
+        <div class="card">
+          <h3>Gaming, or the kitchen.</h3>
+          <p>In gaming, to cheese is to win by an unintended route. In a kitchen it means nothing at all. The message refuses to choose, and the refusal is the point.</p>
+        </div>
+        <div class="card">
+          <h3>Universally legible.</h3>
+          <p>You don't need to know Hack Club lore, Haskell or what a PCB is. You only need to have wanted something once. The phrase is democratic in that way.</p>
+        </div>
+        <div class="card">
+          <h3>Digital folk art.</h3>
+          <p>A small piece of folk art made from a Slack message. A reminder that even the most accomplished people are just people in a channel with needs that defy categorisation.</p>
+        </div>
+        <blockquote class="quote">
+          “Zach wanted to cheese. We should all be so honest.”
+          <cite>— the closing line of the essay, quoted in full. :3</cite>
+        </blockquote>
+      </div>
+      <div class="panel" style="margin-top:20px">
+        <h4>Interpretation spread (community survey, simulated) <span>n = 4,812</span></h4>
+        <svg id="stack" viewBox="0 0 900 90" role="img" aria-label="Stacked bar of interpretations"></svg>
+        <p class="note">Gaming 41% · Kitchen 0% · Refuses to specify 59%. The third bucket is the one the essay is about.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="deployments">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">06 / DEPLOYMENTS</div>
+        <div>
+          <h2>Deployed across dairies that have never once been asked how they feel about it.</h2>
+          <p class="muted">Partners listed alphabetically, by whichever of their names fits in the box. Partnership terms are confidential, which is also how we describe the partnership.</p>
+        </div>
+      </div>
+      <div class="wall">
+        <div>Meridian Holdco<small>Finance</small></div>
+        <div>Hollowell Civic<small>Public sector</small></div>
+        <div>Tarn &amp; Pell<small>Logistics</small></div>
+        <div>Brie &amp; Co.<small>Hospitality</small></div>
+        <div>Quellar Health<small>Care</small></div>
+        <div>Asterline<small>Defence-adjacent</small></div>
+        <div>Brackwater<small>Insurance</small></div>
+        <div>Gouda Works<small>Manufacturing</small></div>
+        <div>Verity Mutual<small>Pensions</small></div>
+        <div>Ostrava Meta<small>Research</small></div>
+        <div>Kestrel Crown<small>Energy</small></div>
+        <div>[redacted]<small>Pending review</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="rewards">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">07 / REWARDS</div>
+        <div>
+          <h2>Tiered recognition, graded like a fine cheese.</h2>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Tier</th><th>Requirement</th><th>Reward</th><th>Progress</th></tr></thead>
+        <tbody>
+          <tr><td>Fresh Curd</td><td>Ship one project</td><td>Confirmation email, valid for one quarter</td><td><div class="bar"><i style="width:100%"></i></div></td></tr>
+          <tr><td>Brie</td><td>Ship two projects and attend a discovery session</td><td>A discovery session, lightly soft</td><td><div class="bar"><i style="width:62%"></i></div></td></tr>
+          <tr><td>Gouda</td><td>Ship five projects and sign a mutual NDA</td><td>A mutual NDA (we keep the copy, and the gouda)</td><td><div class="bar"><i style="width:19%"></i></div></td></tr>
+          <tr><td>Parmigiano</td><td>Ship ten projects and relocate to a field office</td><td class="no">Relocation not included</td><td><div class="bar"><i style="width:4%"></i></div></td></tr>
+          <tr><td>Cheddar</td><td>Cheddar is not permitted to apply</td><td class="no">Banned by Kevin</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="apply">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="num">08 / APPLY</div>
+        <div>
+          <h2>Tell us what you built. We will tell you what it means, and what it cheeses.</h2>
+          <p class="muted">Applications are reviewed by a committee that meets when the committee meets. Nothing you type here leaves this page.</p>
+        </div>
+      </div>
+      <form class="apply" id="applyForm" novalidate>
+        <div class="field"><label for="n">Name (typed backwards, lowercase except the third letter)</label><input id="n" autocomplete="off" placeholder="Your name"></div>
+        <div class="field"><label for="org">Organisation (or "independent, thinking about it")</label><input id="org" autocomplete="off"></div>
+        <div class="field"><label for="proj">What did you ship?</label><textarea id="proj" rows="4" placeholder="A short description of the thing you built"></textarea></div>
+        <div class="field"><label for="pun">Your cheese pun (must be gouda)</label><input id="pun" autocomplete="off" placeholder="we should brie friends"></div>
+        <div class="field"><label for="why">Do you want to cheese? (yes, no, or one word)</label><input id="why" autocomplete="off"></div>
+        <div><button class="btn" type="submit">Submit application</button></div>
+        <p class="fine">By submitting you agree to the Terms (rewritten quarterly, available on request, never delivered). Participation is non-revocable during the aging period. We will reply within eleven years.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div class="satire">
+  <div class="wrap">
+    <p><b>SATIRE.</b> Chesentir is a fictional program on a fictional platform. It is not affiliated with Hack Club, Zach Latta, Palantir, Southbag or any real company, program or person. The phrase "I WANT TO CHEESE" is used as an inside joke. The agent, the metrics and the survey are simulated. Nothing on this page collects data; the form is a stub that sends nothing.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Chesentir YSWS. Fictional parody. Reviewed by Kevin. Not affiliated with Hack Club.</p>
+    <div class="mono">Platform<br>Agent<br>Metrics<br>Lore<br>Deployments</div>
+    <div class="mono">Terms of Program<br>Data Residency<br>Appeals (see Kevin)</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+  function txt(parent,x,y,s,attrs){var t=el('text',Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+
+  // theme
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  try{ var saved=localStorage.getItem('chesentir-theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('chesentir-theme',next); }catch(e){}
+  });
+
+  // toast
+  var toast=document.getElementById('toast'), tt;
+  function say(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show')},4200); }
+
+  // line chart: weekly sightings (illustrative)
+  (function(){
+    var svg=document.getElementById('lineChart'); var data=[3,4,4,6,9,14,22,31,27,19,24,38,41,36,52,47];
+    var W=640,H=260,p={l:40,r:16,t:16,b:30}, max=60;
+    for(var g=0;g<=4;g++){ var y=p.t+(H-p.t-p.b)*g/4; el('line',{x1:p.l,x2:W-p.r,y1:y,y2:y,stroke:'var(--line)'},svg); txt(svg,6,y+4,String(max-g*15)); }
+    var pts=data.map(function(v,i){ return [p.l+(W-p.l-p.r)*i/(data.length-1), p.t+(H-p.t-p.b)*(1-v/max)]; });
+    var area='M'+pts[0][0]+','+(H-p.b)+' '+pts.map(function(q){return 'L'+q[0]+','+q[1]}).join(' ')+' L'+pts[pts.length-1][0]+','+(H-p.b)+' Z';
+    el('path',{d:area,fill:'var(--accent)',opacity:'.12'},svg);
+    el('path',{d:'M'+pts.map(function(q){return q[0]+','+q[1]}).join(' L'),fill:'none',stroke:'var(--accent)','stroke-width':2},svg);
+    pts.forEach(function(q,i){ if(i%3===0) txt(svg,q[0]-8,H-8,'W'+(i+1)); el('circle',{cx:q[0],cy:q[1],r:3,fill:'var(--bg)',stroke:'var(--accent)','stroke-width':1.5},svg); });
+    var last=pts[pts.length-1]; txt(svg,last[0]-60,last[1]-10,'peak channel wk',{fill:'var(--accent)'});
+    var sightings=document.getElementById('sightings'); if(sightings) sightings.textContent=String(data[data.length-1]*31);
+  })();
+
+  // donut
+  (function(){
+    var svg=document.getElementById('donut'), legend=document.getElementById('donutLegend');
+    var parts=[['Refuses to specify',59,'var(--accent)'],['Gaming (exploit route)',41,'var(--accent2)'],['Culinary',0,'var(--blue)']];
+    var cx=150,cy=150,r=110,ri=62,a0=-Math.PI/2;
+    parts.forEach(function(p){
+      if(p[1]===0) return;
+      var a1=a0+2*Math.PI*p[1]/100;
+      var x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0), x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
+      var xi0=cx+ri*Math.cos(a1), yi0=cy+ri*Math.sin(a1), xi1=cx+ri*Math.cos(a0), yi1=cy+ri*Math.sin(a0);
+      var large=p[1]>50?1:0;
+      el('path',{d:'M'+x0+','+y0+' A'+r+','+r+' 0 '+large+' 1 '+x1+','+y1+' L'+xi0+','+yi0+' A'+ri+','+ri+' 0 '+large+' 0 '+xi1+','+yi1+' Z',fill:p[2]},svg);
+      a0=a1;
+    });
+    txt(svg,cx,cy-4,'4,812',{'text-anchor':'middle','font-size':'22','fill':'var(--text)','font-family':'Cormorant Garamond, serif'});
+    txt(svg,cx,cy+16,'respondents',{'text-anchor':'middle'});
+    parts.forEach(function(p){ var d=document.createElement('div'); d.innerHTML='<span style="display:inline-block;width:10px;height:10px;background:'+p[2]+';margin-right:8px"></span>'+p[0]+' · '+p[1]+'%'; legend.appendChild(d); });
+  })();
+
+  // vertical bar chart: applications by tier
+  (function(){
+    var svg=document.getElementById('barChart');
+    var data=[['Fresh Curd',1842],['Brie',1103],['Gouda',612],['Parmigiano',221],['Cheddar',0]];
+    var W=640,H=280,p={l:44,r:12,t:20,b:48}, max=2000, bw=(W-p.l-p.r)/data.length;
+    for(var g=0;g<=4;g++){ var y=p.t+(H-p.t-p.b)*(1-g/4); el('line',{x1:p.l,x2:W-p.r,y1:y,y2:y,stroke:'var(--line)'},svg); txt(svg,6,y+4,String(g*500)); }
+    data.forEach(function(d,i){
+      var h=(H-p.t-p.b)*d[1]/max, x=p.l+i*bw+bw*0.18, w=bw*0.64, y=H-p.b-h;
+      el('rect',{x:x,y:y,width:w,height:Math.max(h,1),fill:i===4?'var(--alert)':'var(--accent)',opacity:'.85'},svg);
+      txt(svg,x+w/2,y-6,String(d[1]),{'text-anchor':'middle',fill:'var(--text)'});
+      txt(svg,x+w/2,H-p.b+16,d[0],{'text-anchor':'middle'});
+    });
+    txt(svg,W-p.r,H-6,'Cheddar: banned by Kevin',{'text-anchor':'end','fill':'var(--alert)'});
+  })();
+
+  // horizontal bar chart: reply latency
+  (function(){
+    var svg=document.getElementById('hBar');
+    var data=[['Fresh Curd',0.4],['Brie',2.1],['Gouda',5.8],['Parmigiano',9.3],['Cheddar',11.0]];
+    var W=320,H=280,p={l:90,r:40,t:14,b:14}, max=12, bh=(H-p.t-p.b)/data.length;
+    data.forEach(function(d,i){
+      var w=(W-p.l-p.r)*d[1]/max, y=p.t+i*bh+8;
+      txt(svg,4,y+12,d[0]);
+      el('rect',{x:p.l,y:y,width:w,height:bh-18,fill:'var(--accent2)',opacity:'.85'},svg);
+      txt(svg,p.l+w+6,y+12,d[1].toFixed(1)+' yr',{fill:'var(--text)'});
+    });
+  })();
+
+  // stacked bar: interpretations
+  (function(){
+    var svg=document.getElementById('stack');
+    var parts=[['Gaming 41%',41,'var(--accent2)'],['Kitchen 0%',0,'var(--blue)'],['Refuses to specify 59%',59,'var(--accent)']];
+    var x=0, W=900;
+    parts.forEach(function(p){
+      var w=W*p[1]/100;
+      if(w>0){ el('rect',{x:x,y:20,width:w,height:40,fill:p[2]},svg); }
+      x+=w;
+    });
+    txt(svg,0,14,'Gaming 41%');
+    txt(svg,W,14,'Refuses to specify 59%',{'text-anchor':'end','fill':'var(--accent)'});
+    txt(svg,0,80,'Kitchen 0% (no respondents)',{fill:'var(--blue)'});
+  })();
+
+  // object explorer
+  (function(){
+    var objs={
+      'Cheese Club Member':{type:'Person',props:[['Status','Unresolved'],['Wants to cheese','Yes (one word)'],['Aging','11.0 yr'],['Cohort','Ω']],links:[['belongs_to','#zrl-land'],['uses','Ship-With-Us'],['reviewed_by','Kevin']]},
+      '#zrl-land':{type:'Channel',props:[['Workspace','Hack Club Slack'],['Messages','5 words'],['Punctuation','none'],['Follow-ups','0']],links:[['contains','I WANT TO CHEESE'],['argued_about_by','everyone']]},
+      'I WANT TO CHEESE':{type:'Message',props:[['Author','Zach Latta (see disclaimer)'],['Length','5 words'],['Caps','100%'],['Meaning','Refused']],links:[['interpreted_as','gaming'],['interpreted_as','kitchen (0 votes)'],['referenced_by','this page']]},
+      'Cheddar':{type:'Object (blocked)',props:[['Status','Banned'],['Eligible','No'],['Reason','Kevin'],['Appeal','See Kevin']],links:[['blocks','Ship-With-Us'],['reviewed_by','Kevin']]}
+    };
+    var list=document.getElementById('objList'), det=document.getElementById('objDetail');
+    function show(name){
+      var o=objs[name];
+      [].forEach.call(list.querySelectorAll('button'),function(b){ b.classList.toggle('on', b.getAttribute('data-k')===name); });
+      det.innerHTML='';
+      var h=document.createElement('p'); h.className='lbl'; h.textContent=o.type+' · object'; det.appendChild(h);
+      var t=document.createElement('h3'); t.textContent=name; det.appendChild(t);
+      var grid=document.createElement('div'); grid.className='props';
+      o.props.forEach(function(p){ var d=document.createElement('div'); d.innerHTML='<small>'+p[0]+'</small><span></span>'; d.querySelector('span').textContent=p[1]; grid.appendChild(d); });
+      det.appendChild(grid);
+      var l=document.createElement('div'); l.className='links';
+      o.links.forEach(function(k){ var r=document.createElement('div'); r.innerHTML='<b></b> → '; r.querySelector('b').textContent=k[0]; r.appendChild(document.createTextNode(k[1])); l.appendChild(r); });
+      det.appendChild(l);
+    }
+    Object.keys(objs).forEach(function(k,i){ var b=document.createElement('button'); b.setAttribute('data-k',k); b.innerHTML='<span></span><span></span>'; b.firstChild.textContent=k; b.lastChild.textContent=objs[k].type.split(' ')[0].toLowerCase(); b.addEventListener('click',function(){show(k)}); list.appendChild(b); if(i===0) show(k); });
+  })();
+
+  // agent: plan -> act (tool call) -> observe -> replan -> approval gate.
+  // Tools are local stubs over the numbers already on this page. Nothing is sent or executed.
+  (function(){
+    var steps=document.getElementById('steps'), res=document.getElementById('result'),
+        goal=document.getElementById('goal'), runId=document.getElementById('runId'),
+        runBtn=document.getElementById('run'), gate=document.getElementById('gate'),
+        gateYes=document.getElementById('gateYes'), gateNo=document.getElementById('gateNo');
+    var timers=[], busy=false, pending=null;
+
+    var TOOLS={
+      query_ontology: function(c){ c.obs='14 object types resolved. 0 definitions agreed.'; },
+      pull_wheels:    function(c){ c.obs='legacy_crm returned 4,812 wheels.'; },
+      cross_check:    function(c){ c.obs='#zrl-land: 5 words, no punctuation, 0 follow-ups.'; },
+      score_cheese:   function(c){ c.conf=0.42; c.obs='Gaming 41% · Kitchen 0% · Refuses to specify 59%. Confidence '+c.conf.toFixed(2)+'.'; },
+      resurvey:       function(c){ c.conf=0.44; c.obs='Re-asked with a narrower question. Refuses to specify 59%, unchanged. Confidence '+c.conf.toFixed(2)+'.'; },
+      enumerate:      function(c){ c.obs='Applicants this quarter: 1,842 Fresh Curd · 1,103 Brie · 612 Gouda · 221 Parmigiano.'; },
+      check_tiers:    function(c){ c.obs='Cheddar excluded (banned by Kevin). Parmigiano: relocation not included.'; },
+      estimate_ship:  function(c){ c.obs='Stickers shipped this quarter: 0 (sticker shipping paused).'; },
+      draft:          function(c){ c.obs='Draft written. Not yet sent anywhere.'; },
+      route_kevin:    function(c){ c.obs='Queued for Kevin. Execution blocked until approval.'; }
+    };
+
+    // Each plan is a queue. A step may carry `after`, which can edit the queue based on what the tool observed.
+    var PLANS={
+      default:[
+        {t:'query_ontology', l:'Parse objective into ontology query'},
+        {t:'pull_wheels',   l:'Pull wheels from legacy_crm'},
+        {t:'cross_check',   l:'Cross-check against #zrl-land'},
+        {t:'score_cheese',  l:'Score "cheese" across 3 interpretations',
+          after:function(c,q){ if(c.conf<0.5) q.unshift({t:'resurvey', l:'Low confidence: re-survey with a narrower question', replan:true}); }},
+        {t:'draft',         l:'Draft recommendation'},
+        {t:'route_kevin',   l:'Route to Kevin for approval', gate:true}
+      ],
+      cheese:[
+        {t:'query_ontology', l:'Parse objective: "decide whether we want to cheese"'},
+        {t:'score_cheese',  l:'Query community survey (n = 4,812)',
+          after:function(c,q){ if(c.conf<0.5) q.unshift({t:'resurvey', l:'Low confidence: re-survey with a narrower question', replan:true}); }},
+        {t:'draft',         l:'Draft recommendation: yes, but say so in lowercase'},
+        {t:'route_kevin',   l:'Route to Kevin. Kevin is reviewing this page.', gate:true}
+      ],
+      ship:[
+        {t:'enumerate',     l:'Enumerate applicants this quarter'},
+        {t:'check_tiers',   l:'Check tiers against eligibility rules'},
+        {t:'estimate_ship', l:'Estimate stickers shipped'},
+        {t:'draft',         l:'Draft confirmation emails (4,812)'},
+        {t:'route_kevin',   l:'Route to Kevin. Emails are NOT sent without approval.', gate:true}
+      ]
+    };
+    var RESULTS={
+      default:function(c){ return 'Recommendation drafted at confidence '+c.conf.toFixed(2)+'. Pending Kevin.'; },
+      cheese:function(c){ return 'Recommendation: we want to cheese, in the sense the essay describes. Confidence '+c.conf.toFixed(2)+'. Definition unresolved. Pending Kevin.'; },
+      ship:function(){ return 'Plan drafted. Shipping is paused. Acknowledgement expected in 11 years. Nothing sent.'; }
+    };
+
+    function pick(q){ q=(q||'').toLowerCase(); if(q.indexOf('cheese')>-1&&q.indexOf('ship')===-1) return 'cheese'; if(q.indexOf('ship')>-1) return 'ship'; return 'default'; }
+    function later(fn,ms){ timers.push(setTimeout(fn,ms)); }
+    function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+    function addStep(label,call){
+      var li=document.createElement('li'); li.className='in run';
+      var name=document.createElement('span'); name.className='call'; name.textContent=call+' ';
+      li.appendChild(name); li.appendChild(document.createTextNode(label));
+      var obs=document.createElement('small'); obs.textContent='…'; li.appendChild(obs);
+      steps.appendChild(li); return li;
+    }
+    function settle(li,obs){ li.classList.remove('run'); li.classList.add('done'); li.querySelector('small').textContent=obs; }
+    function setGate(on){ gate.hidden=!on; }
+
+    function run(){
+      if(busy) return;
+      clearAll(); setGate(false); pending=null;
+      busy=true; runBtn.disabled=true;
+      var kind=pick(goal.value), ctx={conf:0.42}, queue=PLANS[kind].slice();
+      steps.innerHTML=''; res.textContent='Running…';
+      runId.textContent='cs-'+Math.floor(1000+Math.random()*9000);
+
+      function next(){
+        if(!queue.length){ return finish(); }
+        var s=queue.shift();
+        var li=addStep(s.l, s.replan?'replan':s.t+'()');
+        later(function(){
+          TOOLS[s.t](ctx);
+          settle(li, ctx.obs);
+          if(s.after) s.after(ctx,queue);
+          if(s.gate) return pause(kind,ctx);
+          next();
+        },650);
+      }
+      next();
+    }
+    function pause(kind,ctx){
+      pending={kind:kind,ctx:ctx};
+      busy=false; runBtn.disabled=false;
+      res.textContent='Paused for approval from Kevin. Nothing has been executed.';
+      setGate(true);
+    }
+    function finish(){
+      busy=false; runBtn.disabled=false;
+      res.textContent='Run complete with no approval gate reached.';
+    }
+    gateYes.addEventListener('click',function(){
+      if(!pending) return; setGate(false);
+      var li=addStep('Kevin approved (simulated). Recorded in trace.','approve()'); settle(li,'No action executed. Approval logged only.');
+      res.textContent=RESULTS[pending.kind](pending.ctx)+' Approved (simulated); nothing was executed.';
+      pending=null;
+    });
+    gateNo.addEventListener('click',function(){
+      if(!pending) return; setGate(false);
+      var li=addStep('Kevin rejected (simulated). Plan archived.','reject()'); settle(li,'No action executed. Run closed.');
+      res.textContent='Rejected (simulated). Plan archived. No action executed.';
+      pending=null;
+    });
+    runBtn.addEventListener('click',run);
+    [].forEach.call(document.querySelectorAll('.chip'),function(c){ c.addEventListener('click',function(){ goal.value=c.getAttribute('data-goal'); run(); }); });
+  })();
+
+  // apply form (stub)
+  document.getElementById('applyForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('n').value.trim(), p=document.getElementById('proj').value.trim();
+    var cheddar=/cheddar/i.test(document.getElementById('pun').value+' '+document.getElementById('why').value);
+    if(cheddar){ say('ERROR: Cheddar is not permitted to apply. Kevin has been notified.'); return; }
+    if(!n||!p){ say('ERROR: Name and project description required. The committee is particular.'); return; }
+    say('RECEIVED. Reference CH-'+Math.floor(1000+Math.random()*9000)+'. Nothing was sent anywhere. We want to cheese.');
+    e.target.reset();
+  });
+})();
+</script>
+</body>
+</html>
