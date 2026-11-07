@@ -684,6 +684,8 @@
  "ai.alpha.slackbot.skills": [
   "ai.alpha.slackbot.skills.activate",
   "ai.alpha.slackbot.skills.addToLibrary",
+  "ai.alpha.slackbot.skills.adminDeactivate",
+  "ai.alpha.slackbot.skills.adminReactivate",
   "ai.alpha.slackbot.skills.browse",
   "ai.alpha.slackbot.skills.canGrantAdminEditAccess",
   "ai.alpha.slackbot.skills.createShareLink",
@@ -691,6 +693,7 @@
   "ai.alpha.slackbot.skills.getAggregateMetrics",
   "ai.alpha.slackbot.skills.getBuiltinInfo",
   "ai.alpha.slackbot.skills.getBuiltinUsageCounts",
+  "ai.alpha.slackbot.skills.getDeactivationReason",
   "ai.alpha.slackbot.skills.grantAdminEditAccess",
   "ai.alpha.slackbot.skills.listDiscoverable",
   "ai.alpha.slackbot.skills.listEnabled",
@@ -807,8 +810,11 @@
  ],
  "api": [
   "api.benchmark",
+  "api.call",
+  "api.callExpedited",
   "api.features",
   "api.getFlannelHttpUrl",
+  "api.q",
   "api.statusSite",
   "api.test"
  ],
@@ -842,6 +848,9 @@
   "apps.alwaysAllowedInDms.info",
   "apps.alwaysAllowedInDms.remove"
  ],
+ "apps.approvals.requestedApps": [
+  "apps.approvals.requestedApps.list"
+ ],
  "apps.approvals.requests": [
   "apps.approvals.requests.create"
  ],
@@ -861,6 +870,10 @@
  "apps.certified": [
   "apps.certified.install",
   "apps.certified.list"
+ ],
+ "apps.channelGrants": [
+  "apps.channelGrants.list",
+  "apps.channelGrants.remove"
  ],
  "apps.connections": [
   "apps.connections.open"
