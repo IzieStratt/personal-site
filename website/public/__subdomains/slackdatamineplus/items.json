@@ -1,5 +1,12 @@
 [
  {
+  "id": "https://slackdatamineplus.izie.top/#2026-11-08",
+  "date": "2026-11-08",
+  "base": "4f5f2768eafd9909973e0022ee7f96d00fe344db",
+  "title": "Slack client changes 2026-11-08 (build a84662d2d135)",
+  "html": "<p>4 changes since 4f5f276.</p><details open><summary><strong>components: new (3)</strong></summary><ul><li>+ <code>BigModeSplitViewButton</code></li><li>+ <code>SlackbotPeekOpenInSplitView</code></li><li>+ <code>getSlackbotSplitViewTip</code></li></ul></details><details open><summary><strong>enums: new (1)</strong></summary><ul><li>+ <code>DIAGNOSTICS_REPORT_TOO_LARGE=diagnostics_report_too_large</code></li></ul></details>"
+ },
+ {
   "id": "https://slackdatamineplus.izie.top/#2026-11-07",
   "date": "2026-11-07",
   "base": "de4cae11e22f7cfeb2eda73430c5e85f6d96e755",
