@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>This Is generator (no ads, full res)</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root { color: #222; background: #fffdf7; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      body { width: min(60rem, calc(100% - 2rem)); margin: 4vh auto 8vh; padding: 0; overflow-wrap: anywhere; }
+      h1 { margin: 0 0 0.25rem; font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; }
+      .sub { margin: 0 0 1.25rem; }
+      a { color: #315f9d; }
+      .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); gap: 1.5rem; align-items: start; }
+      @media (max-width: 52rem) { .wrap { grid-template-columns: 1fr; } }
+      #stage { position: relative; width: 100%; aspect-ratio: 1 / 1; background: #eee; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.15); touch-action: none; }
+      #card { display: block; width: 100%; height: 100%; cursor: grab; border-radius: 6px; }
+      #card.dragging { cursor: grabbing; }
+      .pic-box { position: absolute; border: 2px dashed #e374d6; box-shadow: 0 0 0 1px rgba(0,0,0,.4); cursor: move; touch-action: none; box-sizing: border-box; }
+      .pic-box i { position: absolute; width: 14px; height: 14px; background: #e374d6; border: 2px solid #171211; border-radius: 3px; }
+      .pic-box i[data-handle="nw"] { left: -8px; top: -8px; cursor: nwse-resize; }
+      .pic-box i[data-handle="ne"] { right: -8px; top: -8px; cursor: nesw-resize; }
+      .pic-box i[data-handle="sw"] { left: -8px; bottom: -8px; cursor: nesw-resize; }
+      .pic-box i[data-handle="se"] { right: -8px; bottom: -8px; cursor: nwse-resize; }
+      #stage:not(.has-image) .pic-box { display: none; }
+      #hint { position: absolute; left: 0; right: 0; bottom: 0.5rem; text-align: center; font: 0.9rem/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #555; pointer-events: none; }
+      #stage.has-image #hint { display: none; }
+      .panel { display: grid; gap: 0.75rem; }
+      label { display: grid; gap: 0.25rem; font-size: 0.9rem; color: #444; }
+      input[type="text"], select { font: inherit; padding: 0.4rem 0.5rem; border: 1px solid #bbb; border-radius: 4px; background: #fff; width: 100%; box-sizing: border-box; }
+      .row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+      input[type="color"] { width: 2.4rem; height: 2rem; padding: 0; border: 1px solid #bbb; background: none; }
+      button { font: inherit; font-size: 0.95rem; padding: 0.5rem 0.9rem; border: 1px solid #315f9d; background: #315f9d; color: #fff; border-radius: 4px; cursor: pointer; }
+      button.ghost { background: #fff; color: #315f9d; }
+      .small { font-size: 0.9rem; color: #555; margin: 0; }
+      #status { min-height: 1.2em; font-size: 0.95rem; color: #2e7d32; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>This Is, but for anything</h1>
+      <p class="sub">No ads, no account, no watermark. Paste an image anywhere on this page (Ctrl/Cmd+V), drop one on the card, or pick a file. Drag the name or label to move it. Drag the dashed picture box to move the picture, or drag a corner to rescale it. Drag a corner to rescale from the opposite corner. Hold Shift to scale from the centre with the proportions kept.</p>
+
+      <div class="wrap">
+        <div id="stage">
+          <canvas id="card" aria-label="This Is preview"></canvas>
+          <div id="hint">paste an image here (Ctrl/Cmd+V)</div>
+        </div>
+
+        <div class="panel">
+          <label>Layout
+            <select id="style">
+              <option value="classic" selected>Old: Iconic template</option>
+              <option value="new">New: current Spotify look</option>
+            </select>
+          </label>
+          <label>Label
+            <input id="label" type="text" maxlength="30" value="THIS IS" autocomplete="off">
+          </label>
+          <label>Name
+            <input id="name" type="text" maxlength="60" value="Your Name" autocomplete="off">
+          </label>
+          <div class="row">
+            <label>Top colour <input id="topColor" type="color" value="#f6f9f6"></label>
+            <label>Bottom colour <input id="bottomColor" type="color" value="#efb54b"></label>
+          </div>
+          <label>Export size
+            <select id="exportSize">
+              <option value="1080">1080 × 1080</option>
+              <option value="2160" selected>2160 × 2160 (2×)</option>
+              <option value="3000">3000 × 3000 (max)</option>
+            </select>
+          </label>
+          <div class="row">
+            <button id="download">Download PNG</button>
+            <button id="copy" class="ghost">Copy image</button>
+          </div>
+          <div class="row">
+            <button id="pick" class="ghost">Choose picture…</button>
+            <button id="clear" class="ghost">Remove picture</button>
+            <button id="stretch" class="ghost">Stretch to fit</button>
+            <button id="reset" class="ghost">Reset layout</button>
+          </div>
+          <input id="file" type="file" accept="image/*" hidden>
+          <p id="status" role="status"></p>
+          <p class="small">Everything runs in your browser. Nothing is uploaded anywhere. Switching layout resets the text and picture positions and the colours to that layout's defaults.</p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (() => {
+      const FONT = "Poppins, Arial, sans-serif";
+      const canvas = document.getElementById("card");
+      const stage = document.getElementById("stage");
+      const $ = (id) => document.getElementById(id);
+      const els = {
+        style: $("style"), name: $("name"), label: $("label"), top: $("topColor"), bottom: $("bottomColor"),
+        exp: $("exportSize"), status: $("status"), file: $("file"), download: $("download"), copy: $("copy"),
+      };
+
+      // Two layouts. All numbers are fractions of the card (0..1). Positions are centres.
+      // "classic" is measured from the Kapwing template (1316px). "new" is measured from the current Spotify cards.
+      const STYLES = {
+        classic: {
+          split: 0.392,
+          label: { x: 0.5, y: 0.17 }, labelPx: 0.05, labelSpacing: 0.28, labelWeight: 600,
+          name: { x: 0.5, y: 0.248 }, namePx: 0.078, nameWeight: 800, nameMax: 0.9,
+          logo: { x: 0.0745, y: 0.0745, r: 0.038, disc: "#d5d7d4", bars: "top" },
+          cloud: true, gradient: true,
+          topColor: "#f6f9f6", bottomColor: "#efb54b",
+          photo: { x: 0, y: 0.33, w: 1, h: 0.67, align: "bottom" },
+        },
+        new: {
+          split: 0.5,
+          label: { x: 0.5, y: 0.1 }, labelPx: 0.1, labelSpacing: 0.05, labelWeight: 800,
+          name: { x: 0.5, y: 0.88 }, namePx: 0.095, nameWeight: 800, nameMax: 0.72,
+          logo: { x: 0.085, y: 0.085, r: 0.04, disc: "#000000", bars: "#ffffff" },
+          cloud: false, gradient: false,
+          topColor: "#ffffff", bottomColor: "#f4a94e",
+          photo: { x: 0.19, y: 0.18, w: 0.62, h: 0.62, align: "center" },
+        },
+      };
+
+      let style = "classic";
+      let layout = structuredClone(STYLES[style]);
+      let picture = null; // HTMLImageElement
+      // Picture box in card fractions (0..1). The image is stretched to fill it, so it can be rescaled freely.
+      let pic = { x: 0.1, y: 0.25, w: 0.8, h: 0.8 };
+      let hits = {};      // text hit areas, filled during render, in card coords (0..1)
+      let drag = null;
+
+      // Moves/resizes a box (fractions of the card). `handle` is "drag" or a corner: nw, ne, sw, se.
+      const MIN_SIDE = 0.03;
+      const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+      // Corner resize. Plain drag anchors the opposite corner. Shift scales both sides from the centre, keeping proportions.
+      function resizeBox(start, handle, dx, dy, keepAspect = false, fromCenter = false) {
+        if (handle === "drag") {
+          let l = start.x, t = start.y, r = start.x + start.w, b = start.y + start.h;
+          const w = r - l, h = b - t;
+          l = clamp(l + dx, 0, 1 - w); t = clamp(t + dy, 0, 1 - h);
+          r = l + w; b = t + h;
+          return { x: l, y: t, w: r - l, h: b - t };
+        }
+        const cx = start.x + start.w / 2, cy = start.y + start.h / 2;
+        const mult = fromCenter ? 2 : 1;
+        const left = handle.includes("w"), top = handle.includes("n");
+        // Anchor: the opposite corner, or the centre when scaling from the centre
+        const ax = fromCenter ? cx : (left ? start.x + start.w : start.x);
+        const ay = fromCenter ? cy : (top ? start.y + start.h : start.y);
+        const maxW = fromCenter ? 2 * Math.min(cx, 1 - cx) : (left ? ax : 1 - ax);
+        const maxH = fromCenter ? 2 * Math.min(cy, 1 - cy) : (top ? ay : 1 - ay);
+        const wRaw = left ? start.w - mult * dx : start.w + mult * dx;
+        const hRaw = top ? start.h - mult * dy : start.h + mult * dy;
+        let w, h;
+        if (keepAspect) {
+          const sx = wRaw / start.w, sy = hRaw / start.h;
+          let sc = Math.abs(sx - 1) > Math.abs(sy - 1) ? sx : sy;
+          sc = Math.max(sc, MIN_SIDE / Math.min(start.w, start.h));
+          sc = Math.min(sc, maxW / start.w, maxH / start.h);
+          w = start.w * sc; h = start.h * sc;
+        } else {
+          w = clamp(wRaw, MIN_SIDE, maxW);
+          h = clamp(hRaw, MIN_SIDE, maxH);
+        }
+        return {
+          x: fromCenter ? cx - w / 2 : (left ? ax - w : ax),
+          y: fromCenter ? cy - h / 2 : (top ? ay - h : ay),
+          w, h,
+        };
+      }
+
+      // ---- Undo / redo ----
+      // Each entry is a full snapshot of the card (layout, picture box, colours, text, picture).
+      const history = [];
+      let future = [];
+      function snapshot() {
+        return {
+          style, layout: structuredClone(layout), pic: { ...pic }, picture,
+          top: els.top.value, bottom: els.bottom.value, name: els.name.value, label: els.label.value,
+        };
+      }
+      function pushHistory() {
+        history.push(snapshot());
+        if (history.length > 200) history.shift();
+        future = [];
+      }
+      function restore(snap) {
+        style = snap.style;
+        els.style.value = snap.style;
+        layout = structuredClone(snap.layout);
+        pic = { ...snap.pic };
+        picture = snap.picture;
+        els.top.value = snap.top;
+        els.bottom.value = snap.bottom;
+        els.name.value = snap.name;
+        els.label.value = snap.label;
+        syncPicBox();
+        draw();
+      }
+      function undo() {
+        if (!history.length) return setStatus("Nothing to undo");
+        future.push(snapshot());
+        restore(history.pop());
+        setStatus("Undone");
+      }
+      function redo() {
+        if (!future.length) return setStatus("Nothing to redo");
+        history.push(snapshot());
+        restore(future.pop());
+        setStatus("Redone");
+      }
+      window.addEventListener("keydown", (e) => {
+        if (!(e.metaKey || e.ctrlKey) || e.key.toLowerCase() !== "z") return;
+        // Inside text fields and dropdowns, let the browser undo the typing itself
+        if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "")) return;
+        e.preventDefault();
+        if (e.shiftKey) redo(); else undo();
+      });
+
+      // DOM box on top of the canvas for the picture (same approach as googer's text box)
+      const picBox = document.createElement("div");
+      picBox.className = "pic-box";
+      picBox.title = "Drag to move, drag a corner to rescale";
+      picBox.dataset.handle = "drag";
+      for (const corner of ["nw", "ne", "sw", "se"]) {
+        const h = document.createElement("i");
+        h.dataset.handle = corner;
+        picBox.appendChild(h);
+      }
+      stage.appendChild(picBox);
+
+      function syncPicBox() {
+        picBox.style.left = `${pic.x * 100}%`;
+        picBox.style.top = `${pic.y * 100}%`;
+        picBox.style.width = `${pic.w * 100}%`;
+        picBox.style.height = `${pic.h * 100}%`;
+      }
+
+      const setStatus = (msg) => {
+        els.status.textContent = msg;
+        clearTimeout(setStatus.t);
+        if (msg) setStatus.t = setTimeout(() => (els.status.textContent = ""), 3000);
+      };
+
+      // Draw text with manual letter spacing (ctx.letterSpacing is not in every browser).
+      function spacedWidth(c, text, spacing) {
+        let w = 0;
+        for (const ch of text) w += c.measureText(ch).width + spacing;
+        return w - spacing;
+      }
+      function spacedText(c, text, cx, cy, spacing) {
+        const w = spacedWidth(c, text, spacing);
+        let x = cx - w / 2;
+        c.textAlign = "left";
+        for (const ch of text) {
+          c.fillText(ch, x, cy);
+          x += c.measureText(ch).width + spacing;
+        }
+        return w;
+      }
+
+      function mix(a, b, t) {
+        const pa = [1, 3, 5].map((i) => parseInt(a.slice(i, i + 2), 16));
+        const pb = [1, 3, 5].map((i) => parseInt(b.slice(i, i + 2), 16));
+        return "#" + pa.map((v, i) => Math.round(v + (pb[i] - v) * t).toString(16).padStart(2, "0")).join("");
+      }
+
+      // Renders the whole card at `size` px into `target` (a canvas).
+      function render(target, size) {
+        const G = STYLES[style];
+        const c = target.getContext("2d");
+        target.width = size;
+        target.height = size;
+        const topC = els.top.value, botC = els.bottom.value;
+        hits = {};
+
+        // Backgrounds
+        c.fillStyle = topC;
+        c.fillRect(0, 0, size, size * G.split + 1);
+        if (G.gradient) {
+          const grad = c.createLinearGradient(0, size * G.split, 0, size);
+          grad.addColorStop(0, botC);
+          grad.addColorStop(1, mix(botC, "#f5d35e", 0.5));
+          c.fillStyle = grad;
+        } else {
+          c.fillStyle = botC;
+        }
+        c.fillRect(0, size * G.split, size, size - size * G.split);
+
+        // Soft white cloud behind the title (classic only)
+        if (G.cloud) {
+          c.save();
+          c.translate(size * 0.5, size * 0.25);
+          c.scale(1, 0.28);
+          const cloud = c.createRadialGradient(0, 0, 0, 0, 0, size * 0.5);
+          cloud.addColorStop(0, "rgba(255,255,255,0.95)");
+          cloud.addColorStop(0.6, "rgba(255,255,255,0.8)");
+          cloud.addColorStop(1, "rgba(255,255,255,0)");
+          c.fillStyle = cloud;
+          c.beginPath(); c.arc(0, 0, size * 0.5, 0, Math.PI * 2); c.fill();
+          c.restore();
+        }
+
+        // Picture: stretched into the picture box
+        if (picture) {
+          c.drawImage(picture, pic.x * size, pic.y * size, pic.w * size, pic.h * size);
+        }
+
+        // Label (letter-spaced caps)
+        const labelText = (els.label.value || "").toUpperCase();
+        const labelPx = size * G.labelPx;
+        c.fillStyle = "#111111";
+        c.textBaseline = "middle";
+        c.font = `${G.labelWeight} ${labelPx}px ${FONT}`;
+        if (labelText) {
+          const spacing = labelPx * G.labelSpacing;
+          const lw = spacedWidth(c, labelText, spacing);
+          spacedText(c, labelText, layout.label.x * size, layout.label.y * size, spacing);
+          hits.label = { x0: (layout.label.x * size - lw / 2) / size, x1: (layout.label.x * size + lw / 2) / size, y0: layout.label.y - 0.04, y1: layout.label.y + 0.04 };
+        }
+
+        // Name: shrinks only if it is wider than the style allows
+        const nameText = els.name.value || " ";
+        let namePx = size * G.namePx;
+        const maxW = size * G.nameMax;
+        c.font = `${G.nameWeight} ${namePx}px ${FONT}`;
+        while (c.measureText(nameText).width > maxW && namePx > size * 0.04) {
+          namePx -= 2;
+          c.font = `${G.nameWeight} ${namePx}px ${FONT}`;
+        }
+        const nw = c.measureText(nameText).width;
+        c.textAlign = "center";
+        c.fillStyle = "#111111";
+        c.fillText(nameText, layout.name.x * size, layout.name.y * size);
+        hits.name = { x0: (layout.name.x * size - nw / 2) / size, x1: (layout.name.x * size + nw / 2) / size, y0: layout.name.y - namePx * 0.5 / size, y1: layout.name.y + namePx * 0.5 / size };
+
+        // Round Spotify-style logo. Always shown.
+        {
+          const L = G.logo;
+          const r = size * L.r;
+          const lx = L.x * size, ly = L.y * size;
+          c.fillStyle = L.disc;
+          c.beginPath(); c.arc(lx, ly, r, 0, Math.PI * 2); c.fill();
+          c.strokeStyle = L.bars === "top" ? topC : L.bars;
+          c.lineCap = "round";
+          // Three bars, fitted to pixels measured from the template logo.
+          // Each is y = A*x^2 + B*x + C in disc-radius units, drawn from x0 to x1.
+          const bars = [
+            { A: 0.274, B: 0.084, C: -0.375, x0: -0.68, x1: 0.6 },
+            { A: 0.419, B: 0.164, C: -0.061, x0: -0.6, x1: 0.5 },
+            { A: 0.425, B: 0.175, C: 0.274, x0: -0.54, x1: 0.39 },
+          ];
+          c.lineWidth = r * 0.18;
+          c.lineCap = "round";
+          for (const bar of bars) {
+            c.beginPath();
+            for (let i = 0; i <= 24; i++) {
+              const x = bar.x0 + (bar.x1 - bar.x0) * (i / 24);
+              const y = bar.A * x * x + bar.B * x + bar.C;
+              if (i === 0) c.moveTo(lx + x * r, ly + y * r);
+              else c.lineTo(lx + x * r, ly + y * r);
+            }
+            c.stroke();
+          }
+        }
+      }
+
+      // Preview: redraw the visible canvas at its CSS pixel size (×1.5 for crispness)
+      function draw() {
+        const px = Math.round(stage.clientWidth * (window.devicePixelRatio || 1) * 1.5) || 900;
+        render(canvas, Math.min(px, 2000));
+        stage.classList.toggle("has-image", !!picture);
+      }
+
+      // Default picture box for the current layout: contain-fit into the photo area, undistorted.
+      function defaultPicBox(img) {
+        const P = STYLES[style].photo;
+        const a = img.naturalWidth / img.naturalHeight;
+        let w = P.w, h = w / a;
+        if (h > P.h) { h = P.h; w = h * a; }
+        const x = P.x + (P.w - w) / 2;
+        const y = P.align === "bottom" ? P.y + P.h - h : P.y + (P.h - h) / 2;
+        return { x, y, w, h };
+      }
+
+      // ---- Loading pictures ----
+      function loadPicture(blob, source) {
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.onload = () => {
+          pushHistory();
+          picture = img;
+          pic = defaultPicBox(img);
+          syncPicBox();
+          draw();
+          setStatus(source ? `Picture added (${source})` : "Picture added");
+        };
+        img.onerror = () => setStatus("That file is not an image I can read.");
+        img.src = url;
+      }
+
+      // Paste anywhere on the page. Images become the picture; plain text sets the name
+      // unless the user is typing in a field.
+      window.addEventListener("paste", (e) => {
+        const items = [...(e.clipboardData?.items || [])];
+        const imgItem = items.find((i) => i.type.startsWith("image/"));
+        if (imgItem) {
+          e.preventDefault();
+          loadPicture(imgItem.getAsFile(), "pasted");
+          return;
+        }
+        const text = e.clipboardData?.getData("text/plain")?.trim();
+        const typing = document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+        if (text && !typing) {
+          e.preventDefault();
+          pushHistory();
+          els.name.value = text.split("\n")[0].slice(0, 60);
+          draw();
+          setStatus("Name set from clipboard");
+        }
+      });
+
+      // Drag a picture file onto the page
+      window.addEventListener("dragover", (e) => e.preventDefault());
+      window.addEventListener("drop", (e) => {
+        const f = [...(e.dataTransfer?.files || [])].find((x) => x.type.startsWith("image/"));
+        if (f) { e.preventDefault(); loadPicture(f, "dropped"); }
+      });
+
+      els.file.addEventListener("change", () => {
+        const f = els.file.files[0];
+        if (f) loadPicture(f, "chosen");
+        els.file.value = "";
+      });
+      $("pick").addEventListener("click", () => els.file.click());
+      $("clear").addEventListener("click", () => { pushHistory(); picture = null; draw(); setStatus("Picture removed"); });
+      // Stretch the picture to the whole photo area for the current layout (distorts if needed)
+      $("stretch").addEventListener("click", () => {
+        if (!picture) return setStatus("Add a picture first");
+        pushHistory();
+        const P = STYLES[style].photo;
+        pic = { x: P.x, y: P.y, w: P.w, h: P.h };
+        syncPicBox();
+        draw();
+        setStatus("Stretched to fit");
+      });
+      $("reset").addEventListener("click", () => {
+        pushHistory();
+        layout = structuredClone(STYLES[style]);
+        if (picture) pic = defaultPicBox(picture);
+        syncPicBox();
+        draw();
+        setStatus("Layout reset");
+      });
+
+      // Switching layout: take that layout's text/logo positions, colours and picture spot.
+      els.style.addEventListener("change", () => {
+        pushHistory();
+        style = els.style.value;
+        const G = STYLES[style];
+        layout = structuredClone(G);
+        els.top.value = G.topColor;
+        els.bottom.value = G.bottomColor;
+        if (picture) pic = defaultPicBox(picture);
+        syncPicBox();
+        draw();
+        setStatus(style === "new" ? "New Spotify layout" : "Kapwing template layout");
+      });
+
+      // ---- Dragging text on the card ----
+      function toCard(e) {
+        const r = canvas.getBoundingClientRect();
+        return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
+      }
+      function hitAt(p) {
+        const inside = (h) => h && p.x >= h.x0 && p.x <= h.x1 && p.y >= h.y0 && p.y <= h.y1;
+        if (inside(hits.name)) return "name";
+        if (inside(hits.label)) return "label";
+        return null;
+      }
+      canvas.addEventListener("pointerdown", (e) => {
+        const p = toCard(e);
+        const which = hitAt(p);
+        if (!which) return;
+        pushHistory();
+        canvas.setPointerCapture(e.pointerId);
+        canvas.classList.add("dragging");
+        drag = { which, start: p, orig: structuredClone(layout[which]) };
+        e.preventDefault();
+      });
+      canvas.addEventListener("pointermove", (e) => {
+        const p = toCard(e);
+        if (!drag) {
+          canvas.style.cursor = hitAt(p) ? "grab" : "default";
+          return;
+        }
+        const dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+        const target = layout[drag.which];
+        target.x = Math.min(1.2, Math.max(-0.2, drag.orig.x + dx));
+        target.y = Math.min(1.2, Math.max(-0.2, drag.orig.y + dy));
+        draw();
+      });
+      const endDrag = () => { drag = null; canvas.classList.remove("dragging"); };
+      canvas.addEventListener("pointerup", endDrag);
+      canvas.addEventListener("pointercancel", endDrag);
+
+      // Picture box: drag to move, corners to rescale. Each handle moves only its own edges.
+      picBox.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        pushHistory();
+        const handle = event.target.dataset.handle || "drag";
+        const rect = stage.getBoundingClientRect();
+        const start = { ...pic };
+        const startX = event.clientX, startY = event.clientY;
+        picBox.setPointerCapture(event.pointerId);
+        const move = (e) => {
+          const dx = (e.clientX - startX) / rect.width;
+          const dy = (e.clientY - startY) / rect.height;
+          pic = resizeBox(start, handle, dx, dy, e.shiftKey, e.shiftKey);
+          syncPicBox();
+          draw();
+        };
+        const up = () => {
+          picBox.removeEventListener("pointermove", move);
+          picBox.removeEventListener("pointerup", up);
+          picBox.removeEventListener("pointercancel", up);
+        };
+        picBox.addEventListener("pointermove", move);
+        picBox.addEventListener("pointerup", up);
+        picBox.addEventListener("pointercancel", up);
+      });
+
+      // ---- Controls ----
+      for (const el of [els.name, els.label, els.top, els.bottom]) {
+        el.addEventListener("focus", pushHistory);
+        el.addEventListener("input", draw);
+      }
+
+      function exportBlob() {
+        const size = parseInt(els.exp.value, 10);
+        const off = document.createElement("canvas");
+        render(off, size);
+        return new Promise((resolve) => off.toBlob(resolve, "image/png"));
+      }
+      function fileName() {
+        const slug = (els.name.value || "this-is").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return `this-is-${slug || "card"}.png`;
+      }
+
+      els.download.addEventListener("click", async () => {
+        const blob = await exportBlob();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName();
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        setStatus("Downloaded");
+      });
+
+      els.copy.addEventListener("click", async () => {
+        try {
+          const blob = await exportBlob();
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+          setStatus("Copied to clipboard");
+        } catch {
+          setStatus("Copy isn't allowed here. Use Download instead.");
+        }
+      });
+
+      // Init
+      layout = structuredClone(STYLES[style]);
+      syncPicBox();
+      draw();
+      Promise.all([
+        document.fonts?.load(`800 100px ${FONT}`),
+        document.fonts?.load(`600 100px ${FONT}`),
+      ]).then(draw).catch(() => {});
+      window.addEventListener("resize", draw);
+    })();
+    </script>
+  </body>
+</html>
