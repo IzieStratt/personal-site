@@ -11,3 +11,4 @@
 - [DeGoogledDict](https://vs.izie.top/dgd/): a dictionary card in the style of Google's "define" result, without AI text. Wiktionary or Merriam-Webster definitions, Datamuse synonyms, Wikipedia links.
 - [Chesentir](https://vs.izie.top/Chesentir/): a fictional cheese platform. Satire; simulated agent and metrics.
 - [ChopChop](https://vs.izie.top/ChopChop/): ChopChop YSWS parody landing page. Nothing is submitted anywhere.
+- [This Is generator](https://vs.izie.top/this-is/): Spotify "This Is" style card maker. Runs fully in the browser; no uploads.
