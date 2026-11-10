@@ -704,6 +704,7 @@
   "ai.alpha.slackbot.skills.recordView",
   "ai.alpha.slackbot.skills.redeemShareLink",
   "ai.alpha.slackbot.skills.removeFromLibrary",
+  "ai.alpha.slackbot.skills.requestReactivation",
   "ai.alpha.slackbot.skills.resolveBuiltinReferences",
   "ai.alpha.slackbot.skills.revokeShareLinks",
   "ai.alpha.slackbot.skills.search",
@@ -1252,6 +1253,10 @@
  ],
  "client.tbd.codeChannels": [
   "client.tbd.codeChannels.open"
+ ],
+ "client.tbd.facts": [
+  "client.tbd.facts.flag",
+  "client.tbd.facts.list"
  ],
  "codeChannels": [
   "codeChannels.action",
@@ -2805,6 +2810,7 @@
  ],
  "sfdc.fields": [
   "sfdc.fields.create",
+  "sfdc.fields.delete",
   "sfdc.fields.edit",
   "sfdc.fields.listEligible",
   "sfdc.fields.updateVisibility"
