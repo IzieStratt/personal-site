@@ -340,6 +340,22 @@ async function readProof(env, channel, code, sinceMs) {
   return { status: 'ok', author, ts: matches[0].ts }
 }
 
+// The channel every verified member is added to on activation (the bot must be
+// able to invite there: channels:manage scope, and it must be a member).
+const HMOJIS_CHANNEL = 'C0C2N9C8QA2'
+
+async function inviteToHmojisChannel(env, userId) {
+  if (!userId) return 'no_recipient'
+  if (!env.HMOJI_SLACK_BOT_TOKEN) return 'slack_not_configured'
+  try {
+    await slackCall(env, 'conversations.invite', { channel: HMOJIS_CHANNEL, users: userId })
+    return null
+  } catch (err) {
+    if (err?.code === 'already_in_channel') return null
+    return err?.code ?? 'slack_error'
+  }
+}
+
 /** Best-effort DM from the bot; needs chat:write, silently skipped without it. */
 /** DM from the bot. Returns null when sent, or why it wasn't. Never throws. */
 async function notifySlack(env, userId, text, blocks) {
@@ -972,6 +988,7 @@ async function applyProof(request, env, ctx, token, rec, ch, author, ci) {
     await env.HMOJI_TOKENS.put(`~owner:${author}`, token)
     if (fresh.invitedBy) await env.HMOJI_TOKENS.delete(`~inv:${fresh.invitedBy.id}:${fresh.id}`)
     ctx.waitUntil(logEvent(env, fresh.id, 'activated', attempt))
+    ctx.waitUntil(inviteToHmojisChannel(env, author).then((err) => err && logEvent(env, fresh.id, 'channel_invite_failed', { ...attempt, reason: err })))
     if (fresh.invitedBy?.slackUserId) {
       // a plain heads-up for the inviter; no client-side action follows it
       ctx.waitUntil(
