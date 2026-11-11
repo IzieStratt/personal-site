@@ -676,6 +676,9 @@
  "ai.alpha.slackbot.searchAnswerThreads": [
   "ai.alpha.slackbot.searchAnswerThreads.create"
  ],
+ "ai.alpha.slackbot.skillCategories": [
+  "ai.alpha.slackbot.skillCategories.list"
+ ],
  "ai.alpha.slackbot.skillSets": [
   "ai.alpha.slackbot.skillSets.addToLibrary",
   "ai.alpha.slackbot.skillSets.listEnabled",
@@ -750,6 +753,7 @@
   "ai.alpha.surfaces.getSourcesShared",
   "ai.alpha.surfaces.listVersions",
   "ai.alpha.surfaces.openCardComment",
+  "ai.alpha.surfaces.rename",
   "ai.alpha.surfaces.restoreVersion",
   "ai.alpha.surfaces.setSourcesShared"
  ],
@@ -1388,6 +1392,9 @@
  ],
  "conversations.externalInvitePermissions": [
   "conversations.externalInvitePermissions.set"
+ ],
+ "conversations.joinRequests": [
+  "conversations.joinRequests.list"
  ],
  "conversations.leave": [
   "conversations.leave.recommendations"
@@ -3504,7 +3511,8 @@
  "workflows.ai": [
   "workflows.ai.create",
   "workflows.ai.feedback",
-  "workflows.ai.generate"
+  "workflows.ai.generate",
+  "workflows.ai.generateDetails"
  ],
  "workflows.channelOptIn": [
   "workflows.channelOptIn.list",
