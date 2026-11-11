@@ -21,7 +21,6 @@ body {
   font-display: swap;
 }
 
-/* the looping video (green already removed in the file), covering the whole screen */
 #video {
   position: fixed;
   inset: 0;
@@ -29,14 +28,13 @@ body {
   height: 100vh;
   height: 100dvh;
   object-fit: cover;
-  opacity: 0.8; /* a bit see-through */
-  z-index: 2; /* above the green wash and map, so the cat is not tinted */
-  transform: translateZ(0); /* its own compositing layer, so it doesn't repaint/flicker with the page */
+  opacity: 0.8;
+  z-index: 2;
+  transform: translateZ(0);
   backface-visibility: hidden;
   pointer-events: none;
 }
 
-/* green wash over the video; the visitor's map sits under it at 50% opacity */
 .green {
   position: fixed;
   inset: 0;
@@ -59,8 +57,6 @@ body {
   opacity: 0.5;
 }
 
-/* radar scope centred on the visitor's location, the way a real PPI display looks:
-   a dark disc, range rings, a crosshair, a sweep line with a fading trail, and a blip */
 .radar {
   position: relative;
   width: 0;
@@ -109,8 +105,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* the sweep: a wedge that is bright right behind the leading edge and fades back around the disc,
-   with a thin bright line at the leading edge. The whole thing turns around the centre. */
 .radar .sweep {
   width: 300px;
   height: 300px;
@@ -140,7 +134,6 @@ body {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* the blip at the centre lights up each time the sweep passes, then fades */
 .radar .blip {
   width: 8px;
   height: 8px;
@@ -156,8 +149,6 @@ body {
   100% { opacity: 0.45; }
 }
 
-/* film grain over the map and video. Static (not animated) so the whole screen isn't
-   repainted over and over, which is what was making it flicker. */
 .grain {
   position: absolute;
   inset: 0;
@@ -166,7 +157,6 @@ body {
   background-size: 3px 3px;
 }
 
-/* OpenStreetMap-style credit line (Esri credit here), kept small and out of the way */
 #map .leaflet-container {
   background: transparent;
   font-family: sans-serif;
@@ -182,10 +172,9 @@ body {
   color: #fff !important;
 }
 
-/* the "Normal Site" button, styled like the GitHub button on the main page */
 .normal-link {
   position: fixed;
-  bottom: 1rem; /* bottom-left corner; the lizard rises above the button, so it has room */
+  bottom: 1rem;
   left: 1rem;
   z-index: 3;
   display: inline-block;
@@ -201,7 +190,7 @@ body {
   padding: 0.55rem 0.85rem;
   border: 2px solid var(--fg);
   border-radius: 0.75rem;
-  background: transparent; /* lets the lizard's face show through behind the button */
+  background: transparent;
   font-size: 1.35rem;
   line-height: 1.5;
   transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
@@ -211,7 +200,7 @@ body {
 .normal-link:focus-visible .normal-face {
   background: var(--fg);
   color: #000;
-  transform: translateY(-2px) rotate(1deg); /* tilts to the right on hover */
+  transform: translateY(-2px) rotate(1deg);
 }
 
 .normal-link:focus-visible {
@@ -219,11 +208,6 @@ body {
   outline-offset: 3px;
 }
 
-/* the lizard, green screened (keyed out in index.html), sitting on the button and pressing it */
-/* the lizard lives inside the button's link and sits BEHIND the button face (z-index -1 inside the
-   link's stacking context). Width 144px = 400px GIF at 0.36 scale, so it is 95px tall.
-   Its bottom-middle sits on the face's top-left corner: the link has 6px padding, so the face
-   starts at (6px, 6px). left = 6 - 72, top = 6 - 95. */
 .lizard {
   position: absolute;
   top: -60px;
@@ -239,7 +223,6 @@ body {
   animation: press 1.2s ease-in-out;
 }
 
-/* hand comes down onto the button, then goes back up */
 @keyframes press {
   0%   { transform: translate(0, 0); }
   30%  { transform: translate(8px, 10px); }
@@ -260,8 +243,6 @@ body {
   }
 }
 
-/* human check cover: copy of meowing.au's Cloudflare-style page, dark theme.
-   sizes are meowing.au's own rem values with html at 14px */
 .gate {
   position: fixed;
   inset: 0;
@@ -408,7 +389,6 @@ body {
 .gate .footer #footer-text { text-align: center; }
 .gate .footer a { color: #fff; text-decoration: none; }
 
-/* the four-dot spinner, as on meowing.au */
 .gate .lds-ring { display: inline-block; position: relative; width: 40px; height: 40px; }
 .gate .lds-ring div {
   box-sizing: border-box;
@@ -426,6 +406,5 @@ body {
 .gate .lds-ring div:nth-child(3) { animation-delay: -0.15s; }
 @keyframes gate-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* small ring that replaces the checkbox while verifying: same 24px box, not the 40px page spinner */
 .gate .spinner .lds-ring { width: 24px; height: 24px; }
 .gate .spinner .lds-ring div { width: 24px; height: 24px; margin: 0; border-width: 2px; }

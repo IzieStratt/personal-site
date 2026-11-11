@@ -9,11 +9,9 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <!-- the video with its green already removed (transparent WebM made from the Maxwell clip). -->
     <video id="video" src="/cdn/maxwell-keyed.webm"
       loop muted playsinline preload="auto"></video>
 
-    <!-- green wash with the visitor's location map under it at 50% opacity -->
     <div class="green" aria-hidden="true">
       <div id="map"></div>
       <div class="grain"></div>
@@ -23,13 +21,10 @@
       <span class="normal-face">
         <span>Normal Site</span>
       </span>
-      <!-- lizard GIF (its black is already transparent). Positioned so its hand tip sits on the button's top-left corner. -->
       <img class="lizard" id="lizard" src="/cdn/lizard-loop.gif" alt="" aria-hidden="true">
     </a>
 
 
-    <!-- human check cover: a copy of meowing.au's Cloudflare-style page (layout, text, timings).
-         It checks nothing. The click on "Verify you are human" is what starts the video, fullscreen and sound. -->
     <div class="gate" id="gate" role="main">
       <div class="main-wrapper">
         <div class="main-content">
@@ -106,7 +101,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
-      // meowing.au-style check: same steps and timings, with crossfades between each state
       (function () {
         function rayId() {
           var chars = 'abcdef0123456789', r = '';
@@ -132,7 +126,6 @@
         var security = document.getElementById('security-message');
         var success = document.getElementById('success-message');
 
-        // show/hide with a fade; the element is removed from layout once hidden
         function fadeOut(el, after) {
           el.classList.add('fading');
           setTimeout(function () {
@@ -200,9 +193,6 @@
         var lizard = document.getElementById('lizard');
         var green = document.querySelector('.green');
 
-        // green screen is about (0, 214, 0). "dominance" = how much greener than the other two channels.
-        // fully green -> transparent; edges -> see-through; spill is pulled back toward grey.
-        // used for the lizard image (the video is keyed in the file itself).
         function keyGreen(d) {
           for (var i = 0; i < d.length; i += 4) {
             var r = d[i], g = d[i + 1], b = d[i + 2];
@@ -216,10 +206,6 @@
           }
         }
 
-        // sound + fullscreen only start from the captcha click (see the check above)
-
-        // --- location: visitor's approximate position from their IP, drawn as a dark map
-        // hackclub/ip sends no CORS header, so browsers block it; ipapi.co is the fallback
         function locate() {
           return fetch('https://ip.hackclub.com/ip')
             .then(function (r) { return r.json(); })
@@ -240,16 +226,14 @@
               scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
               keyboard: false, touchZoom: false, inertia: false
             }).setView([lat, lon], 14);
-            // Esri dark gray base tiles (no key; OSM's servers block this kind of use)
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 16,
               attribution: 'Tiles &copy; Esri'
             }).addTo(map);
             green.classList.add('has-map');
           })
-          .catch(function () { /* no location: just the green */ });
+          .catch(function () { });
 
-        // --- lizard: the GIF already has its green removed; it plays as is and presses the button
       })();
     </script>
   </body>
