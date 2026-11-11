@@ -192,8 +192,9 @@ export async function handleBlogAdmin(request, env, url) {
   if (p === '/admin') return Response.redirect(`${url.origin}/admin/`, 301)
   if (p === '/admin/' || p.startsWith('/admin/')) {
     // the editor page itself is public static HTML; everything it does goes through the signed-in API below
-    const asset = p === '/admin/' ? 'index.html' : p.slice('/admin/'.length)
+    const asset = p === '/admin/' ? '' : p.slice('/admin/'.length)
     if (asset.includes('..')) return json({ error: 'not found' }, 404)
+    // the static server serves a folder's index at its trailing-slash path (asking for index.html redirects there)
     return env.ASSETS.fetch(new Request(new URL(`/__admin/blog/${asset}`, url), request))
   }
   if (p.startsWith('/api/auth/')) {
