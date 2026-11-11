@@ -11,6 +11,7 @@
   <body>
     <video id="video" src="/cdn/maxwell-keyed.webm"
       loop muted playsinline preload="auto"></video>
+    <audio id="music" src="/cdn/maxwell.mp3" muted preload="auto"></audio>
 
     <div class="green" aria-hidden="true">
       <div id="map"></div>
@@ -179,6 +180,11 @@
             video.volume = 1;
             var p = video.play();
             if (p && p.catch) p.catch(function () {});
+            var music = document.getElementById('music');
+            music.muted = false;
+            music.volume = 1;
+            var mp = music.play();
+            if (mp && mp.catch) mp.catch(function () {});
             try {
               var el = document.documentElement;
               var req = el.requestFullscreen || el.webkitRequestFullscreen;
