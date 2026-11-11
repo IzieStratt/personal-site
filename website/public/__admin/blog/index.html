@@ -3,88 +3,79 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>write - blog</title>
+    <meta name="robots" content="noindex">
+    <title>write · blog</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/style.css">
     <style>
-      main { width: min(52rem, calc(100% - 3rem)); }
-      form { display: grid; gap: 1rem; }
-      label { display: grid; gap: 0.2rem; }
-      label > span, .hint { font-size: 1rem; color: #5c5346; }
-      ol.posts { list-style: none; padding: 0; display: grid; gap: 0.4rem; }
-      ol.posts li { display: flex; gap: 1rem; align-items: baseline; }
-      ol.posts time { color: #5c5346; flex: none; min-width: 7.5rem; }
-      ol.posts a { color: #a8442a; text-underline-offset: 0.15em; }
-      ol.posts a:visited { color: #7b3f61; }
-      ol.posts a:hover { color: #6e2410; }
-      .dropdown { position: relative; display: flex; align-items: center; gap: 0.6rem; }
-      .dropdown > span { font-size: 1rem; color: #5c5346; }
-      #mode { width: 17.5rem; text-align: left; padding-right: 2rem; position: relative; border-width: 2px; border-radius: 0.75rem; background: #fff; }
-      .dd-box { position: relative; }
-      #mode::after { content: ""; position: absolute; right: 0.8rem; top: 50%; width: 0.45rem; height: 0.45rem; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-70%) rotate(45deg); }
-      #mode:hover, #mode:focus-visible, #mode[aria-expanded="true"] { background: #fff; color: #222; }
-      #mode:focus-visible { outline: 2px solid #315f9d; outline-offset: 2px; }
-      #mode-list { position: absolute; top: calc(100% + 0.3rem); left: 0; right: 0; margin: 0; padding: 0.3rem; list-style: none; z-index: 5; box-sizing: border-box; border: 2px solid #222; border-radius: 0.75rem; background: #fff; outline: none; }
-      #mode-list[hidden] { display: none; }
-      #mode-list [role="option"] { padding: 0.3rem 0.6rem; border-radius: 0.5rem; cursor: pointer; white-space: nowrap; }
-      #mode-list [role="option"].active { background: #eee9dc; }
-      #mode-list [role="option"][aria-selected="true"]::before { content: ""; display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.5rem; border-radius: 50%; background: currentColor; }
-      #mode-list [role="option"]:not([aria-selected="true"])::before { content: ""; display: inline-block; width: 0.45rem; margin-right: 0.5rem; }
-      ol.moderation { list-style: none; padding: 0; display: grid; gap: 0.8rem; }
-      ol.moderation li { padding: 0.7rem 1rem; border-radius: 1rem; background: #f1ebdd; }
-      ol.moderation li.pending { outline: 2px solid #a8442a; }
-      ol.moderation .meta { font-size: 1rem; color: #5c5346; margin: 0 0 0.3rem; }
-      ol.moderation .body { margin: 0 0 0.5rem; white-space: pre-wrap; overflow-wrap: anywhere; }
-      ol.moderation .actions { gap: 0.4rem; }
-      fieldset.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0; padding: 0; border: 0; }
-      fieldset.pills legend { float: left; padding: 0; margin-right: 0.5rem; font-size: 1rem; color: #5c5346; }
+      /* editor: the site's colours, a plain readable UI font (the script font is for the site, not for forms) */
+      :root { --line: color-mix(in srgb, var(--fg) 22%, transparent); --muted: color-mix(in srgb, var(--fg) 62%, transparent); --accent: var(--focus); --bad: #b3361f; --card: color-mix(in srgb, var(--fg) 4%, var(--bg)); }
+      body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 16px; line-height: 1.5; }
+      main { width: min(56rem, calc(100% - 2rem)); margin: 2.5rem auto 4rem; }
+      h1 { font-size: 1.6rem; margin: 0 0 1.25rem; font-weight: 650; letter-spacing: -0.01em; }
+      h2 { font-size: 1.05rem; margin: 2.5rem 0 0.75rem; font-weight: 650; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+      nav { margin: 0 0 1.5rem; }
+      nav ul { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+      nav a, nav button { font: inherit; font-size: 0.9rem; padding: 0.3rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; color: var(--fg); background: transparent; text-decoration: none; cursor: pointer; }
+      nav a:hover, nav button:hover { border-color: var(--fg); }
+      form { display: grid; gap: 1.1rem; }
+      label { display: grid; gap: 0.35rem; }
+      label > span, .hint { font-size: 0.9rem; color: var(--muted); }
+      .hint { margin: 0; }
+      input[type="text"], input[type="password"], input[type="datetime-local"], textarea {
+        box-sizing: border-box; width: 100%; padding: 0.55rem 0.7rem; border: 1px solid var(--line); border-radius: 0.5rem;
+        background: var(--card); color: var(--fg); font: inherit;
+      }
+      input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+      textarea { min-height: 24rem; resize: vertical; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9rem; line-height: 1.55; }
+      textarea.drop { border-style: dashed; border-color: var(--accent); }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+      .row > label { min-width: 0; }
+      .check { display: flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+      button { font: inherit; font-size: 0.95rem; padding: 0.45rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--fg); cursor: pointer; }
+      button:hover { border-color: var(--fg); }
+      button.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+      button.primary:hover { opacity: 0.88; }
+      button:disabled { opacity: 0.5; cursor: default; }
+      a { color: var(--accent); }
+      #status { min-height: 1.2em; margin: 0; font-size: 0.95rem; }
+      #status.bad, #comments-status.bad, #signin-status.bad { color: var(--bad); }
+      fieldset.pills { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; margin: 0; padding: 0; border: 0; }
+      fieldset.pills legend { float: left; padding: 0; margin-right: 0.6rem; font-size: 0.9rem; color: var(--muted); }
       fieldset.pills label { display: block; }
-      fieldset.pills input { position: absolute; opacity: 0; }
-      fieldset.pills span { display: inline-block; padding: 0.2rem 0.9rem; border: 1px solid #222; border-radius: 999px; cursor: pointer; }
-      fieldset.pills input:checked + span { background: #222; color: #fffdf7; }
-      fieldset.pills input:focus-visible + span { outline: 2px solid #315f9d; outline-offset: 2px; }
-      .hint a { color: #a8442a; }
-      .hint code { color: inherit; }
-      input[type="text"], input[type="datetime-local"], textarea {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0.4rem 0.7rem;
-        border: 2px solid #222;
-        border-radius: 0.75rem;
-        background: #fff;
-        color: #222;
-        font: inherit;
-      }
-      textarea {
-        min-height: 26rem;
-        resize: vertical;
-        font-family: ui-monospace, "SF Mono", Menlo, monospace;
-        font-size: 0.85rem;
-        line-height: 1.5;
-      }
-      textarea.drop { background: #eee9dc; border-style: dashed; }
-      .row { display: flex; flex-wrap: wrap; gap: 1rem; }
-      .row > label { flex: 1 1 14rem; }
-      .check { display: flex; align-items: center; gap: 0.5rem; }
-      .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
-      button {
-        padding: 0.35rem 0.9rem;
-        border: 1px solid #222;
-        border-radius: 999px;
-        background: transparent;
-        color: #222;
-        font: inherit;
-        cursor: pointer;
-      }
-      button:hover, button:focus-visible { background: #222; color: #fffdf7; }
-      button.primary { background: #222; color: #fffdf7; }
-      button.primary:hover { background: #594733; border-color: #594733; }
-      button:disabled { opacity: 0.5; cursor: wait; }
-      .posts a.draft::after { content: " (draft)"; opacity: 0.6; }
-      #status { min-height: 1.5em; margin: 0; }
-      #status.bad { color: #a33; }
-      #status ul { margin: 0.3rem 0 0; padding-left: 1.2rem; font-size: 1rem; }
-      h2 { margin-bottom: 0.4rem; }
+      fieldset.pills input { position: absolute; opacity: 0; pointer-events: none; }
+      fieldset.pills span { display: inline-block; padding: 0.25rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; font-size: 0.9rem; color: var(--fg); }
+      fieldset.pills input:checked + span { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+      fieldset.pills input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .dropdown { position: relative; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+      .dropdown > span { font-size: 0.9rem; color: var(--muted); }
+      .dd-box { position: relative; }
+      #mode { min-width: 16rem; text-align: left; padding-right: 2.2rem; position: relative; }
+      #mode::after { content: ""; position: absolute; right: 0.9rem; top: 50%; width: 0.4rem; height: 0.4rem; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); }
+      #mode-list { position: absolute; top: calc(100% + 0.3rem); left: 0; right: 0; margin: 0; padding: 0.3rem; list-style: none; z-index: 5; box-sizing: border-box; border: 1px solid var(--line); border-radius: 0.6rem; background: var(--bg); outline: none; box-shadow: 0 6px 24px rgb(0 0 0 / 0.12); }
+      #mode-list[hidden] { display: none; }
+      #mode-list [role="option"] { padding: 0.35rem 0.6rem; border-radius: 0.4rem; cursor: pointer; white-space: nowrap; font-size: 0.95rem; }
+      #mode-list [role="option"].active { background: var(--card); }
+      #mode-list [role="option"][aria-selected="true"]::before { content: "• "; }
+      ol.moderation { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+      ol.moderation li { padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 0.6rem; background: var(--card); }
+      ol.moderation li.pending { border-color: var(--accent); }
+      ol.moderation .meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.35rem; }
+      ol.moderation .body { margin: 0 0 0.6rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      ol.moderation .actions { gap: 0.4rem; }
+      ol.moderation .actions button { padding: 0.25rem 0.7rem; font-size: 0.85rem; }
+      ol.posts { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; }
+      ol.posts li { display: flex; gap: 1rem; align-items: baseline; }
+      ol.posts time { color: var(--muted); flex: none; min-width: 6.5rem; font-size: 0.9rem; }
+      ol.posts a.draft { font-style: italic; }
+      #signin { max-width: 30rem; }
+      #signin h2 { border: 0; padding: 0; margin: 0 0 0.5rem; }
+      #signin-hint, #comments-status { margin: 0.25rem 0 0.75rem; }
+      #signin .actions { margin-top: 0.75rem; }
+      #signin-status { font-size: 0.95rem; min-height: 1.2em; }
+      @media (prefers-reduced-motion: no-preference) { button, input, textarea { transition: border-color 120ms ease, opacity 120ms ease; } }
     </style>
   </head>
   <body>
