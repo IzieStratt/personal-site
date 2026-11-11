@@ -61,6 +61,9 @@
   "vars": {
     // set to "true" to let any hmoji token holder PUT /hmojis/<id> directly,
     // not just you from scripts/hmoji.ts
-    "HMOJI_ALLOW_TOKEN_UPLOAD": "false"
+    "HMOJI_ALLOW_TOKEN_UPLOAD": "false",
+    // the blog editor commits to this repo (secrets: GITHUB_TOKEN, BLOG_ADMIN_SETUP; see blog/README.md)
+    "BLOG_REPO": "IzieStratt/personal-site",
+    "BLOG_BRANCH": "main"
   }
 }

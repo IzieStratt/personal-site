@@ -93,10 +93,25 @@
         <ul>
           <li><a href="/" target="_blank">preview blog</a></li>
           <li><a href="/admin/">new post</a></li>
+          <li><button type="button" id="signout" hidden>sign out</button></li>
         </ul>
       </nav>
       <h1>write</h1>
 
+      <section id="signin" aria-labelledby="signin-title" hidden>
+        <h2 id="signin-title">sign in</h2>
+        <p class="hint" id="signin-hint">use your passkey (your device's fingerprint, face or screen lock).</p>
+        <div id="setup" hidden>
+          <label><span>setup code (only needed for the first passkey)</span><input id="setup-code" type="password" autocomplete="off"></label>
+          <div class="actions"><button type="button" class="primary" id="enroll">create a passkey on this device</button></div>
+        </div>
+        <div class="actions" id="login-actions" hidden>
+          <button type="button" class="primary" id="login">sign in with passkey</button>
+        </div>
+        <p class="comment-status" id="signin-status" role="status"></p>
+      </section>
+
+      <div id="app" hidden>
       <form id="form" autocomplete="off">
         <label><span>title</span><input type="text" id="title" required></label>
         <div class="row">
@@ -127,7 +142,6 @@
           <button type="button" id="attach">attach files</button>
           <input type="file" id="file" multiple hidden>
           <label class="check"><input type="checkbox" id="draft"> draft</label>
-          <label class="check"><input type="checkbox" id="refresh"> re-archive links</label>
           <button type="button" id="delete" hidden>delete</button>
           <a id="view" hidden target="_blank">view post</a>
         </div>
@@ -154,6 +168,7 @@
 
       <h2>posts</h2>
       <ol class="posts" id="posts"></ol>
+      </div>
     </main>
     <script src="admin.js"></script>
   </body>

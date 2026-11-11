@@ -1,0 +1,53 @@
+name: blog-build
+
+# After a post or an upload lands on main (the online blog editor commits them), archive any new external
+# links, rebuild the blog's static pages, and commit the result back. Commits made with GITHUB_TOKEN don't
+# start other workflows, so this can't loop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blog/posts/**'
+      - 'website/public/cdn/blog/**'
+      - 'blog/build.js'
+      - 'blog/archive.js'
+      - 'blog/ci-build.js'
+      - 'blog/markdown.js'
+      - 'blog/store.js'
+      - 'blog/post-format.js'
+      - 'blog/comments-client.js'
+      - 'blog/filter-client.js'
+      - 'blog/update-blocklist.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Archive new links and rebuild the blog pages
+        run: node blog/ci-build.js
+      - name: Commit the rebuilt pages and archives
+        run: |
+          git config user.name "blog-build"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A blog/archives.json website/public/__subdomains/blog website/public/cdn/archives
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "blog: rebuild pages and archives"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

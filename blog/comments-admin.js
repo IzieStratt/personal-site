@@ -1,5 +1,5 @@
-// Moderation for blog comments. Runs `wrangler d1 execute` as you (your own wrangler login), so there is
-// no admin endpoint on the public site. Env for testing against a local database:
+// Local-only moderation (node blog/server.js) through `wrangler d1 execute` with your own login. The online
+// editor uses blog-admin.js instead. Env for testing against a local database:
 //   COMMENTS_LOCAL=<persist dir>  COMMENTS_WRANGLER_CONFIG=<wrangler.jsonc>  COMMENTS_DB=<name>
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'

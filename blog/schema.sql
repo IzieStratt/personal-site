@@ -17,3 +17,22 @@ CREATE INDEX IF NOT EXISTS comments_ip ON comments (ip_hash, created);
 -- mode: review (hold new comments until approved) | open (show immediately) | off (no new comments)
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 INSERT OR IGNORE INTO settings (key, value) VALUES ('mode', 'review');
+
+-- online blog editor sign-in (blog-passkeys.js). One owner; passkeys are WebAuthn public keys as JWK.
+CREATE TABLE IF NOT EXISTS passkeys (
+  id         TEXT PRIMARY KEY,                       -- credential id, base64url
+  public_key TEXT    NOT NULL,                       -- JWK (ES256 / P-256)
+  sign_count INTEGER NOT NULL DEFAULT 0,
+  created    TEXT    NOT NULL,
+  last_used  TEXT
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash TEXT PRIMARY KEY,                       -- sha-256 of the cookie value
+  expires    INTEGER NOT NULL                        -- ms since epoch
+);
+CREATE TABLE IF NOT EXISTS challenges (
+  id         TEXT PRIMARY KEY,
+  challenge  TEXT    NOT NULL,
+  purpose    TEXT    NOT NULL,                       -- register | login
+  expires    INTEGER NOT NULL
+);

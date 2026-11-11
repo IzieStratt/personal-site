@@ -8,8 +8,82 @@ async function api(method, url, body, raw) {
     body: body ? (raw ? body : JSON.stringify(body)) : undefined,
   })
   const data = await res.json().catch(() => ({}))
+  if (res.status === 401) showSignin('your sign-in ran out. sign in again.')
   if (!res.ok) throw new Error(data.error || res.statusText)
   return data
+}
+
+// ---- passkeys (WebAuthn). The server checks everything; this only moves bytes between the browser and the API.
+const b64u = {
+  enc: (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''),
+  dec: (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(s.length / 4) * 4, '=')), (c) => c.charCodeAt(0)),
+}
+const postJson = (url, body) => api('POST', url, body || {})
+
+function showSignin(message) {
+  $('app').hidden = true
+  $('signout').hidden = true
+  $('signin').hidden = false
+  if (message) $('signin-status').textContent = message
+}
+
+async function enroll() {
+  const setup = $('setup-code').value
+  const { challengeId, options } = await postJson('/api/auth/register/options', { setup })
+  const cred = await navigator.credentials.create({
+    publicKey: {
+      ...options,
+      challenge: b64u.dec(options.challenge),
+      user: { ...options.user, id: b64u.dec(options.user.id) },
+      excludeCredentials: options.excludeCredentials.map((c) => ({ ...c, id: b64u.dec(c.id) })),
+    },
+  })
+  await postJson('/api/auth/register/verify', {
+    setup, challengeId, id: cred.id,
+    response: { clientDataJSON: b64u.enc(cred.response.clientDataJSON), attestationObject: b64u.enc(cred.response.attestationObject) },
+  })
+  $('signin-status').textContent = 'passkey saved. signing you in...'
+  await boot()
+}
+
+async function login() {
+  const { challengeId, options } = await postJson('/api/auth/login/options')
+  const cred = await navigator.credentials.get({ publicKey: { ...options, challenge: b64u.dec(options.challenge) } })
+  await postJson('/api/auth/login/verify', {
+    challengeId, id: cred.id,
+    response: {
+      clientDataJSON: b64u.enc(cred.response.clientDataJSON),
+      authenticatorData: b64u.enc(cred.response.authenticatorData),
+      signature: b64u.enc(cred.response.signature),
+      userHandle: cred.response.userHandle ? b64u.enc(cred.response.userHandle) : null,
+    },
+  })
+  await boot()
+}
+
+// signed in once, can add more passkeys (e.g. a second device) from the sign-in panel
+async function boot() {
+  const st = await fetch('/api/auth/status', { headers: { 'x-blog': '1' } }).then((r) => r.json())
+  if (!st.signedIn) {
+    $('signin-status').textContent = ''
+    $('setup').hidden = st.enrolled
+    $('login-actions').hidden = !st.enrolled
+    $('signin-hint').textContent = st.enrolled
+      ? 'use your passkey (your device\'s fingerprint, face or screen lock).'
+      : 'no passkey yet. enter the setup code once to create the first one on this device.'
+    return showSignin()
+  }
+  $('signin').hidden = true
+  $('app').hidden = false
+  $('signout').hidden = false
+  await init()
+}
+
+$('enroll').addEventListener('click', () => guard(enroll))
+$('login').addEventListener('click', () => guard(login))
+$('signout').addEventListener('click', async () => { await postJson('/api/auth/logout').catch(() => {}); location.reload() })
+async function guard(fn) {
+  try { await fn() } catch (e) { $('signin-status').textContent = e.name === 'NotAllowedError' ? 'the passkey prompt was cancelled.' : e.message }
 }
 
 const nowLocal = () => {
@@ -57,30 +131,18 @@ async function loadList() {
 async function save(e) {
   e?.preventDefault()
   $('save').disabled = true
-  status('saving, and archiving any new links (can take a few seconds)...')
+  status('saving and committing...')
   try {
     const r = await api('PUT', `/api/posts/${state.slug}`, {
       title: $('title').value, tags: $('tags').value, date: $('date').value,
-      draft: $('draft').checked, comments: document.querySelector('#post-comments input:checked').value, body: $('body').value, refresh: $('refresh').checked,
+      draft: $('draft').checked, comments: document.querySelector('#post-comments input:checked').value, body: $('body').value,
     })
-    $('refresh').checked = false
     if (state.slug === 'new') history.replaceState(null, '', `?post=${r.slug}`)
     state.slug = r.slug
     $('delete').hidden = false
     $('view').hidden = false
     $('view').href = `/post/${r.slug}/`
-    const out = document.createElement('div')
-    out.append('saved and built.')
-    const lines = [
-      ...r.archived.made.map((a) => `archived ${a.url} (${a.files} file${a.files === 1 ? '' : 's'}${a.skipped ? `, ${a.skipped} skipped` : ''})`),
-      ...r.archived.failed.map((a) => `couldn't archive ${a.url}: ${a.error}`),
-    ]
-    if (lines.length) {
-      const ul = document.createElement('ul')
-      ul.append(...lines.map((t) => Object.assign(document.createElement('li'), { textContent: t })))
-      out.append(ul)
-    }
-    status(out, r.archived.failed.length > 0)
+    status(`saved as commit ${r.commit}. the site rebuilds in a few minutes, and new links get archived then.`)
     loadList()
     return true
   } catch (err) {
@@ -122,14 +184,12 @@ document.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.
 $('publish').addEventListener('click', async () => {
   if (!$('title').value.trim()) return status('give the post a title first', true)
   const { branch } = await api('GET', '/api/git').catch(() => ({ branch: '' }))
-  const live = branch === 'main' ? ' (main goes live on the site)' : ''
-  if (!confirm(`save, commit "blog: ${$('title').value.trim()}" and push to ${branch || 'origin'}?${live}`)) return
+  const live = branch === 'main' ? ' (this goes live on the site)' : ''
+  if (!confirm(`publish "${$('title').value.trim()}" to ${branch || 'main'}?${live}`)) return
   $('publish').disabled = true
   try {
-    if (!(await save())) return
-    status('committing and pushing...')
-    const r = await api('POST', '/api/publish', { slug: state.slug })
-    status(r.nothing ? `nothing new to publish (already committed on ${r.branch})` : `pushed ${r.commit} to ${r.branch}${r.branch === 'main' ? ', it will deploy shortly' : ''}`)
+    // saving commits the post; GitHub then deploys it and the blog-build workflow builds the pages
+    await save()
   } catch (err) {
     status(err.message, true)
   } finally {
@@ -142,10 +202,12 @@ $('delete').addEventListener('click', async () => {
   location.href = '/admin/'
 })
 
-;(async () => {
+async function init() {
   await loadList()
   fill(state.slug === 'new' ? {} : await api('GET', `/api/posts/${state.slug}`).catch((e) => (status(e.message, true), {})))
-})()
+  loadComments()
+}
+boot().catch((e) => showSignin(e.message))
 
 // comments: held ones first, then everything else. emails are shown here only, never on the site.
 async function loadComments() {
@@ -242,4 +304,3 @@ dd.list.addEventListener('click', (e) => { const i = dd.options.indexOf(e.target
 dd.list.addEventListener('mousemove', (e) => { const i = dd.options.indexOf(e.target.closest('[role=option]')); if (i >= 0 && i !== dd.active) highlight(i) })
 document.addEventListener('click', (e) => { if (!dd.list.hidden && !e.target.closest('.dropdown')) closeMenu(false) })
 $('reload-comments').addEventListener('click', loadComments)
-loadComments()

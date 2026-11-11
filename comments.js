@@ -1,6 +1,6 @@
 // Comments for the blog (blog.izie.top). Stored in D1 (binding COMMENTS); see blog/schema.sql.
-// Public API only: read approved comments, add one. Moderation happens from the local editor
-// through `wrangler d1`, so there are no admin endpoints here to protect.
+// Public API only: read approved comments, add one. Moderation lives in the blog editor (blog-admin.js),
+// behind a passkey sign-in, so there are no admin endpoints here.
 
 const MODES = ['review', 'open', 'off']
 const MAX_DEPTH = 4 // replies deeper than this attach to their depth-4 ancestor

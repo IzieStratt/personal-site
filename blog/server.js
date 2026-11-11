@@ -15,7 +15,7 @@ import { externalLinks } from './markdown.js'
 import { ARCHIVES, ARCHIVE_INDEX, CDN, COMMENT_SETTINGS, PUBLIC, REPO, SITE, deletePost, getPost, listPosts, readArchives, savePost, slugify, tagSlug, writeArchives } from './store.js'
 
 const PORT = Number(process.env.PORT) || 4747
-const ADMIN = path.join(path.dirname(fileURLToPath(import.meta.url)), 'admin')
+const ADMIN = path.join(REPO, 'website/public/__admin/blog') // the editor UI is shared with the online version
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',

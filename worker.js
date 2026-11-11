@@ -3,6 +3,7 @@ import { handleSuggestions } from './suggestions.js'
 export { ShiritoriLobby } from './shiritori-lobby.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
+import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
 
 export default {
   async fetch(request, env, ctx) {
@@ -47,6 +48,8 @@ export default {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
+    // the blog editor and comment moderation (passkey sign-in; see blog-admin.js)
+    if (url.hostname === 'blog.izie.top' && BLOG_ADMIN_PATHS(url.pathname)) return handleBlogAdmin(request, env, url)
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
