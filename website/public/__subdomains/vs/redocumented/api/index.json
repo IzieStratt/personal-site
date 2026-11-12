@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-11",
+ "generated": "2026-11-12",
  "counts": {
-  "total": 2272,
+  "total": 2282,
   "documented": 323,
-  "undocumented": 1949,
-  "not_in_client": 406,
-  "params_observed": 617,
+  "undocumented": 1959,
+  "not_in_client": 412,
+  "params_observed": 623,
   "live_verified_undocumented": 113,
   "params_known": 894,
   "response_known": 697,
-  "own_miner_sourced": 1527
+  "own_miner_sourced": 1537
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -3949,7 +3949,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -4492,6 +4492,28 @@
    "params_observed": true
   },
   {
+   "name": "ai.alpha.slackbot.skillCategories.create",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.slackbot.skillCategories.delete",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "ai.alpha.slackbot.skillCategories.list",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -4501,6 +4523,28 @@
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
+  },
+  {
+   "name": "ai.alpha.slackbot.skillCategories.setBuiltinActive",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "ai.alpha.slackbot.skillCategories.update",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
   },
   {
    "name": "ai.alpha.slackbot.skillSets.addToLibrary",
@@ -8529,6 +8573,17 @@
    "params_observed": true
   },
   {
+   "name": "client.codeChannels.setPullRequestState",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "client.codeChannels.setReviewThreadResolved",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -9449,6 +9504,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "conversations.joinRequests.approve",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
   },
@@ -10847,6 +10913,17 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": true,
+   "params_observed": false
+  },
+  {
+   "name": "developer.apps.updateNotification.send",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -12870,7 +12947,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": false
   },
   {
@@ -12881,7 +12958,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -14733,6 +14810,39 @@
    "params_observed": true
   },
   {
+   "name": "huddles.agents.invite",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "huddles.agents.listAvailable",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "huddles.agents.remove",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "huddles.cancelKnock",
    "status": "undocumented",
    "verified": "existence-only",
@@ -14763,7 +14873,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "huddles.external.kick",
@@ -16676,7 +16786,7 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -16687,7 +16797,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -23474,7 +23584,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": false,
+   "not_in_client": true,
    "params_observed": true
   },
   {
@@ -24707,7 +24817,7 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "workflows.templates.describe",

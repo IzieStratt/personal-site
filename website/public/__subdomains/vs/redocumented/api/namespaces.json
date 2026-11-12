@@ -677,7 +677,11 @@
   "ai.alpha.slackbot.searchAnswerThreads.create"
  ],
  "ai.alpha.slackbot.skillCategories": [
-  "ai.alpha.slackbot.skillCategories.list"
+  "ai.alpha.slackbot.skillCategories.create",
+  "ai.alpha.slackbot.skillCategories.delete",
+  "ai.alpha.slackbot.skillCategories.list",
+  "ai.alpha.slackbot.skillCategories.setBuiltinActive",
+  "ai.alpha.slackbot.skillCategories.update"
  ],
  "ai.alpha.slackbot.skillSets": [
   "ai.alpha.slackbot.skillSets.addToLibrary",
@@ -1252,6 +1256,7 @@
   "client.codeChannels.mergePullRequest",
   "client.codeChannels.removeReaction",
   "client.codeChannels.requestReviewers",
+  "client.codeChannels.setPullRequestState",
   "client.codeChannels.setReviewThreadResolved",
   "client.codeChannels.submitReview"
  ],
@@ -1394,6 +1399,7 @@
   "conversations.externalInvitePermissions.set"
  ],
  "conversations.joinRequests": [
+  "conversations.joinRequests.approve",
   "conversations.joinRequests.list"
  ],
  "conversations.leave": [
@@ -1553,6 +1559,9 @@
  "developer.apps.suggestions": [
   "developer.apps.suggestions.delete",
   "developer.apps.suggestions.update"
+ ],
+ "developer.apps.updateNotification": [
+  "developer.apps.updateNotification.send"
  ],
  "developer.apps.workObjects": [
   "developer.apps.workObjects.update"
@@ -2124,6 +2133,11 @@
   "huddles.listBackgrounds",
   "huddles.readiness",
   "huddles.update"
+ ],
+ "huddles.agents": [
+  "huddles.agents.invite",
+  "huddles.agents.listAvailable",
+  "huddles.agents.remove"
  ],
  "huddles.external": [
   "huddles.external.end",
