@@ -481,6 +481,10 @@
   "admin.users.setOwner",
   "admin.users.setRegular"
  ],
+ "admin.users.access": [
+  "admin.users.access.pause",
+  "admin.users.access.resume"
+ ],
  "admin.users.conversations": [
   "admin.users.conversations.counts",
   "admin.users.conversations.search"
@@ -1959,6 +1963,7 @@
   "files.revokePermission",
   "files.revokePublicURL",
   "files.setExcludeFromSlackAi",
+  "files.setSensitivityLabel",
   "files.share",
   "files.sharedPublicURL",
   "files.undelete",
@@ -2259,6 +2264,7 @@
  ],
  "lists.views.pins": [
   "lists.views.pins.add",
+  "lists.views.pins.list",
   "lists.views.pins.remove"
  ],
  "mc.deprecations": [
@@ -2307,6 +2313,10 @@
  ],
  "megaphone.notifications": [
   "megaphone.notifications.list"
+ ],
+ "megaphone.visualizer.journeys": [
+  "megaphone.visualizer.journeys.get",
+  "megaphone.visualizer.journeys.list"
  ],
  "megaphone.visualizer.notifications": [
   "megaphone.visualizer.notifications.get",
@@ -2743,6 +2753,10 @@
  "sfdc.admin.currency": [
   "sfdc.admin.currency.get",
   "sfdc.admin.currency.set"
+ ],
+ "sfdc.admin.emailCapture": [
+  "sfdc.admin.emailCapture.get",
+  "sfdc.admin.emailCapture.set"
  ],
  "sfdc.admin.slackbotRules": [
   "sfdc.admin.slackbotRules.get",
@@ -3510,6 +3524,7 @@
   "workObjects.editEntity",
   "workObjects.getComments",
   "workObjects.getEntity",
+  "workObjects.performDraftAction",
   "workObjects.postComment",
   "workObjects.publishEntity"
  ],
