@@ -11,6 +11,20 @@
   <body>
     <video id="video" src="/cdn/maxwell-keyed.webm"
       loop muted playsinline preload="auto"></video>
+    <script>
+      (function () {
+        var ua = navigator.userAgent || '';
+        var weak = /CrOS/.test(ua) || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+        if (!weak) return;
+        var v = document.getElementById('video');
+        var img = document.createElement('img');
+        img.id = 'video';
+        img.src = '/cdn/maxwell-keyed.webp';
+        img.alt = '';
+        img.setAttribute('aria-hidden', 'true');
+        v.replaceWith(img);
+      })();
+    </script>
     <audio id="music" src="/cdn/maxwell.mp3" muted preload="auto"></audio>
 
     <div class="green" aria-hidden="true">
@@ -176,10 +190,12 @@
             gate.classList.add('out');
             setTimeout(function () { gate.remove(); }, 500);
             var video = document.getElementById('video');
-            video.muted = false;
-            video.volume = 1;
-            var p = video.play();
-            if (p && p.catch) p.catch(function () {});
+            if (video.play) {
+              video.muted = false;
+              video.volume = 1;
+              var p = video.play();
+              if (p && p.catch) p.catch(function () {});
+            }
             var music = document.getElementById('music');
             music.muted = false;
             music.volume = 1;
