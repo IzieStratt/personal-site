@@ -70,9 +70,11 @@ admin.apps.clearResolution	documented	live-verified	params	-	-	write	Clear an ap
 admin.apps.config.lookup	documented	ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)	params	-	-	-	Look up the app config for connectors by their IDs
 admin.apps.config.set	documented	docs-only	params	-	-	write	Set the app config for a connector
 admin.apps.domainWideAuth.addDomain	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.apps.domainWideAuth.addUnifiedDomain	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.enable	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getAdminInstallUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getAuthorizeUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.apps.domainWideAuth.google.getUnifiedScopes	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.list	undocumented	ambiguous (unknown_method on both token types, 2026-11-03, see methods/read-sweep-2026-11-03.md)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.microsoft.getConsentUrl	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.removeDomain	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
@@ -764,15 +766,17 @@ client.codeChannels.editPullRequestDescription	undocumented	datamine-only (not o
 client.codeChannels.editReviewComment	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getBlockKitView	undocumented	existence-only	-	-	-	-	Code channels: fetch the Block Kit view for a code channel (inferred from name); see methods/code-channels.md.
 client.codeChannels.getDiff	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.getDiffView	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getFileLines	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getMergeStatus	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
-client.codeChannels.getPrWorkObject	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.getPrWorkObject	undocumented	datamine-only (not oracle-tested)	-	observed	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getPullRequest	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getPullRequestCommits	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getPullRequestConnection	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getPullRequestSummary	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getSummary	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.getView	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.getViewedFiles	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.join	undocumented	existence-only	params	-	-	write	Code channels: join a code channel from an origin the user can see (matches a client string); see methods/code-channels.md.
 client.codeChannels.listPullRequestComments	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.listPullRequests	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -780,6 +784,7 @@ client.codeChannels.listSupportedApps	undocumented	live-verified	-	observed	-	-	
 client.codeChannels.mergePullRequest	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.removeReaction	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.requestReviewers	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.codeChannels.setFileViewed	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.setPullRequestState	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.setReviewThreadResolved	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 client.codeChannels.submitReview	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -793,6 +798,7 @@ client.shouldReload	undocumented	partial	params	-	-	-	Client build-staleness che
 client.tbd.codeChannels.open	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.tbd.facts.flag	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.tbd.facts.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.tbd.wiki.unjoin	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.userBoot	undocumented	live-verified	params	-	not-in-client	-	Boot org-wide user/client state
 codeChannels.action	undocumented	existence-only	params	-	not-in-client	-	Code channels: perform an action in a code channel, e.g. PR actions (inferred from name; see methods/code-channels.md).
 codeChannels.createAndStart	undocumented	existence-only	-	-	not-in-client	write	Code channels: create a code channel and start its agent session in one call (inferred from name + client strings; see methods/code-channels.md).
@@ -2096,7 +2102,7 @@ users.channelSections.channels.remove	undocumented	existence-only	params	-	-	wri
 users.channelSections.create	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 users.channelSections.createLink	undocumented	existence-only	params	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.channelSections.delete	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-users.channelSections.entities.update	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+users.channelSections.entities.update	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.channelSections.linkInfo	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 users.channelSections.list	undocumented	live-verified	params	-	-	-	Sidebar channel-section definitions
 users.channelSections.set	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)

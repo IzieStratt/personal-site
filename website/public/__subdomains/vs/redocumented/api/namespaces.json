@@ -122,13 +122,15 @@
  ],
  "admin.apps.domainWideAuth": [
   "admin.apps.domainWideAuth.addDomain",
+  "admin.apps.domainWideAuth.addUnifiedDomain",
   "admin.apps.domainWideAuth.enable",
   "admin.apps.domainWideAuth.list",
   "admin.apps.domainWideAuth.removeDomain"
  ],
  "admin.apps.domainWideAuth.google": [
   "admin.apps.domainWideAuth.google.getAdminInstallUrl",
-  "admin.apps.domainWideAuth.google.getAuthorizeUrl"
+  "admin.apps.domainWideAuth.google.getAuthorizeUrl",
+  "admin.apps.domainWideAuth.google.getUnifiedScopes"
  ],
  "admin.apps.domainWideAuth.microsoft": [
   "admin.apps.domainWideAuth.microsoft.getConsentUrl"
@@ -1244,6 +1246,7 @@
   "client.codeChannels.editReviewComment",
   "client.codeChannels.getBlockKitView",
   "client.codeChannels.getDiff",
+  "client.codeChannels.getDiffView",
   "client.codeChannels.getFileLines",
   "client.codeChannels.getMergeStatus",
   "client.codeChannels.getPrWorkObject",
@@ -1253,6 +1256,7 @@
   "client.codeChannels.getPullRequestSummary",
   "client.codeChannels.getSummary",
   "client.codeChannels.getView",
+  "client.codeChannels.getViewedFiles",
   "client.codeChannels.join",
   "client.codeChannels.listPullRequestComments",
   "client.codeChannels.listPullRequests",
@@ -1260,6 +1264,7 @@
   "client.codeChannels.mergePullRequest",
   "client.codeChannels.removeReaction",
   "client.codeChannels.requestReviewers",
+  "client.codeChannels.setFileViewed",
   "client.codeChannels.setPullRequestState",
   "client.codeChannels.setReviewThreadResolved",
   "client.codeChannels.submitReview"
@@ -1270,6 +1275,9 @@
  "client.tbd.facts": [
   "client.tbd.facts.flag",
   "client.tbd.facts.list"
+ ],
+ "client.tbd.wiki": [
+  "client.tbd.wiki.unjoin"
  ],
  "codeChannels": [
   "codeChannels.action",
