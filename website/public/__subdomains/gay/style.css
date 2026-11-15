@@ -408,3 +408,32 @@ body {
 
 .gate .spinner .lds-ring { width: 24px; height: 24px; }
 .gate .spinner .lds-ring div { width: 24px; height: 24px; margin: 0; border-width: 2px; }
+
+/* phones */
+html, body { height: 100dvh; }
+body { -webkit-tap-highlight-color: transparent; }
+
+.normal-link {
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  left: calc(1rem + env(safe-area-inset-left));
+}
+
+@media (orientation: portrait) {
+  #video { object-fit: contain; }
+}
+
+@media (max-width: 480px) {
+  .gate .main-content { margin: 3rem auto 2rem; padding: 0 1rem; }
+  .gate .h1 { font-size: 1.6rem; line-height: 2.4rem; }
+  .gate .h2, .gate .core-msg { font-size: 1.1rem; line-height: 1.6rem; }
+  .gate .spacer-top { margin-top: 2rem; }
+  .gate .footer { padding: 0 1rem calc(env(safe-area-inset-bottom)); }
+  .gate .checkbox-window { width: 100% !important; max-width: 300px; }
+  .gate .checkbox-container { margin-right: 8px; }
+  .gate .tettx { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .gate #logo { height: 20px; }
+  .gate .checkbox { width: 28px; height: 28px; }
+
+  .normal-face { font-size: 1.1rem; padding: 0.45rem 0.7rem; }
+  .lizard { width: 112px; top: -46px; left: -40px; transform-origin: 56px 74px; }
+}
