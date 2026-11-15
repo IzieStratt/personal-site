@@ -89,6 +89,13 @@ export default {
         return new Response(response.body, { status: response.status, headers })
       }
 
+      // plain-text lists (e.g. sdmp's platforms/*.txt) are UTF-8; without a charset browsers guess and garble curly quotes
+      if (response.ok && /\.txt$/.test(url.pathname) && response.headers.get('Content-Type') === 'text/plain') {
+        const headers = new Headers(response.headers)
+        headers.set('Content-Type', 'text/plain; charset=utf-8')
+        return new Response(response.body, { status: response.status, headers })
+      }
+
       return response
     }
 
