@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>email-reply · Slack icons</title>
+    <meta name="description" content="Slack's email-reply icon: Reply to email">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" d="M16.997 15.5a.75.75 0 1 0 1.5 0zM8.76 7.596h-.75a.75.75 0 0 0 .812.747zm5.393 4.808.005-.75h-.005zm2.844 2.884a.75.75 0 0 0 1.5 0zM8.76 16.731l-.535.525a.75.75 0 0 0 1.285-.525zm-6.445-6.56.535-.526zm0-.342.535.526zm6.445-6.56h.75a.75.75 0 0 0-1.285-.526zm0 9.135v-.75a.75.75 0 0 0-.75.75zM5.538 6.549l-.535-.526zM17.747 15.5h.75q0-.217-.008-.43l-.75.028-.75.028q.008.186.008.374zm-.008-.402.75-.029c-.093-2.434-.977-4.632-2.665-6.158-1.694-1.53-4.113-2.31-7.125-2.063l.061.748.062.747c2.683-.22 4.667.48 5.996 1.681 1.334 1.206 2.092 2.993 2.172 5.102zm-3.586-2.694-.004.75c1.105.006 1.788.332 2.199.71.418.384.61.872.643 1.293l.748-.06.748-.058a3.48 3.48 0 0 0-1.125-2.28c-.73-.67-1.792-1.098-3.204-1.105zm3.586 2.694-.748.059q.006.068.006.131h1.5q0-.123-.01-.25zM8.76 16.73l.535-.526-6.445-6.56-.535.525-.535.526 6.445 6.56zM2.315 9.829l-.535-.526a.995.995 0 0 0 0 1.393l.535-.526.535-.525a.505.505 0 0 1 0 .71zm6.445-6.56h-.75v4.327h1.5V3.269zm0 9.135h-.75v4.327h1.5v-4.327zm.61 0v.75h.094v-1.5H9.37zm.094 0v.75h4.033v-1.5H9.464zm-.094 0v-.75h-.61v1.5h.61zm4.783 0v-.75h-.656v1.5h.656zM2.315 9.829l.535.526 3.223-3.28-.535-.526-.535-.526-3.223 3.28zm3.223-3.28.535.525 3.222-3.28-.535-.525-.535-.526-3.222 3.28z"/></svg></div>
+        <div>
+          <h1>email-reply</h1>
+          <p class="label">Reply to email</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="email-reply.svg" download="email-reply.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>Reply to email</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>&quot;Reply to Email&quot; action</p>
+        <p>Referenced by name 8 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Reply to Email</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>emailComposerMinimizedReplyIndicator,children:(0,r.jsx)(A.Ah,{name:&quot;email-reply&quot;,size:&quot;20&quot;})}),(0,r.jsxs)(&quot;div&quot;,{className:eh().emailComposerMinimizedContent,children:[(0,r.jsxs)(&quot;div&quot;,{className:eh()</pre><pre>ts,loading:tr,ariaLoadingMessage:&quot;&quot;,children:[(0,r.jsx)(A.Ah,{name:&quot;email-reply&quot;,size:&quot;20&quot;}),&quot;\xa0&quot;,t0.t(&quot;Reply to Email&quot;)]});return ts?(0,r.jsx)(C.Ay,{tip:&quot;To respond to this email, your team must ha</pre></details>
+      </section>
+      
+      <nav class="pager" aria-label="Other icons"><a href="email-invite.html">← email-invite</a><a href="email-up.html">email-up →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "email-reply";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

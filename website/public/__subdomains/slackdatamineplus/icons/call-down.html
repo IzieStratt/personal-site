@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>call-down · Slack icons</title>
+    <meta name="description" content="Slack's call-down icon: Incoming call">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" d="M9.994 6.06c4.025 0 5.829.806 7.017 1.647.39.276.777.67.993 1.207.402.999.483 2.228.491 3.015.01.861-.55 1.696-1.472 1.867-1.192.222-2.576.191-3.83-.086-.548-.122-1.1-.516-1.287-1.18-.14-.5-.161-1.032-.163-1.599a13 13 0 0 0-1.749-.122c-.686 0-1.314.064-1.749.122-.001.567-.021 1.1-.162 1.6-.186.663-.739 1.057-1.286 1.178-1.255.278-2.639.309-3.831.087-.921-.17-1.48-1.006-1.472-1.867.009-.787.09-2.016.491-3.015.217-.538.603-.931.994-1.207 1.187-.84 2.99-1.647 7.015-1.647m0 1.5c-3.795 0-5.274.752-6.15 1.371-.232.165-.389.349-.467.542-.293.727-.375 1.722-.383 2.472-.002.24.143.357.246.377.983.182 2.163.16 3.233-.077a.3.3 0 0 0 .126-.06.12.12 0 0 0 .04-.06c.109-.384.108-.825.106-1.643a.97.97 0 0 1 .797-.962l.393-.061c.486-.07 1.231-.15 2.06-.15 1.103 0 2.061.143 2.452.211.504.087.798.53.797.962-.002.818-.002 1.259.106 1.644q.006.028.04.06a.3.3 0 0 0 .127.059c1.07.236 2.25.26 3.232.077.104-.02.249-.137.246-.377-.008-.75-.09-1.745-.383-2.472-.078-.193-.234-.377-.467-.542-.876-.62-2.355-1.37-6.15-1.37"/></svg></div>
+        <div>
+          <h1>call-down</h1>
+          
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="call-down.svg" download="call-down.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">a guess</span></h2>
+        <p>Incoming call</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Not referenced by name in the mined client code</p>
+        <p>Not referenced by its literal name in the mined client code. It can still be used: some components derive the icon from another name (e.g. formatting toolbar buttons use the format name, like bold).</p>
+        
+        
+      </section>
+      
+      <nav class="pager" aria-label="Other icons"><a href="call-declined.html">← call-declined</a><a href="call-filled.html">call-filled →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "call-down";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

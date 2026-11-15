@@ -259,7 +259,7 @@ admin.sandboxes.processSafeSignin	undocumented	existence-only	-	-	not-in-client	
 admin.sandboxes.setLimitAccess	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.sandboxes.unarchive	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.sessions.accessLogs	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	-	params per slack-undoc-client generated types: limit?: number; team_id?: string;
-admin.sessions.dbsc.countAffectedUsers	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+admin.sessions.dbsc.countAffectedUsers	undocumented	datamine-only (not oracle-tested)	-	observed	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 admin.sessions.dbsc.enforceAllSessions	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 admin.sessions.reset	undocumented	existence-only	-	-	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.settings.export	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -899,7 +899,7 @@ conversations.requestSharedInvite.list	documented	docs-only	params	-	-	-	Lists r
 conversations.revokeSharedInvite	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.revokeSharedInvitesBulk	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.searchLinks	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-conversations.setInviterJoinerProperties	undocumented	existence-only (sample-checked)	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+conversations.setInviterJoinerProperties	undocumented	existence-only (sample-checked)	-	observed	not-in-client	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 conversations.setProperties	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 conversations.setPurpose	documented	docs-only	params	-	-	write	Sets the channel description.
 conversations.setRetention	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
@@ -1683,7 +1683,7 @@ search.autocomplete	undocumented	existence-only	params	-	-	-	Search box autocomp
 search.autocomplete.files	undocumented	existence-only	params	-	-	-	File search autocomplete
 search.autocomplete.intentModel	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.autocomplete.model	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
-search.autocomplete.nlTypeahead	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+search.autocomplete.nlTypeahead	undocumented	datamine-only (not oracle-tested)	-	observed	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
 search.autocomplete.offlineFeatures	undocumented	existence-only	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 search.autocomplete.tags	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 search.autocomplete.topEmojis	undocumented	existence-only	params	-	-	-	Emoji picker autocomplete ranking

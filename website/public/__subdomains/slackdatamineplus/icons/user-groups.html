@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>user-groups · Slack icons</title>
+    <meta name="description" content="Slack's user-groups icon: User groups">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M8.115 1.5c-2.597 0-4.135 1.922-4.135 4 0 1.102.311 2.157 1.028 3.308-.3.106-.64.246-.996.428-1.094.562-2.397 1.572-2.935 3.313-.21.678-.003 1.32.404 1.765.397.431.983.686 1.599.686h.222a.75.75 0 0 0 0-1.5H3.08a.68.68 0 0 1-.493-.2c-.09-.098-.112-.196-.077-.309.374-1.21 1.29-1.96 2.186-2.42a6.6 6.6 0 0 1 1.632-.577l.009-.002a.75.75 0 0 0 .55-.38.75.75 0 0 0-.068-.826C5.801 7.459 5.479 6.465 5.479 5.5c0-1.308.925-2.5 2.636-2.5q.272 0 .513.034a.75.75 0 0 0 .203-1.486 5 5 0 0 0-.716-.048m6.469 10.813c.436.11.866.253 1.279.431 1.233.534 2.353 1.41 2.958 2.751.364.809.147 1.607-.342 2.157-.47.53-1.194.848-1.948.848H7.47c-.755 0-1.478-.318-1.948-.848-.49-.55-.707-1.348-.343-2.157.604-1.342 1.724-2.217 2.958-2.75.412-.18.843-.321 1.28-.432C8.574 11.431 8 10.096 8 8.437 8 6.188 9.714 4.5 12 4.5s4 1.688 4 3.938c0 1.658-.575 2.993-1.416 3.875M12 13.5c-1.092 0-2.267.189-3.267.621-.997.43-1.777 1.082-2.186 1.99-.09.198-.056.374.096.545.17.192.477.344.827.344h9.06c.35 0 .656-.152.827-.344.151-.17.186-.346.096-.545-.409-.908-1.188-1.56-2.185-1.99-1-.432-2.176-.621-3.268-.621M12 6c1.48 0 2.5 1.038 2.5 2.438C14.5 10.935 12.957 12 12 12s-2.5-1.065-2.5-3.562C9.5 7.038 10.52 6 12 6" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>user-groups</h1>
+          <p class="label">User groups</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="user-groups.svg" download="user-groups.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>User groups</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>User groups (&quot;Import company contacts&quot;, &quot;Set up your CRM&quot;)</p>
+        <p>Referenced by name 78 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Import company contacts and give your team access</li><li>People</li><li>Set up your CRM</li><li>Date</li><li>Assignee</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>&quot;),a=i(&quot;2PK1&quot;),n=i(&quot;B3Ie&quot;),s=i(&quot;QNLS&quot;);let o={name:&quot;user&quot;},l={name:&quot;user-groups&quot;},d={name:&quot;sf-record&quot;},c={name:&quot;code&quot;},u={name:&quot;user-filled&quot;},h={name:&quot;user-groups-filled&quot;},p={name:&quot;sf-record-filled&quot;},</pre><pre>fault&quot;}}],[p.$.User,{value:p.$.User,label:f.t(&quot;People&quot;),icon:{name:&quot;user-groups&quot;},configColumnDefaultOptions:{format:&quot;single_entity&quot;,showMemberName:!0,defaultValue:null}}],[p.$.Assignee,{value:p.$.Ass</pre></details>
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="user-groups-filled.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M8.115 1.5c-2.597 0-4.135 1.922-4.135 4 0 1.102.311 2.157 1.028 3.308-.3.106-.64.246-.996.428-1.094.562-2.397 1.572-2.935 3.313-.21.678-.003 1.32.404 1.765.397.431.983.686 1.599.686h.222a.75.75 0 0 0 0-1.5H3.08a.68.68 0 0 1-.493-.2c-.09-.098-.112-.196-.077-.309.374-1.21 1.29-1.96 2.186-2.42a6.6 6.6 0 0 1 1.632-.577l.009-.002a.75.75 0 0 0 .55-.38.75.75 0 0 0-.068-.826C5.801 7.459 5.479 6.465 5.479 5.5c0-1.308.925-2.5 2.636-2.5q.272 0 .513.034a.75.75 0 0 0 .203-1.486 5 5 0 0 0-.716-.048M16 8.438c0 1.658-.575 2.993-1.416 3.875.436.11.866.253 1.279.431 1.234.534 2.354 1.41 2.958 2.751.364.81.147 1.607-.342 2.157-.47.53-1.194.848-1.949.848H7.47c-.755 0-1.478-.318-1.949-.848-.489-.55-.706-1.348-.342-2.157.604-1.341 1.724-2.217 2.958-2.75a8.5 8.5 0 0 1 1.28-.432C8.574 11.431 8 10.096 8 8.437 8 6.188 9.714 4.5 12 4.5s4 1.688 4 3.938" clip-rule="evenodd"/></svg><span>user-groups-filled</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="user-group-add.html">← user-group-add</a><a href="user-groups-filled.html">user-groups-filled →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "user-groups";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

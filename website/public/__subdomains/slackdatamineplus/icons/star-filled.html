@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>star-filled · Slack icons</title>
+    <meta name="description" content="Slack's star-filled icon: Starred">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M9.99 1.5c-.635 0-1.125.363-1.468.754-.347.396-.63.914-.858 1.449-.358.84-.626 1.83-.797 2.723-.914-.1-1.887-.192-2.713-.159-.522.021-1.054.094-1.505.285-.471.2-.905.556-1.079 1.141-.177.598.004 1.155.28 1.595.272.434.678.826 1.111 1.168.665.524 1.487 1.001 2.262 1.39-.41.851-.832 1.886-1.093 2.858-.167.625-.28 1.272-.257 1.846.023.558.185 1.215.75 1.62.555.398 1.204.316 1.699.147.508-.172 1.031-.493 1.518-.849.75-.55 1.516-1.26 2.15-1.895.635.635 1.404 1.347 2.158 1.896.489.356 1.014.676 1.523.849.495.168 1.145.25 1.7-.148.567-.405.728-1.064.749-1.623.022-.575-.094-1.22-.264-1.846-.264-.972-.69-2.005-1.1-2.856.774-.39 1.594-.868 2.256-1.392.432-.342.837-.734 1.108-1.168.275-.439.456-.995.279-1.592-.174-.584-.607-.94-1.076-1.14-.45-.191-.982-.264-1.503-.285-.824-.034-1.795.058-2.708.158-.171-.893-.44-1.882-.798-2.723-.228-.535-.51-1.053-.857-1.449-.343-.39-.834-.754-1.468-.754" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>star-filled</h1>
+          <p class="label">Starred</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="star-filled.svg" download="star-filled.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>Starred</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Starred items and &quot;Add to starred&quot;</p>
+        <p>Referenced by name 37 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Unstar list</li><li>Add to starred</li><li>Starred</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>a.j?{name:&quot;star&quot;,size:&quot;20&quot;}:null,r=&quot;gantry-v2-manifest&quot;==a.j?{name:&quot;star-filled&quot;,size:&quot;20&quot;}:null;a.d(t,{},{$:({hasChannelSectionEmoji:e,isStarred:t,isInStandardSection:a})=&gt;!e&amp;&amp;a?n:t?r:i})},&quot;1+LG&quot;(e,t</pre><pre>ze:&quot;20&quot;}),a$=(0,n.jsx)(v.Ah,{name:&quot;star&quot;}),aZ=(0,n.jsx)(v.Ah,{name:&quot;star-filled&quot;}),aX=(0,n.jsx)(v.Ah,{name:&quot;info&quot;}),stopPropagation=e=&gt;e.stopPropagation();let FileActions=class FileActions extends i.P</pre></details>
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="star.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" d="M9.99 1.5c.633 0 1.123.363 1.466.754.348.396.63.914.859 1.45.358.84.624 1.83.795 2.722.914-.1 1.886-.192 2.71-.158.521.02 1.052.093 1.502.285.47.2.903.556 1.076 1.14.177.597-.004 1.154-.278 1.592-.271.434-.676.826-1.108 1.168-.663.524-1.483 1.002-2.257 1.392.41.85.838 1.884 1.101 2.856.17.625.286 1.271.264 1.846-.021.559-.182 1.217-.749 1.623-.555.397-1.205.315-1.7.147-.51-.172-1.035-.492-1.523-.848-.755-.55-1.523-1.262-2.159-1.897-.634.635-1.398 1.347-2.15 1.897-.486.356-1.01.675-1.518.848-.494.169-1.143.25-1.698-.147-.565-.405-.727-1.062-.75-1.62-.023-.575.09-1.22.258-1.846.26-.972.684-2.007 1.094-2.858-.776-.39-1.6-.866-2.264-1.39-.433-.342-.84-.734-1.111-1.168-.276-.44-.457-.997-.28-1.595.174-.585.608-.942 1.078-1.141.452-.192.984-.263 1.506-.284.827-.034 1.8.058 2.713.158.171-.893.439-1.882.797-2.723.228-.535.51-1.053.858-1.45.343-.39.834-.753 1.467-.753m0 1.5c-.022 0-.137.01-.34.243-.2.228-.408.584-.606 1.048-.393.922-.676 2.105-.812 3.064L7.49 7.25v.001l.743.105a.75.75 0 0 1-.826.64c-1.152-.128-2.29-.266-3.191-.23-.45.019-.773.08-.98.168-.188.08-.216.149-.227.187-.013.042-.027.149.112.371.143.228.4.496.77.787.642.507 1.504.99 2.315 1.38l.345.16.068.034a.75.75 0 0 1 .282 1.002c-.466.871-1.022 2.125-1.32 3.239-.151.56-.222 1.04-.208 1.396.015.37.112.452.124.461l.003.001a.2.2 0 0 0 .042.006.9.9 0 0 0 .297-.06c.297-.1.678-.318 1.116-.64.87-.635 1.8-1.55 2.493-2.276l.056-.051a.75.75 0 0 1 1.028.051c.693.725 1.627 1.64 2.5 2.276.44.32.823.54 1.122.64.146.05.243.062.3.06a.2.2 0 0 0 .043-.006h.002l.022-.023c.032-.044.09-.159.101-.438.013-.356-.06-.835-.213-1.396-.302-1.114-.863-2.368-1.33-3.24a.75.75 0 0 1 .35-1.037c.904-.41 1.921-.96 2.653-1.54.368-.291.625-.56.768-.788.139-.222.124-.328.112-.369-.011-.038-.04-.107-.226-.186-.206-.088-.527-.149-.976-.167-.899-.037-2.034.1-3.187.228a.75.75 0 0 1-.79-.495l-.035-.145-.057-.37c-.151-.881-.412-1.887-.755-2.694-.198-.464-.406-.82-.606-1.048C10.125 3.01 10.01 3 9.99 3"/></svg><span>star</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="star.html">← star</a><a href="status-guest.html">status-guest →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "star-filled";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

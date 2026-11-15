@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>accessibility-filled · Slack icons</title>
+    <meta name="description" content="Slack's accessibility-filled icon: Filled variant of accessibility">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.235 4.875c.339.021.71.104 1.033.326.34.236.56.583.654 1 .16.72-.157 1.305-.574 1.71-.398.384-.943.673-1.466.895-.71.301-1.583.553-2.234.74l.689 2.411c.32 1.085.88 2.705 1.138 4.001.127.64.208 1.32.098 1.873-.056.286-.177.608-.436.86-.276.27-.63.384-.992.384-.436 0-.795-.195-1.062-.427a3.4 3.4 0 0 1-.655-.823c-.356-.598-.655-1.367-.908-2.075-.232-.652-.425-1.238-.608-1.717-.183.48-.375 1.068-.607 1.72-.252.708-.549 1.475-.904 2.073-.177.3-.393.596-.655.823-.267.232-.625.426-1.06.426-.386 0-.75-.137-1.019-.435-.245-.273-.346-.611-.39-.902-.085-.572.013-1.278.155-1.941.283-1.33.86-2.97 1.106-3.834l.684-2.396c-.622-.17-1.43-.407-2.148-.72-.528-.23-1.074-.527-1.48-.913-.416-.397-.76-.969-.648-1.687.067-.42.266-.783.607-1.033.319-.234.692-.318 1.025-.339.65-.04 1.42.142 2.11.352.706.214 1.451.495 2.044.706.305.108.57.197.788.258.235.066.356.082.395.082s.16-.016.39-.082c.216-.061.477-.15.779-.257.587-.21 1.327-.493 2.031-.707.691-.21 1.46-.393 2.12-.352"/><path d="M9.915.925c.601 0 1.177.217 1.603.642.428.429.66 1.023.66 1.69 0 .722-.297 1.345-.704 1.785-.394.425-.96.746-1.559.746-.6 0-1.164-.321-1.559-.746a2.63 2.63 0 0 1-.705-1.784c0-.669.233-1.262.661-1.69A2.25 2.25 0 0 1 9.915.924"/></g></svg></div>
+        <div>
+          <h1>accessibility-filled</h1>
+          
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="accessibility-filled.svg" download="accessibility-filled.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">a guess</span></h2>
+        <p>Filled variant of accessibility</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Not referenced by name in the mined client code</p>
+        <p>Not referenced by its literal name in the mined client code. It can still be used: some components derive the icon from another name (e.g. formatting toolbar buttons use the format name, like bold).</p>
+        
+        
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="accessibility.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.235 4.875c.339.021.71.104 1.033.326.34.236.56.583.654 1 .16.72-.157 1.305-.574 1.71-.398.384-.943.673-1.466.895-.71.301-1.583.553-2.234.74l.689 2.411c.32 1.085.88 2.705 1.138 4.001.127.64.208 1.32.098 1.873-.056.286-.177.608-.436.86-.276.27-.63.384-.992.384-.436 0-.795-.195-1.062-.427a3.4 3.4 0 0 1-.655-.823c-.356-.598-.655-1.367-.908-2.075-.232-.652-.425-1.238-.608-1.717-.183.48-.375 1.068-.607 1.72-.252.708-.549 1.475-.904 2.073-.177.3-.393.596-.655.823-.267.232-.625.426-1.06.426-.386 0-.75-.137-1.019-.435-.245-.273-.346-.611-.39-.902-.085-.572.013-1.278.155-1.941.283-1.33.86-2.97 1.106-3.834l.684-2.396c-.622-.17-1.43-.407-2.148-.72-.528-.23-1.074-.527-1.48-.913-.416-.397-.76-.969-.648-1.687.067-.42.266-.783.607-1.033.319-.234.692-.318 1.025-.339.65-.04 1.42.142 2.11.352.706.214 1.451.495 2.044.706.305.108.57.197.788.258.235.066.356.082.395.082s.16-.016.39-.082c.216-.061.477-.15.779-.257.587-.21 1.327-.493 2.031-.707.691-.21 1.46-.393 2.12-.352m-.092 1.497c-.372-.023-.92.085-1.591.29-.659.2-1.331.458-1.962.684-.307.11-.608.213-.875.289-.252.071-.54.138-.8.138s-.549-.067-.802-.138a15 15 0 0 1-.882-.288c-.636-.226-1.316-.484-1.977-.685-.677-.205-1.221-.312-1.581-.29a.54.54 0 0 0-.23.049l-.004.01a.3.3 0 0 0-.011.05c-.01.059-.008.169.2.367.219.208.578.421 1.045.625.932.406 2.035.668 2.68.847l.728.202-1.1 3.853c-.292 1.02-.81 2.458-1.082 3.734-.119.56-.168.999-.15 1.292l.012.117.002-.001c.093-.081.212-.227.348-.456.274-.461.53-1.106.78-1.811.239-.67.483-1.424.706-1.973.112-.275.24-.555.386-.775.074-.11.173-.239.305-.346a1 1 0 0 1 .622-.231l.103.005c.23.024.409.13.526.225.132.107.232.236.305.346.145.22.273.498.385.772.221.548.466 1.304.705 1.973.251.705.508 1.351.783 1.813.136.23.256.375.35.457q.018.014.034.023c.048-.244.024-.675-.098-1.288-.24-1.21-.751-2.67-1.105-3.871l-.002-.005-1.09-3.816.681-.228c.781-.26 1.842-.496 2.809-.906.468-.199.81-.4 1.008-.592.177-.172.165-.254.154-.306-.017-.075-.038-.089-.043-.091-.02-.015-.095-.053-.272-.064"/><path d="M9.915.925c.601 0 1.177.217 1.603.642.428.429.66 1.023.66 1.69 0 .722-.297 1.345-.704 1.785-.394.425-.96.746-1.559.746-.6 0-1.164-.321-1.559-.746a2.63 2.63 0 0 1-.705-1.784c0-.669.233-1.262.661-1.69A2.25 2.25 0 0 1 9.915.924m0 1.5a.75.75 0 0 0-.542.203c-.118.117-.222.316-.222.63 0 .301.125.569.305.763.194.21.386.267.459.267s.265-.058.459-.267c.18-.194.305-.462.305-.763 0-.314-.105-.513-.222-.63a.75.75 0 0 0-.542-.203"/></g></svg><span>accessibility</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="accessibility.html">← accessibility</a><a href="add-bot.html">add-bot →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "accessibility-filled";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>settings · Slack icons</title>
+    <meta name="description" content="Slack's settings icon: Settings">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M11.486 1.286a4 4 0 0 0-2.972 0 .75.75 0 0 0-.45.519l-.372 1.522-.004.019a.5.5 0 0 1-.758.313l-.016-.01-1.34-.813a.75.75 0 0 0-.685-.048 4 4 0 0 0-2.1 2.1.75.75 0 0 0 .047.685l.814 1.341.01.016a.5.5 0 0 1-.314.758l-.007.001-.011.002-1.523.373a.75.75 0 0 0-.518.45 4 4 0 0 0 0 2.971.75.75 0 0 0 .518.45l1.523.373.018.004a.5.5 0 0 1 .345.702l-.031.056-.01.016-.814 1.34a.75.75 0 0 0-.078.6l.03.084.08.175a4 4 0 0 0 2.021 1.927.75.75 0 0 0 .685-.049l1.34-.813.016-.01a.5.5 0 0 1 .758.314l.004.018.373 1.523.026.086a.75.75 0 0 0 .423.432 4 4 0 0 0 2.972 0 .75.75 0 0 0 .423-.432l.027-.086.372-1.523.004-.018a.5.5 0 0 1 .702-.345l.057.03.015.01 1.34.814a.75.75 0 0 0 .6.08l.085-.031a4 4 0 0 0 2.021-1.927l.08-.175a.75.75 0 0 0-.049-.684l-.813-1.34-.01-.016-.031-.056a.5.5 0 0 1 .346-.702l.017-.004 1.524-.373a.75.75 0 0 0 .517-.45 4 4 0 0 0 0-2.971.75.75 0 0 0-.431-.423l-.086-.027-1.524-.373-.017-.003a.5.5 0 0 1-.315-.758l.01-.016.813-1.34a.75.75 0 0 0 .05-.685 4 4 0 0 0-1.928-2.02l-.174-.08-.085-.032a.75.75 0 0 0-.6.079l-1.34.813-.015.01a.5.5 0 0 1-.76-.32l-.003-.012-.372-1.522a.75.75 0 0 0-.45-.519m.822 2.041-.729.179-.02.004zm4.347 4.36-.15.685-.01.043zm0 4.625-.162-.733h.002zm-4.347 4.36-.729-.179.019.004zm-4.62-.018.727-.16-.014.004zm-4.36-4.346.182-.748-.004.02zM9.42 2.57c.381-.09.777-.09 1.159 0l.272 1.114a1.998 1.998 0 0 0 3.013 1.247l.98-.594c.333.205.612.485.818.818l-.585.965a2 2 0 0 0 1.256 3.032l1.095.268c.091.381.09.777 0 1.158l-1.112.273a2 2 0 0 0-1.248 3.012l.595.98a2.5 2.5 0 0 1-.82.818l-.978-.594h-.001a2 2 0 0 0-3.013 1.248l-.273 1.113c-.38.09-.777.09-1.158 0l-.267-1.095a2 2 0 0 0-3.017-1.266l-.98.594a2.5 2.5 0 0 1-.819-.818l.595-.979h-.001a1.998 1.998 0 0 0-1.248-3.013h.001l-1.113-.273a2.5 2.5 0 0 1 0-1.158l1.094-.268.001.001A2 2 0 0 0 4.99 6.23l-.067-.11-.585-.964a2.5 2.5 0 0 1 .82-.82l.98.596V4.93c1.17.736 2.72.089 3.016-1.266zM10 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4m0 5.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>settings</h1>
+          <p class="label">Settings</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="settings.svg" download="settings.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>Settings</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Settings menus and pages (112 usages)</p>
+        <p>Referenced by name 112 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Use advanced conditions</li><li>Advanced Settings</li><li>Manage Plan</li><li>Manage VIP notifications</li><li>Try again?</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>.Nm,{className:Z().manageRow,onClick:_,children:[(0,g.jsx)(k.Ah,{name:&quot;settings&quot;,size:&quot;16&quot;,inline:!0}),X.t(&quot;Manage skills&quot;)]}):null;return(0,g.jsx)(G.A,{type:l.pm.COMMAND,className:C,matchText:s,resul</pre><pre>0,t2.A)({id:n,defaultTab:ew.n.Settings}))},icon:(0,o.jsx)(ey.Ah,{name:&quot;settings&quot;,size:&quot;18&quot;})}:void 0])}function getWorkflowTemplate({dispatch:e,props:t}){let{experimentChannelTabsV5GroupOn:a,id:n,chan</pre></details>
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="settings-filled.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M8.514 1.286a4 4 0 0 1 2.972 0 .75.75 0 0 1 .45.518l.372 1.524.004.017a.5.5 0 0 0 .758.314l.016-.01 1.34-.813a.75.75 0 0 1 .685-.048 4 4 0 0 1 2.1 2.1.75.75 0 0 1-.047.685l-.814 1.34-.01.016a.5.5 0 0 0 .314.759l.018.004 1.523.372a.75.75 0 0 1 .519.45 4 4 0 0 1 0 2.971.75.75 0 0 1-.519.45l-1.523.373-.018.004a.5.5 0 0 0-.314.758l.01.016.814 1.34a.75.75 0 0 1 .048.685 4 4 0 0 1-2.1 2.1.75.75 0 0 1-.686-.048l-1.34-.814-.016-.01a.5.5 0 0 0-.758.315l-.004.018-.372 1.523a.75.75 0 0 1-.45.518 4 4 0 0 1-2.972 0 .75.75 0 0 1-.45-.518l-.372-1.523-.004-.018a.5.5 0 0 0-.758-.314l-.016.01-1.34.813a.75.75 0 0 1-.685.049 4 4 0 0 1-2.1-2.101.75.75 0 0 1 .047-.685l.814-1.34.01-.016a.5.5 0 0 0-.314-.758l-.018-.004-1.523-.373a.75.75 0 0 1-.519-.45 4 4 0 0 1 0-2.97.75.75 0 0 1 .519-.45l1.523-.373.018-.004a.5.5 0 0 0 .314-.759l-.01-.015-.813-1.34a.75.75 0 0 1-.049-.685A4 4 0 0 1 4.89 2.788a.75.75 0 0 1 .685.048l1.34.814.016.01a.5.5 0 0 0 .758-.315l.004-.018.372-1.523a.75.75 0 0 1 .45-.518M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6" clip-rule="evenodd"/></svg><span>settings-filled</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="send-to-list.html">← send-to-list</a><a href="settings-filled.html">settings-filled →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "settings";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>govslack-off-filled · Slack icons</title>
+    <meta name="description" content="Slack's govslack-off-filled icon: GovSlack off state, filled">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M3.396 10.5c.472-1.762 2.153-4.182 5.854-4.471V1.5h3.25a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1.75v2.524q.729.05 1.356.188L5.818 12.5H4.75v1.068l-1.5 1.5V12.5H2.5a1 1 0 1 1 0-2zm7.854 2.932 4.695-4.696a5.3 5.3 0 0 1 .704 1.764h.851a1 1 0 1 1 0 2h-.75V17h.75a1 1 0 1 1 0 2H5.682l3.068-3.068V17h2.5zm1.5-.932h2.5V17h-2.5zm4.53-8.28a.75.75 0 0 0-1.06 0l-13.5 13.5a.75.75 0 1 0 1.06 1.06l13.5-13.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>govslack-off-filled</h1>
+          <p class="label">Not referenced in the web client UI (icon sprite only)</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="govslack-off-filled.svg" download="govslack-off-filled.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">a guess</span></h2>
+        <p>GovSlack off state, filled</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Not referenced by name in the mined client code</p>
+        <p>Not referenced by its literal name in the mined client code. It can still be used: some components derive the icon from another name (e.g. formatting toolbar buttons use the format name, like bold).</p>
+        
+        
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="govslack.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M3.332 10.75c.377-1.832 2.09-4.42 5.918-4.721V1.5h3.25a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1.75v2.525c2.018.138 3.482.834 4.468 1.82a5.23 5.23 0 0 1 1.474 2.905h1.058a.75.75 0 0 1 0 1.5h-1v5.25h1a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5h1v-5.25h-1a.75.75 0 0 1 0-1.5zm9.418 1.5h2.5v5.25h-2.5zm-4 5.25v-5.25h2.5v5.25zm-4-5.25h2.5v5.25h-2.5zm9.407-3.345a3.73 3.73 0 0 1 1.01 1.845H4.876C5.275 9.431 6.684 7.5 10 7.5c2.09 0 3.386.634 4.157 1.405" clip-rule="evenodd"/></svg><span>govslack</span></a><a href="govslack-filled.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M3.396 10.5c.472-1.762 2.153-4.182 5.854-4.471V1.5h3.25a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1.75v2.524c3.828.256 5.494 2.467 5.899 4.476h.851a1 1 0 1 1 0 2h-.75V17h.75a1 1 0 1 1 0 2h-15a1 1 0 1 1 0-2h.75v-4.5H2.5a1 1 0 1 1 0-2zm9.354 2h2.5V17h-2.5zm-1.5 4.5v-4.5h-2.5V17zm-6.5-4.5h2.5V17h-2.5z" clip-rule="evenodd"/></svg><span>govslack-filled</span></a><a href="govslack-off.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M3.25 12.25h-1a.75.75 0 0 1 0-1.5h1.082c.377-1.832 2.09-4.42 5.918-4.721V1.5h3.25a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1.75v2.525q.723.05 1.352.19l-1.316 1.317A9 9 0 0 0 10 7.5c-3.316 0-4.725 1.931-5.124 3.25h2.692l-1.5 1.5H4.75v1.318l-1.5 1.5zm11.59-2.409 1.099-1.098c.411.648.651 1.343.753 2.007h1.058a.75.75 0 0 1 0 1.5h-1v5.25h1a.75.75 0 0 1 0 1.5H5.682l1.5-1.5h.068v-.068l1.5-1.5V17.5h2.5v-4.068l2.682-2.682h1.235a3.7 3.7 0 0 0-.326-.909m-2.09 2.409v5.25h2.5v-5.25zm4.53-8.03a.75.75 0 0 0-1.06 0l-13.5 13.5a.75.75 0 1 0 1.06 1.06l13.5-13.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/></svg><span>govslack-off</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="govslack-off.html">← govslack-off</a><a href="heading-1.html">heading-1 →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "govslack-off-filled";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

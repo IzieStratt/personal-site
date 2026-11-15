@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>poop · Slack icons</title>
+    <meta name="description" content="Slack's poop icon: Novelty icon (poop emoji)">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M13.676 4.076c-.872-1.137-2.23-2.089-3.724-2.509a.75.75 0 0 0-.953.722v.03c0 .72 0 1.106-.042 1.349l-.004.012-.002.01-.02.003L8.9 3.7l-.03.005c-.097.017-.23.04-.374.07-.322.07-.74.192-1.153.455-.746.475-1.313 1.304-1.472 2.66a2.9 2.9 0 0 0-.826.224 3.4 3.4 0 0 0-1.399 1.162 3.1 3.1 0 0 0-.561 1.904q.025.602.297 1.2a3 3 0 0 0-1.324 1.073c-.508.743-.66 1.672-.502 2.555.325 1.805 1.937 3.454 4.644 3.454h7.75c2.509 0 4.146-1.546 4.49-3.335.17-.884.019-1.82-.504-2.604a3.63 3.63 0 0 0-1.536-1.284q.292-.583.347-1.16a2.8 2.8 0 0 0-.439-1.785 3.1 3.1 0 0 0-1.215-1.088 3 3 0 0 0-.419-.169c.1-1.05-.341-2.105-.997-2.96m-3.725-2.51-.202.722h-.001zm.483 2.357c.028-.16.04-.345.05-.55.801.395 1.51.972 2.002 1.614.69.902.852 1.766.564 2.396a.75.75 0 0 0 .838 1.045c.09-.02.283-.008.531.117.24.12.469.315.625.559.153.237.237.517.207.833-.03.319-.179.734-.592 1.224a.75.75 0 0 0 .422 1.218c.82.169 1.323.55 1.605.972.286.43.38.96.278 1.49-.2 1.04-1.182 2.119-3.016 2.119h-7.75c-2.012 0-2.978-1.16-3.168-2.22-.099-.55.008-1.067.263-1.441.245-.357.663-.642 1.33-.685a.75.75 0 0 0 .525-1.232c-.409-.483-.55-.917-.566-1.27a1.6 1.6 0 0 1 .295-.982 1.9 1.9 0 0 1 .772-.645c.292-.128.532-.132.684-.08a.75.75 0 0 0 .99-.71c0-1.468.476-1.98.824-2.202.204-.13.432-.204.663-.254a7 7 0 0 1 .309-.057l.03-.005.016-.003c.09-.015.238-.04.365-.085.247-.088.473-.24.64-.48.156-.221.226-.468.264-.686M8.25 11.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5M13 10.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0m-1 2.25H8c-.5 0-1 .462-1 1 0 1 .953 2 3 2s3-1 3-2c0-.586-.5-1-1-1" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>poop</h1>
+          
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="poop.svg" download="poop.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">a guess</span></h2>
+        <p>Novelty icon (poop emoji)</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Not referenced by name in the mined client code</p>
+        <p>Not referenced by its literal name in the mined client code. It can still be used: some components derive the icon from another name (e.g. formatting toolbar buttons use the format name, like bold).</p>
+        
+        
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="poop-filled.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M13.676 4.076c-.872-1.137-2.23-2.089-3.724-2.509a.75.75 0 0 0-.954.722v.03c0 .72 0 1.106-.042 1.349l-.003.012-.002.01-.02.003L8.9 3.7l-.03.005c-.097.017-.23.04-.374.07-.322.07-.74.192-1.153.455-.746.475-1.313 1.304-1.472 2.66a2.9 2.9 0 0 0-.826.224 3.4 3.4 0 0 0-1.399 1.162 3.1 3.1 0 0 0-.562 1.904q.027.602.298 1.2a3 3 0 0 0-1.324 1.073c-.508.743-.66 1.672-.502 2.555.325 1.805 1.937 3.454 4.644 3.454h7.75c2.509 0 4.146-1.546 4.49-3.335.17-.884.019-1.82-.504-2.604a3.63 3.63 0 0 0-1.536-1.284q.292-.583.347-1.16a2.8 2.8 0 0 0-.439-1.785 3.1 3.1 0 0 0-1.215-1.088 3 3 0 0 0-.419-.169c.1-1.05-.341-2.105-.997-2.96M9.75 2.29l.203-.722zm-.25 7.96a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0m2.25 1.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5M8 12.5h4c.5 0 1 .414 1 1 0 1-.953 2-3 2s-3-1-3-2c0-.538.5-1 1-1" clip-rule="evenodd"/></svg><span>poop-filled</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="plus-filled.html">← plus-filled</a><a href="poop-filled.html">poop-filled →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "poop";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

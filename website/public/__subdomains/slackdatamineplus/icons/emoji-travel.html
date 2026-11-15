@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>emoji-travel · Slack icons</title>
+    <meta name="description" content="Slack's emoji-travel icon: Travel emoji">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" d="M13.47 2.97c1.28-1.28 2.473-1.547 3.352-1.453a1.87 1.87 0 0 1 1.661 1.66c.094.88-.173 2.073-1.453 3.353l-1.474 1.473 1.928 6.938a2.75 2.75 0 0 1-.329 2.213l-.384.603c-.704 1.107-2.344 1.032-2.945-.134l-2.683-5.207-.113.114-.01.011-.011.01-2.256 2.082a4.1 4.1 0 0 1-.534 3.032c-.773 1.236-2.627 1.05-3.138-.314l-.305-.81a2.25 2.25 0 0 0-1.316-1.317l-.81-.305c-1.365-.512-1.551-2.365-.315-3.138a4.1 4.1 0 0 1 3.031-.535l2.083-2.255.01-.01.01-.011.114-.114-5.205-2.681c-1.167-.601-1.242-2.242-.135-2.946l.603-.383a2.75 2.75 0 0 1 2.212-.33l6.938 1.926zm3.193.039c-.381-.04-1.139.027-2.133 1.021l-2.092 2.092-.422-.117.201-.723-.2.723-7.36-2.044a1.25 1.25 0 0 0-1.006.15l-.602.383a.2.2 0 0 0 .015.347l6.12 3.152.913.47-.727.727-.831.83L6.16 12.6l-.552-.51.552.51-.333.36-.463-.16a2.61 2.61 0 0 0-2.235.255.258.258 0 0 0 .046.46l.81.305a3.75 3.75 0 0 1 2.195 2.195l.304.81c.075.2.347.228.461.046a2.61 2.61 0 0 0 .255-2.235l-.16-.463.36-.332 2.578-2.38 1.557-1.557.47.913 3.153 6.12a.2.2 0 0 0 .347.015l.383-.602a1.25 1.25 0 0 0 .15-1.006l-2.044-7.36-.117-.421L15.97 5.47c.994-.994 1.062-1.752 1.021-2.133a.37.37 0 0 0-.328-.328"/></svg></div>
+        <div>
+          <h1>emoji-travel</h1>
+          <p class="label">Travel emoji</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="emoji-travel.svg" download="emoji-travel.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">inferred</span></h2>
+        <p>Travel emoji</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Travel status emoji (example text)</p>
+        <p>Referenced by name 3 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Traveling this week in Asia</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>&quot;span&quot;,{className:&quot;margin_right_50&quot;,children:(0,i.jsx)(D.Ah,{name:&quot;emoji-travel&quot;,size:&quot;20&quot;})}),(0,i.jsx)(&quot;span&quot;,{children:eI.t(&quot;Traveling this week in Asia&quot;)})]})}),(0,i.jsx)(&quot;div&quot;,{className:&quot;margin_</pre><pre>&quot;span&quot;,{className:&quot;margin_right_50&quot;,children:(0,i.jsx)(D.Ah,{name:&quot;emoji-travel&quot;,size:&quot;20&quot;})}),(0,i.jsx)(&quot;span&quot;,{children:eI.t(&quot;Traveling this week in Asia&quot;)})]})}),(0,i.jsx)(&quot;div&quot;,{className:&quot;margin_</pre></details>
+      </section>
+      
+      <nav class="pager" aria-label="Other icons"><a href="emoji-symbols.html">← emoji-symbols</a><a href="enter.html">enter →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "emoji-travel";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>brand-tripit-filled · Slack icons</title>
+    <meta name="description" content="Slack's brand-tripit-filled icon: TripIt brand mark, filled">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" d="M13.995 6.007a.54.54 0 0 1-.425-.523.532.532 0 0 1 1.063 0 .53.53 0 0 1-.417.523c.009.222.017.462.017.685-.043 0-.085-.009-.128-.009-.05 0-.11.009-.161.017.008-.23.034-.462.051-.693m.927 1.087a.8.8 0 0 0-.136-.162 5 5 0 0 0 .314-.197c.323-.206.697-.429 1.054-.626a.3.3 0 0 1-.026-.12.382.382 0 1 1 .765 0c0 .206-.17.386-.382.386a.38.38 0 0 1-.255-.103c-.332.231-.697.48-1.029.677-.05.034-.195.12-.28.18l-.025-.026zm-3.094-.66a.33.33 0 0 1-.128-.196v-.06c0-.06.017-.12.051-.171a.26.26 0 0 1 .196-.129.307.307 0 0 1 .357.24v.06c0 .017 0 .043-.009.068.178.112.502.326 1.037.746 0 .008-.009.008-.017.017 0 0 0 .008-.008.008l-.018.026c-.008 0-.016.009-.016.017l-.018.017c-.008.009-.008.017-.017.026l-.016.017q-.014.024-.026.034-.002.014-.017.026c0 .009 0 .009-.008.009l-.604-.463s-.366-.291-.383-.308a.3.3 0 0 1-.127.06.3.3 0 0 1-.23-.043m2.184 1.851c-.442 0-.774-.317-.748-.694.026-.342.315-.634.689-.694a.5.5 0 0 1 .263 0c.374.052.638.343.62.694-.017.377-.39.694-.824.694m-5.414-.188c-.315 0-.562-.232-.545-.506.017-.282.29-.514.604-.514.297 0 .527.197.544.454.748-.017 2.992-.051 3.859-.051-.008.034-.008.068-.017.111 0 .06 0 .12.009.18-.859-.008-3.145-.034-3.876-.051-.077.214-.315.377-.578.377m9.417-.96c.264 0 .485.223.485.489a.49.49 0 0 1-.485.488.5.5 0 0 1-.476-.403c-.569.026-1.53.034-2.507.043a.5.5 0 0 0 .025-.163v-.094c.97 0 1.913.017 2.483.034a.5.5 0 0 1 .476-.394m-1.343.797h.46c-.052.163-.281.985-.29 1.028h.536l-.178.668h-.553c-.034.154-.382 1.593-.4 1.738v.018c0 .111.077.188.204.23h.017l-.152.618h-.663a.6.6 0 0 1-.468-.206.5.5 0 0 1-.119-.36q-.002-.061.008-.137l.425-1.918h-.543l.17-.651h.586c.026-.129.06-.24.085-.317l.017-.069c.008-.017.025-.025.127-.068.12-.06.29-.137.408-.232a2 2 0 0 0 .256-.274zm-14.926.034h3.078l-.255.942h-.893L2.8 12.217H1.569l.884-3.307H1.5zm11.034.685v.009a.382.382 0 0 1-.765.017.37.37 0 0 1 .101-.274.35.35 0 0 1 .264-.12.36.36 0 0 1 .272.103c.145-.094.315-.206.519-.326v.009l.025.026c0 .008.008.017.008.017.009.017.026.025.034.043l.009.008a.1.1 0 0 1 .026.034c.008 0 .008.009.017.009a.1.1 0 0 0 .034.026v.008q-.143.092-.272.172c-.162.094-.281.154-.29.162.009.026.018.052.018.077m2.354.086a.25.25 0 0 1-.247-.248c0-.026 0-.06.009-.086l-.23-.137.018-.017a.2.2 0 0 0 .042-.034c.008-.01.025-.018.034-.026 0 0 0-.009.008-.009l.034-.034c.009-.009.009-.017.018-.017 0-.009.008-.009.008-.009.06.043.128.103.179.154a.22.22 0 0 1 .127-.034c.136 0 .246.112.246.249s-.11.248-.246.248m-1.683.685-.476-.462h1.777l-.876 3.255h-1.165c.069-.283.74-2.767.74-2.793M6.668 9.21c.57 0 .289.882.144 1.328h-.816c.204-.566 0-.566 0-.566-.178 0-.459.334-.493.489l-.442 1.755H4.008l.637-2.466-.603-.531H5.81l-.068.368c.178-.154.569-.377.926-.377m.247 3.006.671-2.552-.459-.445h1.709l-.791 2.998zm4.964-2.98c.552 0 .62.334.62.634 0 .317-.272 1.404-.434 1.704-.144.309-.399.643-.951.643-.587 0-.732-.283-.825-.437l-.348 1.173H8.869l.825-3.152-.68-.582h1.921l-.119.48c.17-.163.459-.463 1.063-.463m-.74 1.824.145-.634c.025-.102.152-.505-.128-.522-.179-.009-.476.3-.519.462l-.152.668c-.043.155.042.497.22.506.272.026.409-.377.434-.48"/></svg></div>
+        <div>
+          <h1>brand-tripit-filled</h1>
+          <p class="label">Not referenced in the web client UI (icon sprite only)</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="brand-tripit-filled.svg" download="brand-tripit-filled.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">a guess</span></h2>
+        <p>TripIt brand mark, filled</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Not referenced by name in the mined client code</p>
+        <p>Not referenced by its literal name in the mined client code. It can still be used: some components derive the icon from another name (e.g. formatting toolbar buttons use the format name, like bold).</p>
+        
+        
+      </section>
+      
+      <nav class="pager" aria-label="Other icons"><a href="brand-tiktok-filled.html">← brand-tiktok-filled</a><a href="brand-webex-filled.html">brand-webex-filled →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "brand-tripit-filled";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

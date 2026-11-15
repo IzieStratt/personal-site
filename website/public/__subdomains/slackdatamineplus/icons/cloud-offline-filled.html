@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cloud-offline-filled · Slack icons</title>
+    <meta name="description" content="Slack's cloud-offline-filled icon: Offline (filled)">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M11.75 2.5c.896 0 1.743.212 2.497.585L2.318 16.505l-.049.057A3.74 3.74 0 0 1 1 13.75c0-1.273.635-2.397 1.603-3.075-.55-2.535 1.442-5.134 4.096-5.174A5.75 5.75 0 0 1 11.75 2.5m2 15H7.455l9.763-10.983c.212.647.31 1.34.273 2.05A5.25 5.25 0 0 1 13.75 17.5m3.751-14.559a.75.75 0 0 0-1.06.058l-13 14.5a.75.75 0 0 0 1.118 1.002l13-14.5a.75.75 0 0 0-.058-1.06" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>cloud-offline-filled</h1>
+          <p class="label">Offline (filled)</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="cloud-offline-filled.svg" download="cloud-offline-filled.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>Offline (filled)</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Connection warning: &quot;Slack is trying to connect&quot;</p>
+        <p>Referenced by name 8 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Slack is trying to connect, so messages can\u2019t be sent yet.</li><li>Slack is trying to connect.</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>eturn(0,n.jsxs)(d.z,{children:[e,&quot; &quot;,(0,n.jsx)(m.Ah,{name:&quot;cloud-offline-filled&quot;,inline:!0})]})}return s&amp;&amp;(t||i)?(0,n.jsx)(_.i,{firstTyper:t,secondTyper:a,severalPeopleAreTyping:i}):this.props.experim</pre><pre>n=()=&gt;t.type===aq.Y.staticMode?null:(0,i.jsx)(tg.Ah,{name:&quot;cloud-offline-filled&quot;,size:&quot;inherit&quot;,inline:!0});getIcon.displayName=&quot;getIcon&quot;;let r=t.type!==aq.Y.offline&amp;&amp;t.type!==aq.Y.quipOffline&amp;&amp;t.type</pre></details>
+      </section>
+      <section><h2>Variants</h2><div class="variants"><a href="cloud-offline.html"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="32" height="32" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="m15.982 7.907 1.236-1.39c.212.647.31 1.34.273 2.05A5.25 5.25 0 0 1 13.75 17.5H7.455L8.788 16h4.962a3.75 3.75 0 0 0 2.469-6.573.75.75 0 0 1-.25-.655 4 4 0 0 0 .013-.865M1 13.75c0 1.12.49 2.125 1.27 2.812l.048-.057.947-1.065a2.25 2.25 0 0 1 .54-3.733.75.75 0 0 0 .383-.954c-.722-1.843.877-3.966 2.882-3.735a.75.75 0 0 0 .775-.448A4.25 4.25 0 0 1 11.75 4c.509 0 .997.094 1.45.264l1.047-1.179A5.6 5.6 0 0 0 11.75 2.5a5.75 5.75 0 0 0-5.051 3c-2.654.04-4.647 2.64-4.096 5.176A3.75 3.75 0 0 0 1 13.75M17.501 2.941a.75.75 0 0 0-1.06.058l-13 14.5a.75.75 0 0 0 1.118 1.002l13-14.5a.75.75 0 0 0-.058-1.06" clip-rule="evenodd"/></svg><span>cloud-offline</span></a></div></section>
+      <nav class="pager" aria-label="Other icons"><a href="cloud-offline.html">← cloud-offline</a><a href="cloud-upload.html">cloud-upload →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "cloud-offline-filled";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>

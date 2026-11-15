@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>rocket · Slack icons</title>
+    <meta name="description" content="Slack's rocket icon: Upgrade">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      .icon-head { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin: 0 0 1.5rem; }
+      .art { display: grid; place-items: center; width: 12rem; height: 12rem; border: 1px solid color-mix(in srgb, var(--fg) 25%, transparent); border-radius: 1rem; color: var(--fg); }
+      .art svg { width: 8rem; height: 8rem; }
+      .icon-head > div:last-child { flex: 1 1 16rem; min-width: 0; }
+      .icon-head h1 { margin: 0 0 .4rem; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.6rem; }
+      .icon-head .label { margin: 0 0 .8rem; opacity: .8; }
+      .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .actions button, .actions a.btn, .actions select, .actions input { padding: .4rem .85rem; border: 2px solid var(--fg); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: .95rem; cursor: pointer; text-decoration: none; }
+      .actions input[type=color] { width: 2.6rem; height: 2.2rem; padding: .15rem; }
+      .actions button:hover, .actions a.btn:hover { background: var(--fg); color: var(--bg); }
+      .actions .sep { width: 100%; height: 0; }
+      section { margin: 0 0 1.5rem; }
+      section h2 { font-size: 1.35rem; margin: 0 0 .5rem; }
+      .tag { display: inline-block; margin-left: .4rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; opacity: .75; vertical-align: middle; }
+      ul.labels { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; list-style: none; }
+      ul.labels li { padding: .1rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+      pre { overflow-x: auto; padding: .7rem; border-radius: .5rem; background: color-mix(in srgb, var(--fg) 7%, transparent); font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+      .variants { display: flex; flex-wrap: wrap; gap: .5rem; }
+      .variants a { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .5rem; border: 1px solid transparent; border-radius: .6rem; color: var(--fg); text-decoration: none; font-size: .75rem; }
+      .variants a:hover { border-color: var(--fg); }
+      .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; margin-top: 2rem; }
+      .pager a { overflow-wrap: anywhere; }
+      #toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: .4rem .9rem; border-radius: 999px; background: var(--fg); color: var(--bg); opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+      #toast.on { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="../icons.html">← All icons</a></p>
+      <div class="icon-head">
+        <div class="art"><svg id="art" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="160" height="160" fill="currentColor"><path fill="currentColor" fill-rule="evenodd" d="M18.218 2.47c.257 3.28-1.016 7.195-5.446 9.977.201 1.025.258 1.866-.077 2.653-.377.881-1.2 1.57-2.327 2.444-.69.534-1.653.22-1.98-.507a11 11 0 0 0-2.229-3.197 11 11 0 0 0-3.196-2.228c-.727-.327-1.041-1.291-.507-1.98.874-1.128 1.562-1.951 2.443-2.328.787-.335 1.628-.278 2.653-.077 2.782-4.43 6.698-5.702 9.977-5.446l.639.05zm-1.47.78c-2.622-.007-5.669 1.158-7.945 4.805l-.236.392-.276.475-.535-.12c-1.302-.29-1.845-.298-2.268-.117-.432.184-.864.615-1.688 1.662.848.406 2.148 1.16 3.42 2.433a12.5 12.5 0 0 1 2.431 3.418c1.048-.822 1.48-1.254 1.664-1.687.18-.423.171-.966-.118-2.268l-.12-.535.475-.276.392-.236c3.647-2.277 4.812-5.324 4.804-7.946m-3.701 4.955c-.69 0-1.253-.563-1.253-1.252S12.357 5.7 13.047 5.7c.689 0 1.252.563 1.252 1.253 0 .689-.563 1.252-1.252 1.252M2.95 14.217c.597-.596 1.222-.485 1.952-.172a1 1 0 0 0-.081.071l-.809.809a.75.75 0 0 0 1.062 1.061l.808-.808a1 1 0 0 0 .071-.082c.313.73.425 1.356-.171 1.952-1.77 1.77-3.893 1.062-3.893 1.062s-.708-2.124 1.061-3.893" clip-rule="evenodd"/></svg></div>
+        <div>
+          <h1>rocket</h1>
+          <p class="label">Upgrade</p>
+          <div class="actions">
+            <button type="button" data-copy="name">Copy name</button>
+            <button type="button" data-copy="svg">Copy SVG</button>
+            <a class="btn" href="rocket.svg" download="rocket.svg">Download SVG</a>
+            <span class="sep"></span>
+            <label>PNG <select id="size" aria-label="PNG size"><option>20</option><option>40</option><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+            <input id="color" type="color" value="#1d1c1d" aria-label="PNG colour">
+            <button type="button" data-png="download">Download PNG</button>
+            <button type="button" data-png="copy">Copy PNG</button>
+          </div>
+        </div>
+      </div>
+      <section>
+        <h2>What we think it's for<span class="tag">fairly sure</span></h2>
+        <p>Upgrade</p>
+        
+      </section>
+      <section>
+        <h2>Where it's used</h2>
+        <p>Upgrade and plan CTAs (&quot;Upgrade Now&quot;, &quot;Contact Sales&quot;)</p>
+        <p>Referenced by name 158 times in the mined client code.</p>
+        <p>UI text next to those uses:</p><ul class="labels"><li>Upgrade Now</li><li>Request Upgrade</li><li>Upgrade Plan</li><li>string</li><li>Contact Sales</li></ul>
+        <details><summary>Code around the uses (minified)</summary><pre>r.jsx)(&quot;div&quot;,{className:&quot;margin_right_25&quot;,children:(0,r.jsx)(c.Ah,{name:&quot;rocket&quot;,size:&quot;20&quot;,role:&quot;img&quot;})}),A.t(&quot;Request Upgrade&quot;)]})}),[b,t,F,w,v,i,P]),U=(0,a.useCallback)(()=&gt;{let e=A.t(&quot;We\u2019ll se</pre><pre>,i.jsx)(&quot;span&quot;,{className:eR().buttonIcon,children:(0,i.jsx)($.Ah,{name:&quot;rocket&quot;})}),eL.t(&quot;Contact Sales&quot;)]});(0,q.A)(()=&gt;{let e=(0,eg.$9)(s,m);(0,eg.Yk)(n,e,{sessionId:c,threadId:u,currentProductLeve</pre></details>
+      </section>
+      
+      <nav class="pager" aria-label="Other icons"><a href="right-click.html">← right-click</a><a href="rotate.html">rotate →</a></nav>
+      <div id="toast" role="status"></div>
+    </main>
+    <script>
+      const NAME = "rocket";
+      const art = document.getElementById('art'), toast = document.getElementById('toast');
+      let hide;
+      try { const m = getComputedStyle(art).color.match(/d+/g); if (m) document.getElementById('color').value = '#' + m.slice(0, 3).map((x) => Number(x).toString(16).padStart(2, '0')).join(''); } catch {}
+      const say = (t) => { toast.textContent = t; toast.classList.add('on'); clearTimeout(hide); hide = setTimeout(() => toast.classList.remove('on'), 1400); };
+      const svgText = (size, color) => { const s = art.cloneNode(true); s.removeAttribute('id'); s.removeAttribute('aria-hidden'); s.setAttribute('width', size); s.setAttribute('height', size); if (color) s.setAttribute('fill', color); return s.outerHTML; };
+      function png() {
+        const size = Number(document.getElementById('size').value), color = document.getElementById('color').value;
+        return new Promise((ok, fail) => {
+          const img = new Image();
+          img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = size; c.getContext('2d').drawImage(img, 0, 0, size, size); c.toBlob((b) => (b ? ok(b) : fail()), 'image/png'); };
+          img.onerror = fail;
+          img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText(size, color));
+        });
+      }
+      document.querySelector('.actions').addEventListener('click', async (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        try {
+          if (b.dataset.copy) { await navigator.clipboard.writeText(b.dataset.copy === 'name' ? NAME : svgText(20)); say(b.dataset.copy === 'name' ? 'Copied ' + NAME : 'Copied SVG'); }
+          else if (b.dataset.png === 'download') { const a = document.createElement('a'); a.href = URL.createObjectURL(await png()); a.download = NAME + '-' + document.getElementById('size').value + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+          else if (b.dataset.png === 'copy') { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png() })]); say('Copied PNG'); }
+        } catch { say('Your browser blocked that'); }
+      });
+    </script>
+  </body>
+</html>
