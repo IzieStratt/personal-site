@@ -214,20 +214,10 @@ body {
   left: -64px;
   z-index: -1;
   width: 144px;
-  height: auto;
+  aspect-ratio: 400 / 265;
+  background: url(/cdn/lizard-sprite.webp) 0 0 / 1400% 100% no-repeat;
   pointer-events: none;
   transform-origin: 72px 95px;
-}
-
-.lizard.pressing {
-  animation: press 1.2s ease-in-out;
-}
-
-@keyframes press {
-  0%   { transform: translate(0, 0); }
-  30%  { transform: translate(8px, 10px); }
-  45%  { transform: translate(8px, 10px); }
-  100% { transform: translate(0, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -235,7 +225,6 @@ body {
     transition: none;
   }
 
-  .lizard.pressing,
   .radar .sweep,
   .radar .blip,
   .grain {

@@ -21,7 +21,7 @@
       <span class="normal-face">
         <span>Normal Site</span>
       </span>
-      <img class="lizard" id="lizard" src="/cdn/lizard-loop.gif" alt="" aria-hidden="true">
+      <span class="lizard" id="lizard" aria-hidden="true"></span>
     </a>
 
 
@@ -80,11 +80,11 @@
 
           <div id="success-message" class="verification-complete" style="display: none;">
             <div class="h2">Verification successful</div>
-            <div class="core-msg spacer" id="waitingMsg">Waiting for meowing.au to respond...</div>
+            <div class="core-msg spacer" id="waitingMsg">Waiting for gay.izie.top to respond...</div>
           </div>
 
           <div class="core-msg spacer spacer-top">
-            <span id="security-message">meowing.au needs to review the security of your connection before proceeding.</span>
+            <span id="security-message">gay.izie.top needs to review the security of your connection before proceeding.</span>
           </div>
         </div>
       </div>
@@ -175,23 +175,26 @@
             gate.classList.add('out');
             setTimeout(function () { gate.remove(); }, 500);
             var music = document.getElementById('music');
-            music.muted = false;
-            music.volume = 1;
-            var mp = music.play();
-            if (mp && mp.catch) mp.catch(function () {});
-            try {
-              var el = document.documentElement;
-              var req = el.requestFullscreen || el.webkitRequestFullscreen;
-              if (req) { var f = req.call(el); if (f && f.catch) f.catch(function () {}); }
-            } catch (e) {}
-          }, 800);
-        });
-      })();
-
-      (function () {
-        var video = document.getElementById('video');
-        var lizard = document.getElementById('lizard');
-        var green = document.querySelector('.green');
+        var BEAT = 60 / 134.4, OFFSET = 0.242;
+        var DUR = [30, 40, 30, 30, 40, 30, 30, 40, 30, 30, 40, 30, 30, 30];
+        var LOOP = DUR.reduce(function (a, b) { return a + b; }, 0);
+        var HIT = (DUR[0] + DUR[1] + DUR[2]) / LOOP;
+        var lastFrame = -1;
+        (function tick(now) {
+          var phase;
+          if (!music.paused && !music.muted && music.currentTime >= OFFSET) {
+            phase = ((music.currentTime - OFFSET) / BEAT + HIT) % 1;
+          } else {
+            phase = ((now || 0) % LOOP) / LOOP;
+          }
+          var t = phase * LOOP, f = 0;
+          while (f < DUR.length - 1 && t >= DUR[f]) { t -= DUR[f]; f++; }
+          if (f !== lastFrame) {
+            lastFrame = f;
+            lizard.style.backgroundPosition = (f * 100 / (DUR.length - 1)) + '% 0';
+          }
+          requestAnimationFrame(tick);
+        })();
 
         function keyGreen(d) {
           for (var i = 0; i < d.length; i += 4) {
