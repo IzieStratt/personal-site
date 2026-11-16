@@ -798,6 +798,8 @@ client.shouldReload	undocumented	partial	params	-	-	-	Client build-staleness che
 client.tbd.codeChannels.open	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.tbd.facts.flag	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.tbd.facts.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.tbd.wiki.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+client.tbd.wiki.read	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.tbd.wiki.unjoin	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 client.userBoot	undocumented	live-verified	params	-	not-in-client	-	Boot org-wide user/client state
 codeChannels.action	undocumented	existence-only	params	-	not-in-client	-	Code channels: perform an action in a code channel, e.g. PR actions (inferred from name; see methods/code-channels.md).
@@ -1395,7 +1397,7 @@ links.disconnectApps	undocumented	existence-only	-	observed	-	-	(from internal-c
 links.getDomains	undocumented	live-verified	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 links.getInterstitialFields	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 links.getTransferPayload	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-lists.addToList	undocumented	existence-only	-	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
+lists.addToList	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 lists.cells.update	undocumented	existence-only (sample-checked)	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.columns.create	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 lists.columns.delete	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1737,7 +1739,7 @@ sfdc.agentforce.admin.getMcpServersDetails	undocumented	datamine-only (not oracl
 sfdc.agentforce.admin.listMcpServers	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.agentforce.admin.updateMcpServerConfig	undocumented	existence-only	-	-	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.agentforce.channelAgent.configure	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.agentforce.channelAgent.requestHelp	undocumented	existence-only (sample-checked)	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sfdc.agentforce.channelAgent.requestHelp	undocumented	existence-only (sample-checked)	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.agentforce.channelAgent.tokenCount	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.agentforce.feedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.agentforce.getSlackbotPrefs	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

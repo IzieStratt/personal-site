@@ -1277,6 +1277,8 @@
   "client.tbd.facts.list"
  ],
  "client.tbd.wiki": [
+  "client.tbd.wiki.list",
+  "client.tbd.wiki.read",
   "client.tbd.wiki.unjoin"
  ],
  "codeChannels": [

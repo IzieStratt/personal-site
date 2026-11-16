@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-15",
+ "generated": "2026-11-16",
  "counts": {
-  "total": 2297,
+  "total": 2299,
   "documented": 323,
-  "undocumented": 1974,
+  "undocumented": 1976,
   "not_in_client": 418,
-  "params_observed": 637,
+  "params_observed": 639,
   "live_verified_undocumented": 113,
   "params_known": 894,
   "response_known": 697,
-  "own_miner_sourced": 1552
+  "own_miner_sourced": 1554
  },
  "methods": [
   {
@@ -13241,23 +13241,11 @@
      "sites": 1,
      "type": "object"
     },
-    "query": {
-     "sites": 1,
-     "type": "unknown"
-    },
     "reason": {
      "sites": 1,
      "type": "string"
     },
     "remoteFilePreviewTokens": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "searchTabs": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "selectedSearchTabId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -13490,6 +13478,18 @@
     "promptData": {
      "sites": 1,
      "type": "object"
+    },
+    "query": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "searchTabs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "selectedSearchTabId": {
+     "sites": 1,
+     "type": "unknown"
     },
     "sessionPromptHistory": {
      "sites": 1,
@@ -28820,6 +28820,42 @@
    }
   },
   {
+   "name": "client.tbd.wiki.list",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build b0ffb655f64e",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "b0ffb655f64e",
+    "first_seen": "2026-11-15"
+   }
+  },
+  {
+   "name": "client.tbd.wiki.read",
+   "status": "undocumented",
+   "tokens": "unknown - not live-tested",
+   "verified": "datamine-only (not oracle-tested)",
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "source": "IzieStratt/slack-datamine-plus (own miner), first seen in client build b0ffb655f64e",
+   "params_known": false,
+   "params": null,
+   "params_source": null,
+   "response_known": false,
+   "response": null,
+   "response_source": null,
+   "datamine": {
+    "first_build": "b0ffb655f64e",
+    "first_seen": "2026-11-15"
+   }
+  },
+  {
    "name": "client.tbd.wiki.unjoin",
    "status": "undocumented",
    "tokens": "unknown - not live-tested",
@@ -41953,67 +41989,31 @@
     "first_seen": "2026-06-02"
    },
    "params_observed": {
-    "reason": {
-     "sites": 8,
+    "channelId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "listId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "messageTs": {
+     "sites": 2,
      "type": "unknown"
     },
     "query": {
-     "sites": 7,
+     "sites": 2,
      "type": "unknown"
     },
-    "availableData": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "decoratedWorkflow": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "trigger": {
-     "sites": 5,
-     "type": "unknown"
-    },
-    "cursor": {
-     "sites": 4,
-     "type": "unknown"
-    },
-    "provider": {
-     "sites": 4,
+    "reason": {
+     "sites": 2,
      "type": "unknown"
     },
     "appId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "id": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "querySessionId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "requestId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "response": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "searchAppArgs": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "windowId": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "canvasContentId": {
      "sites": 1,
      "type": "unknown"
     },
-    "channelId": {
+    "customStatusId": {
      "sites": 1,
      "type": "unknown"
     },
@@ -42021,29 +42021,13 @@
      "sites": 1,
      "type": "unknown"
     },
-    "listId": {
+    "groupStatus": {
      "sites": 1,
      "type": "unknown"
     },
-    "messageTs": {
+    "isNewList": {
      "sites": 1,
-     "type": "unknown"
-    },
-    "nextCursor": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "page": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "preventQueryRewrite": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "sessionId": {
-     "sites": 1,
-     "type": "unknown"
+     "type": "boolean"
     },
     "slackbotHelp": {
      "sites": 1,
@@ -43900,7 +43884,7 @@
    },
    "params_observed": {
     "channelId": {
-     "sites": 2,
+     "sites": 3,
      "type": "unknown"
     },
     "clogLinkClick": {
@@ -43953,6 +43937,10 @@
     },
     "workflowId": {
      "sites": 2,
+     "type": "unknown"
+    },
+    "connectorKey": {
+     "sites": 1,
      "type": "unknown"
     }
    },
@@ -44708,59 +44696,15 @@
     "method": "empty-body POST, read-style names only, see methods/read-sweep-2026-11-03.md"
    },
    "params_observed": {
-    "configuredInputs": {
-     "sites": 3,
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
+    "direction": {
+     "sites": 1,
      "type": "unknown"
     },
     "externalDirectory": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "isFetchingMoreUsers": {
-     "sites": 3,
-     "type": "boolean"
-    },
-    "parameter": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "reason": {
-     "sites": 3,
-     "type": "string"
-    },
-    "segmentId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "stepFunctionId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "workflowId": {
-     "sites": 3,
-     "type": "unknown"
-    },
-    "variables": {
-     "sites": 2,
-     "type": "unknown"
-    },
-    "channel": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "channelId": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "formQuestions": {
-     "sites": 1,
-     "type": "unknown"
-    },
-    "isFormWrappedStep": {
-     "sites": 1,
-     "type": "boolean"
-    },
-    "messageTs": {
      "sites": 1,
      "type": "unknown"
     },
@@ -44772,11 +44716,15 @@
      "sites": 1,
      "type": "string"
     },
+    "searchResults": {
+     "sites": 1,
+     "type": "unknown"
+    },
     "targetTeamId": {
      "sites": 1,
      "type": "unknown"
     },
-    "triggerType": {
+    "workflowId": {
      "sites": 1,
      "type": "unknown"
     }
@@ -51788,7 +51736,106 @@
    "datamine": {
     "first_build": "125207",
     "first_seen": "2026-06-02"
-   }
+   },
+   "params_observed": {
+    "reason": {
+     "sites": 7,
+     "type": "unknown"
+    },
+    "query": {
+     "sites": 6,
+     "type": "unknown"
+    },
+    "availableData": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "decoratedWorkflow": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "trigger": {
+     "sites": 5,
+     "type": "unknown"
+    },
+    "cursor": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "provider": {
+     "sites": 4,
+     "type": "unknown"
+    },
+    "appId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "id": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "querySessionId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "requestId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "response": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "searchAppArgs": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "windowId": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "canvasContentId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "listId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "nextCursor": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "page": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "preventQueryRewrite": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "sessionId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "slackbotHelp": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "trackThread": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "lists.cells.update",
@@ -65205,7 +65252,70 @@
    "datamine": {
     "first_build": "125207",
     "first_seen": "2026-06-02"
-   }
+   },
+   "params_observed": {
+    "configuredInputs": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "externalDirectory": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "isFetchingMoreUsers": {
+     "sites": 3,
+     "type": "boolean"
+    },
+    "parameter": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "segmentId": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "stepFunctionId": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "workflowId": {
+     "sites": 3,
+     "type": "unknown"
+    },
+    "reason": {
+     "sites": 2,
+     "type": "string"
+    },
+    "variables": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "channel": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "channelId": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "formQuestions": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "isFormWrappedStep": {
+     "sites": 1,
+     "type": "boolean"
+    },
+    "messageTs": {
+     "sites": 1,
+     "type": "unknown"
+    },
+    "triggerType": {
+     "sites": 1,
+     "type": "unknown"
+    }
+   },
+   "params_observed_source": "Argument names seen at call sites in the latest mined build of Slack's web client (see datamine_latest_build). Mined by IzieStratt/slack-datamine-plus (own miner). They are real names as written in the client's JavaScript, but the set is partial (spread and computed arguments are invisible), says nothing about which are required, and camelCase client names may be snake_case on the wire. \"sites\" is how many call sites pass the key."
   },
   {
    "name": "sfdc.agentforce.channelAgent.tokenCount",
@@ -67232,6 +67342,10 @@
      "sites": 7,
      "type": "string"
     },
+    "query": {
+     "sites": 3,
+     "type": "unknown"
+    },
     "blocks": {
      "sites": 2,
      "type": "unknown"
@@ -67244,6 +67358,10 @@
      "sites": 2,
      "type": "unknown"
     },
+    "externalProvidersTargetTeamId": {
+     "sites": 2,
+     "type": "unknown"
+    },
     "itemId": {
      "sites": 2,
      "type": "unknown"
@@ -67252,11 +67370,15 @@
      "sites": 2,
      "type": "unknown"
     },
-    "query": {
+    "salesforceOrgId": {
      "sites": 2,
      "type": "unknown"
     },
-    "salesforceOrgId": {
+    "searchTabs": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "shouldConnectWithExternalProvider": {
      "sites": 2,
      "type": "unknown"
     },
@@ -67265,6 +67387,10 @@
      "type": "boolean"
     },
     "skipNavigationToEntity": {
+     "sites": 2,
+     "type": "unknown"
+    },
+    "source": {
      "sites": 2,
      "type": "unknown"
     },
@@ -86670,8 +86796,8 @@
   }
  },
  "datamine_latest_build": {
-  "build": "c07ab895506f",
-  "captured": "2026-11-15",
+  "build": "18d49a0da6f7",
+  "captured": "2026-11-16",
   "note": "3kh0/slack-datamine mines only the chunks Slack serves to one logged-in client; 12 gantry-v2 chunks fail to download, so the latest build lists far fewer methods than older ones. \"removed\" means absent from that build, not necessarily gone server-side."
  }
 }
