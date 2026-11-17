@@ -10,6 +10,8 @@
   "activity.markRead",
   "activity.markUnread",
   "activity.mentions",
+  "activity.reactions",
+  "activity.threads",
   "activity.unarchive",
   "activity.views"
  ],
@@ -1188,6 +1190,7 @@
   "chat.editedFileForeground",
   "chat.getPermalink",
   "chat.meMessage",
+  "chat.moveMessageToThread",
   "chat.postEphemeral",
   "chat.postMessage",
   "chat.refreshUnfurl",
@@ -1274,9 +1277,12 @@
  ],
  "client.tbd.facts": [
   "client.tbd.facts.flag",
-  "client.tbd.facts.list"
+  "client.tbd.facts.forMarking",
+  "client.tbd.facts.list",
+  "client.tbd.facts.mark"
  ],
  "client.tbd.wiki": [
+  "client.tbd.wiki.find",
   "client.tbd.wiki.list",
   "client.tbd.wiki.read",
   "client.tbd.wiki.unjoin"
@@ -1414,13 +1420,18 @@
  ],
  "conversations.joinRequests": [
   "conversations.joinRequests.approve",
+  "conversations.joinRequests.deny",
   "conversations.joinRequests.list"
  ],
  "conversations.leave": [
   "conversations.leave.recommendations"
  ],
+ "conversations.mark": [
+  "conversations.mark.cursor_out_of_date"
+ ],
  "conversations.meetingnotes": [
-  "conversations.meetingnotes.getLock"
+  "conversations.meetingnotes.getLock",
+  "conversations.meetingnotes.unlock"
  ],
  "conversations.pendingInvites": [
   "conversations.pendingInvites.list"
@@ -2325,8 +2336,12 @@
   "megaphone.notifications.list"
  ],
  "megaphone.visualizer.journeys": [
+  "megaphone.visualizer.journeys.enroll",
+  "megaphone.visualizer.journeys.exit",
   "megaphone.visualizer.journeys.get",
-  "megaphone.visualizer.journeys.list"
+  "megaphone.visualizer.journeys.jump",
+  "megaphone.visualizer.journeys.list",
+  "megaphone.visualizer.journeys.status"
  ],
  "megaphone.visualizer.notifications": [
   "megaphone.visualizer.notifications.get",
@@ -2958,6 +2973,7 @@
   "sharedWorkspaces.invites.sendByEmail"
  ],
  "sidebar": [
+  "sidebar.cleanup",
   "sidebar.dms"
  ],
  "signin": [

@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-16",
+ "generated": "2026-11-17",
  "counts": {
-  "total": 2299,
+  "total": 2313,
   "documented": 323,
-  "undocumented": 1976,
-  "not_in_client": 418,
-  "params_observed": 639,
+  "undocumented": 1990,
+  "not_in_client": 413,
+  "params_observed": 644,
   "live_verified_undocumented": 113,
   "params_known": 894,
   "response_known": 697,
-  "own_miner_sourced": 1554
+  "own_miner_sourced": 1573
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -143,6 +143,28 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "activity.reactions",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "activity.threads",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": false
   },
@@ -5105,7 +5127,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "ai.alpha.summarize.profile",
@@ -7979,6 +8001,17 @@
    "params_observed": false
   },
   {
+   "name": "chat.moveMessageToThread",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "chat.postEphemeral",
    "status": "documented",
    "verified": "docs-only",
@@ -8782,7 +8815,40 @@
    "params_observed": false
   },
   {
+   "name": "client.tbd.facts.forMarking",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "client.tbd.facts.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.tbd.facts.mark",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "client.tbd.wiki.find",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -9629,6 +9695,17 @@
    "params_observed": true
   },
   {
+   "name": "conversations.joinRequests.deny",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "conversations.joinRequests.list",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -9717,6 +9794,17 @@
    "params_observed": false
   },
   {
+   "name": "conversations.mark.cursor_out_of_date",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "conversations.meetingnotes.getLock",
    "status": "undocumented",
    "verified": "existence-only",
@@ -9724,6 +9812,17 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "conversations.meetingnotes.unlock",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": false
   },
@@ -10186,7 +10285,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": true,
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -10208,7 +10307,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": true,
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -10538,7 +10637,7 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": true,
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -10670,7 +10769,7 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": true,
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -10681,7 +10780,7 @@
    "response_known": false,
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
-   "not_in_client": true,
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -16196,6 +16295,28 @@
    "params_observed": false
   },
   {
+   "name": "megaphone.visualizer.journeys.enroll",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "megaphone.visualizer.journeys.exit",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "megaphone.visualizer.journeys.get",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -16207,7 +16328,29 @@
    "params_observed": true
   },
   {
+   "name": "megaphone.visualizer.journeys.jump",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
    "name": "megaphone.visualizer.journeys.list",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "megaphone.visualizer.journeys.status",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
    "params_known": false,
@@ -19009,7 +19152,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.admin.emailCapture.set",
@@ -20714,6 +20857,17 @@
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": true,
+   "params_observed": false
+  },
+  {
+   "name": "sidebar.cleanup",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
    "params_observed": false
   },
   {
