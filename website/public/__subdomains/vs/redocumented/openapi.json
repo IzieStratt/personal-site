@@ -4603,6 +4603,180 @@
     }
    }
   },
+  "/admin.slackbot.skills.list": {
+   "post": {
+    "operationId": "admin.slackbot.skills.list",
+    "summary": "admin.slackbot.skills.list",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/admin.slackbot.skills.list.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "category": {
+          "type": "string",
+          "description": "string"
+         },
+         "cursor": {
+          "type": "string",
+          "description": "string"
+         },
+         "limit": {
+          "type": "string",
+          "description": "number"
+         },
+         "creator_ids": {
+          "type": "string",
+          "description": "unknown[]"
+         },
+         "publish_status": {
+          "type": "string",
+          "description": "string"
+         },
+         "auto_enabled_status": {
+          "type": "string",
+          "description": "string"
+         },
+         "sort": {
+          "type": "string",
+          "description": "string"
+         },
+         "sort_dir": {
+          "type": "string",
+          "description": "'asc' | 'desc'"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skills, response_metadata"
+     }
+    }
+   }
+  },
+  "/admin.slackbot.skills.publish": {
+   "post": {
+    "operationId": "admin.slackbot.skills.publish",
+    "summary": "admin.slackbot.skills.publish",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/admin.slackbot.skills.publish.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_ids": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "skill_ids"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/admin.slackbot.skills.setAutoEnabled": {
+   "post": {
+    "operationId": "admin.slackbot.skills.setAutoEnabled",
+    "summary": "admin.slackbot.skills.setAutoEnabled",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/admin.slackbot.skills.setAutoEnabled.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "permission_type": {
+          "type": "string",
+          "description": "string"
+         },
+         "usergroup_ids": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "skill_id",
+         "permission_type"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skill_id, permission_type, usergroup_ids"
+     }
+    }
+   }
+  },
+  "/admin.slackbot.skills.unpublish": {
+   "post": {
+    "operationId": "admin.slackbot.skills.unpublish",
+    "summary": "admin.slackbot.skills.unpublish",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/admin.slackbot.skills.unpublish.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_ids": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "skill_ids"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
   "/admin.teams.admins.list": {
    "post": {
     "operationId": "admin.teams.admins.list",
@@ -5258,6 +5432,41 @@
         },
         "required": [
          "team_id",
+         "user_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/admin.users.deactivate": {
+   "post": {
+    "operationId": "admin.users.deactivate",
+    "summary": "admin.users.deactivate",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/admin.users.deactivate.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "user_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
          "user_id"
         ]
        }
@@ -6358,6 +6567,449 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/agents.conversations.archive": {
+   "post": {
+    "operationId": "agents.conversations.archive",
+    "summary": "agents.conversations.archive",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.archive.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "summary_message_ts": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "channel_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/agents.conversations.create": {
+   "post": {
+    "operationId": "agents.conversations.create",
+    "summary": "agents.conversations.create",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.create.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "name": {
+          "type": "string",
+          "description": "string"
+         },
+         "team_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "session_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "is_private": {
+          "type": "string",
+          "description": "boolean"
+         },
+         "origin_channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "origin_message_ts": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "name"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: channel_id"
+     }
+    }
+   }
+  },
+  "/agents.conversations.getCanvas": {
+   "post": {
+    "operationId": "agents.conversations.getCanvas",
+    "summary": "agents.conversations.getCanvas",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.getCanvas.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel": {
+          "type": "string",
+          "description": "string"
+         },
+         "canvas_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "content_format": {
+          "type": "string",
+          "description": "string"
+         },
+         "include_resolved": {
+          "type": "string",
+          "description": "boolean"
+         }
+        },
+        "required": [
+         "channel",
+         "canvas_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: canvas_id, title, content, comments, has_more_comments"
+     }
+    }
+   }
+  },
+  "/agents.conversations.listViews": {
+   "post": {
+    "operationId": "agents.conversations.listViews",
+    "summary": "agents.conversations.listViews",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.listViews.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "channel_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: views"
+     }
+    }
+   }
+  },
+  "/agents.conversations.removeView": {
+   "post": {
+    "operationId": "agents.conversations.removeView",
+    "summary": "agents.conversations.removeView",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.removeView.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "view_key": {
+          "type": "string",
+          "description": "string"
+         },
+         "view_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "channel_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: channel_id, view_id"
+     }
+    }
+   }
+  },
+  "/agents.conversations.setCanvasContent": {
+   "post": {
+    "operationId": "agents.conversations.setCanvasContent",
+    "summary": "agents.conversations.setCanvasContent",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.setCanvasContent.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel": {
+          "type": "string",
+          "description": "string"
+         },
+         "canvas_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "content": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "channel",
+         "canvas_id",
+         "content"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: canvas_id, sections_changed_count"
+     }
+    }
+   }
+  },
+  "/agents.conversations.setCommands": {
+   "post": {
+    "operationId": "agents.conversations.setCommands",
+    "summary": "agents.conversations.setCommands",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.setCommands.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "commands": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "channel_id",
+         "commands"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: channel_id, command_count"
+     }
+    }
+   }
+  },
+  "/agents.conversations.setProperties": {
+   "post": {
+    "operationId": "agents.conversations.setProperties",
+    "summary": "agents.conversations.setProperties",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.setProperties.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "title": {
+          "type": "string",
+          "description": "string"
+         },
+         "status": {
+          "type": "string",
+          "description": "string"
+         },
+         "code_channel": {
+          "type": "string",
+          "description": "object"
+         },
+         "agent_resource": {
+          "type": "string",
+          "description": "object"
+         }
+        },
+        "required": [
+         "channel_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: channel_id"
+     }
+    }
+   }
+  },
+  "/agents.conversations.setView": {
+   "post": {
+    "operationId": "agents.conversations.setView",
+    "summary": "agents.conversations.setView",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/agents.conversations.setView.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "channel_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "type": {
+          "type": "string",
+          "description": "unknown"
+         },
+         "view_key": {
+          "type": "string",
+          "description": "string"
+         },
+         "content": {
+          "type": "string",
+          "description": "string"
+         },
+         "blocks": {
+          "type": "string",
+          "description": "import('../blocks/blocks').KnownBlock[]"
+         },
+         "canvas_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "access_level": {
+          "type": "string",
+          "description": "string"
+         },
+         "agent_content_hash": {
+          "type": "string",
+          "description": "string"
+         },
+         "pr_url": {
+          "type": "string",
+          "description": "string"
+         },
+         "base_branch": {
+          "type": "string",
+          "description": "string"
+         },
+         "head_branch": {
+          "type": "string",
+          "description": "string"
+         },
+         "name": {
+          "type": "string",
+          "description": "string"
+         },
+         "label": {
+          "type": "string",
+          "description": "string"
+         },
+         "csp": {
+          "type": "string",
+          "description": "object"
+         }
+        },
+        "required": [
+         "channel_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: channel_id, view_id, file_id, canvas_id, content_version, type"
      }
     }
    }
@@ -11434,6 +12086,45 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, files, id, created, timestamp, name, title, mimetype, filetype, pretty_type, user, user_team, size, mode, is_external, is_public, public_url_shared, display_as_bot, username, url_private, url_private_download, permalink, permalink_public, url_static_preview, quip_thread_id, updated, update_notification, canvas_readtime, source_team, skipped_shares, teams_shared_with, is_restricted_sharing_enabled, has_rich_preview, file_access, access, org_or_workspace_access, title_blocks, type, block_id, canvas_creator_id, team_pref_version_history_enabled, canvas_printing_enabled, canvas_template_mode, template_conversion_ts, template_name, template_title, template_description, template_icon, is_global_template, template_locale, is_ai_suggested"
+     }
+    }
+   }
+  },
+  "/canvases.getContent": {
+   "post": {
+    "operationId": "canvases.getContent",
+    "summary": "canvases.getContent",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/canvases.getContent.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "canvas_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "content_type": {
+          "type": "string",
+          "description": "'markdown' | 'html'"
+         }
+        },
+        "required": [
+         "canvas_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: content"
      }
     }
    }
@@ -30116,6 +30807,308 @@
     "responses": {
      "200": {
       "description": "Slack envelope; check `ok`. Response fields: ok, responses, next_cursor"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.create": {
+   "post": {
+    "operationId": "slackbot.skills.create",
+    "summary": "slackbot.skills.create",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.create.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "display_name": {
+          "type": "string",
+          "description": "string"
+         },
+         "instructions": {
+          "type": "string",
+          "description": "string"
+         },
+         "canvas_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "description": {
+          "type": "string",
+          "description": "string"
+         },
+         "category": {
+          "type": "string",
+          "description": "string"
+         },
+         "example_prompt": {
+          "type": "string",
+          "description": "string"
+         },
+         "mcp_servers": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "display_name"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skill"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.delete": {
+   "post": {
+    "operationId": "slackbot.skills.delete",
+    "summary": "slackbot.skills.delete",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.delete.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "skill_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.info": {
+   "post": {
+    "operationId": "slackbot.skills.info",
+    "summary": "slackbot.skills.info",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.info.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "skill_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skill"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.library.add": {
+   "post": {
+    "operationId": "slackbot.skills.library.add",
+    "summary": "slackbot.skills.library.add",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.library.add.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "skill_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.library.remove": {
+   "post": {
+    "operationId": "slackbot.skills.library.remove",
+    "summary": "slackbot.skills.library.remove",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.library.remove.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         }
+        },
+        "required": [
+         "skill_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: unknown"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.list": {
+   "post": {
+    "operationId": "slackbot.skills.list",
+    "summary": "slackbot.skills.list",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.list.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": false,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "filter": {
+          "type": "string",
+          "description": "string"
+         },
+         "category": {
+          "type": "string",
+          "description": "string"
+         },
+         "cursor": {
+          "type": "string",
+          "description": "string"
+         },
+         "limit": {
+          "type": "string",
+          "description": "number"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skills, response_metadata"
+     }
+    }
+   }
+  },
+  "/slackbot.skills.update": {
+   "post": {
+    "operationId": "slackbot.skills.update",
+    "summary": "slackbot.skills.update",
+    "description": "status: documented; verified: docs-only; params source: jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev). Details: https://vs.izie.top/redocumented/api/methods/slackbot.skills.update.md",
+    "tags": [
+     "documented"
+    ],
+    "x-verified": "docs-only",
+    "x-write-shaped": true,
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "skill_id": {
+          "type": "string",
+          "description": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "string"
+         },
+         "instructions": {
+          "type": "string",
+          "description": "string"
+         },
+         "description": {
+          "type": "string",
+          "description": "string"
+         },
+         "category": {
+          "type": "string",
+          "description": "string"
+         },
+         "example_prompt": {
+          "type": "string",
+          "description": "string"
+         },
+         "mcp_servers": {
+          "type": "string",
+          "description": "unknown[]"
+         }
+        },
+        "required": [
+         "skill_id"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Slack envelope; check `ok`. Response fields: skill"
      }
     }
    }

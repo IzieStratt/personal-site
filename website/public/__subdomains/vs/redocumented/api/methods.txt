@@ -269,6 +269,10 @@ admin.slackbot.channelExclusions.add	undocumented	datamine-only (not oracle-test
 admin.slackbot.channelExclusions.list	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 admin.slackbot.channelExclusions.remove	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.slackbot.channelResponses.listRedactions	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
+admin.slackbot.skills.list	documented	docs-only	params	-	-	-	
+admin.slackbot.skills.publish	documented	docs-only	params	-	-	-	
+admin.slackbot.skills.setAutoEnabled	documented	docs-only	params	-	-	write	
+admin.slackbot.skills.unpublish	documented	docs-only	params	-	-	-	
 admin.teams.admins.list	documented	docs-only	params	-	-	-	List all of the admins on a given workspace.
 admin.teams.create	documented	docs-only	params	-	-	write	Create an Enterprise team.
 admin.teams.list	documented	docs-only	params	-	-	-	List all teams in an Enterprise organization
@@ -296,6 +300,7 @@ admin.users.access.resume	undocumented	datamine-only (not oracle-tested)	-	-	-	-
 admin.users.assign	documented	docs-only	params	-	-	write	Add an Enterprise user to a workspace.
 admin.users.conversations.counts	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.users.conversations.search	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.users.deactivate	documented	docs-only	params	-	-	-	
 admin.users.externalUsers.disconnect	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.users.externalUsers.removeFromAllConversations	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.users.getExpiration	documented	docs-only	params	-	-	-	Fetches the expiration timestamp for a guest
@@ -333,6 +338,15 @@ admin.workflows.triggers.types.permissionsWithStepRestrictions.set	undocumented	
 admin.workflows.unpublish	documented	docs-only	params	-	-	-	Unpublish workflows within the team or enterprise
 agents.a2a.add	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	write	(inferred from name only; webpack string, not oracle-tested)
 agents.a2a.preview	undocumented	datamine-only (not oracle-tested)	-	-	not-in-client	-	(inferred from name only; webpack string, not oracle-tested)
+agents.conversations.archive	documented	docs-only	params	-	-	write	
+agents.conversations.create	documented	docs-only	params	-	-	write	
+agents.conversations.getCanvas	documented	docs-only	params	-	-	-	
+agents.conversations.listViews	documented	docs-only	params	-	-	-	
+agents.conversations.removeView	documented	docs-only	params	-	-	write	
+agents.conversations.setCanvasContent	documented	docs-only	params	-	-	write	
+agents.conversations.setCommands	documented	docs-only	params	-	-	write	
+agents.conversations.setProperties	documented	docs-only	params	-	-	write	
+agents.conversations.setView	documented	docs-only	params	-	-	write	
 agents.mcp.settings.list	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 agents.mcp.settings.listTools	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 agents.mcp.settings.setServerEnabled	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
@@ -696,6 +710,7 @@ canvases.delete	documented	live-verified	params	-	-	write	Deletes a canvas
 canvases.drafts.get	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 canvases.edit	documented	docs-only	params	-	-	write	Update an existing canvas
 canvases.getCannedTemplates	undocumented	live-verified	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
+canvases.getContent	documented	docs-only	params	-	-	-	
 canvases.getEmbedToken	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 canvases.getTemplates	undocumented	live-verified	params	-	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 canvases.listHeaders	undocumented	live-verified	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1971,6 +1986,13 @@ slackbot.responses.add	undocumented	not-live-tested (source-only, typed but unve
 slackbot.responses.delete	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	write	params per slack-undoc-client generated types: response?: string;
 slackbot.responses.edit	undocumented	not-live-tested (source-only, typed but unverified)	params	-	-	write	params per slack-undoc-client generated types: response?: string; triggers?: string; responses?: string;
 slackbot.responses.list	undocumented	live-verified	params	-	-	-	params per slack-undoc-client generated types: limit?: number;
+slackbot.skills.create	documented	docs-only	params	-	-	write	
+slackbot.skills.delete	documented	docs-only	params	-	-	write	
+slackbot.skills.info	documented	docs-only	params	-	-	-	
+slackbot.skills.library.add	documented	docs-only	params	-	-	write	
+slackbot.skills.library.remove	documented	docs-only	params	-	-	write	
+slackbot.skills.list	documented	docs-only	params	-	-	-	
+slackbot.skills.update	documented	docs-only	params	-	-	write	
 slackbot.suggestions.list	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 slackbot.suggestions.listForDesktop	undocumented	existence-only	-	observed	-	-	(inferred from name only; see methods/datamine-2026-09.md)
 slides.addAttachment	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)

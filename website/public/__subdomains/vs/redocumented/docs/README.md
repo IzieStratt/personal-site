@@ -7,7 +7,7 @@ project is a placeholder (`xoxc-REDACTED`, `C0XXXXXXXX`, etc), never a real one.
 
 ## What this is
 
-A from-scratch pass at documenting the Slack Web API — both the ~323 officially
+A from-scratch pass at documenting the Slack Web API — both the ~345 officially
 documented `https://slack.com/api/<method>` methods and the internal/undocumented
 methods used by Slack's own web/desktop client (`client.*`, `search.modules.*`,
 `drafts.*`, session-only prefs endpoints, etc.), for personal automation reference.
@@ -25,8 +25,8 @@ named source, [`ImShyMike/slack-undoc-client`](https://github.com/ImShyMike/slac
 undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
-into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,994 undocumented/cross-referenced = 2,317 total (413 not found in Slack's current web client) method names**
+into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 345
+documented + 1,994 undocumented/cross-referenced = 2,339 total (413 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
@@ -40,8 +40,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **894/2,317 methods
-(38.6%) now have real, sourced, structured `params`; 697/2,317 (30.1%) have a
+existed, instead of leaving them as bare method names. **916/2,339 methods
+(39.2%) now have real, sourced, structured `params`; 712/2,339 (30.4%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -80,6 +80,8 @@ field or the published `llms.txt` for the same note in agent-facing form.
 - `data/methods.json` — machine-readable master list.
 - `tools/probe.py` — the safety-railed script used for all live probing.
 - `guides/schedule-send-with-attachments.md` — worked draft-scheduling example.
+- `block-kit.md` — every Block Kit block type the client knows (50), with schemas for the
+  undocumented ones (`fallback_canary`, `callout`, `condition`, `data_visualization`, …).
 - `methods/datamine-2026-09.md` — new methods mined from `3kh0/slack-datamine`'s
   committed webpack build artifacts (this pass).
 - `methods/internal-canvas-2026.md` — cross-reference against a bonus 4th
@@ -459,3 +461,18 @@ This is **not** a complete map of Slack's private API surface, and cannot be:
 web-client override parameters from a community post pasted by the site owner,
 plus `slackDebug=1` and feature mentions without flag IDs. Source-reported only,
 not live-tested or bundle-verified; these are not Web API catalog entries.
+
+## slack.ts cross-reference (2026-11-18)
+
+Cross-checked against [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
+(commit `9e380b8`):
+
+- **Methods.** Its `src/types/generated/methods.ts` is generated from docs.slack.dev, with
+  required/optional hand-reviewed for many methods. 22 officially documented methods were missing
+  from this catalog and are now added with its params and response types (`admin.slackbot.skills.*`,
+  `slackbot.skills.*`, `agents.conversations.*`, `canvases.getContent`, `admin.users.deactivate`).
+  None of them appear in the current web client's call sites.
+- **Blocks.** Its `blocks.ts` types the undocumented blocks; written up with the client's full
+  block-type list in [`block-kit.md`](block-kit.md).
+- **Events.** Six events it types that the web client doesn't handle are appended to
+  [`methods/gateway-events-2026-10.md`](methods/gateway-events-2026-10.md).

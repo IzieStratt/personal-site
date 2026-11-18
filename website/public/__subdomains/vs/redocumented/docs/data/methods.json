@@ -1,14 +1,14 @@
 {
  "generated": "2026-11-18",
  "counts": {
-  "total": 2317,
-  "documented": 323,
+  "total": 2339,
+  "documented": 345,
   "undocumented": 1994,
   "not_in_client": 413,
   "params_observed": 647,
   "live_verified_undocumented": 113,
-  "params_known": 894,
-  "response_known": 697,
+  "params_known": 916,
+  "response_known": 712,
   "own_miner_sourced": 1577
  },
  "methods": [
@@ -87254,6 +87254,772 @@
     "first_build": "125207",
     "first_seen": "2026-06-02"
    }
+  },
+  {
+   "name": "admin.slackbot.skills.list",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "category": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "cursor": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "limit": {
+     "required": false,
+     "type": "number",
+     "desc": ""
+    },
+    "creator_ids": {
+     "required": false,
+     "type": "unknown[]",
+     "desc": ""
+    },
+    "publish_status": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "auto_enabled_status": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "sort": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "sort_dir": {
+     "required": false,
+     "type": "'asc' | 'desc'",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skills": "{ id?: string display_name?: string description?: string category?: string creator_id?: string date_created?: number date_updated?: number visibility?: string is_official?: boolean usage_count?: number library_count?: number auto_enabled?: { permission_type?: string usergroup_ids?: string[] } }[]",
+    "response_metadata": "{ next_cursor?: string }"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "admin.slackbot.skills.publish",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_ids": {
+     "required": true,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "admin.slackbot.skills.setAutoEnabled",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "permission_type": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "usergroup_ids": {
+     "required": false,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skill_id": "string",
+    "permission_type": "string",
+    "usergroup_ids": "string[]"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "admin.slackbot.skills.unpublish",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_ids": {
+     "required": true,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "admin.users.deactivate",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "user_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "agents.conversations.archive",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "summary_message_ts": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "agents.conversations.create",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "name": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "team_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "session_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "is_private": {
+     "required": false,
+     "type": "boolean",
+     "desc": ""
+    },
+    "origin_channel_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "origin_message_ts": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "channel_id": "string"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.getCanvas",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "canvas_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "content_format": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "include_resolved": {
+     "required": false,
+     "type": "boolean",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "canvas_id": "string",
+    "title": "string",
+    "content": "string",
+    "comments": "{ id?: string ts?: string user_id?: string text?: string quoted_text?: string is_resolved?: boolean replies?: { ts?: string user_id?: string text?: string }[] has_more_replies?: boolean }[]",
+    "has_more_comments": "boolean"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.listViews",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "views": "{ view_id?: string view_key?: string file_id?: string label?: string content_version?: number date_added?: number }[]"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.removeView",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "view_key": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "view_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "channel_id": "string",
+    "view_id": "string"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.setCanvasContent",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "canvas_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "content": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "canvas_id": "string",
+    "sections_changed_count": "number"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.setCommands",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "commands": {
+     "required": true,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "channel_id": "string",
+    "command_count": "number"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.setProperties",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "title": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "status": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "code_channel": {
+     "required": false,
+     "type": "object",
+     "desc": ""
+    },
+    "agent_resource": {
+     "required": false,
+     "type": "object",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "channel_id": "string"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "agents.conversations.setView",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "channel_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "type": {
+     "required": false,
+     "type": "unknown",
+     "desc": ""
+    },
+    "view_key": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "content": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "blocks": {
+     "required": false,
+     "type": "import('../blocks/blocks').KnownBlock[]",
+     "desc": ""
+    },
+    "canvas_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "access_level": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "agent_content_hash": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "pr_url": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "base_branch": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "head_branch": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "name": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "label": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "csp": {
+     "required": false,
+     "type": "object",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "channel_id": "string",
+    "view_id": "string",
+    "file_id": "string",
+    "canvas_id": "string",
+    "content_version": "number",
+    "type": "string"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "canvases.getContent",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "canvas_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "content_type": {
+     "required": false,
+     "type": "'markdown' | 'html'",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "content": "string"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "slackbot.skills.create",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "display_name": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "instructions": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "canvas_id": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "description": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "category": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "example_prompt": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "mcp_servers": {
+     "required": false,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skill": "{ id?: string type?: string display_name?: string name?: unknown description?: string category?: string example_prompt?: string instructions?: unknown visibility?: string is_official?: boolean access?: string mcp_servers?: { service_type?: string app_id?: string server_id?: string display_name?: string is_available?: boolean }[] usage_count?: number library_count?: number creator_id?: string date_created?: number date_updated?: number permalink?: string }"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "slackbot.skills.delete",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "slackbot.skills.info",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skill": "{ id?: string type?: string display_name?: string name?: unknown description?: string category?: string example_prompt?: string instructions?: string visibility?: string is_official?: boolean access?: string mcp_servers?: { service_type?: string app_id?: string server_id?: string display_name?: string is_available?: boolean }[] usage_count?: number library_count?: number creator_id?: string date_created?: number date_updated?: number permalink?: string }"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "slackbot.skills.library.add",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "slackbot.skills.library.remove",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": false,
+   "response": null,
+   "response_source": null
+  },
+  {
+   "name": "slackbot.skills.list",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "filter": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "category": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "cursor": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "limit": {
+     "required": false,
+     "type": "number",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skills": "{ id?: string type?: string display_name?: string name?: unknown description?: string category?: string example_prompt?: string instructions?: unknown visibility?: string is_official?: boolean access?: string mcp_servers?: { service_type?: string app_id?: string server_id?: string display_name?: string is_available?: boolean }[] usage_count?: number library_count?: number creator_id?: string date_created?: number date_updated?: number permalink?: string }[]",
+    "response_metadata": "{ next_cursor?: string }"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
+  },
+  {
+   "name": "slackbot.skills.update",
+   "status": "documented",
+   "tokens": "per official docs",
+   "verified": "docs-only",
+   "purpose": "",
+   "source": "jollyroger182/slack.ts (generated from docs.slack.dev, required/optional hand-reviewed)",
+   "params": {
+    "skill_id": {
+     "required": true,
+     "type": "string",
+     "desc": ""
+    },
+    "display_name": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "instructions": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "description": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "category": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "example_prompt": {
+     "required": false,
+     "type": "string",
+     "desc": ""
+    },
+    "mcp_servers": {
+     "required": false,
+     "type": "unknown[]",
+     "desc": ""
+    }
+   },
+   "params_known": true,
+   "params_source": "jollyroger182/slack.ts src/types/generated/methods.ts (types generated from docs.slack.dev)",
+   "response_known": true,
+   "response": {
+    "skill": "{ id?: string type?: string display_name?: string name?: unknown description?: string category?: string example_prompt?: string instructions?: unknown visibility?: string is_official?: boolean access?: string mcp_servers?: { service_type?: string app_id?: string server_id?: string display_name?: string is_available?: boolean }[] usage_count?: number library_count?: number creator_id?: string date_created?: number date_updated?: number permalink?: string }"
+   },
+   "response_source": "jollyroger182/slack.ts src/types/generated/methods.ts"
   }
  ],
  "schema": {

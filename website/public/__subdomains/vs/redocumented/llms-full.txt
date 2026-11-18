@@ -1,6 +1,6 @@
 # ReDocumented — Slack Web API reference (documented + undocumented methods)
 
-> Personal reference cataloging Slack's official Web API (~323 methods) plus
+> Personal reference cataloging Slack's official Web API (~345 methods) plus
 > internal/undocumented methods discovered by source-mining (~1,994 more; 413 of them flagged `not_in_client: true`,
 > meaning Slack's current web client no longer references them, not that they are gone), for the Hack Club Slack workspace (Enterprise Grid).
 > Kept current by the open-source miner https://github.com/IzieStratt/slack-datamine-plus. 647 methods carry `params_observed` (real argument names seen
@@ -30,7 +30,7 @@ Don't know the name? Search first:
 Need more:
 
 - https://vs.izie.top/redocumented/openapi.json   OpenAPI 3.1 for every method whose params are
-  known (894, including ones known to take none). Usable as tool definitions. Each operation
+  known (916, including ones known to take none). Usable as tool definitions. Each operation
   has `x-verified` and `x-write-shaped`.
 - https://vs.izie.top/redocumented/llms-full.txt   this file plus every markdown write-up (~650 KB)
 - https://vs.izie.top/redocumented/docs/data/methods.json   the full catalog (~1.9 MB), only if
@@ -51,7 +51,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   wrong entry), contribute it back: open a PR or email ReDocumented@izie.top.
   Details in "Found something new?" below.
 - Every method entry has `params_known` (bool) and `response_known` (bool).
-  Only trust `params`/`response` as real when those are `true` — 894/2,317
+  Only trust `params`/`response` as real when those are `true` — 916/2,339
   methods (37.8%) have real sourced params; the rest are `params_known: false`
   and genuinely unknown, never guessed or inferred from the method name.
 - `verified` tells you how confident this project is that the method EXISTS
@@ -78,6 +78,7 @@ and each per-method JSON carries `safety_note_for_agents`. In short:
   (component/thunk names read from the desktop app's cached bundle; not Web API methods)
 - Pressing an app's Block Kit button and submitting its modal from a session token (blocks.actions, RTM view_opened, views.submit): /redocumented/docs/methods/block-actions-and-modals-2026-09.md
   (live-tested)
+- Block Kit, including undocumented blocks (fallback_canary, callout, condition, data_visualization, event, timeline, ...) with schemas: /redocumented/docs/block-kit.md
 - Community-reported web client experiment query parameters (not API methods, not live-tested): /redocumented/docs/guides/client-experiments-2026-10.md
 - Provenance of every source used: /redocumented/docs/README.md
 
@@ -119,7 +120,7 @@ project is a placeholder (`xoxc-REDACTED`, `C0XXXXXXXX`, etc), never a real one.
 
 ## What this is
 
-A from-scratch pass at documenting the Slack Web API — both the ~323 officially
+A from-scratch pass at documenting the Slack Web API — both the ~345 officially
 documented `https://slack.com/api/<method>` methods and the internal/undocumented
 methods used by Slack's own web/desktop client (`client.*`, `search.modules.*`,
 `drafts.*`, session-only prefs endpoints, etc.), for personal automation reference.
@@ -137,8 +138,8 @@ named source, [`ImShyMike/slack-undoc-client`](https://github.com/ImShyMike/slac
 undocumented methods. Modest, honest yield: 437 of its methods were already
 known by this point, **31 were genuinely new**, plus one new auth-model fact
 (a `d` cookie alone can enumerate every workspace/team + token you're logged
-into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 323
-documented + 1,994 undocumented/cross-referenced = 2,317 total (413 not found in Slack's current web client) method names**
+into, no prior token needed — see `auth-and-tokens.md`). **Catalog now: 345
+documented + 1,994 undocumented/cross-referenced = 2,339 total (413 not found in Slack's current web client) method names**
 (up from 372 before any of this update's mining). **All `slack-datamine` and
 Canvas candidate names are existence-oracle-tested (safe, garbage-token,
 zero-real-credential), not just sampled** — names that failed were removed,
@@ -152,8 +153,8 @@ params/response shapes independently confirmed); the rest are confirmed to
 
 **Fourth pass (same day, structuring pass):** went back through every prior
 source and extracted real, structured params/response shapes wherever they
-existed, instead of leaving them as bare method names. **894/2,317 methods
-(38.6%) now have real, sourced, structured `params`; 697/2,317 (30.1%) have a
+existed, instead of leaving them as bare method names. **916/2,339 methods
+(39.2%) now have real, sourced, structured `params`; 712/2,339 (30.4%) have a
 known response shape or example** — up from ~1.6% params-structured before
 this pass. Sources: `slack-ruby/slack-api-ref`'s mirror of official
 `docs.slack.dev` args (330 methods, both official and the handful of
@@ -192,6 +193,8 @@ field or the published `llms.txt` for the same note in agent-facing form.
 - `data/methods.json` — machine-readable master list.
 - `tools/probe.py` — the safety-railed script used for all live probing.
 - `guides/schedule-send-with-attachments.md` — worked draft-scheduling example.
+- `block-kit.md` — every Block Kit block type the client knows (50), with schemas for the
+  undocumented ones (`fallback_canary`, `callout`, `condition`, `data_visualization`, …).
 - `methods/datamine-2026-09.md` — new methods mined from `3kh0/slack-datamine`'s
   committed webpack build artifacts (this pass).
 - `methods/internal-canvas-2026.md` — cross-reference against a bonus 4th
@@ -572,6 +575,21 @@ web-client override parameters from a community post pasted by the site owner,
 plus `slackDebug=1` and feature mentions without flag IDs. Source-reported only,
 not live-tested or bundle-verified; these are not Web API catalog entries.
 
+## slack.ts cross-reference (2026-11-18)
+
+Cross-checked against [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
+(commit `9e380b8`):
+
+- **Methods.** Its `src/types/generated/methods.ts` is generated from docs.slack.dev, with
+  required/optional hand-reviewed for many methods. 22 officially documented methods were missing
+  from this catalog and are now added with its params and response types (`admin.slackbot.skills.*`,
+  `slackbot.skills.*`, `agents.conversations.*`, `canvases.getContent`, `admin.users.deactivate`).
+  None of them appear in the current web client's call sites.
+- **Blocks.** Its `blocks.ts` types the undocumented blocks; written up with the client's full
+  block-type list in [`block-kit.md`](block-kit.md).
+- **Events.** Six events it types that the web client doesn't handle are appended to
+  [`methods/gateway-events-2026-10.md`](methods/gateway-events-2026-10.md).
+
 
 ==============================================================================
 # FILE: https://vs.izie.top/redocumented/docs/auth-and-tokens.md
@@ -726,6 +744,214 @@ than adding a new mechanism.
   were reported to categorically lack search/saved-items access.
 - `xapp-` app-level tokens were not exercised against any Web API method in this pass
   (out of scope — they're for Socket Mode, not a general bearer token).
+
+
+==============================================================================
+# FILE: https://vs.izie.top/redocumented/docs/block-kit.md
+==============================================================================
+
+# Block Kit — every block type, including undocumented ones
+
+Slack's [Block Kit reference](https://docs.slack.dev/reference/block-kit/blocks) lists 20 block
+types. Slack's web client knows about **50**. Several of the hidden ones are accepted by
+`chat.postMessage` and render normally, and Block Kit Builder will preview them (that is where
+`fallback_canary` shows up) even though no docs page mentions them.
+
+Sources, cross-checked 2026-11-18:
+
+- **Client names**: `block-kit-types.txt` from [slack-datamine-plus](https://slackdatamineplus.izie.top),
+  the block/element/rich-text type names in the current web client build.
+- **Schemas**: [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
+  `src/types/blocks/blocks.ts` (commit `9e380b8`), which types the undocumented blocks from
+  testing against Block Kit Builder and the client. Field notes below are theirs unless marked.
+
+Undocumented blocks can change or vanish without notice, and they often render differently (or
+not at all) on mobile. Always send a `text` fallback with the message.
+
+## Status of every block type
+
+| Block | Status | Notes |
+|---|---|---|
+| `actions`, `alert`, `card`, `carousel`, `container`, `context`, `context_actions`, `data_table`, `divider`, `file`, `header`, `image`, `input`, `markdown`, `plan`, `rich_text`, `section`, `table`, `task_card`, `video` | documented | In the official reference. |
+| `call` | semi-documented | Only mentioned in the [Calls API docs](https://docs.slack.dev/apis/web-api/using-the-calls-api). Schema below. |
+| `callout` | undocumented, schema known | Colored card wrapping other blocks. |
+| `canvas_table` | undocumented, schema known | Table whose cells are blocks. Broken on mobile. |
+| `channel_section` / `channel_set` | undocumented, schema known | Sidebar channel-section share card. |
+| `condition` | undocumented, schema known | Renders different blocks per client/team. Not on Android. |
+| `contact_card` | undocumented, schema known | User card. |
+| `data_visualization` | undocumented, schema known | Pie / bar / line / area charts. |
+| `event` | undocumented, schema known | Calendar event (Google/Outlook integration). |
+| `fallback_canary` | undocumented, schema known | Always fails, so always renders its `fallback`. |
+| `loading` | undocumented, schema known | Loading spinner, no fields. |
+| `message_embed` | undocumented, schema known | Embedded message card. |
+| `share_prompt` | undocumented, schema known | AI-agent prompt share card. |
+| `share_shortcut` | undocumented, schema known | Workflow share card. |
+| `timeline` | undocumented, schema known | Slackbot "used N tools" timeline. |
+| `attachment_reference`, `auth_provider`, `canvas`, `error`, `expandable`, `group`, `layout`, `mcp_app`, `message`, `page`, `prototype`, `related_automation_decorator`, `salesforce_record_card`, `search_top_results`, `share_skill`, `share_workflow` | undocumented, name only | Present in the client; no tested schema yet. |
+
+## The fallback convention
+
+Blocks in the client can carry a `fallback` array. When the client cannot render a block (unknown
+type, unsupported platform, failed lookup) it renders the `fallback` blocks in its place instead of
+"This content can't be displayed". `fallback_canary` exists to test that path: it never renders, so
+you always see the fallback.
+
+Allowed in `fallback`: `divider`, `header`, `context`, `image`, `table`, `contact_card`, `video`,
+`section`, `rich_text`.
+
+```json
+{
+  "blocks": [{
+    "type": "fallback_canary",
+    "fallback": [
+      { "type": "header", "text": { "type": "plain_text", "text": "Fallback demo" } },
+      { "type": "section", "text": { "type": "mrkdwn", "text": "Your client does not recognize this block, so it shows the *fallback*." } }
+    ]
+  }]
+}
+```
+
+## Schemas
+
+Every block also takes the usual optional `block_id` (max 255 chars).
+
+### `call`
+
+| Field | Type | Notes |
+|---|---|---|
+| `call_id` | string, required | From `calls.add`. |
+| `call` | `{ v1: CallV1, media_backend_type }` | Always set by the server; rejected if you send it. |
+| `api_decoration_available` | boolean | |
+
+### `callout`
+
+| Field | Type | Notes |
+|---|---|---|
+| `background_color` | `indigo` \| `blue` \| `jade` \| `pink` \| `gray` \| `purple` \| `orange` \| `brown` \| `green` | required |
+| `child_blocks` | block[] | `section`, `divider`, `image`, `header`, `rich_text`, `contact_card`, `file` |
+
+### `canvas_table`
+
+`rows`: array of `{ type: "canvas_table_row", cells: [...] }`, each row with at least one cell.
+A cell is `{ type: "canvas_table_cell", header: boolean, child_blocks: block[], width?: number }`.
+Cell blocks: `section`, `divider`, `image`, `contact_card`, `rich_text`, `file`. Only the first
+row's `width` values are used. On mobile it renders as a broken "open in canvas" link.
+
+### `channel_section` / `channel_set`
+
+Only `channel_ids` is validated by the server; every other field accepts any type.
+
+| Field | Type | Notes |
+|---|---|---|
+| `channel_set_name` | string | Section name. |
+| `channel_ids` | string[] | |
+| `emoji` | string | |
+| `link_id` | string | `Csl…` ID. If unset, copying the link creates a new section. |
+| `destination_channel_id`, `target_user_ids`, `accepted_user_ids`, `is_channel_set_preview` | | Meaning untested. |
+
+### `condition`
+
+| Field | Type | Notes |
+|---|---|---|
+| `cases` | `{ conditions, blocks }[]` | All `conditions` in a case must match. |
+| `default` | block[] | Shown when no case matches. |
+
+A condition is `{ op: "=" | "!=", type, value }` with `type` one of `client` (`desktop`, `ios`,
+`android`, …), `content_type` (`condition_demo`, …) or `team` (team ID). Allowed child blocks:
+`actions`, `context`, `divider`, `image`, `section`, `header`, `video`, `rich_text`, `input`,
+`event`, `file`, `call`. Not supported on Android.
+
+### `contact_card`
+
+`contact_user_id` (string, required): the user to show.
+
+### `data_visualization`
+
+| Field | Type | Notes |
+|---|---|---|
+| `title` | string, required | Max 50 chars. |
+| `chart` | chart, required | See below. |
+| `size` | `small` \| `large` | Currently no effect. |
+| `preview_images` | object | Server-set light/dark preview image URLs and file IDs; ignored if sent. |
+
+Pie: `{ type: "pie", segments: [{ label (≤20), value }] }`, max 12 segments.
+Axes: `{ type: "bar" | "line" | "area", axis_config: { categories[], x_label (≤50), y_label (≤50) }, series: [{ name (≤20), data: [{ label, value }] }] }`;
+each point's `label` must be one of `axis_config.categories`.
+
+### `event`
+
+| Field | Type | Notes |
+|---|---|---|
+| `block_id` | string, required | Required for this block. |
+| `event_id` | string, required | From `meetings.list` (session token) or `calendar.event.create`. |
+| `event` | CalendarEvent | Overrides the server lookup. Shown on desktop even if `event_id` doesn't exist. |
+| `is_deleted` | boolean | Server-set when `event_id` doesn't exist; errors if you send it. |
+
+CalendarEvent: `start` and `end` (`{ date_time: unix, date? }`) are required by the schema. To
+actually show, it also needs `organizer` (`{ email, name, user_id? }`) and `attendees`
+(`{ email, name, rsvp?, user_id? }[]`), and for a future event the viewer must be an attendee by
+`user_id`, or it shows "We can't fully display this message". Optional: `title`, `status`
+(`confirmed` / `tentative` / `cancelled`), `app_type` (`gcal` / `ocal` / `ocal_gcc`),
+`meeting_url`, `meeting_provider`, `web_link`, `copies`, `attendee_count` (shows NaN without it),
+`needs_refetch`, `location`, `description` (last two are not shown).
+
+### `fallback_canary`
+
+`fallback` (block[], required). See [the fallback convention](#the-fallback-convention).
+
+### `loading`
+
+No fields. Shows a loading animation.
+
+### `message_embed`
+
+`team_id`, `channel`, `ts` (all strings, required). Renders the message as a card, like an
+unfurl/forward. If the viewer isn't in the channel or the message doesn't exist, it renders as an
+empty bubble.
+
+### `share_prompt`
+
+| Field | Type | Notes |
+|---|---|---|
+| `prompt` | string, required | Plain-text prompt. Ignored if `prompt_rich_text` is set. |
+| `label` | string, required | Card title. |
+| `prompt_rich_text` | rich_text[] | |
+| `app_id` | string | Agent app to look up. |
+| `bot_user_id` | string | Overrides `app_id`. |
+| `is_slackbot` | boolean | Overrides both, unless Slackbot is disabled in the workspace. |
+| `prompt_id` | string | From `share.prompts.add`; used for copy link / forward. |
+| `attached_skills` | `{ id, name }[]` | |
+| `turn_number` | number | Not sent or rendered by the client. |
+
+### `share_shortcut`
+
+Required: `app_id`, `function_trigger_id` (`Ft…`), `owning_team_id`. Optional: `is_workflow_app`,
+`sales_home_workflow_app_type`, `app_collaborators`, `title`, `description`, `bot_user_id`,
+`workflow_id`, `developer_trace_id`, `trigger_type`, `trigger_subtype`, `share_url`,
+`contains_ai_steps`, `button_label`, `url`. Missing `title`/`description` are left out, not
+fetched from the workflow.
+
+### `timeline`
+
+| Field | Type | Notes |
+|---|---|---|
+| `points` | point[], required | |
+| `summary` | rich_text | Replaces "Used N tools". |
+| `start_ts`, `end_ts` | number | Not rendered. |
+
+A point: `id`, `status` (`in_progress` / `complete` / `error` / `canceled`), `text`,
+`rich_text_title?` (overrides `text`), `icon?` (e.g. `ai-sparkle`, `calendar`, `search`,
+`canvas-content`, `lists`, `email`, `ai-workflow`, …), `icon_url?` (overrides `icon`), `steps?`.
+A step: `{ id, sections: [{ rich_text_title, sources }] }`, where a source is
+`{ type: "message", channel_id, timestamp }`, `{ type: "file", url }` or
+`{ type: "web", url, title? }`.
+
+## Elements and rich-text types
+
+The client's element and rich-text element names (including internal ones like `_variable`,
+`work_object_mention`, `citation`, `skill`) are in slack-datamine-plus's `block-kit-types.txt`.
+slack.ts `src/types/blocks/elements.ts` has the typed element / action payload / `state.values`
+shapes for every interactive element.
 
 
 ==============================================================================
@@ -985,7 +1211,7 @@ def delete_draft(draft_id):
 
 # Master method index (alphabetical)
 
-323 documented methods + 1,994 undocumented methods = 2,317 total. 413 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 647 undocumented methods have observed, partial parameter names (see the same page). **894/2,317 (38.6%) have real, sourced, structured params** (not guessed) -- 697/2,317 (30.1%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
+345 documented methods + 1,994 undocumented methods = 2,339 total. 413 are not found in Slack's current web client (hidden by default in the explorer, see `datamine-2026-10.md`) and 647 undocumented methods have observed, partial parameter names (see the same page). **916/2,339 (39.2%) have real, sourced, structured params** (not guessed) -- 712/2,339 (30.4%) also have a known response shape/example. Every row's params/response status is explicit (`known` vs `unknown`) so an agent can check before calling rather than assume. Full structured data (JSON Schema-ish param/response field maps) is in `../data/methods.json` -- this table is the human-scannable summary of the same data.
 
 **Where the structured params/responses come from:** official methods -- `slack-ruby/slack-api-ref`, a mirror of `docs.slack.dev`'s own args (330 methods). Undocumented methods -- `ImShyMike/slack-undoc-client`'s generated TypeScript types, generated from real observed API responses per that repo's own README (468 methods, cross-referenced, not independently re-verified by us). A handful of first-pass methods have hand-written params from this project's own live testing. **Everything else (1,197 methods, mostly from the webpack-mining and internal-Canvas passes) has no known params or response shape anywhere in this project -- marked `unknown`, never guessed.**
 
@@ -4213,7 +4439,7 @@ still `existence-only`.
 
 - A method only gets the flag after it has been missing from **3 consecutive mined builds**, so one odd build does not flip it. It loses the flag as soon as it is seen again.
 - A method the client still *mentions* (for example in log text such as "failed to call search.team") counts as present.
-- Right now **413** of 2317 methods carry the flag. Documented (official) methods never do.
+- Right now **413** of 2339 methods carry the flag. Documented (official) methods never do.
 - The explorer hides them by default. Tick **Show methods not in the current client** to see them; they carry a grey "not in client" tag. They are also in `api/index.json` / `api/methods.txt` (`not_in_client`) and marked in the master index.
 
 The old field names `removed` / `removed_note` no longer exist.
@@ -9743,6 +9969,23 @@ Note: line numbers are the registration lines in modules/eager/application/0620_
   ```
 - **Notes:** query => mark topic changed; broadcast => store entries; close => remove user from topic.
 
+
+## Appendix: events the web client doesn't register (added 2026-11-18)
+
+Cross-checked against [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
+`src/types/events.ts` (commit `9e380b8`), which types every Events API and RTM event. These six
+are typed there but have no handler in the web client's router, so they are missing above. The
+first three are RTM transport frames for bot-token RTM clients (`rtm.connect`), the last three are
+Events API events.
+
+| Event | Shape (from slack.ts) | Notes |
+|---|---|---|
+| `goodbye` | `{type}` | Server is about to close the socket; reconnect. |
+| `reconnect_url` | `{type, url}` | Next reconnection URL. Semi-undocumented. |
+| `team_migration_started` | `{type}` | Socket closes right after; reconnect. |
+| `entity_comments_requested` | `{user, external_ref:{id,type?}, entity_url, link:{url,domain}, cursor?, limit, thread_root_id?, trigger_id}` | A Work Object's comments are being loaded. |
+| `user_connection` | `{subtype:"connect"\|"disconnect", user, trigger_id?, enterprise_id?}` | |
+| `user_guest_status_changed` | `{user (full user object), cache_ts?}` | |
 
 
 ==============================================================================

@@ -1,14 +1,14 @@
 {
  "generated": "2026-11-18",
  "counts": {
-  "total": 2317,
-  "documented": 323,
+  "total": 2339,
+  "documented": 345,
   "undocumented": 1994,
   "not_in_client": 413,
   "params_observed": 647,
   "live_verified_undocumented": 113,
-  "params_known": 894,
-  "response_known": 697,
+  "params_known": 916,
+  "response_known": 712,
   "own_miner_sourced": 1577
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
@@ -2974,6 +2974,50 @@
    "params_observed": false
   },
   {
+   "name": "admin.slackbot.skills.list",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "admin.slackbot.skills.publish",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "admin.slackbot.skills.setAutoEnabled",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "admin.slackbot.skills.unpublish",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "admin.teams.admins.list",
    "status": "documented",
    "verified": "docs-only",
@@ -3269,6 +3313,17 @@
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
    "params_observed": true
+  },
+  {
+   "name": "admin.users.deactivate",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
   },
   {
    "name": "admin.users.externalUsers.disconnect",
@@ -3675,6 +3730,105 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": true,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.archive",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.create",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.getCanvas",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.listViews",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.removeView",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.setCanvasContent",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.setCommands",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.setProperties",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "agents.conversations.setView",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -7667,6 +7821,17 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "canvases.getContent",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
    "not_in_client": false,
    "params_observed": false
   },
@@ -21692,6 +21857,83 @@
    "response_known": true,
    "write_shaped": false,
    "purpose": "params per slack-undoc-client generated types: limit?: number;",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.create",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.delete",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.info",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.library.add",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.library.remove",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.list",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": false,
+   "purpose": "",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "slackbot.skills.update",
+   "status": "documented",
+   "verified": "docs-only",
+   "params_known": true,
+   "response_known": true,
+   "write_shaped": true,
+   "purpose": "",
    "not_in_client": false,
    "params_observed": false
   },

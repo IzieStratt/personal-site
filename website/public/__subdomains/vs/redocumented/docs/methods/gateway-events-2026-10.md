@@ -5137,3 +5137,20 @@ Note: line numbers are the registration lines in modules/eager/application/0620_
   ```
 - **Notes:** query => mark topic changed; broadcast => store entries; close => remove user from topic.
 
+
+## Appendix: events the web client doesn't register (added 2026-11-18)
+
+Cross-checked against [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
+`src/types/events.ts` (commit `9e380b8`), which types every Events API and RTM event. These six
+are typed there but have no handler in the web client's router, so they are missing above. The
+first three are RTM transport frames for bot-token RTM clients (`rtm.connect`), the last three are
+Events API events.
+
+| Event | Shape (from slack.ts) | Notes |
+|---|---|---|
+| `goodbye` | `{type}` | Server is about to close the socket; reconnect. |
+| `reconnect_url` | `{type, url}` | Next reconnection URL. Semi-undocumented. |
+| `team_migration_started` | `{type}` | Socket closes right after; reconnect. |
+| `entity_comments_requested` | `{user, external_ref:{id,type?}, entity_url, link:{url,domain}, cursor?, limit, thread_root_id?, trigger_id}` | A Work Object's comments are being loaded. |
+| `user_connection` | `{subtype:"connect"\|"disconnect", user, trigger_id?, enterprise_id?}` | |
+| `user_guest_status_changed` | `{user (full user object), cache_ts?}` | |

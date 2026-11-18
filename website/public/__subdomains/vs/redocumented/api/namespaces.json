@@ -438,6 +438,12 @@
  "admin.slackbot.channelResponses": [
   "admin.slackbot.channelResponses.listRedactions"
  ],
+ "admin.slackbot.skills": [
+  "admin.slackbot.skills.list",
+  "admin.slackbot.skills.publish",
+  "admin.slackbot.skills.setAutoEnabled",
+  "admin.slackbot.skills.unpublish"
+ ],
  "admin.teams": [
   "admin.teams.create",
   "admin.teams.list"
@@ -472,6 +478,7 @@
  ],
  "admin.users": [
   "admin.users.assign",
+  "admin.users.deactivate",
   "admin.users.getExpiration",
   "admin.users.invite",
   "admin.users.list",
@@ -541,6 +548,17 @@
  "agents.a2a": [
   "agents.a2a.add",
   "agents.a2a.preview"
+ ],
+ "agents.conversations": [
+  "agents.conversations.archive",
+  "agents.conversations.create",
+  "agents.conversations.getCanvas",
+  "agents.conversations.listViews",
+  "agents.conversations.removeView",
+  "agents.conversations.setCanvasContent",
+  "agents.conversations.setCommands",
+  "agents.conversations.setProperties",
+  "agents.conversations.setView"
  ],
  "agents.mcp.settings": [
   "agents.mcp.settings.list",
@@ -1135,6 +1153,7 @@
   "canvases.delete",
   "canvases.edit",
   "canvases.getCannedTemplates",
+  "canvases.getContent",
   "canvases.getEmbedToken",
   "canvases.getTemplates",
   "canvases.listHeaders",
@@ -3091,6 +3110,17 @@
   "slackbot.responses.delete",
   "slackbot.responses.edit",
   "slackbot.responses.list"
+ ],
+ "slackbot.skills": [
+  "slackbot.skills.create",
+  "slackbot.skills.delete",
+  "slackbot.skills.info",
+  "slackbot.skills.list",
+  "slackbot.skills.update"
+ ],
+ "slackbot.skills.library": [
+  "slackbot.skills.library.add",
+  "slackbot.skills.library.remove"
  ],
  "slackbot.suggestions": [
   "slackbot.suggestions.list",
