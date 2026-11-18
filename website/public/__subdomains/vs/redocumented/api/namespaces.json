@@ -730,6 +730,9 @@
   "ai.alpha.slackbot.skills.unsetCanvasAsSkill",
   "ai.alpha.slackbot.skills.updateMetadata"
  ],
+ "ai.alpha.slackbot.tasks": [
+  "ai.alpha.slackbot.tasks.getColleagueAdoption"
+ ],
  "ai.alpha.slackbot.voices": [
   "ai.alpha.slackbot.voices.list"
  ],
@@ -1369,6 +1372,7 @@
   "conversations.members",
   "conversations.moveTab",
   "conversations.open",
+  "conversations.preview",
   "conversations.recentSummary",
   "conversations.recommend",
   "conversations.removeSharedLegacyRestriction",
@@ -2443,6 +2447,9 @@
   "payments.checkout.purchase",
   "payments.checkout.rescue"
  ],
+ "payments.cost": [
+  "payments.cost.get"
+ ],
  "payments.status": [
   "payments.status.get"
  ],
@@ -2769,6 +2776,7 @@
   "sfdc.activities.getActivityTrackedObjects",
   "sfdc.activities.list",
   "sfdc.activities.listForUser",
+  "sfdc.activities.listRecentUpdates",
   "sfdc.activities.update"
  ],
  "sfdc.admin.configs": [

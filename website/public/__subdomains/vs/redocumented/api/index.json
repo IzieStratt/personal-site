@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-17",
+ "generated": "2026-11-18",
  "counts": {
-  "total": 2313,
+  "total": 2317,
   "documented": 323,
-  "undocumented": 1990,
+  "undocumented": 1994,
   "not_in_client": 413,
-  "params_observed": 644,
+  "params_observed": 647,
   "live_verified_undocumented": 113,
   "params_known": 894,
   "response_known": 697,
-  "own_miner_sourced": 1573
+  "own_miner_sourced": 1577
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -4998,6 +4998,17 @@
    "params_observed": false
   },
   {
+   "name": "ai.alpha.slackbot.tasks.getColleagueAdoption",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "ai.alpha.slackbot.voices.list",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -8328,7 +8339,7 @@
    "write_shaped": true,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "client.codeChannels.addReaction",
@@ -9889,6 +9900,17 @@
    "response_known": true,
    "write_shaped": true,
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
+   "name": "conversations.preview",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": false
   },
@@ -15049,7 +15071,7 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "huddles.agents.remove",
@@ -16952,6 +16974,17 @@
    "write_shaped": false,
    "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": true,
+   "params_observed": false
+  },
+  {
+   "name": "payments.cost.get",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -19087,6 +19120,17 @@
    "purpose": "(inferred from name only; see methods/datamine-2026-09.md)",
    "not_in_client": false,
    "params_observed": false
+  },
+  {
+   "name": "sfdc.activities.listRecentUpdates",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": true
   },
   {
    "name": "sfdc.activities.update",
