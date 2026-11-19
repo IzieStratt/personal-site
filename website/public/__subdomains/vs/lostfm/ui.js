@@ -131,7 +131,7 @@ export function renderProfile(el, stats, opts) {
   const p = stats.periods[period]
   const recentLimit = opts.recentLimit || 10
   const since = stats.first ? new Date(stats.first * 1000).toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric' }) : ''
-  const avatarImg = safeImage(opts.avatar)
+  const avatarImg = opts.avatarSrc || safeImage(opts.avatar) // avatarSrc: a file we host ourselves
   el.innerHTML = `
     <header class="profile">
       <div class="avatar" aria-hidden="true">${avatarImg ? `<img src="${esc(avatarImg)}" alt="">` : esc(opts.avatar || letter(opts.name))}</div>

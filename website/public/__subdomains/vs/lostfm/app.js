@@ -11,7 +11,7 @@ let stats = null
 
 function draw() {
   renderProfile(el, stats, {
-    name: 'izie', avatar: 'iz', period, updated: true, emptyText: 'No stats yet.',
+    name: 'izie', avatar: 'iz', avatarSrc: 'avatar.jpg', period, updated: true, emptyText: 'No stats yet.',
     onPeriod: (p) => { period = p; store.set('lostfm.period', p); draw() },
   })
 }
