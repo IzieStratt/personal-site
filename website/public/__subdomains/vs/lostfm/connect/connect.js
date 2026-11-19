@@ -3,7 +3,9 @@
 import { computeStats, parseImport, spotifyItemsToListens, pickImage, safeLink } from '../lib.js'
 import { renderProfile, icon, fmt, ago } from '../ui.js'
 
-const CLIENT_ID = '0548030654df4cfda630057b3ec8bc6e'
+const DEFAULT_CLIENT_ID = '0548030654df4cfda630057b3ec8bc6e'
+const ownClientId = () => { const v = store.get('lostfm.clientId'); return /^[0-9a-f]{32}$/.test(v || '') ? v : '' }
+const clientId = () => ownClientId() || DEFAULT_CLIENT_ID
 const REDIRECT = `${location.origin}/lostfm/connect/`
 const SCOPES = 'user-read-currently-playing user-read-recently-played'
 const SYNC_EVERY = 60_000
@@ -66,14 +68,14 @@ async function login() {
   sessionStorage.setItem('lostfm.verifier', verifier)
   sessionStorage.setItem('lostfm.state', state)
   location.href = 'https://accounts.spotify.com/authorize?' + new URLSearchParams({
-    client_id: CLIENT_ID, response_type: 'code', redirect_uri: REDIRECT, scope: SCOPES,
+    client_id: clientId(), response_type: 'code', redirect_uri: REDIRECT, scope: SCOPES,
     code_challenge_method: 'S256', code_challenge: challenge, state,
   })
 }
 async function tokenRequest(params) {
   const r = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ client_id: CLIENT_ID, ...params }),
+    body: new URLSearchParams({ client_id: clientId(), ...params }),
   })
   const body = await r.json().catch(() => ({}))
   if (!r.ok) {
@@ -108,7 +110,7 @@ async function spotify(path) {
   if (!t) throw new Error('Not connected')
   const r = await fetch(`https://api.spotify.com/v1${path}`, { headers: { authorization: `Bearer ${t}` } })
   if (r.status === 204) return null
-  if (r.status === 403) throw new Error("Spotify won't let this account in yet. Ask izie to add your Spotify email.")
+  if (r.status === 403) throw new Error("Spotify won't let this account in yet. Ask izie to add your Spotify email, or use your own Spotify app (below).")
   if (r.status === 429) throw new Error('Spotify is rate limiting us. Trying again in a minute.')
   if (!r.ok) throw new Error(`Spotify said ${r.status}`)
   return r.json()
@@ -170,6 +172,10 @@ async function fillArtistImages(stats) {
 // ---------- UI ----------
 function renderSources() {
   const connected = !!store.get('lostfm.refresh')
+  const own = ownClientId()
+  $('#own-app-status').textContent = own ? `Using your own app (${own.slice(0, 6)}…).` : 'Using izie\'s app.'
+  $('#own-app-input').value = own
+  $('#own-app-clear').hidden = !own
   $('#spotify-actions').innerHTML = connected
     ? `<button id="sp-sync">${icon('refresh')} Sync now</button><button id="sp-off">${icon('logout')} Disconnect</button>`
     : `<button id="sp-on" class="primary">${icon('spotify')} Connect Spotify</button>`
@@ -252,6 +258,19 @@ $('#import').addEventListener('change', async (ev) => {
   } catch (e) { setStatus('#import-status', e.message || 'That file could not be read.', 'err') }
 })
 $('#import').multiple = true
+$('#own-app-redirect').textContent = REDIRECT
+$('#own-app-save').addEventListener('click', () => {
+  const v = $('#own-app-input').value.trim().toLowerCase()
+  if (!/^[0-9a-f]{32}$/.test(v)) return setStatus('#own-app-msg', 'That doesn\'t look like a Client ID (32 letters and numbers).', 'err')
+  if (v !== ownClientId()) forgetSpotify() // tokens from another app won't refresh
+  store.set('lostfm.clientId', v)
+  setStatus('#own-app-msg', 'Saved. Now click Connect Spotify.', 'ok')
+  renderSources()
+})
+$('#own-app-clear').addEventListener('click', () => {
+  store.set('lostfm.clientId', null); forgetSpotify()
+  setStatus('#own-app-msg', 'Back to izie\'s app.', 'ok'); renderSources()
+})
 
 $('#export').addEventListener('click', async () => {
   const blob = new Blob([JSON.stringify({ lostfm: 1, listens: await allListens() })], { type: 'application/json' })
