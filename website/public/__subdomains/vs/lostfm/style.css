@@ -192,3 +192,8 @@ button.small { min-height: 28px; padding: 2px var(--s3); font-size: .85rem; vert
 .field input:user-invalid { border-color: var(--accent); }
 
 [hidden] { display: none !important; }
+
+.steps { align-items: start; }
+.setup-box > summary { list-style: none; width: fit-content; margin-bottom: var(--s3); }
+.setup-box > summary::-webkit-details-marker { display: none; }
+.setup-box[open] > summary { background: var(--card); color: var(--fg); border-color: var(--line); }

@@ -33,6 +33,8 @@
             <span class="tip"><button type="button" class="tip-btn" aria-label="How syncing works" aria-describedby="tip-sync"><span data-icon="info"></span></button><span role="tooltip" id="tip-sync">Spotify only remembers your last 50 plays, so open this page about once a day to keep everything.</span></span></p>
 
           <div id="own-app-setup">
+            <details class="setup-box">
+              <summary class="btn primary"><span data-icon="spotify"></span> Set up Spotify</summary>
             <p>Connect through your own free Spotify app. It takes about 3 minutes, and you're automatically allowed in.
               <span class="tip"><button type="button" class="tip-btn" aria-label="Why your own app?" aria-describedby="tip-why"><span data-icon="info"></span></button><span role="tooltip" id="tip-why">Spotify limits each app to 5 people unless it's run by a company, so everyone brings their own. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID stays in this browser.</span></span></p>
             <ol class="setup">
@@ -48,6 +50,7 @@
               <input id="own-app-input" type="text" autocomplete="off" spellcheck="false" placeholder="Client ID" required pattern="[0-9a-fA-F]{32}" title="32 letters and numbers">
               <button class="primary" type="submit">Save</button>
             </form>
+            </details>
           </div>
 
           <div class="actions" id="spotify-actions"></div>
