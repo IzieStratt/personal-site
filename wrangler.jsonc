@@ -34,6 +34,10 @@
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }],
   "kv_namespaces": [
     {
+      "binding": "LOSTFM",
+      "id": "d7880283e69246b6ab69adc7c8767a53"
+    },
+    {
       "binding": "HMOJI_TOKENS",
       "id": "68aaa050cda540c192ccb2e2a8b6a2a5"
     },
