@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vibetime</title>
+    <meta name="description" content="Passive, privacy-friendly time tracking for building with AI — it counts productive struggle, not agent runtime.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+      @font-face { font-family: "xkcd Script"; src: url("/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
+      :root { color: #222; background: #fffdf7; font: 1.25rem/1.5 "xkcd Script", cursive; }
+      body { width: min(48rem, calc(100% - 3rem)); margin: 10vh auto; padding: 0 0 6rem; overflow-wrap: anywhere; }
+      h1 { margin: 0 0 .5rem; font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: normal; }
+      h2 { margin: 2.5rem 0 1rem; font-size: 1.6rem; font-weight: normal; }
+      p { margin: 0 0 1.25rem; }
+      .lead { font-size: 1.4rem; }
+      ul { margin: 0 0 1.25rem; padding-left: 1.5rem; }
+      li { margin: 0 0 .4rem; }
+      a { color: #315f9d; }
+      code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .95rem; background: #0000000d; padding: .1em .35em; border-radius: .25em; }
+      pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .95rem; line-height: 1.45; background: #1d1c19; color: #ece8e1; padding: 1rem 1.2rem; border-radius: .6rem; overflow-x: auto; }
+      pre code { background: none; padding: 0; }
+      .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
+      @media (max-width: 34rem) { .cols { grid-template-columns: 1fr; } }
+      .tag { display: inline-block; font-size: .85rem; border: 1px solid #0003; border-radius: 1em; padding: .1em .7em; margin: 0 .3em .4em 0; }
+      footer { margin-top: 3rem; font-size: 1rem; color: #666; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>vibetime</h1>
+      <p class="lead">Passive, privacy-friendly time tracking for building with&nbsp;AI. It counts the hours you actually spend <em>steering</em> — prompting, reading diffs, editing, testing — not the minutes an agent grinds while you're at dinner.</p>
+
+      <p>
+        <span class="tag">open source · AGPL-3.0</span>
+        <span class="tag">Windows · macOS · Linux</span>
+        <span class="tag">works with your editor &amp; AI tools</span>
+      </p>
+
+      <p><a href="https://github.com/IzieStratt/vibetime">Source on GitHub →</a> &nbsp; built for the <a href="https://news.hackclub.com/news/ai-time-tracking">Hack Club AI time-tracking bounty</a>.</p>
+
+      <h2>see your own time, offline</h2>
+      <pre><code>$ vibetime status
+
+vibetime — last 7 days
+
+  Today    44m
+  Total    1h 56m     ▄ ▄▄█
+
+  How you worked: 71% hands-on · 22% steering · 7% watching
+
+  Project                     today    total
+  cs2-browser-port              44m   1h 12m
+  dotfiles                       0m      44m</code></pre>
+
+      <h2>how it counts "productive struggle"</h2>
+      <ul>
+        <li>A minute counts only when <strong>you</strong> were there — prompting, typing, reviewing, or watching the agent for a few minutes after a prompt. Long unattended agent runs earn nothing.</li>
+        <li>Everything is logged to a <strong>tamper-evident local chain</strong>; your computer sends its head to the server every minute, so hours can't be backdated or faked later.</li>
+        <li>Your <strong>code and prompts never leave your machine</strong> — only per-project minute totals do. You choose what (if anything) to attach when you submit a project.</li>
+        <li>Submitted hours are <strong>auditable</strong>: reviewers see a timeline, the hands-on/steering/watching split, and GitHub push evidence.</li>
+      </ul>
+
+      <h2>works with what you already use</h2>
+      <div class="cols">
+        <ul>
+          <li>Claude Code</li>
+          <li>Codex CLI</li>
+          <li>Gemini CLI</li>
+          <li>OpenCode</li>
+        </ul>
+        <ul>
+          <li>Cursor</li>
+          <li>GitHub Copilot (agent)</li>
+          <li>Augment · Continue</li>
+          <li>any editor via WakaTime (VS Code, Zed, Vim, JetBrains…)</li>
+        </ul>
+      </div>
+
+      <h2>get it</h2>
+      <pre><code># grab a build from GitHub releases, then:
+vibetime login  -server https://vibetime.hackclub.app -token …
+vibetime service install        # starts quietly at login
+vibetime status                 # check in anytime, no account needed</code></pre>
+
+      <footer>
+        A Hack Club project by <a href="https://izie.top">izie</a>.
+        Yes — this lives on the subdomain for things <em>not</em> tracked by Hackatime. The irony is the point.
+      </footer>
+    </main>
+  </body>
+</html>
