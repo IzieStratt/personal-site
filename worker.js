@@ -6,6 +6,7 @@ import { handleQuicklinks } from './quicklinks.js'
 import { handleLostfm } from './lostfm.js'
 export { LostfmStore } from './lostfm.js'
 import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
+export { Vibetime } from './vibetime.js'
 
 export default {
   async fetch(request, env, ctx) {
@@ -56,6 +57,12 @@ export default {
     if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm(\/|$)/.test(url.pathname)) return withLostfmHeaders(await serveSubdomain(request, env, url))
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
+    if (url.pathname.startsWith('/vibetime/app/')) { // vibetime server (DO); this namespace only exists on vs.izie.top
+      // the vibetime server (Durable Object, SQLite-backed); one instance holds every account
+      const sub = new URL(request.url)
+      sub.pathname = url.pathname.slice('/vibetime/app'.length) || '/'
+      return env.VIBETIME.get(env.VIBETIME.idFromName('main')).fetch(new Request(sub, request))
+    }
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
       // one hub holds every lobby and game (see shiritori-lobby.js)
       return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)

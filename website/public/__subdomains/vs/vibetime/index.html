@@ -37,7 +37,7 @@
         <span class="tag">works with your editor &amp; AI tools</span>
       </p>
 
-      <p><a href="https://github.com/IzieStratt/vibetime">Source on GitHub →</a> &nbsp; built for the <a href="https://news.hackclub.com/news/ai-time-tracking">Hack Club AI time-tracking bounty</a>.</p>
+      <p><a href="/vibetime/app/auth/login"><strong>Sign in with Hack Club →</strong></a> &nbsp;·&nbsp; <a href="https://github.com/IzieStratt/vibetime">Source on GitHub</a> &nbsp;·&nbsp; built for the <a href="https://news.hackclub.com/news/ai-time-tracking">Hack Club bounty</a>.</p>
 
       <h2>see your own time, offline</h2>
       <pre><code>$ vibetime status
@@ -78,10 +78,12 @@ vibetime — last 7 days
       </div>
 
       <h2>get it</h2>
-      <pre><code># grab a build from GitHub releases, then:
-vibetime login  -server https://vibetime.hackclub.app -token …
+      <pre><code># 1. sign in above to get your token, then on each computer:
+vibetime login  -server https://vs.izie.top/vibetime/app -token vt_…
 vibetime service install        # starts quietly at login
-vibetime status                 # check in anytime, no account needed</code></pre>
+
+# 2. add the plugin for your AI tool (see the repo), then anytime:
+vibetime status                 # your time, offline, no account needed</code></pre>
 
       <footer>
         A Hack Club project by <a href="https://izie.top">izie</a>.

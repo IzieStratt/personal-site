@@ -29,9 +29,9 @@
   },
   // online lobby for the Shiritori game (shiritori-lobby.js); SQLite-backed, which the free plan supports
   "durable_objects": {
-    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }]
+    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }, { "name": "VIBETIME", "class_name": "Vibetime" }]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }, { "tag": "v2", "new_sqlite_classes": ["LostfmStore"] }],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }, { "tag": "v2", "new_sqlite_classes": ["LostfmStore"] }, { "tag": "v3", "new_sqlite_classes": ["Vibetime"] }],
   "kv_namespaces": [
     {
       "binding": "HMOJI_TOKENS",
@@ -64,6 +64,9 @@
     "HMOJI_ALLOW_TOKEN_UPLOAD": "false",
     // the blog editor commits to this repo (secrets: GITHUB_TOKEN, BLOG_ADMIN_SETUP; see blog/README.md)
     "BLOG_REPO": "IzieStratt/personal-site",
-    "BLOG_BRANCH": "main"
+    "BLOG_BRANCH": "main",
+    // vibetime server (vibetime.js DO). Secrets: VIBETIME_OAUTH_CLIENT_ID, VIBETIME_OAUTH_CLIENT_SECRET.
+    "VIBETIME_PUBLIC_URL": "https://vs.izie.top/vibetime/app",
+    "VIBETIME_OAUTH_BASE": "https://auth.hackclub.com"
   }
 }
