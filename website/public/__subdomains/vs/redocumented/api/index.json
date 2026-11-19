@@ -1,15 +1,15 @@
 {
- "generated": "2026-11-18",
+ "generated": "2026-11-19",
  "counts": {
-  "total": 2339,
+  "total": 2343,
   "documented": 345,
-  "undocumented": 1994,
+  "undocumented": 1998,
   "not_in_client": 413,
-  "params_observed": 647,
+  "params_observed": 651,
   "live_verified_undocumented": 113,
   "params_known": 916,
   "response_known": 712,
-  "own_miner_sourced": 1577
+  "own_miner_sourced": 1581
  },
  "lookup": "https://vs.izie.top/redocumented/api/methods/{name}.json (or .md) for one method's full entry",
  "safety_note_for_agents": "This catalog documents Slack's UNDOCUMENTED/internal API surface for a specific workspace (Hack Club, Enterprise Grid). Calling an undocumented method with params_known=false means you would be guessing params against a real backend with unknown side effects -- do not do this against a real account/token without a human in the loop, and never call anything shaped like a write (*.delete, *.set, *.remove, *.create, *.update, and similar) without explicit human confirmation and a clear understanding of the blast radius, even when params_known=true. 'existence-only' verified does NOT mean 'safe to call' -- it only means the method name is real.",
@@ -825,6 +825,17 @@
    "response_known": false,
    "write_shaped": true,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
+   "not_in_client": false,
+   "params_observed": true
+  },
+  {
+   "name": "admin.apps.domainWideAuth.enableUnified",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": true,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
    "not_in_client": false,
    "params_observed": true
   },
@@ -4503,6 +4514,17 @@
    "params_observed": false
   },
   {
+   "name": "ai.alpha.singer.prepareVoiceCall",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "ai.alpha.singer.remoteResponse",
    "status": "undocumented",
    "verified": "datamine-only (not oracle-tested)",
@@ -5966,6 +5988,17 @@
    "params_observed": true
   },
   {
+   "name": "apps.approvals.requests.cancel",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
+   "params_observed": false
+  },
+  {
    "name": "apps.approvals.requests.create",
    "status": "undocumented",
    "verified": "existence-only",
@@ -6491,7 +6524,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "apps.permissions.internal.add",
@@ -12574,7 +12607,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "enterprise.premigrations.preferences.acknowledge",
@@ -13465,6 +13498,17 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": true,
+   "params_observed": false
+  },
+  {
+   "name": "feedback.submitAgenticIaFeedback",
+   "status": "undocumented",
+   "verified": "datamine-only (not oracle-tested)",
+   "params_known": false,
+   "response_known": false,
+   "write_shaped": false,
+   "purpose": "(inferred from name only; webpack string, not oracle-tested)",
+   "not_in_client": false,
    "params_observed": false
   },
   {
@@ -20384,7 +20428,7 @@
    "write_shaped": false,
    "purpose": "(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)",
    "not_in_client": false,
-   "params_observed": false
+   "params_observed": true
   },
   {
    "name": "sfdc.integration.admin.listOrgs",

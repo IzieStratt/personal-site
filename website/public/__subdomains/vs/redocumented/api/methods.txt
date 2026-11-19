@@ -74,6 +74,7 @@ admin.apps.config.set	documented	docs-only	params	-	-	write	Set the app config f
 admin.apps.domainWideAuth.addDomain	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.addUnifiedDomain	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.enable	undocumented	existence-only	-	observed	-	write	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+admin.apps.domainWideAuth.enableUnified	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 admin.apps.domainWideAuth.google.getAdminInstallUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getAuthorizeUrl	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 admin.apps.domainWideAuth.google.getUnifiedScopes	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -408,6 +409,7 @@ ai.alpha.singer.browsers.info	undocumented	datamine-only (not oracle-tested)	-	o
 ai.alpha.singer.browsers.updateSettings	undocumented	datamine-only (not oracle-tested)	-	observed	-	write	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.singer.browsers.viewer	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.singer.device	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
+ai.alpha.singer.prepareVoiceCall	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.singer.remoteResponse	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.singer.window	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 ai.alpha.singer.windowConversation	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
@@ -541,6 +543,7 @@ apps.alwaysAllowedInDms.add	undocumented	datamine-only (not oracle-tested)	-	-	-
 apps.alwaysAllowedInDms.info	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
 apps.alwaysAllowedInDms.remove	undocumented	datamine-only (not oracle-tested)	-	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 apps.approvals.requestedApps.list	undocumented	datamine-only (not oracle-tested)	-	observed	-	-	(inferred from name only; webpack string, not oracle-tested)
+apps.approvals.requests.cancel	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 apps.approvals.requests.create	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 apps.auth.external.authMapping.update	undocumented	existence-only	-	observed	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 apps.auth.external.delete	documented	docs-only	params	-	-	write	Delete external auth tokens only on the Slack side
@@ -588,7 +591,7 @@ apps.manifest.delete	documented	docs-only	params	-	-	write	Permanently deletes a
 apps.manifest.export	documented	docs-only	params	-	-	-	Export an app manifest from an existing app. When called with a manager app token, this method can only export apps that were created by that manager app.
 apps.manifest.update	documented	docs-only	params	-	-	write	Update an app from an app manifest. When called with a manager app token, this method can only update apps that were created by that manager app.
 apps.manifest.validate	documented	docs-only	params	-	-	-	Validate an app manifest
-apps.onboarding.list	undocumented	live-verified	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+apps.onboarding.list	undocumented	live-verified	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 apps.permissions.internal.add	undocumented	datamine-only (not oracle-tested)	params	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 apps.permissions.internal.addScope	undocumented	datamine-only (not oracle-tested)	params	-	-	write	(inferred from name only; webpack string, not oracle-tested)
 apps.permissions.internal.addUser	undocumented	datamine-only (not oracle-tested)	params	-	-	write	(inferred from name only; webpack string, not oracle-tested)
@@ -1141,7 +1144,7 @@ enterprise.payments.contactsList	undocumented	existence-only	-	-	not-in-client	-
 enterprise.prefs.get	undocumented	live-verified	params	-	-	-	Enterprise-level client preferences
 enterprise.prefs.set	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
 enterprise.prefs.setAndLock	undocumented	existence-only	params	-	-	write	(inferred from name only; see methods/datamine-2026-09.md)
-enterprise.prefs.unlock	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+enterprise.prefs.unlock	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.premigrations.preferences.acknowledge	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.premigrations.preferences.list	undocumented	existence-only (sample-checked)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 enterprise.premigrations.users.bulkUndoEmailUpdates	undocumented	existence-only	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1223,6 +1226,7 @@ features.app_home.messages_tab_enabled	undocumented	ambiguous (404, likely not a
 features.app_home.messages_tab_read_only_enabled	undocumented	ambiguous (404, likely not a callable method -- see methods/internal-canvas-2026.md)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 features.bot_user.always_online	undocumented	ambiguous (404, likely not a callable method -- see methods/internal-canvas-2026.md)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 features.rich_previews.entity_types	undocumented	ambiguous (404, likely not a callable method -- see methods/internal-canvas-2026.md)	-	-	not-in-client	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+feedback.submitAgenticIaFeedback	undocumented	datamine-only (not oracle-tested)	-	-	-	-	(inferred from name only; webpack string, not oracle-tested)
 feedback.submitEnterpriseSearchFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feedback.submitFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 feedback.submitPilotFeedback	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
@@ -1851,7 +1855,7 @@ sfdc.integration.admin.checkProvisioningEligibility	undocumented	existence-only	
 sfdc.integration.admin.disconnectOrg	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.admin.exportUserMappings	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.admin.listEligibleCkaOrgs	undocumented	existence-only (sample-checked)	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
-sfdc.integration.admin.listMembers	undocumented	existence-only	-	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
+sfdc.integration.admin.listMembers	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.admin.listOrgs	undocumented	existence-only	params	-	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.admin.previewUsers	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
 sfdc.integration.admin.requestConnection	undocumented	existence-only	-	observed	-	-	(from internal-canvas cross-reference; see methods/internal-canvas-2026.md)
