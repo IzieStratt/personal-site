@@ -174,3 +174,21 @@ details ol { padding-left: var(--s5); margin: var(--s3) 0 0; }
 details li { margin-bottom: var(--s2); }
 input[type=file] { display: none; }
 small.note { display: block; color: var(--muted); font-size: .85rem; margin-top: var(--s3); }
+
+/* tooltips: hover or keyboard focus shows them; Escape-free since they never block anything */
+.tip { position: relative; display: inline-flex; vertical-align: middle; }
+.tip-btn { min-height: 0; padding: 2px; border: 0; background: none; color: var(--muted); border-radius: 50%; }
+.tip-btn:hover { color: var(--fg); }
+.tip [role="tooltip"] { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: max-content; max-width: min(18rem, 80vw);
+  background: var(--fg); color: var(--bg); font-size: .85rem; line-height: 1.4; padding: var(--s2) var(--s3); border-radius: 8px;
+  opacity: 0; visibility: hidden; transition: opacity .12s; pointer-events: none; z-index: 20; }
+.tip:hover [role="tooltip"], .tip:focus-within [role="tooltip"] { opacity: 1; visibility: visible; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.setup { padding-left: var(--s5); margin: 0 0 var(--s3); }
+.setup li { margin-bottom: var(--s2); }
+.setup code { overflow-wrap: anywhere; }
+button.small { min-height: 28px; padding: 2px var(--s3); font-size: .85rem; vertical-align: middle; }
+.field input { flex: 1 1 14rem; min-width: 0; font: inherit; padding: var(--s2) var(--s3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); color: var(--fg); }
+.field input:user-invalid { border-color: var(--accent); }
+
+[hidden] { display: none !important; }

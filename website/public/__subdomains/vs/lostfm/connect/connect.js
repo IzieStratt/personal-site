@@ -5,7 +5,9 @@ import { renderProfile, icon, fmt, ago } from '../ui.js'
 
 const DEFAULT_CLIENT_ID = '0548030654df4cfda630057b3ec8bc6e'
 const ownClientId = () => { const v = store.get('lostfm.clientId'); return /^[0-9a-f]{32}$/.test(v || '') ? v : '' }
-const clientId = () => ownClientId() || DEFAULT_CLIENT_ID
+// people already connected through izie's app keep it until they disconnect; everyone new brings their own
+const onIzieApp = () => store.get('lostfm.legacyApp') === '1'
+const clientId = () => ownClientId() || (onIzieApp() ? DEFAULT_CLIENT_ID : '')
 const REDIRECT = `${location.origin}/lostfm/connect/`
 const SCOPES = 'user-read-currently-playing user-read-recently-played'
 const SYNC_EVERY = 60_000
@@ -62,6 +64,7 @@ async function putListens(rows) {
 // ---------- Spotify (PKCE) ----------
 const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 async function login() {
+  if (!clientId()) return setStatus('#spotify-status', 'Add your Client ID first.', 'err')
   const verifier = b64url(crypto.getRandomValues(new Uint8Array(48)))
   const state = b64url(crypto.getRandomValues(new Uint8Array(16)))
   const challenge = b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)))
@@ -97,7 +100,7 @@ async function finishLogin() {
   await tokenRequest({ grant_type: 'authorization_code', code: q.get('code'), redirect_uri: REDIRECT, code_verifier: verifier })
 }
 function forgetSpotify() {
-  ['access', 'expires', 'refresh', 'lastsync'].forEach((k) => store.set(`lostfm.${k}`, null))
+  ['access', 'expires', 'refresh', 'lastsync', 'legacyApp'].forEach((k) => store.set(`lostfm.${k}`, null))
 }
 async function accessToken() {
   if (store.get('lostfm.access') && Date.now() < Number(store.get('lostfm.expires'))) return store.get('lostfm.access')
@@ -110,7 +113,7 @@ async function spotify(path) {
   if (!t) throw new Error('Not connected')
   const r = await fetch(`https://api.spotify.com/v1${path}`, { headers: { authorization: `Bearer ${t}` } })
   if (r.status === 204) return null
-  if (r.status === 403) throw new Error("Spotify won't let this account in yet. Ask izie to add your Spotify email, or use your own Spotify app (below).")
+  if (r.status === 403) throw new Error("Spotify won't let this account in yet. Check the Client ID and that the redirect URI was added to your app.")
   if (r.status === 429) throw new Error('Spotify is rate limiting us. Trying again in a minute.')
   if (!r.ok) throw new Error(`Spotify said ${r.status}`)
   return r.json()
@@ -173,13 +176,13 @@ async function fillArtistImages(stats) {
 function renderSources() {
   const connected = !!store.get('lostfm.refresh')
   const own = ownClientId()
-  $('#own-app-status').textContent = own ? `Using your own app (${own.slice(0, 6)}…).` : 'Using izie\'s app.'
-  $('#own-app-input').value = own
-  $('#own-app-clear').hidden = !own
+  $('#own-app-setup').hidden = connected || !!own
+  $('#spotify-actions').hidden = !connected && !own
   $('#spotify-actions').innerHTML = connected
     ? `<button id="sp-sync">${icon('refresh')} Sync now</button><button id="sp-off">${icon('logout')} Disconnect</button>`
-    : `<button id="sp-on" class="primary">${icon('spotify')} Connect Spotify</button>`
+    : `<button id="sp-on" class="primary">${icon('spotify')} Connect Spotify</button><button id="sp-change">Change Client ID</button>`
   $('#sp-on')?.addEventListener('click', login)
+  $('#sp-change')?.addEventListener('click', () => { store.set('lostfm.clientId', null); $('#own-app-input').value = own; renderSources(); $('#own-app-input').focus() })
   $('#sp-sync')?.addEventListener('click', () => sync(true))
   $('#sp-off')?.addEventListener('click', () => { forgetSpotify(); renderSources(); setStatus('#spotify-status', 'Disconnected. Your history is still here.') })
   const last = Number(store.get('lostfm.lastsync'))
@@ -259,19 +262,15 @@ $('#import').addEventListener('change', async (ev) => {
 })
 $('#import').multiple = true
 $('#own-app-redirect').textContent = REDIRECT
-$('#own-app-save').addEventListener('click', () => {
+$('#own-app-form').addEventListener('submit', (ev) => {
+  ev.preventDefault()
   const v = $('#own-app-input').value.trim().toLowerCase()
-  if (!/^[0-9a-f]{32}$/.test(v)) return setStatus('#own-app-msg', 'That doesn\'t look like a Client ID (32 letters and numbers).', 'err')
-  if (v !== ownClientId()) forgetSpotify() // tokens from another app won't refresh
+  if (!/^[0-9a-f]{32}$/.test(v)) return setStatus('#spotify-status', 'That doesn\'t look like a Client ID (32 letters and numbers).', 'err')
   store.set('lostfm.clientId', v)
-  setStatus('#own-app-msg', 'Saved. Now click Connect Spotify.', 'ok')
+  setStatus('#spotify-status', 'Saved. Now click Connect Spotify.', 'ok')
   renderSources()
+  $('#sp-on')?.focus()
 })
-$('#own-app-clear').addEventListener('click', () => {
-  store.set('lostfm.clientId', null); forgetSpotify()
-  setStatus('#own-app-msg', 'Back to izie\'s app.', 'ok'); renderSources()
-})
-
 $('#export').addEventListener('click', async () => {
   const blob = new Blob([JSON.stringify({ lostfm: 1, listens: await allListens() })], { type: 'application/json' })
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'lostfm-listens.json' })
@@ -293,6 +292,9 @@ document.addEventListener('click', async (ev) => {
   try { await navigator.clipboard.writeText($(`#${b.dataset.copy}`).textContent); b.lastChild.textContent = ' Copied' } catch { b.lastChild.textContent = ' Select it' }
   setTimeout(() => { b.lastChild.textContent = ' Copy' }, 1500)
 })
+
+// existing connections from before bring-your-own-app were made with izie's app
+if (store.get('lostfm.refresh') && !ownClientId() && !store.get('lostfm.legacyApp')) store.set('lostfm.legacyApp', '1')
 
 ;(async () => {
   try { await finishLogin() } catch (e) { setStatus('#spotify-status', e.message, 'err') }

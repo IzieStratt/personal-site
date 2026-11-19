@@ -29,26 +29,29 @@
       <div class="steps">
         <div class="card" id="spotify-card">
           <h2><span data-icon="spotify"></span> Spotify</h2>
-          <p class="muted">Reads what you play, live. Spotify remembers your last 50 plays, so opening this page about once a day keeps everything.</p>
+          <p class="muted">Reads what you play, live.
+            <span class="tip"><button type="button" class="tip-btn" aria-label="How syncing works" aria-describedby="tip-sync"><span data-icon="info"></span></button><span role="tooltip" id="tip-sync">Spotify only remembers your last 50 plays, so open this page about once a day to keep everything.</span></span></p>
+
+          <div id="own-app-setup">
+            <p>Connect through your own free Spotify app. It takes about 3 minutes, and you're automatically allowed in.
+              <span class="tip"><button type="button" class="tip-btn" aria-label="Why your own app?" aria-describedby="tip-why"><span data-icon="info"></span></button><span role="tooltip" id="tip-why">Spotify limits each app to 5 people unless it's run by a company, so everyone brings their own. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID stays in this browser.</span></span></p>
+            <ol class="setup">
+              <li>Open the <a href="https://developer.spotify.com/dashboard/create" rel="noopener noreferrer" target="_blank">Spotify developer dashboard</a> and log in.</li>
+              <li>Give the app any name and description.</li>
+              <li>Under Redirect URIs, add <code id="own-app-redirect"></code>
+                <button type="button" data-copy="own-app-redirect" class="small"><span data-icon="copy"></span> Copy</button></li>
+              <li>Tick <strong>Web API</strong>, accept the terms and click <strong>Save</strong>.</li>
+              <li>Copy the app's <strong>Client ID</strong> (not the secret) into the box below.</li>
+            </ol>
+            <form class="field" id="own-app-form">
+              <label class="visually-hidden" for="own-app-input">Spotify Client ID</label>
+              <input id="own-app-input" type="text" autocomplete="off" spellcheck="false" placeholder="Client ID" required pattern="[0-9a-fA-F]{32}" title="32 letters and numbers">
+              <button class="primary" type="submit">Save</button>
+            </form>
+          </div>
+
           <div class="actions" id="spotify-actions"></div>
           <p class="status" id="spotify-status" role="status"></p>
-          <small class="note">izie's Spotify app only lets in 5 people izie has added. Not one of them? Use your own free Spotify app instead; it takes about 3 minutes.</small>
-          <details id="own-app">
-            <summary>Use your own Spotify app</summary>
-            <ol>
-              <li>Go to <a href="https://developer.spotify.com/dashboard/create" rel="noopener noreferrer" target="_blank">developer.spotify.com/dashboard/create</a> and log in with your Spotify account.</li>
-              <li>App name: anything (e.g. <em>my lostfm</em>). Description: anything.</li>
-              <li>Redirect URI: <code id="own-app-redirect"></code>, then click <strong>Add</strong>.</li>
-              <li>Tick <strong>Web API</strong>, accept the terms, and click <strong>Save</strong>.</li>
-              <li>On the app page, copy the <strong>Client ID</strong> (not the secret) and paste it here:</li>
-            </ol>
-            <div class="field"><input id="own-app-input" type="text" inputmode="latin" autocomplete="off" spellcheck="false" placeholder="Client ID" aria-label="Your Spotify Client ID"
-              style="flex:1 1 14rem;min-width:0;font:inherit;padding:var(--s2) var(--s3);border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);color:var(--fg)">
-              <button id="own-app-save" class="primary">Save</button></div>
-            <p class="status" id="own-app-msg" role="status"></p>
-            <p class="muted" style="font-size:.9rem;margin:0"><span id="own-app-status"></span> <button id="own-app-clear" hidden>Use izie's app again</button></p>
-            <small class="note">You're automatically allowed into your own app. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID is stored only in this browser.</small>
-          </details>
         </div>
 
         <div class="card" id="apple-card">
