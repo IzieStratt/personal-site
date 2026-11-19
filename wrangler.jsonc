@@ -29,14 +29,10 @@
   },
   // online lobby for the Shiritori game (shiritori-lobby.js); SQLite-backed, which the free plan supports
   "durable_objects": {
-    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }]
+    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }, { "tag": "v2", "new_sqlite_classes": ["LostfmStore"] }],
   "kv_namespaces": [
-    {
-      "binding": "LOSTFM",
-      "id": "d7880283e69246b6ab69adc7c8767a53"
-    },
     {
       "binding": "HMOJI_TOKENS",
       "id": "68aaa050cda540c192ccb2e2a8b6a2a5"

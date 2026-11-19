@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect · lostfm</title>
+    <meta name="description" content="Track your own listening with lostfm: connect Spotify or Apple Music, or import a Last.fm export.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <a class="skip" href="#profile">Skip to your stats</a>
+    <main>
+      <nav class="topbar" aria-label="lostfm">
+        <a class="brand" href="../">lost<span>fm</span></a>
+        <div class="nav">
+          <a class="btn" href="../">izie's listening</a>
+          <a class="btn" href="./" aria-current="page">Your own</a>
+        </div>
+      </nav>
+
+      <header class="section-head" style="margin-bottom: var(--s5)">
+        <div>
+          <h1 style="font-size: clamp(2rem, 6vw, 2.8rem)">Track your own listening</h1>
+          <p class="muted" style="margin: var(--s2) 0 0; max-width: 40rem">Your history stays in this browser. Nothing is uploaded except plays your scrobbler sends to your private inbox, which this page then pulls in.</p>
+        </div>
+      </header>
+
+      <div class="steps">
+        <div class="card" id="spotify-card">
+          <h2><span data-icon="spotify"></span> Spotify</h2>
+          <p class="muted">Reads what you play, live. Spotify remembers your last 50 plays, so opening this page about once a day keeps everything.</p>
+          <div class="actions" id="spotify-actions"></div>
+          <p class="status" id="spotify-status" role="status"></p>
+          <small class="note">The Spotify app is in development mode, so only people izie has added can log in. If Spotify says you're not allowed, ask izie to add your Spotify email.</small>
+        </div>
+
+        <div class="card" id="apple-card">
+          <h2><span data-icon="apple"></span> Apple Music &amp; others</h2>
+          <p class="muted">Get a private scrobble token, then point a scrobbler at lostfm. It speaks the ListenBrainz API, so most scrobblers work.</p>
+          <div class="actions" id="token-actions"></div>
+          <div id="token-box" hidden>
+            <label class="muted" for="token-url">API URL</label>
+            <div class="field"><code id="token-url"></code><button data-copy="token-url"><span data-icon="copy"></span> Copy</button></div>
+            <label class="muted" for="token-value">Token (keep it secret)</label>
+            <div class="field"><code id="token-value"></code><button data-copy="token-value"><span data-icon="copy"></span> Copy</button></div>
+          </div>
+          <p class="status" id="token-status" role="status"></p>
+          <details>
+            <summary>Apple Music on the web, YouTube Music, SoundCloud…</summary>
+            <ol>
+              <li>Install the <a href="https://web-scrobbler.com/" rel="noopener noreferrer" target="_blank">Web Scrobbler</a> browser extension.</li>
+              <li>Open its settings → Accounts → ListenBrainz, choose the custom option and paste the API URL and token above.</li>
+              <li>Play something on <a href="https://music.apple.com" rel="noopener noreferrer" target="_blank">music.apple.com</a>.</li>
+            </ol>
+          </details>
+          <details>
+            <summary>The Music app on a Mac</summary>
+            <ol>
+              <li>Download <a href="../apple-music-scrobbler.py" download>apple-music-scrobbler.py</a>.</li>
+              <li>In Terminal run <code>python3 apple-music-scrobbler.py --token YOUR_TOKEN</code>. Leave it running, or run it with <code>--install</code> to start it at login.</li>
+              <li>macOS asks once to let Terminal control Music. Say OK.</li>
+            </ol>
+          </details>
+          <details>
+            <summary>Android, and iPhone</summary>
+            <ol>
+              <li>Android: <a href="https://github.com/kawaiiDango/pano-scrobbler" rel="noopener noreferrer" target="_blank">Pano Scrobbler</a> → add a ListenBrainz account with a custom URL of <code>https://vs.izie.top/lostfm/</code> and your token.</li>
+              <li>iPhone: Apple doesn't let any app see live plays. Ask Apple for your data at <a href="https://privacy.apple.com" rel="noopener noreferrer" target="_blank">privacy.apple.com</a> and import the <em>Apple Music Play Activity</em> CSV below.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="card">
+          <h2><span data-icon="upload"></span> Import history</h2>
+          <p class="muted">Bring your past plays. Importing the same file twice won't double-count.</p>
+          <div class="actions">
+            <label class="btn" for="import"><span data-icon="upload"></span> Choose a file</label>
+            <input id="import" type="file" accept=".csv,.json,application/json,text/csv">
+          </div>
+          <p class="status" id="import-status" role="status"></p>
+          <details>
+            <summary>Which files work?</summary>
+            <ol>
+              <li>Last.fm: a CSV or JSON from <a href="https://lastfm.ghan.nl/export/" rel="noopener noreferrer" target="_blank">lastfm.ghan.nl/export</a> or <a href="https://benjaminbenben.com/lastfm-to-csv/" rel="noopener noreferrer" target="_blank">lastfm-to-csv</a>.</li>
+              <li>Spotify: your <em>Extended streaming history</em> (the <code>Streaming_History_Audio_*.json</code> files) from Spotify's privacy page.</li>
+              <li>Apple Music: <em>Apple Music Play Activity.csv</em> from privacy.apple.com.</li>
+              <li>A lostfm download from this page.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="card">
+          <h2><span data-icon="user"></span> Your data</h2>
+          <p class="muted" id="data-summary">Nothing stored yet.</p>
+          <div class="actions">
+            <button id="export"><span data-icon="download"></span> Download</button>
+            <button id="wipe" class="danger"><span data-icon="trash"></span> Delete everything</button>
+          </div>
+          <p class="status" id="data-status" role="status"></p>
+        </div>
+      </div>
+
+      <div id="profile" aria-live="polite"></div>
+
+      <footer>lostfm by <a href="https://izie.top">izie</a> · <a href="../">see izie's listening</a></footer>
+    </main>
+    <script src="connect.js" type="module"></script>
+  </body>
+</html>

@@ -4,6 +4,7 @@ export { ShiritoriLobby } from './shiritori-lobby.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 import { handleLostfm } from './lostfm.js'
+export { LostfmStore } from './lostfm.js'
 import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
 
 export default {
@@ -52,7 +53,8 @@ export default {
     // the blog editor and comment moderation (passkey sign-in; see blog-admin.js)
     if (url.hostname === 'blog.izie.top' && BLOG_ADMIN_PATHS(url.pathname)) return handleBlogAdmin(request, env, url)
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
-    if (url.hostname === 'vs.izie.top' && url.pathname === '/lostfm/api/stats') return handleLostfm(request, env)
+    if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
+    if (url.hostname === 'vs.izie.top' && /^\/lostfm(\/|$)/.test(url.pathname)) return withLostfmHeaders(await serveSubdomain(request, env, url))
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
       // one hub holds every lobby and game (see shiritori-lobby.js)
@@ -247,4 +249,38 @@ async function handleDgdNgram(request, url) {
     status: upstream.ok ? 200 : 502,
     headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=86400' },
   })
+}
+
+// lostfm pages get a strict CSP: scripts only from us, network only to us and Spotify, images over https
+const LOSTFM_CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' https: data:",
+  "connect-src 'self' https://api.spotify.com https://accounts.spotify.com",
+  "font-src 'self'",
+  "frame-ancestors 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join('; ')
+
+async function serveSubdomain(request, env, url) {
+  const assetUrl = new URL(url)
+  assetUrl.pathname = `/__subdomains/vs${url.pathname}`
+  const response = await env.ASSETS.fetch(new Request(assetUrl, request))
+  const location = response.headers.get('Location')
+  if (location?.startsWith('/__subdomains/vs')) {
+    const headers = new Headers(response.headers)
+    headers.set('Location', location.slice('/__subdomains/vs'.length) || '/')
+    return new Response(response.body, { status: response.status, headers })
+  }
+  return response
+}
+
+function withLostfmHeaders(response) {
+  const headers = new Headers(response.headers)
+  headers.set('content-security-policy', LOSTFM_CSP)
+  headers.set('x-content-type-options', 'nosniff')
+  headers.set('referrer-policy', 'no-referrer')
+  return new Response(response.body, { status: response.status, headers })
 }

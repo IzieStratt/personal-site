@@ -1,6 +1,31 @@
 // Pure helpers for lostfm (no DOM), so they can be tested with node.
 // A listen is { id, ts (start, unix seconds), name, artist, album, url, source }.
 
+const LASTFM_PLACEHOLDER = '2a96cbd8b46e442fc41c2b86b821562f'
+const IMAGE_HOSTS = /^https:\/\/(i\.scdn\.co|lastfm(-img)?\.freetls\.fastly\.net|[a-z0-9-]+\.mzstatic\.com|coverartarchive\.org|archive\.org|[a-z0-9-]+\.archive\.org)\//
+
+/** Only https images from hosts we expect; anything else becomes '' (the page draws a placeholder). */
+export const safeImage = (u) => (typeof u === 'string' && IMAGE_HOSTS.test(u) && !u.includes(LASTFM_PLACEHOLDER) ? u : '')
+/** Only https links to music services; anything else (javascript:, data:, http:) becomes ''. */
+export const safeLink = (u) =>
+  typeof u === 'string' && /^https:\/\/(open\.spotify\.com|music\.apple\.com|www\.last\.fm|www\.youtube\.com|music\.youtube\.com|soundcloud\.com)\//.test(u) ? u : ''
+
+/** Spotify image lists are largest-first; take the smallest one at least `want` px wide. */
+export function pickImage(images, want = 300) {
+  const ok = (images || []).filter((i) => safeImage(i?.url))
+  if (!ok.length) return ''
+  const big = ok.filter((i) => (i.width || 0) >= want)
+  return (big.length ? big.at(-1) : ok[0]).url
+}
+
+function lastfmImage(images) {
+  for (const img of [...(images || [])].reverse()) {
+    const u = safeImage(img?.['#text'])
+    if (u) return u
+  }
+  return ''
+}
+
 export function spotifyItemsToListens(items) {
   const out = []
   for (const it of items || []) {
@@ -12,13 +37,14 @@ export function spotifyItemsToListens(items) {
       id: `sp:${it.played_at}`, ts, name: t.name,
       artist: (t.artists || []).map((a) => a.name).join(', '),
       album: t.album?.name || '', url: t.external_urls?.spotify || '', source: 'spotify',
+      image: pickImage(t.album?.images),
     })
   }
   return out
 }
 
-const lf = (ts, name, artist, album = '', url = '', source = 'lastfm') =>
-  ts && name ? { id: `${source === 'lastfm' ? 'lf' : source}:${ts}:${name}`, ts, name, artist: artist || '', album: album || '', url: url || '', source } : null
+const lf = (ts, name, artist, album = '', url = '', source = 'lastfm', image = '') =>
+  ts && name ? { id: `${source === 'lastfm' ? 'lf' : source}:${ts}:${name}`, ts, name, artist: artist || '', album: album || '', url: url || '', source, image: safeImage(image) } : null
 
 export function parseCsv(text) {
   const rows = []
@@ -63,7 +89,7 @@ export function parseImport(text) {
         if (v.recenttracks) return walk(v.recenttracks)
         if (v.date?.uts && v.name) {
           const a = v.artist, al = v.album
-          out.push(lf(Number(v.date.uts), v.name, a?.['#text'] ?? a?.name ?? a, al?.['#text'] ?? al, v.url))
+          out.push(lf(Number(v.date.uts), v.name, a?.['#text'] ?? a?.name ?? a, al?.['#text'] ?? al, v.url, 'lastfm', lastfmImage(v.image)))
         } else if ('master_metadata_track_name' in v) {
           if (!v.master_metadata_track_name || (v.ms_played ?? 0) < 30000) return
           const end = Date.parse(v.ts)
@@ -78,6 +104,21 @@ export function parseImport(text) {
   } else {
     const rows = parseCsv(text)
     const head = rows[0]?.map((h) => h.trim().toLowerCase()) || []
+    // Apple Music "Play Activity" CSV from privacy.apple.com
+    const am = (n) => head.indexOf(n)
+    if (am('song name') >= 0 && am('event start timestamp') >= 0) {
+      const name = am('song name'), artist = am('artist name'), album = am('album name'), start = am('event start timestamp')
+      const playMs = am('play duration milliseconds'), endType = am('end reason type'), media = am('media type')
+      for (const r of rows.slice(1)) {
+        if (media >= 0 && r[media] && !/audio/i.test(r[media])) continue
+        if (playMs >= 0 && Number(r[playMs] || 0) < 30000) continue
+        if (endType >= 0 && /SCRUB|FAILED/i.test(r[endType] || '')) continue
+        out.push(lf(toTs(r[start]), r[name], artist >= 0 ? r[artist] : '', album >= 0 ? r[album] : '', '', 'apple'))
+      }
+      out = out.filter(Boolean)
+      if (!out.length) throw new Error("couldn't find any plays in that file")
+      return out
+    }
     const col = (...names) => head.findIndex((h) => names.includes(h))
     const ti = col('track', 'name', 'title', 'track_name'), ai = col('artist', 'artist_name')
     if (ti >= 0 && ai >= 0) {
@@ -100,23 +141,33 @@ export function dedupe(listens) {
   return listens.filter((l) => l.source === 'spotify' || !(live.get(l.name) || []).some((t) => Math.abs(t - l.ts) <= 300))
 }
 
-function top(list, keyFn, n) {
+function top(list, keyFn, n, extra) {
   const m = new Map()
   for (const l of list) {
     const k = keyFn(l)
     if (!k) continue
-    const s = JSON.stringify(k)
-    const e = m.get(s)
-    e ? e[e.length - 1]++ : m.set(s, [...k, 1])
+    const e = m.get(k)
+    if (e) {
+      e.plays++
+      if (!e.image && l.image) e.image = l.image
+    } else m.set(k, { ...extra(l), plays: 1 })
   }
-  return [...m.values()].sort((a, b) => b.at(-1) - a.at(-1)).slice(0, n)
+  return [...m.values()].sort((a, b) => b.plays - a.plays).slice(0, n)
 }
 
-/** Same shape as SpotifyScrobbler.stats() in music-stalker. */
-export function computeStats(listens, now = Math.floor(Date.now() / 1000), { recent = 50, n = 25, days = 365 } = {}) {
+/** Same shape as SpotifyScrobbler.stats() in music-stalker. artistImages: Map of artist name -> image url. */
+export function computeStats(listens, now = Math.floor(Date.now() / 1000), { recent = 50, n = 25, days = 365, artistImages = new Map() } = {}) {
   const all = dedupe(listens).sort((a, b) => b.ts - a.ts)
-  const out = { generated_at: now, total: all.length, first: all.length ? all.at(-1).ts : null, periods: {}, daily: {}, recent: [], now_playing: null }
-  out.recent = all.slice(0, recent).map(({ name, artist, album, url, ts }) => ({ name, artist, album, url, ts }))
+  // a play without art borrows it from another play of the same track
+  const artFor = new Map()
+  for (const l of all) if (l.image && !artFor.has(`${l.name}\u0000${l.artist}`)) artFor.set(`${l.name}\u0000${l.artist}`, l.image)
+  for (const l of all) if (!l.image) l.image = artFor.get(`${l.name}\u0000${l.artist}`) || ''
+  const out = {
+    generated_at: now, total: all.length, artists: new Set(all.map((l) => l.artist)).size,
+    tracks: new Set(all.map((l) => `${l.name}\u0000${l.artist}`)).size,
+    first: all.length ? all.at(-1).ts : null, periods: {}, daily: {}, recent: [], now_playing: null,
+  }
+  out.recent = all.slice(0, recent).map(({ name, artist, album, url, ts, image }) => ({ name, artist, album, url, ts, image: image || '' }))
   for (const l of all) {
     if (l.ts < now - days * 86400) break
     const d = new Date(l.ts * 1000).toISOString().slice(0, 10)
@@ -125,11 +176,13 @@ export function computeStats(listens, now = Math.floor(Date.now() / 1000), { rec
   for (const [label, d] of [['7d', 7], ['30d', 30], ['365d', 365], ['all', null]]) {
     const since = d ? now - d * 86400 : 0
     const p = all.filter((l) => l.ts >= since)
+    const artists = top(p, (l) => l.artist, n, (l) => ({ name: l.artist, image: '', url: '' }))
+    for (const a of artists) a.image = artistImages.get(a.name) || ''
     out.periods[label] = {
       plays: p.length,
-      artists: top(p, (l) => [l.artist], n),
-      tracks: top(p, (l) => [l.name, l.artist], n),
-      albums: top(p, (l) => (l.album ? [l.album, l.artist] : null), n),
+      artists,
+      tracks: top(p, (l) => `${l.name}\u0000${l.artist}`, n, (l) => ({ name: l.name, artist: l.artist, image: l.image || '', url: l.url || '' })),
+      albums: top(p, (l) => (l.album ? `${l.album}\u0000${l.artist}` : null), n, (l) => ({ name: l.album, artist: l.artist, image: l.image || '' })),
     }
   }
   return out

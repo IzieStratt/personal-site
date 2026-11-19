@@ -3,101 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>lostfm</title>
-    <meta name="description" content="A tiny Last.fm replacement: Spotify listening history and stats, no Pro needed.">
+    <title>izie · lostfm</title>
+    <meta name="description" content="What izie is listening to: recent tracks, top artists, albums and tracks.">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <style>
-      @font-face { font-family: "xkcd Script"; src: url("/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
-      :root {
-        --fg: #222; --muted: #6b6558; --bg: #fffdf7; --card: #fff8e8; --line: #e6dcc4;
-        --accent: #c0392b; --link: #315f9d; --bar: #f0c9a8;
-        --heat0: #f1ead8; --heat1: #f3c7a4; --heat2: #e8946a; --heat3: #d4603a; --heat4: #a83a1e;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --fg: #ece6da; --muted: #a59d8c; --bg: #1b1916; --card: #24211d; --line: #3a352d;
-          --accent: #ff7a63; --link: #8db4ea; --bar: #6b3f2a;
-          --heat0: #2b2722; --heat1: #5a3526; --heat2: #8c4630; --heat3: #c45a3a; --heat4: #ff7a55;
-        }
-      }
-      :root[data-theme="dark"] {
-        --fg: #ece6da; --muted: #a59d8c; --bg: #1b1916; --card: #24211d; --line: #3a352d;
-        --accent: #ff7a63; --link: #8db4ea; --bar: #6b3f2a;
-        --heat0: #2b2722; --heat1: #5a3526; --heat2: #8c4630; --heat3: #c45a3a; --heat4: #ff7a55;
-      }
-      * { box-sizing: border-box; }
-      html { color: var(--fg); background: var(--bg); font: 1.1rem/1.45 "xkcd Script", cursive; }
-      body { margin: 0; background: var(--bg); overflow-x: hidden; }
-      main { width: min(60rem, calc(100% - 2rem)); min-width: 0; margin: 6vh auto 4rem; }
-      h1 { margin: 0; font-size: clamp(2.4rem, 9vw, 4rem); font-weight: normal; line-height: 1; }
-      h1 span { color: var(--accent); }
-      h2 { font-weight: normal; font-size: 1.5rem; margin: 0 0 .5rem; }
-      a { color: var(--link); }
-      .sub { color: var(--muted); margin: .4rem 0 1.5rem; }
-      .tabs, .periods { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-      button, .btn {
-        font: inherit; color: var(--fg); background: var(--card); border: 2px solid var(--fg);
-        border-radius: 10px 14px 9px 13px; padding: .25rem .9rem; cursor: pointer; text-decoration: none; display: inline-block;
-      }
-      button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
-      button:disabled { opacity: .5; cursor: default; }
-      .card, .grid > * { min-width: 0; }
-      .card { background: var(--card); border: 2px solid var(--line); border-radius: 14px 18px 12px 16px; padding: 1rem 1.2rem; margin-bottom: 1.25rem; }
-      .now { display: flex; align-items: center; gap: .75rem; }
-      .eq { display: inline-flex; gap: 3px; align-items: flex-end; height: 1.1rem; }
-      .eq i { width: 4px; background: var(--accent); animation: eq 1s ease-in-out infinite; }
-      .eq i:nth-child(2) { animation-delay: .2s } .eq i:nth-child(3) { animation-delay: .4s }
-      @keyframes eq { 0%,100% { height: 30% } 50% { height: 100% } }
-      @media (prefers-reduced-motion: reduce) { .eq i { animation: none; height: 70%; } }
-      .nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(7rem, 100%), 1fr)); gap: 1rem; }
-      .num b { display: block; font-size: 2rem; font-weight: normal; line-height: 1.1; font-variant-numeric: tabular-nums; }
-      .num span { color: var(--muted); }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); gap: 1.25rem; }
-      ol.top { list-style: none; margin: 0; padding: 0; }
-      ol.top li { position: relative; display: flex; justify-content: space-between; gap: .75rem; padding: .15rem .4rem; border-radius: 6px; overflow: hidden; }
-      ol.top li .fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); z-index: 0; border-radius: 6px; }
-      ol.top li > span { position: relative; z-index: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      ol.top li small { color: var(--muted); }
-      ol.top li .c { flex: none; font-variant-numeric: tabular-nums; }
-      .heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; overflow-x: auto; padding-bottom: .25rem; }
-      .heat i { width: 11px; height: 11px; border-radius: 2px; background: var(--heat0); }
-      .legend { color: var(--muted); font-size: .9rem; margin-top: .4rem; }
-      ul.recent { list-style: none; margin: 0; padding: 0; }
-      ul.recent li { display: flex; justify-content: space-between; gap: 1rem; padding: .2rem 0; border-bottom: 1px dashed var(--line); }
-      ul.recent li span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      ul.recent li time { color: var(--muted); flex: none; }
-      .muted { color: var(--muted); }
-      .row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
-      .err { color: var(--accent); }
-      input[type=file] { display: none; }
-      footer { color: var(--muted); margin-top: 2rem; font-size: .95rem; }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <a class="skip" href="#profile">Skip to listening stats</a>
     <main>
-      <h1>lost<span>fm</span></h1>
-      <p class="sub">a tiny last.fm for when last.fm wants money. spotify history + stats, nothing to pay.</p>
-
-      <div class="tabs" role="tablist">
-        <button id="tab-izie" aria-pressed="true">izie's listening</button>
-        <button id="tab-me" aria-pressed="false">your own</button>
-      </div>
-
-      <section id="me-panel" hidden>
-        <div class="card">
-          <h2>your own lostfm</h2>
-          <p class="muted" id="me-intro">Connect Spotify and this page keeps your history in this browser (nothing is uploaded anywhere). It syncs whenever the page is open; Spotify remembers your last 50 plays, so opening it about once a day keeps everything.</p>
-          <div class="row" id="me-actions"></div>
-          <p class="err" id="me-error" hidden></p>
-          <p class="muted" style="font-size:.95rem;margin:.75rem 0 0">Spotify only lets people the app owner has added log in while the app is in development mode. If Spotify says you're not allowed, ask izie to add your Spotify email. You can still import a Last.fm export without connecting.</p>
+      <nav class="topbar" aria-label="lostfm">
+        <a class="brand" href="./">lost<span>fm</span></a>
+        <div class="nav">
+          <a class="btn" href="./" aria-current="page">izie's listening</a>
+          <a class="btn primary" href="connect/">Get your own</a>
         </div>
-      </section>
-
-      <div id="stats"><p class="muted">loading…</p></div>
-
-      <footer>made by <a href="https://izie.top">izie</a> · <a href="/">more silly things</a></footer>
+      </nav>
+      <div id="profile" aria-live="polite"><p class="empty">Loading…</p></div>
+      <footer>lostfm is a tiny Last.fm replacement made by <a href="https://izie.top">izie</a> after Last.fm put its API behind Pro.
+        <a href="connect/">Track your own listening</a> · <a href="/">more silly things</a></footer>
     </main>
-
     <script src="app.js" type="module"></script>
   </body>
 </html>
