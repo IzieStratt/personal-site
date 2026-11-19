@@ -20,6 +20,7 @@ const TOKENS_PER_HOUR = 30 // across everyone, to stop someone filling storage w
 const NOW_PLAYING_TTL = 15 * 60
 const ARTIST_LOOKUPS_PER_HOUR = 600 // across everyone; cached answers don't count
 const ARTIST_RETRY = 7 * 86400
+const ARTIST_FAIL_RETRY = 3600 // a failed lookup is retried after an hour, not on every visit
 const SPOTIFY_IMAGE = /^https:\/\/i\.scdn\.co\/image\/[a-f0-9]+$/
 
 const json = (data, status = 200, extra = {}) =>
@@ -157,17 +158,23 @@ export class LostfmStore extends DurableObject {
       const r = await fetch(`https://api.spotify.com/v1/search?${new URLSearchParams({ q: lead, type: 'artist', limit: '5' })}`, {
         headers: { authorization: `Bearer ${token}` },
       })
-      if (!r.ok) return ''
+      if (!r.ok) { this.rememberFailure(key, now); return '' }
       const items = (await r.json())?.artists?.items || []
       const match = items.find((a) => (a?.name || '').toLowerCase() === lead.toLowerCase())
       const imgs = (match?.images || []).filter((i) => SPOTIFY_IMAGE.test(i?.url || ''))
       const big = imgs.filter((i) => (i.width || 0) >= 300)
       image = (big.length ? big.at(-1) : imgs[0])?.url || ''
     } catch {
+      this.rememberFailure(key, now)
       return ''
     }
     this.sql.exec('INSERT INTO artists (name, image, fetched_at) VALUES (?, ?, ?) ON CONFLICT(name) DO UPDATE SET image = excluded.image, fetched_at = excluded.fetched_at', key, image, now)
     return image
+  }
+
+  rememberFailure(key, now) {
+    // stored as an old "no image" answer, so the normal retry window comes round in ARTIST_FAIL_RETRY
+    this.sql.exec('INSERT INTO artists (name, image, fetched_at) VALUES (?, ?, ?) ON CONFLICT(name) DO UPDATE SET fetched_at = excluded.fetched_at WHERE artists.image = \'\'', key, '', now - ARTIST_RETRY + ARTIST_FAIL_RETRY)
   }
 
   async appToken(now) {

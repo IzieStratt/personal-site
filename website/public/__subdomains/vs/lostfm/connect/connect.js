@@ -14,8 +14,14 @@ const SYNC_EVERY = 60_000
 const $ = (s) => document.querySelector(s)
 const store = {
   get: (k) => { try { return localStorage.getItem(k) } catch { return null } },
-  set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v) } catch {} },
+  // returns false when the browser blocks or fills storage, so callers can say so instead of pretending
+  set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); return true } catch { return false } },
 }
+const session = {
+  get: (k) => { try { return sessionStorage.getItem(k) } catch { return null } },
+  set: (k, v) => { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); return true } catch { return false } },
+}
+const STORAGE_BLOCKED = 'Your browser is blocking site storage, so lostfm can\'t save this. Allow storage for vs.izie.top (or leave private browsing) and try again.'
 
 document.querySelectorAll('[data-icon]').forEach((el) => { el.outerHTML = icon(el.dataset.icon) })
 
@@ -68,21 +74,23 @@ async function login() {
   const verifier = b64url(crypto.getRandomValues(new Uint8Array(48)))
   const state = b64url(crypto.getRandomValues(new Uint8Array(16)))
   const challenge = b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)))
-  sessionStorage.setItem('lostfm.verifier', verifier)
-  sessionStorage.setItem('lostfm.state', state)
+  const ok = session.set('lostfm.verifier', verifier) && session.set('lostfm.state', state) && session.set('lostfm.loginClient', clientId())
+  if (!ok) return setStatus('#spotify-status', STORAGE_BLOCKED, 'err')
   location.href = 'https://accounts.spotify.com/authorize?' + new URLSearchParams({
     client_id: clientId(), response_type: 'code', redirect_uri: REDIRECT, scope: SCOPES,
     code_challenge_method: 'S256', code_challenge: challenge, state,
   })
 }
-async function tokenRequest(params) {
+async function tokenRequest(params, client = clientId()) {
   const r = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ client_id: clientId(), ...params }),
+    body: new URLSearchParams({ client_id: client, ...params }),
   })
   const body = await r.json().catch(() => ({}))
   if (!r.ok) {
-    if (body.error === 'invalid_grant') { forgetSpotify(); throw new Error('Spotify login expired. Connect again.') }
+    // only a refused *refresh* means the saved login is dead; a refused code exchange leaves it alone
+    if (body.error === 'invalid_grant' && params.grant_type === 'refresh_token') { forgetSpotify(); throw new Error('Spotify login expired. Connect again.') }
+    if (body.error === 'invalid_grant') throw new Error('That Spotify login didn\'t go through. Try connecting again.')
     throw new Error(body.error_description || body.error || `Spotify said ${r.status}`)
   }
   store.set('lostfm.access', body.access_token)
@@ -93,11 +101,14 @@ async function finishLogin() {
   const q = new URLSearchParams(location.search)
   if (!q.has('code') && !q.has('error')) return
   history.replaceState(null, '', location.pathname)
-  const state = sessionStorage.getItem('lostfm.state'), verifier = sessionStorage.getItem('lostfm.verifier')
-  sessionStorage.removeItem('lostfm.state'); sessionStorage.removeItem('lostfm.verifier')
+  const state = session.get('lostfm.state'), verifier = session.get('lostfm.verifier'), client = session.get('lostfm.loginClient')
+  ;['state', 'verifier', 'loginClient'].forEach((k) => session.set(`lostfm.${k}`, null))
   if (q.get('error')) throw new Error(q.get('error') === 'access_denied' ? 'You cancelled the Spotify login.' : `Spotify login failed: ${q.get('error')}`)
-  if (!state || q.get('state') !== state) throw new Error('Login check failed. Try connecting again.')
-  await tokenRequest({ grant_type: 'authorization_code', code: q.get('code'), redirect_uri: REDIRECT, code_verifier: verifier })
+  if (!state || !client || q.get('state') !== state) throw new Error('Login check failed. Try connecting again.')
+  await tokenRequest({ grant_type: 'authorization_code', code: q.get('code'), redirect_uri: REDIRECT, code_verifier: verifier }, client)
+  // the refresh token belongs to the app that made it, so keep using that app from now on
+  if (client === DEFAULT_CLIENT_ID && !ownClientId()) store.set('lostfm.legacyApp', '1')
+  else if (client !== ownClientId()) store.set('lostfm.clientId', client)
 }
 function forgetSpotify() {
   ['access', 'expires', 'refresh', 'lastsync', 'legacyApp'].forEach((k) => store.set(`lostfm.${k}`, null))
@@ -132,7 +143,7 @@ async function createToken() {
   const r = await fetch('../api/token', { method: 'POST' })
   const body = await r.json().catch(() => ({}))
   if (!r.ok) throw new Error(body.error || `Couldn't make a token (${r.status})`)
-  store.set('lostfm.inboxToken', body.token)
+  if (!store.set('lostfm.inboxToken', body.token)) throw new Error(STORAGE_BLOCKED)
   store.set('lostfm.inboxAfter', '0')
 }
 async function syncInbox() {
@@ -158,43 +169,73 @@ async function syncInbox() {
 }
 
 // ---------- artist pictures ----------
+const imageRetryAt = new Map() // artist -> time we may ask again after a failed request
 async function fillArtistImages(stats) {
+  const now = Date.now()
   const names = [...new Set(Object.values(stats.periods).flatMap((p) => p.artists.slice(0, 11).map((a) => a.name)))]
-    .filter((n) => !artistImages.has(n)).slice(0, 12)
+    .filter((n) => !artistImages.has(n) && (imageRetryAt.get(n) || 0) <= now).slice(0, 12)
   if (!names.length) return false
+  let stored = 0
   await Promise.all(names.map(async (n) => {
     try {
       const r = await fetch(`../api/artist-image?name=${encodeURIComponent(n)}`)
-      artistImages.set(n, r.ok ? (await r.json()).image || '' : '')
-    } catch { /* try again next time */ }
+      if (!r.ok) throw new Error(String(r.status))
+      artistImages.set(n, (await r.json()).image || '')
+      stored++
+    } catch {
+      imageRetryAt.set(n, now + 5 * 60_000) // offline or server trouble: leave it for five minutes
+    }
   }))
-  store.set('lostfm.artistImages', JSON.stringify(Object.fromEntries(artistImages)))
-  return true
+  if (stored) store.set('lostfm.artistImages', JSON.stringify(Object.fromEntries(artistImages)))
+  return stored > 0
 }
 
 // ---------- UI ----------
+let editingClientId = false
+// buttons get rebuilt below; put keyboard focus back on the same (or replacement) control afterwards
+function keepFocus(container, render) {
+  const had = container.contains(document.activeElement)
+  const id = had ? document.activeElement.id : null
+  render()
+  if (!had) return
+  ;(id && document.getElementById(id)) ? document.getElementById(id).focus() : container.querySelector('button, a')?.focus()
+}
 function renderSources() {
+  keepFocus($('#spotify-card'), renderSpotify)
+  keepFocus($('#apple-card'), renderToken)
+}
+function renderSpotify() {
   const connected = !!store.get('lostfm.refresh')
   const own = ownClientId()
-  $('#own-app-setup').hidden = connected || !!own
+  $('#own-app-setup').hidden = connected || (!!own && !editingClientId)
+  $('#own-app-cancel').hidden = !editingClientId
+  if (editingClientId) $('#own-app-details').open = true
   const setupOpen = $('#own-app-details').open
   $('#spotify-actions').innerHTML = connected
     ? `<button id="sp-sync">${icon('refresh')} Sync now</button><button id="sp-off">${icon('logout')} Disconnect</button>`
-    : !own
+    : !own || editingClientId
     ? `<button id="sp-setup" class="primary" aria-expanded="${setupOpen}" aria-controls="own-app-details">${icon('spotify')} ${setupOpen ? 'Hide setup' : 'Set up Spotify'}</button>`
     : `<button id="sp-on" class="primary">${icon('spotify')} Connect Spotify</button><button id="sp-change">Change Client ID</button>`
   $('#sp-on')?.addEventListener('click', login)
   $('#sp-setup')?.addEventListener('click', () => {
     $('#own-app-details').open = !$('#own-app-details').open
+    if (!$('#own-app-details').open) editingClientId = false
     renderSources()
     if ($('#own-app-details').open) $('#own-app-details a').focus()
   })
-  $('#sp-change')?.addEventListener('click', () => { store.set('lostfm.clientId', null); $('#own-app-details').open = true; $('#own-app-input').value = own; renderSources(); $('#own-app-input').focus() })
+  // the saved ID stays until a new one is saved; Cancel goes back to it
+  $('#sp-change')?.addEventListener('click', () => { editingClientId = true; $('#own-app-input').value = own; renderSources(); $('#own-app-input').focus() })
   $('#sp-sync')?.addEventListener('click', () => sync(true))
-  $('#sp-off')?.addEventListener('click', () => { forgetSpotify(); renderSources(); setStatus('#spotify-status', 'Disconnected. Your history is still here.') })
+  $('#sp-off')?.addEventListener('click', () => {
+    const legacy = onIzieApp()
+    forgetSpotify(); renderSources()
+    setStatus('#spotify-status', legacy ? 'Disconnected. Your history is still here. To reconnect, set up your own Spotify app.' : 'Disconnected. Your history is still here.')
+  })
   const last = Number(store.get('lostfm.lastsync'))
-  if (connected && last && !$('#spotify-status').textContent) setStatus('#spotify-status', `Connected · synced ${ago(last / 1000)}`, 'ok')
-
+  if (connected && last && !$('#spotify-status').textContent) setStatus('#spotify-status', `${connectedLabel()} · synced ${ago(last / 1000)}`, 'ok')
+}
+const connectedLabel = () => (onIzieApp() ? "Connected through izie's app" : 'Connected')
+function renderToken() {
   const token = store.get('lostfm.inboxToken')
   $('#token-box').hidden = !token
   $('#token-actions').innerHTML = token
@@ -205,28 +246,56 @@ function renderSources() {
     $('#token-value').textContent = token
   }
   $('#tok-new')?.addEventListener('click', async () => {
-    try { await createToken(); renderSources(); setStatus('#token-status', 'Token ready. Paste it into your scrobbler.', 'ok') } catch (e) { setStatus('#token-status', e.message, 'err') }
+    try { await createToken(); renderSources(); tokenMessage('Token ready. Paste it into your scrobbler.', 'ok') } catch (e) { tokenMessage(e.message, 'err') }
   })
   $('#tok-del')?.addEventListener('click', async (ev) => {
     const b = ev.currentTarget
-    if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.lastChild.textContent = ' Click again to delete'; return }
-    await deleteToken(); renderSources(); setStatus('#token-status', 'Token deleted. Plays already pulled in are kept.')
+    if (!confirmClick(b, ' Click again to delete', ' Delete token')) return
+    if (await deleteToken()) { renderSources(); tokenMessage('Token deleted. Plays already pulled in are kept.', 'ok') }
+    else tokenMessage("Couldn't reach lostfm to delete the token. Nothing was changed; try again.", 'err')
   })
 }
+// two-step confirm for destructive buttons; the armed state times out or ends when focus leaves
+function confirmClick(b, armedText, restText) {
+  if (b.dataset.armed === '1') { delete b.dataset.armed; b.lastChild.textContent = restText; return true }
+  b.dataset.armed = '1'; b.lastChild.textContent = armedText
+  const disarm = () => { if (b.dataset.armed) { delete b.dataset.armed; b.lastChild.textContent = restText } }
+  setTimeout(disarm, 5000)
+  b.addEventListener('blur', disarm, { once: true })
+  return false
+}
+// server delete first; the local copy goes only when the server agreed (or already had no such token)
 async function deleteToken() {
   const token = store.get('lostfm.inboxToken')
-  if (token) await fetch('../api/token/delete', { method: 'POST', headers: { authorization: `Token ${token}` } }).catch(() => {})
+  if (token) {
+    try {
+      const r = await fetch('../api/token/delete', { method: 'POST', headers: { authorization: `Token ${token}` } })
+      if (!r.ok && r.status !== 401) return false
+    } catch { return false }
+  }
   store.set('lostfm.inboxToken', null); store.set('lostfm.inboxAfter', null); store.set('lostfm.inboxLast', null)
+  return true
 }
+// a message the person just triggered stays put for a while instead of being replaced by the next sync
+let tokenMessageUntil = 0
+function tokenMessage(text, kind) { tokenMessageUntil = Date.now() + 20_000; setStatus('#token-status', text, kind) }
 
-async function draw() {
+let drawnKey = ''
+async function draw(force = false) {
   const listens = await allListens()
   $('#data-summary').textContent = listens.length ? `${fmt(listens.length)} plays stored in this browser.` : 'Nothing stored yet.'
+  const newest = listens.reduce((m, l) => Math.max(m, l.ts), 0)
+  const key = [listens.length, newest, nowPlaying?.name, nowPlaying?.artist, period, artistImages.size, Math.floor(Date.now() / 300_000)].join('|')
+  if (!force && key === drawnKey) return
+  drawnKey = key
   const stats = computeStats(listens, undefined, { artistImages })
   stats.now_playing = nowPlaying
   renderProfile($('#profile'), stats, {
     name: 'you', avatar: 'you', period, emptyText: 'Connect a source or import a file and your stats show up here.',
-    onPeriod: (p) => { period = p; store.set('lostfm.period', p); draw() },
+    onPeriod: (p) => {
+      period = p; store.set('lostfm.period', p)
+      draw(true).then(() => document.querySelector(`[data-period="${p}"]`)?.focus())
+    },
   })
   if (await fillArtistImages(stats)) draw()
 }
@@ -240,14 +309,14 @@ async function sync(manual = false) {
     try {
       if (manual) setStatus('#spotify-status', 'Syncing…')
       np = await syncSpotify()
-      setStatus('#spotify-status', 'Connected · synced just now', 'ok')
+      setStatus('#spotify-status', `${connectedLabel()} · synced just now`, 'ok')
     } catch (e) { setStatus('#spotify-status', e.message, 'err'); renderSources() }
   }
   if (store.get('lostfm.inboxToken')) {
     try {
       np = np || await syncInbox()
-      setStatus('#token-status', `Inbox checked ${ago(Number(store.get('lostfm.inboxLast')) / 1000)}`, 'ok')
-    } catch (e) { setStatus('#token-status', e.message, 'err'); renderSources() }
+      if (Date.now() > tokenMessageUntil) setStatus('#token-status', `Inbox checked ${ago(Number(store.get('lostfm.inboxLast')) / 1000)}`, 'ok')
+    } catch (e) { tokenMessage(e.message, 'err'); renderSources() }
   }
   nowPlaying = np
   syncing = false
@@ -267,16 +336,20 @@ $('#import').addEventListener('change', async (ev) => {
     await draw()
   } catch (e) { setStatus('#import-status', e.message || 'That file could not be read.', 'err') }
 })
-$('#import').multiple = true
 $('#own-app-redirect').textContent = REDIRECT
 $('#own-app-form').addEventListener('submit', (ev) => {
   ev.preventDefault()
   const v = $('#own-app-input').value.trim().toLowerCase()
   if (!/^[0-9a-f]{32}$/.test(v)) return setStatus('#spotify-status', 'That doesn\'t look like a Client ID (32 letters and numbers).', 'err')
-  store.set('lostfm.clientId', v)
+  if (v !== ownClientId() && store.get('lostfm.refresh')) forgetSpotify() // a login from another app can't be refreshed with this one
+  if (!store.set('lostfm.clientId', v)) return setStatus('#spotify-status', STORAGE_BLOCKED, 'err')
+  editingClientId = false
   setStatus('#spotify-status', 'Saved. Now click Connect Spotify.', 'ok')
   renderSources()
   $('#sp-on')?.focus()
+})
+$('#own-app-cancel').addEventListener('click', () => {
+  editingClientId = false; $('#own-app-details').open = false; renderSources(); $('#sp-on')?.focus()
 })
 $('#export').addEventListener('click', async () => {
   const blob = new Blob([JSON.stringify({ lostfm: 1, listens: await allListens() })], { type: 'application/json' })
@@ -285,28 +358,59 @@ $('#export').addEventListener('click', async () => {
 })
 $('#wipe').addEventListener('click', async (ev) => {
   const b = ev.currentTarget
-  if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.lastChild.textContent = ' Click again: this can\'t be undone'; return }
-  await clearListens(); await deleteToken(); forgetSpotify()
-  ;['artistImages'].forEach((k) => store.set(`lostfm.${k}`, null)); artistImages = new Map()
-  b.dataset.armed = ''; b.lastChild.textContent = ' Delete everything'
+  if (!confirmClick(b, ' Click again: this can\'t be undone', ' Delete everything')) return
+  await clearListens(); const tokenGone = await deleteToken(); forgetSpotify()
+  store.set('lostfm.artistImages', null); artistImages = new Map()
   nowPlaying = null
-  setStatus('#data-status', 'Deleted. Spotify is disconnected and your scrobble token is gone.', 'ok')
-  renderSources(); draw()
+  setStatus('#data-status', tokenGone
+    ? 'Deleted. Spotify is disconnected and your scrobble token is gone.'
+    : "Deleted your plays and disconnected Spotify, but couldn't reach lostfm to delete your scrobble token. Click Delete token to try again.", tokenGone ? 'ok' : 'err')
+  renderSources(); draw(true)
 })
 document.addEventListener('click', async (ev) => {
   const b = ev.target.closest('[data-copy]')
   if (!b) return
-  try { await navigator.clipboard.writeText($(`#${b.dataset.copy}`).textContent); b.lastChild.textContent = ' Copied' } catch { b.lastChild.textContent = ' Select it' }
+  const src = $(`#${b.dataset.copy}`)
+  try { await navigator.clipboard.writeText(src.textContent); b.lastChild.textContent = ' Copied' } catch {
+    // clipboard blocked: select the text so Cmd/Ctrl+C works
+    const range = document.createRange(); range.selectNodeContents(src)
+    getSelection().removeAllRanges(); getSelection().addRange(range)
+    b.lastChild.textContent = ' Press ⌘C / Ctrl+C'
+  }
   setTimeout(() => { b.lastChild.textContent = ' Copy' }, 1500)
+})
+
+document.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('.tip-btn')
+  document.querySelectorAll('.tip[data-open]').forEach((t) => {
+    if (!btn || t !== btn.parentElement) { delete t.dataset.open; t.querySelector('.tip-btn').setAttribute('aria-expanded', 'false') }
+  })
+  if (!btn) return
+  const tip = btn.parentElement
+  const open = !tip.hasAttribute('data-open')
+  open ? (tip.dataset.open = '', delete tip.dataset.dismissed) : (delete tip.dataset.open, tip.dataset.dismissed = '')
+  btn.setAttribute('aria-expanded', String(open))
+})
+document.addEventListener('keydown', (ev) => {
+  if (ev.key !== 'Escape') return
+  document.querySelectorAll('.tip').forEach((t) => {
+    if (t.matches(':hover, :focus-within, [data-open]')) { t.dataset.dismissed = ''; delete t.dataset.open; t.querySelector('.tip-btn').setAttribute('aria-expanded', 'false') }
+  })
+})
+document.querySelectorAll('.tip').forEach((t) => {
+  const reset = () => { if (!t.matches(':hover, :focus-within')) delete t.dataset.dismissed }
+  t.addEventListener('mouseleave', reset)
+  t.addEventListener('focusout', () => setTimeout(reset))
 })
 
 // existing connections from before bring-your-own-app were made with izie's app
 if (store.get('lostfm.refresh') && !ownClientId() && !store.get('lostfm.legacyApp')) store.set('lostfm.legacyApp', '1')
 
 ;(async () => {
+  renderSources()
   try { await finishLogin() } catch (e) { setStatus('#spotify-status', e.message, 'err') }
   renderSources()
-  await draw()
+  await draw(true)
   sync()
   setInterval(() => { if (!document.hidden) sync() }, SYNC_EVERY)
 })()

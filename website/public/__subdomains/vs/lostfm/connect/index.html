@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../style.css">
   </head>
   <body>
-    <a class="skip" href="#profile">Skip to your stats</a>
+    <a class="skip" href="#content">Skip to content</a>
     <main>
       <nav class="topbar" aria-label="lostfm">
         <a class="brand" href="../">lost<span>fm</span></a>
@@ -19,7 +19,7 @@
         </div>
       </nav>
 
-      <header class="section-head" style="margin-bottom: var(--s5)">
+      <header class="section-head" id="content" tabindex="-1" style="margin-bottom: var(--s5)">
         <div>
           <h1 style="font-size: clamp(2rem, 6vw, 2.8rem)">Track your own listening</h1>
           <p class="muted" style="margin: var(--s2) 0 0; max-width: 40rem">Your history stays in this browser. Nothing is uploaded except plays your scrobbler sends to your private inbox, which this page then pulls in.</p>
@@ -30,14 +30,14 @@
         <div class="card source" id="spotify-card">
           <h2><span data-icon="spotify"></span> Spotify</h2>
           <p class="muted">Reads what you play, live.
-            <span class="tip"><button type="button" class="tip-btn" aria-label="How syncing works" aria-describedby="tip-sync"><span data-icon="info"></span></button><span role="tooltip" id="tip-sync">Spotify only remembers your last 50 plays, so open this page about once a day to keep everything.</span></span></p>
+            <span class="tip"><button type="button" class="tip-btn" aria-label="How syncing works" aria-describedby="tip-sync" aria-expanded="false"><span data-icon="info"></span></button><span role="tooltip" id="tip-sync">Spotify only remembers your last 50 plays, so open this page about once a day to keep everything.</span></span></p>
 
-          <div class="actions" id="spotify-actions"></div>
+          <div class="actions" id="spotify-actions"><button class="primary" disabled>Loading…</button></div>
           <div id="own-app-setup">
             <details class="setup-box" id="own-app-details">
               <summary class="btn primary"><span data-icon="spotify"></span> Set up Spotify</summary>
             <p>Connect through your own free Spotify app. It takes about 3 minutes, and you're automatically allowed in.
-              <span class="tip"><button type="button" class="tip-btn" aria-label="Why your own app?" aria-describedby="tip-why"><span data-icon="info"></span></button><span role="tooltip" id="tip-why">Spotify limits each app to 5 people unless it's run by a company, so everyone brings their own. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID stays in this browser.</span></span></p>
+              <span class="tip"><button type="button" class="tip-btn" aria-label="Why your own app?" aria-describedby="tip-why" aria-expanded="false"><span data-icon="info"></span></button><span role="tooltip" id="tip-why">Spotify limits each app to 5 people unless it's run by a company, so everyone brings their own. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID stays in this browser.</span></span></p>
             <ol class="setup">
               <li>Open the <a href="https://developer.spotify.com/dashboard/create" rel="noopener noreferrer" target="_blank">Spotify developer dashboard</a> and log in.</li>
               <li>Give the app any name and description.</li>
@@ -50,6 +50,7 @@
               <label class="visually-hidden" for="own-app-input">Spotify Client ID</label>
               <input id="own-app-input" type="text" autocomplete="off" spellcheck="false" placeholder="Client ID" required pattern="[0-9a-fA-F]{32}" title="32 letters and numbers">
               <button class="primary" type="submit">Save</button>
+              <button type="button" id="own-app-cancel" hidden>Cancel</button>
             </form>
             </details>
           </div>
@@ -60,12 +61,12 @@
         <div class="card source" id="apple-card">
           <h2><span data-icon="apple"></span> Apple Music &amp; others</h2>
           <p class="muted">Get a private scrobble token, then point a scrobbler at lostfm. It speaks the ListenBrainz API, so most scrobblers work.</p>
-          <div class="actions" id="token-actions"></div>
+          <div class="actions" id="token-actions"><button class="primary" disabled>Loading…</button></div>
           <div id="token-box" hidden>
-            <label class="muted" for="token-url">API URL</label>
-            <div class="field"><code id="token-url"></code><button data-copy="token-url"><span data-icon="copy"></span> Copy</button></div>
-            <label class="muted" for="token-value">Token (keep it secret)</label>
-            <div class="field"><code id="token-value"></code><button data-copy="token-value"><span data-icon="copy"></span> Copy</button></div>
+            <span class="muted" id="token-url-label">API URL</span>
+            <div class="field"><code id="token-url" aria-labelledby="token-url-label"></code><button data-copy="token-url"><span data-icon="copy"></span> Copy</button></div>
+            <span class="muted" id="token-value-label">Token (keep it secret)</span>
+            <div class="field"><code id="token-value" aria-labelledby="token-value-label"></code><button data-copy="token-value"><span data-icon="copy"></span> Copy</button></div>
           </div>
           <p class="status" id="token-status" role="status"></p>
           <details>
@@ -98,7 +99,7 @@
           <p class="muted">Bring your past plays. Importing the same file twice won't double-count.</p>
           <div class="actions">
             <label class="btn" for="import"><span data-icon="upload"></span> Choose a file</label>
-            <input id="import" type="file" accept=".csv,.json,application/json,text/csv">
+            <input id="import" class="visually-hidden" type="file" multiple accept=".csv,.json,application/json,text/csv">
           </div>
           <p class="status" id="import-status" role="status"></p>
           <details>
@@ -123,7 +124,7 @@
         </div>
       </div>
 
-      <div id="profile" aria-live="polite"></div>
+      <div id="profile"></div>
 
       <footer>lostfm by <a href="https://izie.top">izie</a> · <a href="../">see izie's listening</a></footer>
     </main>
