@@ -9,3 +9,8 @@ NOTES-hmojis.md
 scripts/local/
 blog/TODO.md
 __pycache__/
+
+# secrets — never commit
+.env
+.env.*
+!.env.example
