@@ -210,6 +210,18 @@ async function putRecord(env, token, rec, options = {}) {
   })
 }
 
+/**
+ * Sets only the client label, on a fresh read: the request's own copy of the
+ * record may be stale by now (a revoke, reset or set-client in between), and
+ * writing it back would undo that change. KV has no compare-and-swap, so this
+ * narrows the window to one read and one write instead of a whole request.
+ */
+async function recordClient(env, token, client) {
+  const fresh = await getRecord(env, token)
+  if (!fresh || fresh.status === 'revoked' || fresh.client === client) return
+  await putRecord(env, token, { ...fresh, client })
+}
+
 const isGraceEligible = (rec) =>
   rec.kind === 'legacy' && !rec.everBound && rec.devices.length === 0
 
@@ -748,7 +760,7 @@ async function handleWhoami(request, env, ctx, url) {
     // which plugin build this is (taut, slick or clack), kept on the record for the operator's `tree`
     const client = request.headers.get('x-hm-client')
     if ((client === 'taut' || client === 'slick' || client === 'clack') && rec.client !== client) {
-      ctx.waitUntil(putRecord(env, token, { ...rec, client }))
+      ctx.waitUntil(recordClient(env, token, client))
     }
     return json(200, await describe(env, rec, sec, { state: 'active' }))
   }
