@@ -8128,7 +8128,7 @@
         "properties": {
          "app_id": {
           "type": "string",
-          "description": "string The id of the app whose tokens you want to delete."
+          "description": "string The id of the app whose tokens you want to delete. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "provider_key": {
           "type": "string",
@@ -8138,7 +8138,10 @@
           "type": "string",
           "description": "string The id of the token that you want to delete."
          }
-        }
+        },
+        "required": [
+         "app_id"
+        ]
        }
       }
      }
@@ -10846,7 +10849,7 @@
         "properties": {
          "channel_id": {
           "type": "string",
-          "description": "string Channel to add bookmark in. Required for public channels."
+          "description": "string Channel to add bookmark in. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "title": {
           "type": "string",
@@ -10878,6 +10881,7 @@
          }
         },
         "required": [
+         "channel_id",
          "title",
          "type"
         ]
@@ -10910,11 +10914,11 @@
         "properties": {
          "channel_id": {
           "type": "string",
-          "description": "string Channel to update bookmark in. Required for public channels."
+          "description": "string Channel to update bookmark in. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "bookmark_id": {
           "type": "string",
-          "description": "string Bookmark to update. Required for public channels."
+          "description": "string Bookmark to update. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "title": {
           "type": "string",
@@ -10928,7 +10932,11 @@
           "type": "string",
           "description": "string Emoji tag to apply to the link."
          }
-        }
+        },
+        "required": [
+         "channel_id",
+         "bookmark_id"
+        ]
        }
       }
      }
@@ -10958,9 +10966,12 @@
         "properties": {
          "channel_id": {
           "type": "string",
-          "description": "string Channel to list bookmarks in. Required for public channels."
+          "description": "string Channel to list bookmarks in. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
-        }
+        },
+        "required": [
+         "channel_id"
+        ]
        }
       }
      }
@@ -11026,17 +11037,21 @@
         "properties": {
          "channel_id": {
           "type": "string",
-          "description": "string Channel to remove bookmark. Required for public channels."
+          "description": "string Channel to remove bookmark. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "bookmark_id": {
           "type": "string",
-          "description": "string Bookmark to remove. Required for public channels."
+          "description": "string Bookmark to remove. Required for public channels. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "quip_section_id": {
           "type": "string",
           "description": "string Quip section ID to unbookmark."
          }
-        }
+        },
+        "required": [
+         "channel_id",
+         "bookmark_id"
+        ]
        }
       }
      }
@@ -11122,13 +11137,16 @@
         "properties": {
          "bot": {
           "type": "string",
-          "description": "user Bot user to get info on."
+          "description": "user Bot user to get info on. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          },
          "team_id": {
           "type": "string",
           "description": "string encoded team id or enterprise id where the bot exists, required if org token is used."
          }
-        }
+        },
+        "required": [
+         "bot"
+        ]
        }
       }
      }
@@ -12784,6 +12802,10 @@
          "text": {
           "type": "string",
           "description": "string Text of the message to send."
+         },
+         "thread_ts": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -15471,11 +15493,12 @@
          },
          "user": {
           "type": "string",
-          "description": "user User ID to be removed."
+          "description": "user User ID to be removed. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
         },
         "required": [
-         "channel"
+         "channel",
+         "user"
         ]
        }
       }
@@ -15626,6 +15649,10 @@
          "cursor": {
           "type": "string",
           "description": "string Set to next_cursor returned by previous call to list items in subsequent page."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -21801,6 +21828,14 @@
          "limit": {
           "type": "string",
           "description": "integer The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -21860,6 +21895,14 @@
          "user": {
           "type": "string",
           "description": "user Filter files created by a single user."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -26171,11 +26214,12 @@
          },
          "timestamp": {
           "type": "string",
-          "description": "string Timestamp of the message to pin. You must also include the channel."
+          "description": "string Timestamp of the message to pin. You must also include the channel. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
         },
         "required": [
-         "channel"
+         "channel",
+         "timestamp"
         ]
        }
       }
@@ -26245,11 +26289,12 @@
          },
          "timestamp": {
           "type": "string",
-          "description": "string Timestamp of the message to un-pin."
+          "description": "string Timestamp of the message to un-pin. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
         },
         "required": [
-         "channel"
+         "channel",
+         "timestamp"
         ]
        }
       }
@@ -26754,6 +26799,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to list reactions in, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -28015,6 +28068,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to search in, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -28502,6 +28563,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to search in, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -28629,6 +28698,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to search in, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -29990,6 +30067,10 @@
          "include_attachments": {
           "type": "string",
           "description": "boolean Must match the include_attachments passed to slackLists.download.start. The returned download_url carries this through so the served export matches what was generated. Only applies when format is json."
+         },
+         "include_archived": {
+          "type": "string",
+          "description": "boolean Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         },
         "required": [
@@ -31283,6 +31364,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to list stars in, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "number Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -31763,6 +31852,14 @@
          "team_id": {
           "type": "string",
           "description": "string encoded team id to get logs from, required if org token is used."
+         },
+         "count": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -32328,6 +32425,10 @@
          "team": {
           "type": "string",
           "description": "string Team to get info about; if omitted, will return information about the current team."
+         },
+         "include_slackbot_availability": {
+          "type": "string",
+          "description": "boolean Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -32376,6 +32477,14 @@
          "user": {
           "type": "string",
           "description": "user Filter logs generated by this user's actions. Defaults to all logs."
+         },
+         "count": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
+         },
+         "page": {
+          "type": "string",
+          "description": "string Not on the current docs page; present in jollyroger182/slack.ts (legacy pagination or newer docs revision)."
          }
         }
        }
@@ -34849,9 +34958,12 @@
          },
          "user": {
           "type": "string",
-          "description": "user User to get info on."
+          "description": "user User to get info on. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
-        }
+        },
+        "required": [
+         "user"
+        ]
        }
       }
      }
@@ -35714,9 +35826,12 @@
          },
          "image": {
           "type": "string",
-          "description": "string File contents via multipart/form-data."
+          "description": "string File contents via multipart/form-data. [Official docs mark this optional; required in practice per jollyroger182/slack.ts manual review, 2026-11.]"
          }
-        }
+        },
+        "required": [
+         "image"
+        ]
        }
       }
      }

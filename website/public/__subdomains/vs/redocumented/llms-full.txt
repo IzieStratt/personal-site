@@ -753,7 +753,9 @@ than adding a new mechanism.
 # Block Kit — every block type, including undocumented ones
 
 Slack's [Block Kit reference](https://docs.slack.dev/reference/block-kit/blocks) lists 20 block
-types. Slack's web client knows about **50**. Several of the hidden ones are accepted by
+types. Slack's web client registers **108** renderers
+(blocks, elements and rich-text types) and its `prototype` block hides about 20 more unreleased blocks
+behind experiments. Several of the hidden ones are accepted by
 `chat.postMessage` and render normally, and Block Kit Builder will preview them (that is where
 `fallback_canary` shows up) even though no docs page mentions them.
 
@@ -761,6 +763,11 @@ Sources, cross-checked 2026-11-18:
 
 - **Client names**: `block-kit-types.txt` from [slack-datamine-plus](https://slackdatamineplus.izie.top),
   the block/element/rich-text type names in the current web client build.
+- **Decoded from the client**: the block registry in web client build `2bdd7e246c53`
+  (fetched 2026-11-18). Each block is registered as `{type, component, processProps}`, and
+  `processProps` converts the block's snake_case fields to camelCase props, so the props a component
+  destructures are the block's fields. These are **source-read, not live-posted**: they tell you
+  what the client renders, not what `chat.postMessage` accepts.
 - **Schemas**: [`jollyroger182/slack.ts`](https://github.com/jollyroger182/slack.ts)
   `src/types/blocks/blocks.ts` (commit `9e380b8`), which types the undocumented blocks from
   testing against Block Kit Builder and the client. Field notes below are theirs unless marked.
@@ -787,7 +794,9 @@ not at all) on mobile. Always send a `text` fallback with the message.
 | `share_prompt` | undocumented, schema known | AI-agent prompt share card. |
 | `share_shortcut` | undocumented, schema known | Workflow share card. |
 | `timeline` | undocumented, schema known | Slackbot "used N tools" timeline. |
-| `attachment_reference`, `auth_provider`, `canvas`, `error`, `expandable`, `group`, `layout`, `mcp_app`, `message`, `page`, `prototype`, `related_automation_decorator`, `salesforce_record_card`, `search_top_results`, `share_skill`, `share_workflow` | undocumented, name only | Present in the client; no tested schema yet. |
+| `attachment_reference`, `auth_provider`, `layout`, `mcp_app`, `page`, `prototype`, `related_automation_decorator`, `salesforce_record_card`, `search_top_results`, `share_skill`, `share_workflow` | undocumented, fields decoded | Fields read from the client's components; see [decoded from the client](#decoded-from-the-client). |
+| `message`, `canvas` | undocumented, name only | `message` renders a stored message; `canvas` is a rich-text element, not a top-level block. |
+| `error`, `expandable`, `group`, `sticker` | in the type enum, no renderer | Listed in the client's block-type enum but nothing registers a renderer in build `2bdd7e246c53` (`sticker` had one in an earlier cached build). |
 
 ## The fallback convention
 
@@ -945,6 +954,67 @@ A point: `id`, `status` (`in_progress` / `complete` / `error` / `canceled`), `te
 A step: `{ id, sections: [{ rich_text_title, sources }] }`, where a source is
 `{ type: "message", channel_id, timestamp }`, `{ type: "file", url }` or
 `{ type: "web", url, title? }`.
+
+## Decoded from the client
+
+Field names are the snake_case form of the component props (`fileId` → `file_id`). Values listed
+are ones the client compares against; other values may exist.
+
+| Block | Fields |
+|---|---|
+| `layout` | `label`, `is_label_visible`, `grid_lines` (`none` / `rows` / `outer`), `rows: [{ items: [{ block, width?, horizontal_alignment? }] }]`. `width` is `narrow` / `standard` / `wide`; `horizontal_alignment` is `start` / `center` / `end`. Each item holds one block. |
+| `mcp_app` | `uri`, `mime_type` (rendered only if `text/html;profile=mcp-app`), `service_type`, `executor_id`, `app_id`, `tool_name`, `tool_use_id`. An MCP Apps UI resource rendered in a sandboxed frame. Forwarded copies show "This content is only available in the original conversation." |
+| `page` | `file_id`, `fallback_text`, `app_id`, `has_ai_generated_content`. |
+| `auth_provider` | `name`, `description`, `icon_url`, `auth_url`, `disconnect_url`, `is_connected`, `connected_identity`, `connected_context`, `accessory`, `is_loading`, `fallback`, `value`. A connect/disconnect account card. |
+| `salesforce_record_card` | `salesforce_org_id`, `sobject_api_name`, `record_id`, `record_name`, `object_label`, `total_field_count`, `fields[]` (each with `rich_text`, `html_formatted`, `previous_value`, `aria_label`). |
+| `search_top_results` | `query`, `results`. |
+| `share_skill` | `label`, `file_id`, `description`, `team_id`, `source_org_name`, `share_code`. Slackbot skill share card. |
+| `share_workflow` | `app_id`, `blocks`. |
+| `attachment_reference` | `url`. |
+| `related_automation_decorator` | `text`. Stripped when the message is shown as an attachment. |
+
+Documented blocks also read fields the docs don't list: `container` takes `rich_text_title`,
+`subtitle`, `icon`, `width`, `is_collapsible`, `default_collapsed`, `has_header_divider`; `carousel`
+takes `label`, `is_label_visible`; `data_table` takes `page_size`, `row_header_column_index`,
+`caption`; `task_card` takes `task_id`, `details`, `output`, `sources`; `header` takes `level` and
+`style`; `table` takes `column_settings`, `caption`, `is_caption_visible`; `contact_card` takes
+`contact_card_id`; `section` reads `should_stack_text_fields`, `should_truncate_text`,
+`should_stack_accessory`. Some props (`is_in_app_view`, `sender_member_id`, `container_id`, …) are
+set by the client, not by the block.
+
+slack-datamine-plus regenerates this from every new build as `block-registry.txt`.
+
+### `prototype`: unreleased blocks behind experiments
+
+`{ "type": "prototype", "candidate_type": "<name>", ... }` renders an unreleased block. Each
+candidate only renders when its experiment is on for the viewer: `block_kit_revamp_blocks` (A),
+`bk_prototype_next` (N) or `block_kit_card_block` (C). A dash means no gate.
+
+| `candidate_type` | Gate | Fields |
+|---|---|---|
+| `alert` | A | `text`, `level` (`default` / `info` / `success` / `warning` / `error`) |
+| `card_v2` | A | the card block |
+| `suggested_prompts_button` | N | `text`, `prompt`, `privately`, `style`, `accessibility_label` |
+| `handoff_button` | N | `text`, `prompt`, `icon_url`, `status`, `complete_text`, `link_channel_id`, `link_thread_ts`, `link_text` |
+| `chart` | N | `chart_type` (`bar` / `line` / `pie` / `number`), `title`, `series`, `segments`, `axis_config`, `color_family`, `show_legend` |
+| `inline_form` | N | `mode`, `title`, `subtitle`, `submit_label`, `cancel_label`, `callback_id`, `submit_action_id`, `form_blocks`, `submitted_values`, `is_editable` |
+| `entity` | N | collapsible entity card (`collapsible`, `is_expanded_by_default`, …) |
+| `key_value` | N | `pairs`, `direction` |
+| `tag` | N | `text`, `tag_style` (`indigo`, `aubergine`, `lagoon`, `jade`, `honeycomb`, …) |
+| `entity_list` | N | `entities` |
+| `canvas_diff` | C | `contents`, `child_blocks` |
+| `list_diff` | – | `contents`, `child_blocks` |
+| `mcp_app` | N | as the `mcp_app` block |
+| `widget` | N | `widget_id`, `title`, `status`, `created_by`, `cards`, `version`, `display_mode` (`inline` / `compact` / `full`) |
+| `agent_permissions_card` | – | `title`, `body`, `disclaimer`, `actions`, `icon`, `show_confirm_dialog`, `container_id` |
+| `ask_user_question` | N | `questions`, `submitted`, `answers`, `answered_by` |
+| `answer_comparison` | – | `answers`, `child_blocks`, `is_generating`, `is_read_only` |
+| `form_card` | – | `title`, `child_blocks`, `accessibility_label` |
+| `slide_template_picker` | – | `title`, `template_options`, `default_template_id`, `child_blocks` |
+| `attachment_reference` | – | `url` |
+| `checklist` | – | fields not decoded |
+| `today_item` | – | fields not decoded |
+| `slackbot_onboarding_guided` | – | Slackbot's guided-onboarding flow |
 
 ## Elements and rich-text types
 
