@@ -230,7 +230,9 @@ takes `label`, `is_label_visible`; `data_table` takes `page_size`, `row_header_c
 `should_stack_accessory`. Some props (`is_in_app_view`, `sender_member_id`, `container_id`, …) are
 set by the client, not by the block.
 
-slack-datamine-plus regenerates this from every new build as `block-registry.txt`.
+slack-datamine-plus regenerates this from every new build as `block-registry.txt`. The full output
+for build `2bdd7e246c53` (186 lines: every registered renderer, its fields, and each prototype
+candidate with its gate) is in [`data/block-registry-2bdd7e246c53.txt`](data/block-registry-2bdd7e246c53.txt).
 
 ### `prototype`: unreleased blocks behind experiments
 
@@ -260,8 +262,8 @@ candidate only renders when its experiment is on for the viewer: `block_kit_reva
 | `form_card` | – | `title`, `child_blocks`, `accessibility_label` |
 | `slide_template_picker` | – | `title`, `template_options`, `default_template_id`, `child_blocks` |
 | `attachment_reference` | – | `url` |
-| `checklist` | – | fields not decoded |
-| `today_item` | – | fields not decoded |
+| `checklist` | N | `title`, `element`, `group_completed_items`, `show_progress` |
+| `today_item` | – | `child_blocks` (rendered as-is; nothing if empty) |
 | `slackbot_onboarding_guided` | – | Slackbot's guided-onboarding flow |
 
 ## Elements and rich-text types
