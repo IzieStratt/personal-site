@@ -27,13 +27,14 @@
       </header>
 
       <div class="steps">
-        <div class="card" id="spotify-card">
+        <div class="card source" id="spotify-card">
           <h2><span data-icon="spotify"></span> Spotify</h2>
           <p class="muted">Reads what you play, live.
             <span class="tip"><button type="button" class="tip-btn" aria-label="How syncing works" aria-describedby="tip-sync"><span data-icon="info"></span></button><span role="tooltip" id="tip-sync">Spotify only remembers your last 50 plays, so open this page about once a day to keep everything.</span></span></p>
 
+          <div class="actions" id="spotify-actions"></div>
           <div id="own-app-setup">
-            <details class="setup-box">
+            <details class="setup-box" id="own-app-details">
               <summary class="btn primary"><span data-icon="spotify"></span> Set up Spotify</summary>
             <p>Connect through your own free Spotify app. It takes about 3 minutes, and you're automatically allowed in.
               <span class="tip"><button type="button" class="tip-btn" aria-label="Why your own app?" aria-describedby="tip-why"><span data-icon="info"></span></button><span role="tooltip" id="tip-why">Spotify limits each app to 5 people unless it's run by a company, so everyone brings their own. lostfm never sees a secret: your browser talks to Spotify directly, and the Client ID stays in this browser.</span></span></p>
@@ -53,11 +54,10 @@
             </details>
           </div>
 
-          <div class="actions" id="spotify-actions"></div>
           <p class="status" id="spotify-status" role="status"></p>
         </div>
 
-        <div class="card" id="apple-card">
+        <div class="card source" id="apple-card">
           <h2><span data-icon="apple"></span> Apple Music &amp; others</h2>
           <p class="muted">Get a private scrobble token, then point a scrobbler at lostfm. It speaks the ListenBrainz API, so most scrobblers work.</p>
           <div class="actions" id="token-actions"></div>
@@ -93,7 +93,7 @@
           </details>
         </div>
 
-        <div class="card">
+        <div class="card source">
           <h2><span data-icon="upload"></span> Import history</h2>
           <p class="muted">Bring your past plays. Importing the same file twice won't double-count.</p>
           <div class="actions">
@@ -112,7 +112,7 @@
           </details>
         </div>
 
-        <div class="card">
+        <div class="card source">
           <h2><span data-icon="user"></span> Your data</h2>
           <p class="muted" id="data-summary">Nothing stored yet.</p>
           <div class="actions">

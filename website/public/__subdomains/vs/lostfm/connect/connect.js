@@ -177,12 +177,19 @@ function renderSources() {
   const connected = !!store.get('lostfm.refresh')
   const own = ownClientId()
   $('#own-app-setup').hidden = connected || !!own
-  $('#spotify-actions').hidden = !connected && !own
+  const setupOpen = $('#own-app-details').open
   $('#spotify-actions').innerHTML = connected
     ? `<button id="sp-sync">${icon('refresh')} Sync now</button><button id="sp-off">${icon('logout')} Disconnect</button>`
+    : !own
+    ? `<button id="sp-setup" class="primary" aria-expanded="${setupOpen}" aria-controls="own-app-details">${icon('spotify')} ${setupOpen ? 'Hide setup' : 'Set up Spotify'}</button>`
     : `<button id="sp-on" class="primary">${icon('spotify')} Connect Spotify</button><button id="sp-change">Change Client ID</button>`
   $('#sp-on')?.addEventListener('click', login)
-  $('#sp-change')?.addEventListener('click', () => { store.set('lostfm.clientId', null); $('#own-app-input').value = own; renderSources(); $('#own-app-input').focus() })
+  $('#sp-setup')?.addEventListener('click', () => {
+    $('#own-app-details').open = !$('#own-app-details').open
+    renderSources()
+    if ($('#own-app-details').open) $('#own-app-details a').focus()
+  })
+  $('#sp-change')?.addEventListener('click', () => { store.set('lostfm.clientId', null); $('#own-app-details').open = true; $('#own-app-input').value = own; renderSources(); $('#own-app-input').focus() })
   $('#sp-sync')?.addEventListener('click', () => sync(true))
   $('#sp-off')?.addEventListener('click', () => { forgetSpotify(); renderSources(); setStatus('#spotify-status', 'Disconnected. Your history is still here.') })
   const last = Number(store.get('lostfm.lastsync'))
