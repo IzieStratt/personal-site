@@ -210,11 +210,11 @@ are ones the client compares against; other values may exist.
 
 | Block | Fields |
 |---|---|
-| `layout` | `label`, `is_label_visible`, `grid_lines` (`none` / `rows` / `outer`), `rows: [{ items: [{ block, width?, horizontal_alignment? }] }]`. `width` is `narrow` / `standard` / `wide`; `horizontal_alignment` is `start` / `center` / `end`. Each item holds one block. |
+| `layout` | `label` (required), `is_label_visible`, `grid_lines` (`none` / `rows` / `outer`), `rows: [{ items: [{ block, width?, horizontal_alignment? }] }]`. `width` is `narrow` / `standard` / `wide`; `horizontal_alignment` is `start` / `center` / `end`. Each item holds one block. |
 | `mcp_app` | `uri`, `mime_type` (rendered only if `text/html;profile=mcp-app`), `service_type`, `executor_id`, `app_id`, `tool_name`, `tool_use_id`. An MCP Apps UI resource rendered in a sandboxed frame. Forwarded copies show "This content is only available in the original conversation." |
 | `page` | `file_id`, `fallback_text`, `app_id`, `has_ai_generated_content`. |
 | `auth_provider` | `name`, `description`, `icon_url`, `auth_url`, `disconnect_url`, `is_connected`, `connected_identity`, `connected_context`, `accessory`, `is_loading`, `fallback`, `value`. A connect/disconnect account card. |
-| `salesforce_record_card` | `salesforce_org_id`, `sobject_api_name`, `record_id`, `record_name`, `object_label`, `total_field_count`, `fields[]` (each with `rich_text`, `html_formatted`, `previous_value`, `aria_label`). |
+| `salesforce_record_card` | `object_label` (required), `salesforce_org_id`, `sobject_api_name`, `record_id`, `record_name`, `object_label`, `total_field_count`, `fields[]` (each with `rich_text`, `html_formatted`, `previous_value`, `aria_label`). |
 | `search_top_results` | `query`, `results`. |
 | `share_skill` | `label`, `file_id`, `description`, `team_id`, `source_org_name`, `share_code`. Slackbot skill share card. |
 | `share_workflow` | `app_id`, `blocks`. |
@@ -265,6 +265,30 @@ candidate only renders when its experiment is on for the viewer: `block_kit_reva
 | `checklist` | N | `title`, `element`, `group_completed_items`, `show_progress` |
 | `today_item` | – | `child_blocks` (rendered as-is; nothing if empty) |
 | `slackbot_onboarding_guided` | – | Slackbot's guided-onboarding flow |
+
+## Live-tested with `chat.postMessage` (2026-11-18)
+
+Each block was posted with a user session token to the account's own self-DM and deleted straight
+away. The error column is Slack's schema validator, quoted.
+
+| Block | Result | What Slack said / stored |
+|---|---|---|
+| `fallback_canary`, `callout`, `canvas_table`, `channel_section`, `condition`, `contact_card`, `loading`, `share_prompt`, `timeline`, `mcp_app` | accepted | Stored as sent, plus a `block_id`. |
+| `data_visualization` | accepted | `pie` and `bar` work. `number` is rejected ("failed to match exactly one allowed schema"). |
+| `header` | accepted with `level` | `level: 2` and `3` are stored. `style` is rejected: "invalid additional property". |
+| `container` | accepted | `is_collapsible` + `default_collapsed` work, and so does `has_header_divider`, but not together: "`has_header_divider` can only be set when `is_collapsible` is false". |
+| `layout` | accepted | **`label` is required.** Slack fills in `is_label_visible: false`, `grid_lines: "none"`, `width: "standard"` and `fallback: []`. |
+| `message_embed` | accepted | `team_id` must match `^[TE][A-Z0-9]{8,}$` and `ts` must match `^\d{10}\.\d{6}$`. |
+| `salesforce_record_card` | accepted | **`object_label` is required**, along with `salesforce_org_id`, `sobject_api_name`, `record_id`, `record_name` and `fields`. |
+| `auth_provider` | rejected | `name` and `description` must be text objects, and `value` and `is_connected` are required. With all of those it fails with "Block type is not supported in this container": it is valid, just not in messages. |
+| `share_workflow` | rejected | Requires `workflow_name`, and then fails with "unsupported type". |
+| `group` | rejected | Requires `blocks`, and then fails with "unsupported type". |
+| `page`, `attachment_reference` | rejected | "Unsupported block type". |
+| `prototype` (any `candidate_type`) | rejected | "unsupported type: prototype". Only Slack's own surfaces (Slackbot, agents) can send these. |
+| `share_skill`, `search_top_results`, `related_automation_decorator`, `error`, `expandable`, `sticker` | rejected | "unsupported type". |
+
+So in messages, every block that has a client renderer *and* is accepted can be used by any token;
+the rest are client-only or set by Slack itself.
 
 ## Elements and rich-text types
 

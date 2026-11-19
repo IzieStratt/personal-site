@@ -105,7 +105,10 @@ class DriftIsCaught(unittest.TestCase):
 
     def test_check_fails_when_a_doc_quotes_a_wrong_number(self):
         f = self.vs / 'redocumented/llms.txt'
-        f.write_text(f.read_text().replace('~323 methods', '~999 methods', 1))
+        text = f.read_text()
+        n = json.loads(self.cat.read_text())['counts']['documented']
+        self.assertIn(f'~{n} methods', text)
+        f.write_text(text.replace(f'~{n} methods', '~999 methods', 1))
         r = self.check_cli()
         self.assertEqual(r.returncode, 1, r.stdout)
         self.assertIn("says '999' for `documented`", r.stdout)
