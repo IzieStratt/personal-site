@@ -745,9 +745,9 @@ async function handleWhoami(request, env, ctx, url) {
     const bad = await checkSignature(request, env, url, '', device.jwk, keyId)
     if (bad) return sigResponse(bad)
     ctx.waitUntil(trackSeen(env, rec, keyId, ci))
-    // which plugin build this is (taut or slick), kept on the record for the operator's `tree`
+    // which plugin build this is (taut, slick or clack), kept on the record for the operator's `tree`
     const client = request.headers.get('x-hm-client')
-    if ((client === 'taut' || client === 'slick') && rec.client !== client) {
+    if ((client === 'taut' || client === 'slick' || client === 'clack') && rec.client !== client) {
       ctx.waitUntil(putRecord(env, token, { ...rec, client }))
     }
     return json(200, await describe(env, rec, sec, { state: 'active' }))
