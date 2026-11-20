@@ -1,3 +1,6 @@
+/* the blog stylesheet's font url points at blog.izie.top, which has no CORS; load it from the main cdn (worker.js adds CORS there) */
+@font-face { font-family: "xkcd Script local"; src: url("https://izie.top/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
+body { font-family: "xkcd Script local", "xkcd Script", cursive; }
 /* on top of the blog stylesheet (palette, type, form bits under .comments) */
 h1 { margin-bottom: 0.2rem; }
 h2 { margin: 2rem 0 0.6rem; }

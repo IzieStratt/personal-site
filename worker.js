@@ -23,6 +23,13 @@ export default {
         headers: { Location: `https://sdmp.izie.top${url.pathname}${url.search}` },
       })
     }
+    // fonts on the main cdn are loaded by every subdomain (account.izie.top etc.), and browsers need CORS for cross-origin fonts
+    if (url.hostname === 'izie.top' && /^\/cdn\/.*\.(woff2?|ttf|otf)$/.test(url.pathname)) {
+      const res = await env.ASSETS.fetch(request)
+      const headers = new Headers(res.headers)
+      headers.set('Access-Control-Allow-Origin', '*')
+      return new Response(res.body, { status: res.status, headers })
+    }
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse
     if (url.hostname === 'izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
