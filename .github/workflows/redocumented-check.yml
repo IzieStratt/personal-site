@@ -12,6 +12,8 @@ on:
       - 'scripts/redocumented_counts.py'
       - 'scripts/test_redocumented_counts.py'
       - '.github/workflows/redocumented-check.yml'
+      - 'agent-core.js'
+      - 'agent-core.test.mjs'
   push:
     branches: [main]
     paths:
@@ -20,6 +22,8 @@ on:
       - 'scripts/redocumented_counts.py'
       - 'scripts/test_redocumented_counts.py'
       - '.github/workflows/redocumented-check.yml'
+      - 'agent-core.js'
+      - 'agent-core.test.mjs'
   workflow_dispatch:
 
 permissions:
@@ -31,6 +35,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Agent-facing worker helpers
+        run: node agent-core.test.mjs
       - name: Unit tests for the count definitions and the drift check
         run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
       - name: Catalog, docs and generated files agree

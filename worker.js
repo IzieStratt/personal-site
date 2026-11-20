@@ -7,6 +7,7 @@ import { handleLostfm } from './lostfm.js'
 export { LostfmStore } from './lostfm.js'
 import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
 export { Vibetime } from './vibetime.js'
+import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './agent-core.js'
 
 export default {
   async fetch(request, env, ctx) {
@@ -216,21 +217,9 @@ function redocError(status, error, hint, extra = {}) {
   }, { status, headers })
 }
 
-// Soft per-IP limit for /redocumented/api. Counted per Worker isolate, so it is approximate across Cloudflare's edge.
-const RL_LIMIT = 120
-const RL_WINDOW = 60
 const rlBuckets = new Map()
 function redocRateLimit(request) {
-  const now = Math.floor(Date.now() / 1000)
-  const ip = request.headers.get('CF-Connecting-IP') || 'unknown'
-  let b = rlBuckets.get(ip)
-  if (!b || b.start + RL_WINDOW <= now) {
-    if (rlBuckets.size > 5000) rlBuckets.clear()
-    b = { start: now, count: 0 }
-    rlBuckets.set(ip, b)
-  }
-  b.count++
-  return { remaining: Math.max(0, RL_LIMIT - b.count), reset: b.start + RL_WINDOW - now, limited: b.count > RL_LIMIT }
+  return rateLimitHit(rlBuckets, request.headers.get('CF-Connecting-IP') || 'unknown', Math.floor(Date.now() / 1000))
 }
 function setRateLimitHeaders(headers, rl) {
   headers.set('RateLimit-Policy', `"default";q=${RL_LIMIT};w=${RL_WINDOW}`)
@@ -241,22 +230,6 @@ function withRateLimit(response, rl) {
   const headers = new Headers(response.headers)
   setRateLimitHeaders(headers, rl)
   return new Response(response.body, { status: response.status, headers })
-}
-
-// q-value aware: true when the client ranks text/markdown (or text/plain) above text/html
-function prefersMarkdown(accept) {
-  const q = (type) => {
-    let best = -1
-    for (const part of accept.toLowerCase().split(',')) {
-      const [media, ...params] = part.trim().split(';')
-      if (media.trim() !== type) continue
-      const qp = params.map((p) => p.trim()).find((p) => p.startsWith('q='))
-      best = Math.max(best, qp ? Number(qp.slice(2)) || 0 : 1)
-    }
-    return best
-  }
-  const md = Math.max(q('text/markdown'), q('text/x-markdown'), q('text/plain'))
-  return md > 0 && md > q('text/html')
 }
 
 // vs.izie.top agent surfaces that are not files: the API catalog and a root alias for the ReDocumented API spec
@@ -281,7 +254,6 @@ function handleVsAgentPaths(request, url) {
   return null
 }
 
-const AGENT_FILE_ALIAS = /^(\/redocumented)?\/(?:agents?\.(?:txt|md)|ai\.txt|llms\.md|\.well-known\/(?:agents?|llms)\.(?:txt|md))$/i
 async function serveAgentFile(env, url, file) {
   const res = await env.ASSETS.fetch(new URL(`/__subdomains/vs${file}`, url))
   return new Response(res.body, { status: res.status, headers: {
