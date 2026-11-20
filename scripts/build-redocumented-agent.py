@@ -118,8 +118,16 @@ for m in methods:
         'x-verified': m['verified'],
         'x-write-shaped': is_write_shaped(m['name']),
         'requestBody': {'content': {'application/x-www-form-urlencoded': {'schema': schema}}},
-        'responses': {'200': {'description': 'Slack envelope; check `ok`. Response fields: '
-                              + (', '.join(m['response']) if m.get('response') else 'unknown')}},
+        'responses': {
+            '200': {'description': 'Slack envelope; check `ok`. Response fields: '
+                                   + (', '.join(m['response']) if m.get('response') else 'unknown'),
+                    'content': {'application/json': {'schema': {'$ref': '#/components/schemas/SlackResponse'}}}},
+            '429': {'description': 'Rate limited; wait the number of seconds in Retry-After.',
+                    'headers': {'Retry-After': {'schema': {'type': 'integer'}}},
+                    'content': {'application/json': {'schema': {'$ref': '#/components/schemas/SlackError'}}}},
+            'default': {'description': 'Slack reports most failures as HTTP 200 with ok: false; other statuses carry the same envelope.',
+                        'content': {'application/json': {'schema': {'$ref': '#/components/schemas/SlackError'}}}},
+        },
     }}
 write_json(ROOT / 'openapi.json', {
     'openapi': '3.1.0',
@@ -127,7 +135,26 @@ write_json(ROOT / 'openapi.json', {
              'description': 'Generated from methods.json; only methods with params_known: true. '
                             'Param types are loose strings. ' + safety},
     'servers': [{'url': 'https://slack.com/api'}],
-    'components': {'securitySchemes': {'bearer': {'type': 'http', 'scheme': 'bearer'}}},
+    'components': {
+        'securitySchemes': {'bearer': {'type': 'http', 'scheme': 'bearer'}},
+        'schemas': {
+            'SlackResponse': {'type': 'object', 'required': ['ok'], 'additionalProperties': True, 'properties': {
+                'ok': {'type': 'boolean', 'description': 'true on success; false means `error` is set'},
+                'error': {'type': 'string', 'description': 'machine-readable error code when ok is false'},
+                'warning': {'type': 'string', 'description': 'comma-separated warning codes'},
+                'response_metadata': {'type': 'object', 'properties': {
+                    'next_cursor': {'type': 'string'}, 'warnings': {'type': 'array', 'items': {'type': 'string'}},
+                    'messages': {'type': 'array', 'items': {'type': 'string'}}}},
+            }},
+            'SlackError': {'type': 'object', 'required': ['ok', 'error'], 'properties': {
+                'ok': {'type': 'boolean', 'const': False},
+                'error': {'type': 'string', 'description': 'machine-readable code, e.g. invalid_auth, missing_scope, ratelimited; see '
+                                                           f'{BASE}/docs/errors.md'},
+                'needed': {'type': 'string', 'description': 'scope needed (missing_scope only)'},
+                'provided': {'type': 'string', 'description': 'scopes the token has (missing_scope only)'},
+            }},
+        },
+    },
     'security': [{'bearer': []}],
     'paths': paths,
 })

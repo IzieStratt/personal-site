@@ -9,7 +9,27 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt" />
     <link rel="alternate" type="application/json" title="Method index" href="api/index.json" />
-    <link rel="service-desc" type="application/vnd.oai.openapi+json" href="openapi.json" />
+    <link rel="service-desc" type="application/openapi+json" href="openapi-catalog.json" />
+    <link rel="alternate" type="application/openapi+json" title="OpenAPI for the Slack methods (params-known subset)" href="openapi.json" />
+    <link rel="canonical" href="https://vs.izie.top/redocumented/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ReDocumented — Slack Web API reference" />
+    <meta property="og:description" content="Slack Web API reference covering documented and 1,900+ undocumented methods, with a JSON/Markdown lookup API." />
+    <meta property="og:url" content="https://vs.izie.top/redocumented/" />
+    <meta property="og:image" content="https://vs.izie.top/redocumented/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebAPI",
+      "name": "ReDocumented Slack Web API reference",
+      "url": "https://vs.izie.top/redocumented/",
+      "description": "Unofficial reference for Slack's Web API, covering both documented and undocumented or internal methods, each with its source and verification level, and a read-only JSON/Markdown lookup API.",
+      "documentation": "https://vs.izie.top/redocumented/llms.txt",
+      "keywords": "Slack API reference, undocumented Slack API, Slack Web API methods",
+      "isAccessibleForFree": true,
+      "provider": { "@type": "Person", "name": "izie", "url": "https://izie.top/", "sameAs": ["https://github.com/IzieStratt"] }
+    }
+    </script>
   </head>
   <body>
     <div class="shell">
@@ -41,15 +61,17 @@
           <span id="doc-search-count" class="doc-search-count"></span>
         </div>
         <article id="doc" class="doc">
-          <p class="loading">Loading…</p>
+          <h1>ReDocumented: Slack Web API reference</h1>
+          <p>ReDocumented is an unofficial reference for Slack's Web API. It covers the ~345 methods in Slack's official docs and 1,900+ undocumented or internal methods found by mining Slack's client code. Every entry says where it came from, how well it is verified (from live-called down to existence-only), which params and response fields are actually known, and whether the name looks like a write that should never be called without a human in the loop.</p>
+          <p>This page loads an interactive browser for the catalog. The same data is available as plain files and a read-only API, described in <a href="openapi-catalog.json">openapi-catalog.json</a>.</p>
+          <ul>
+            <li><a href="llms.txt">llms.txt</a> (start here if you are an agent) and <a href="llms-full.txt">llms-full.txt</a> (all docs in one file)</li>
+            <li><a href="api/methods.txt">api/methods.txt</a> (one line per method) and <a href="api/index.json">api/index.json</a></li>
+            <li>One method: <a href="api/methods/chat.postMessage.md">api/methods/&lt;name&gt;.md</a> or <code>.json</code></li>
+            <li><a href="openapi.json">openapi.json</a> (the Slack methods with known params) and <a href="docs/data/methods.json">docs/data/methods.json</a> (full catalog)</li>
+          </ul>
           <noscript>
-            <p>This viewer needs JavaScript. Everything is also available as plain files:</p>
-            <ul>
-              <li><a href="llms.txt">llms.txt</a> (start here if you are an agent) and <a href="llms-full.txt">llms-full.txt</a> (all docs in one file)</li>
-              <li><a href="api/methods.txt">api/methods.txt</a> (one line per method) and <a href="api/index.json">api/index.json</a></li>
-              <li>One method: <a href="api/methods/chat.postMessage.md">api/methods/&lt;name&gt;.md</a> or <code>.json</code></li>
-              <li><a href="openapi.json">openapi.json</a> and <a href="docs/data/methods.json">docs/data/methods.json</a> (full catalog)</li>
-            </ul>
+            <p>The interactive viewer needs JavaScript; the files above work without it.</p>
           </noscript>
         </article>
         <div id="explorer-root" class="doc explorer" hidden></div>

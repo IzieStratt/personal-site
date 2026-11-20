@@ -47,6 +47,10 @@ export default {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/redocumented')) {
       return handleRedocumented(request, env, url)
     }
+    if (url.hostname === 'vs.izie.top') {
+      const agentResponse = handleVsAgentPaths(request, url)
+      if (agentResponse) return agentResponse
+    }
     if (url.hostname === 'vs.izie.top' && url.pathname === '/dgd/api/ngram') return handleDgdNgram(request, url)
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
@@ -107,6 +111,7 @@ export default {
         return new Response(response.body, { status: response.status, headers })
       }
 
+      if (match[1] === 'vs') return vsForAgents(request, env, url, originalPath, response)
       return response
     }
 
@@ -127,11 +132,18 @@ const REDOC_PREFIX = '/__subdomains/vs'
 
 async function handleRedocumented(request, env, url) {
   const accept = request.headers.get('Accept') || ''
-  const wantsMarkdown = url.searchParams.get('format') === 'md'
-    || (/text\/(markdown|plain)/.test(accept) && !accept.includes('text/html'))
+  const wantsMarkdown = url.searchParams.get('format') === 'md' || prefersMarkdown(accept)
   const wantsJson = url.searchParams.get('format') === 'json'
     || (accept.includes('application/json') && !accept.includes('text/html'))
-  let path = url.pathname.replace(/\/+$/, '') || '/redocumented'
+  // /redocumented/api/v1/... is the versioned name of /redocumented/api/... (see openapi-catalog.json)
+  let path = url.pathname.replace(/\/+$/, '').replace(/^\/redocumented\/api\/v1(?=\/|$)/, '/redocumented/api') || '/redocumented'
+  const isApi = path === '/redocumented/api' || path.startsWith('/redocumented/api/')
+  const rl = isApi ? redocRateLimit(request) : null
+  if (rl?.limited) return withRateLimit(redocError(429, 'rate_limited', `Over ${RL_LIMIT} requests per minute. Wait ${rl.reset}s, or download methods.json once instead of looping.`, { retry_after: rl.reset }), rl)
+  if (isApi && request.method !== 'GET' && request.method !== 'HEAD' && request.method !== 'OPTIONS') {
+    return withRateLimit(redocError(405, 'method_not_allowed', 'This API is read-only; use GET.'), rl)
+  }
+  const negotiated = path === '/redocumented' && wantsMarkdown && !wantsJson
 
   if (path === '/redocumented' && (wantsMarkdown || wantsJson)) {
     path = wantsJson ? '/redocumented/api/index.json' : '/redocumented/llms.txt'
@@ -139,7 +151,7 @@ async function handleRedocumented(request, env, url) {
   const isStaticFile = /\.(txt|json|md|js|css|html|svg|ico|png)$/.test(path)
   const method = path.match(/^\/redocumented\/(?:api\/methods\/|m\/)?([A-Za-z][\w-]*(?:\.[\w-]+)+?)(\.json|\.md)?$/)
   if (method && (path.startsWith('/redocumented/api/methods/') || !isStaticFile)) {
-    return redocMethod(request, env, url, method[1], method[2] ? method[2] === '.md' : wantsMarkdown)
+    return withRateLimit(await redocMethod(request, env, url, method[1], method[2] ? method[2] === '.md' : wantsMarkdown), rl)
   }
 
   const target = new URL(url)
@@ -154,11 +166,12 @@ async function handleRedocumented(request, env, url) {
   headers.set('Access-Control-Allow-Origin', '*')
   headers.set('Vary', 'Accept')
   if (/\.md$/.test(target.pathname)) headers.set('Content-Type', 'text/markdown; charset=utf-8')
-  if (/\.txt$/.test(target.pathname)) headers.set('Content-Type', 'text/plain; charset=utf-8')
+  if (/\.txt$/.test(target.pathname)) headers.set('Content-Type', `text/${negotiated ? 'markdown' : 'plain'}; charset=utf-8`)
   if ((headers.get('Content-Type') || '').includes('text/html')) {
     headers.append('Link', '</redocumented/llms.txt>; rel="alternate"; type="text/plain"; title="llms.txt"')
     headers.append('Link', '</redocumented/api/index.json>; rel="alternate"; type="application/json"')
   }
+  if (rl) setRateLimitHeaders(headers, rl)
   return new Response(response.body, { status: response.status, headers })
 }
 
@@ -181,16 +194,138 @@ async function loadRedocCatalog(env, url) {
 }
 
 function redocNotFound(name) {
+  return redocError(404, name ? 'method_not_in_catalog' : 'not_found',
+    'Method names are case-sensitive (e.g. chat.postMessage). A missing method is unknown to this catalog, not proof it does not exist.',
+    { method: name })
+}
+
+// every API error has the same shape: Error in redocumented/openapi-catalog.json
+function redocError(status, error, hint, extra = {}) {
+  const headers = { 'Access-Control-Allow-Origin': '*' }
+  if (extra.retry_after) headers['Retry-After'] = String(extra.retry_after)
   return Response.json({
-    ok: false,
-    error: name ? 'method_not_in_catalog' : 'not_found',
-    method: name,
-    hint: 'Method names are case-sensitive (e.g. chat.postMessage). A missing method is unknown to this catalog, not proof it does not exist.',
+    ok: false, error, hint, ...extra,
     index: `${REDOC_BASE}/api/index.json`,
     grep: `${REDOC_BASE}/api/methods.txt`,
     docs: `${REDOC_BASE}/llms.txt`,
-  }, { status: 404, headers: { 'Access-Control-Allow-Origin': '*' } })
+  }, { status, headers })
 }
+
+// Soft per-IP limit for /redocumented/api. Counted per Worker isolate, so it is approximate across Cloudflare's edge.
+const RL_LIMIT = 120
+const RL_WINDOW = 60
+const rlBuckets = new Map()
+function redocRateLimit(request) {
+  const now = Math.floor(Date.now() / 1000)
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown'
+  let b = rlBuckets.get(ip)
+  if (!b || b.start + RL_WINDOW <= now) {
+    if (rlBuckets.size > 5000) rlBuckets.clear()
+    b = { start: now, count: 0 }
+    rlBuckets.set(ip, b)
+  }
+  b.count++
+  return { remaining: Math.max(0, RL_LIMIT - b.count), reset: b.start + RL_WINDOW - now, limited: b.count > RL_LIMIT }
+}
+function setRateLimitHeaders(headers, rl) {
+  headers.set('RateLimit-Policy', `"default";q=${RL_LIMIT};w=${RL_WINDOW}`)
+  headers.set('RateLimit', `"default";r=${rl.remaining};t=${rl.reset}`)
+}
+function withRateLimit(response, rl) {
+  if (!rl) return response
+  const headers = new Headers(response.headers)
+  setRateLimitHeaders(headers, rl)
+  return new Response(response.body, { status: response.status, headers })
+}
+
+// q-value aware: true when the client ranks text/markdown (or text/plain) above text/html
+function prefersMarkdown(accept) {
+  const q = (type) => {
+    let best = -1
+    for (const part of accept.toLowerCase().split(',')) {
+      const [media, ...params] = part.trim().split(';')
+      if (media.trim() !== type) continue
+      const qp = params.map((p) => p.trim()).find((p) => p.startsWith('q='))
+      best = Math.max(best, qp ? Number(qp.slice(2)) || 0 : 1)
+    }
+    return best
+  }
+  const md = Math.max(q('text/markdown'), q('text/x-markdown'), q('text/plain'))
+  return md > 0 && md > q('text/html')
+}
+
+// vs.izie.top agent surfaces that are not files: the API catalog and a root alias for the ReDocumented API spec
+const VS_API_CATALOG = {
+  linkset: [{
+    anchor: 'https://vs.izie.top/redocumented/api/v1',
+    'service-desc': [{ href: 'https://vs.izie.top/redocumented/openapi-catalog.json', type: 'application/openapi+json' }],
+    'service-doc': [{ href: 'https://vs.izie.top/redocumented/llms.txt', type: 'text/markdown' }],
+    status: [{ href: 'https://vs.izie.top/redocumented/api/v1/index.json', type: 'application/json' }],
+  }],
+}
+function handleVsAgentPaths(request, url) {
+  if (url.pathname === '/.well-known/api-catalog') {
+    return new Response(JSON.stringify(VS_API_CATALOG, null, 1), {
+      headers: { 'Content-Type': 'application/linkset+json', 'Access-Control-Allow-Origin': '*',
+        Link: '</.well-known/api-catalog>; rel="api-catalog"' },
+    })
+  }
+  if (url.pathname === '/openapi.json') {
+    return Response.redirect('https://vs.izie.top/redocumented/openapi-catalog.json', 302)
+  }
+  return null
+}
+
+const VS_LINKS = [
+  '</llms.txt>; rel="describedby"; type="text/markdown"',
+  '</.well-known/api-catalog>; rel="api-catalog"',
+  '</redocumented/openapi-catalog.json>; rel="service-desc"; type="application/openapi+json"',
+  '</redocumented/>; rel="service-doc"',
+]
+
+// vs.izie.top pages: Markdown for agents that ask for it (home and 404), JSON 404s for API-shaped requests, Vary: Accept
+async function vsForAgents(request, env, url, originalPath, response) {
+  const accept = request.headers.get('Accept') || ''
+  const type = response.headers.get('Content-Type') || ''
+  const isHtml = type.includes('text/html')
+  if (!isHtml && response.status !== 404) return response
+  const markdown = prefersMarkdown(accept)
+  const json = !markdown && accept.includes('application/json') && !accept.includes('text/html')
+  const base = { 'Vary': 'Accept', 'Access-Control-Allow-Origin': '*' }
+
+  if (response.status === 404) {
+    if (json || /\/api(\/|$)/.test(originalPath)) {
+      return Response.json({ ok: false, error: 'not_found', hint: `Nothing at ${originalPath}. See the docs or the sitemap.`,
+        docs: 'https://vs.izie.top/llms.txt', sitemap: 'https://vs.izie.top/sitemap.xml', api: 'https://vs.izie.top/redocumented/openapi-catalog.json' },
+      { status: 404, headers: base })
+    }
+    if (markdown) {
+      return new Response(`# 404: not found\n\nThere is no page at \`${originalPath}\` on vs.izie.top.\n\n- Index of everything here: [llms.txt](https://vs.izie.top/llms.txt)\n- Sitemap: [sitemap.xml](https://vs.izie.top/sitemap.xml)\n- Slack API reference: [ReDocumented](https://vs.izie.top/redocumented/llms.txt)\n`,
+        { status: 404, headers: { ...base, 'Content-Type': 'text/markdown; charset=utf-8' } })
+    }
+  }
+
+  if (markdown && response.ok && (originalPath === '/' || originalPath === '/index.html')) {
+    const md = await env.ASSETS.fetch(new URL('/__subdomains/vs/llms.txt', url))
+    return new Response(md.body, { headers: { ...base, 'Content-Type': 'text/markdown; charset=utf-8', Link: VS_LINKS.join(', ') } })
+  }
+
+  const headers = new Headers(response.headers)
+  headers.set('Vary', 'Accept')
+  if (originalPath === '/') for (const l of VS_LINKS) headers.append('Link', l)
+  let out = new Response(response.body, { status: response.status, headers })
+  // DeGoogledDict is a client-rendered Next export; give readers without JavaScript a description (see DGD_ABOUT)
+  if (response.ok && /^\/dgd\/?$/.test(originalPath)) {
+    out = new HTMLRewriter().on('body', { element(el) { el.append(DGD_ABOUT, { html: true }) } }).transform(out)
+  }
+  return out
+}
+
+const DGD_ABOUT = `<footer style="max-width:42rem;margin:2rem auto;padding:0 1rem;font:14px/1.5 system-ui,sans-serif;opacity:.75">
+<h2 style="font-size:1rem;margin:0 0 .5rem">About DeGoogledDict</h2>
+<p>DeGoogledDict is a dictionary card in the style of Google's "define" search result, without any AI-generated text. Type a word to get its pronunciation, parts of speech, definitions and example sentences from Wiktionary (or Merriam-Webster), synonyms and related words from Datamuse, a usage-over-time chart from Google Books Ngram, and links to Wikipedia. Lookups go to those public sources (the Ngram chart through this site's relay, since Ngram sends no CORS headers).</p>
+<p>Made by <a href="https://izie.top">izie</a>. More projects: <a href="/">vs.izie.top</a>.</p>
+</footer>`
 
 async function redocMethod(request, env, url, name, markdown) {
   const { safety, byName } = await loadRedocCatalog(env, url)

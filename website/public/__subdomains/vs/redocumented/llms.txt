@@ -42,6 +42,14 @@ never call those without a human. `write_shaped: false` does NOT mean read-only.
 
 ## For agents / programmatic use
 
+This site's own lookup API is described in
+https://vs.izie.top/redocumented/openapi-catalog.json (versioned under
+`/redocumented/api/v1/`; unversioned `/redocumented/api/` paths are aliases).
+It is read-only and unauthenticated. Errors are JSON (`ok: false`, an `error`
+code, a `hint`); responses carry `RateLimit-Policy`/`RateLimit` headers
+(120 requests/minute per IP; over that you get 429 with `Retry-After`).
+For bulk work, fetch methods.json once instead of looping.
+
 Every per-method response above, and the full catalog at
 https://vs.izie.top/redocumented/docs/data/methods.json, uses the same fields.
 The full catalog also has a top-level `schema` object describing every field,

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vs.izie.top/sitemap.xml

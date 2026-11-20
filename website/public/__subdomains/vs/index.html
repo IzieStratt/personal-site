@@ -3,7 +3,52 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>vs.izie.top</title>
+    <title>vs.izie.top: izie's side projects and the ReDocumented Slack API reference</title>
+    <meta name="description" content="izie's hosted side projects: ReDocumented (a Slack Web API reference with 1,900+ undocumented methods), vibetime, lostfm, DeGoogledDict and more small web toys.">
+    <meta name="keywords" content="Slack API reference, undocumented Slack API, side projects">
+    <link rel="canonical" href="https://vs.izie.top/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="vs.izie.top">
+    <meta property="og:description" content="izie's hosted side projects, including the ReDocumented Slack Web API reference.">
+    <meta property="og:url" content="https://vs.izie.top/">
+    <meta property="og:image" content="https://vs.izie.top/og.png">
+    <link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt">
+    <link rel="service-desc" type="application/openapi+json" href="/redocumented/openapi-catalog.json">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://vs.izie.top/#site",
+          "name": "vs.izie.top",
+          "url": "https://vs.izie.top/",
+          "description": "izie's hosted side projects.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://izie.top/#izie" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://izie.top/#izie",
+          "name": "izie",
+          "url": "https://izie.top/",
+          "sameAs": ["https://github.com/IzieStratt"],
+          "knowsAbout": ["Slack API reference", "Slack Web API", "web development"],
+          "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "email": "ReDocumented@izie.top", "url": "https://vs.izie.top/contact/" }
+        },
+        {
+          "@type": "WebAPI",
+          "name": "ReDocumented Slack Web API reference",
+          "url": "https://vs.izie.top/redocumented/",
+          "description": "Reference for Slack's Web API covering documented and undocumented or internal methods, with a read-only JSON/Markdown lookup API.",
+          "documentation": "https://vs.izie.top/redocumented/llms.txt",
+          "provider": { "@id": "https://izie.top/#izie" },
+          "isAccessibleForFree": true
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <style>
       @font-face { font-family: "xkcd Script"; src: url("/cdn/xkcd-script.woff") format("woff"); font-display: swap; }
@@ -13,6 +58,7 @@
       p { margin: 0 0 1.5rem; }
       ul { margin: 0; padding-left: 1.5rem; }
       a { color: #315f9d; }
+      h2 { margin: 2.5rem 0 1rem; font-size: 1.6rem; font-weight: normal; }
     </style>
   </head>
   <body>
@@ -32,6 +78,9 @@
         <li><a href="/lostfm/">lostfm: a tiny Last.fm replacement (Spotify history + stats, no Pro)</a></li>
         <li><a href="/this-is/">This Is generator: make your own Spotify-style card (no ads, full res)</a></li>
       </ul>
+      <h2>For developers and agents</h2>
+      <p>ReDocumented has public <a href="/redocumented/">API docs</a>: a read-only lookup API for every Slack Web API method in the catalog (<a href="/redocumented/openapi-catalog.json">OpenAPI</a>, <a href="/redocumented/llms.txt">llms.txt</a>). Everything here is also listed in <a href="/llms.txt">llms.txt</a> and the <a href="/sitemap.xml">sitemap</a>.</p>
+      <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a> · <a href="https://github.com/IzieStratt">GitHub</a></p>
     </main>
   </body>
 </html>

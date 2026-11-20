@@ -1,6 +1,13 @@
 # vs.izie.top
 
-> izie's hosted side projects.
+> izie's hosted side projects. The main reference here is ReDocumented, an unofficial Slack Web API reference covering documented and undocumented methods.
+
+## When to use this site
+
+- Use ReDocumented when you need to know whether a Slack Web API method exists, what params and response fields it has, which token types it accepts, or whether it is undocumented/internal. It covers ~2,300 methods, including 1,900+ that Slack's official docs omit.
+- Call it with plain GET requests, no auth: `https://vs.izie.top/redocumented/api/v1/methods/<name>.json` (or `.md`) for one method, `https://vs.izie.top/redocumented/api/v1/methods.txt` to grep all of them, `https://vs.izie.top/redocumented/api/v1/index.json` for the full index. OpenAPI: https://vs.izie.top/redocumented/openapi-catalog.json. Errors are JSON with `ok: false` and an `error` code; stay under 120 requests a minute.
+- Treat write-shaped methods (`*.delete`, `*.set`, `*.create`, ...) as unsafe to call without a human in the loop. A method being listed means it exists, not that it is safe.
+- Do not use this site for Slack's official docs on Block Kit, OAuth or app setup; go to docs.slack.dev for those. The other apps below are personal toys with no API.
 
 ## Docs
 
@@ -12,3 +19,11 @@
 - [Chesentir](https://vs.izie.top/Chesentir/): a fictional cheese platform. Satire; simulated agent and metrics.
 - [ChopChop](https://vs.izie.top/ChopChop/): ChopChop YSWS parody landing page. Nothing is submitted anywhere.
 - [This Is generator](https://vs.izie.top/this-is/): Spotify "This Is" style card maker. Runs fully in the browser; no uploads.
+
+## Site
+
+- [About](https://vs.izie.top/about/): who runs this site and what is on it.
+- [Contact](https://vs.izie.top/contact/): ReDocumented@izie.top, GitHub.
+- [Privacy](https://vs.izie.top/privacy/)
+- [Sitemap](https://vs.izie.top/sitemap.xml)
+- [API catalog](https://vs.izie.top/.well-known/api-catalog)

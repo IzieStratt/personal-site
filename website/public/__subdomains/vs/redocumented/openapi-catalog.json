@@ -1,0 +1,502 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "ReDocumented Catalog API",
+  "version": "1.0.0",
+  "summary": "Read-only JSON/Markdown API over the ReDocumented Slack Web API catalog.",
+  "description": "Look up any of ~2,300 Slack Web API methods (documented and undocumented) in the ReDocumented catalog. Read-only, no authentication, CORS-open.\n\nVersioning: the API is versioned in the URL path (/redocumented/api/v1/). Unversioned paths (/redocumented/api/...) are aliases of the current version. Breaking changes ship as a new path version; the previous version keeps working for at least 90 days and its responses then carry `Deprecation` and `Sunset` headers (RFC 9745 / RFC 8594) plus a `Link: rel=\"successor-version\"`. Additive fields are not breaking.\n\nErrors: every 4xx/5xx response is JSON matching the Error schema (`ok: false`, a machine-readable `error` code, a `hint`, and links to where to look).\n\nRate limits: soft limit of 120 requests per minute per client IP, reported with the IETF RateLimit-Policy and RateLimit headers; going over returns 429 with Retry-After. For bulk use, download methods.json once instead of looping.\n\nThis catalog describes Slack's API; it does not proxy calls to Slack. For an OpenAPI description of the Slack methods themselves see https://vs.izie.top/redocumented/openapi.json.",
+  "contact": {
+   "name": "izie",
+   "email": "ReDocumented@izie.top",
+   "url": "https://vs.izie.top/contact/"
+  },
+  "license": {
+   "name": "See repository",
+   "url": "https://github.com/iziestratt/personal-site"
+  }
+ },
+ "externalDocs": {
+  "description": "Agent guide (llms.txt)",
+  "url": "https://vs.izie.top/redocumented/llms.txt"
+ },
+ "servers": [
+  {
+   "url": "https://vs.izie.top/redocumented/api/v1",
+   "description": "v1 (current)"
+  }
+ ],
+ "paths": {
+  "/methods/{name}.json": {
+   "get": {
+    "operationId": "getMethod",
+    "summary": "One method's full catalog entry as JSON",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/name"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The method entry",
+      "headers": {
+       "RateLimit-Policy": {
+        "$ref": "#/components/headers/RateLimit-Policy"
+       },
+       "RateLimit": {
+        "$ref": "#/components/headers/RateLimit"
+       }
+      },
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Method"
+        }
+       }
+      }
+     },
+     "404": {
+      "$ref": "#/components/responses/NotFound"
+     },
+     "429": {
+      "$ref": "#/components/responses/TooManyRequests"
+     }
+    }
+   }
+  },
+  "/methods/{name}.md": {
+   "get": {
+    "operationId": "getMethodMarkdown",
+    "summary": "One method's entry as Markdown",
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/name"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Markdown rendering of the method entry",
+      "content": {
+       "text/markdown": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "headers": {
+       "RateLimit-Policy": {
+        "$ref": "#/components/headers/RateLimit-Policy"
+       },
+       "RateLimit": {
+        "$ref": "#/components/headers/RateLimit"
+       }
+      }
+     },
+     "404": {
+      "$ref": "#/components/responses/NotFound"
+     },
+     "429": {
+      "$ref": "#/components/responses/TooManyRequests"
+     }
+    }
+   }
+  },
+  "/index.json": {
+   "get": {
+    "operationId": "getIndex",
+    "summary": "Every method, one compact row each, plus counts",
+    "responses": {
+     "200": {
+      "description": "The index",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Index"
+        }
+       }
+      },
+      "headers": {
+       "RateLimit-Policy": {
+        "$ref": "#/components/headers/RateLimit-Policy"
+       },
+       "RateLimit": {
+        "$ref": "#/components/headers/RateLimit"
+       }
+      }
+     },
+     "429": {
+      "$ref": "#/components/responses/TooManyRequests"
+     }
+    }
+   }
+  },
+  "/namespaces.json": {
+   "get": {
+    "operationId": "getNamespaces",
+    "summary": "Method names grouped by namespace (the part before the first dot)",
+    "responses": {
+     "200": {
+      "description": "Namespace map",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      },
+      "headers": {
+       "RateLimit-Policy": {
+        "$ref": "#/components/headers/RateLimit-Policy"
+       },
+       "RateLimit": {
+        "$ref": "#/components/headers/RateLimit"
+       }
+      }
+     },
+     "429": {
+      "$ref": "#/components/responses/TooManyRequests"
+     }
+    }
+   }
+  },
+  "/methods.txt": {
+   "get": {
+    "operationId": "getMethodsText",
+    "summary": "Tab-separated list of every method, greppable",
+    "responses": {
+     "200": {
+      "description": "TSV with a two-line comment header",
+      "content": {
+       "text/plain": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "headers": {
+       "RateLimit-Policy": {
+        "$ref": "#/components/headers/RateLimit-Policy"
+       },
+       "RateLimit": {
+        "$ref": "#/components/headers/RateLimit"
+       }
+      }
+     },
+     "429": {
+      "$ref": "#/components/responses/TooManyRequests"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "parameters": {
+   "name": {
+    "name": "name",
+    "in": "path",
+    "required": true,
+    "description": "Case-sensitive Slack method name, e.g. chat.postMessage",
+    "schema": {
+     "type": "string",
+     "pattern": "^[A-Za-z][\\w-]*(\\.[\\w-]+)+$"
+    }
+   }
+  },
+  "responses": {
+   "NotFound": {
+    "description": "Unknown path or method",
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/Error"
+      }
+     }
+    }
+   },
+   "TooManyRequests": {
+    "description": "Over the soft rate limit",
+    "headers": {
+     "Retry-After": {
+      "description": "Seconds to wait",
+      "schema": {
+       "type": "integer"
+      }
+     },
+     "RateLimit-Policy": {
+      "$ref": "#/components/headers/RateLimit-Policy"
+     },
+     "RateLimit": {
+      "$ref": "#/components/headers/RateLimit"
+     }
+    },
+    "content": {
+     "application/json": {
+      "schema": {
+       "$ref": "#/components/schemas/Error"
+      }
+     }
+    }
+   }
+  },
+  "schemas": {
+   "Error": {
+    "type": "object",
+    "required": [
+     "ok",
+     "error",
+     "hint"
+    ],
+    "properties": {
+     "ok": {
+      "type": "boolean",
+      "const": false
+     },
+     "error": {
+      "type": "string",
+      "enum": [
+       "not_found",
+       "method_not_in_catalog",
+       "rate_limited",
+       "method_not_allowed"
+      ],
+      "description": "Machine-readable error code"
+     },
+     "hint": {
+      "type": "string",
+      "description": "Human-readable explanation and how to fix it"
+     },
+     "method": {
+      "type": "string"
+     },
+     "retry_after": {
+      "type": "integer"
+     },
+     "index": {
+      "type": "string",
+      "format": "uri"
+     },
+     "grep": {
+      "type": "string",
+      "format": "uri"
+     },
+     "docs": {
+      "type": "string",
+      "format": "uri"
+     }
+    }
+   },
+   "Method": {
+    "type": "object",
+    "required": [
+     "name",
+     "status",
+     "verified",
+     "params_known",
+     "response_known",
+     "write_shaped"
+    ],
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "documented",
+       "undocumented"
+      ]
+     },
+     "verified": {
+      "type": "string",
+      "description": "How the method is known to exist, e.g. existence-only, live"
+     },
+     "tokens": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "purpose": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "source": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "params_known": {
+      "type": "boolean"
+     },
+     "params": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "additionalProperties": {
+       "type": "object",
+       "properties": {
+        "required": {
+         "type": "boolean"
+        },
+        "type": {
+         "type": "string"
+        },
+        "desc": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "params_source": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "params_observed": {
+      "type": [
+       "object",
+       "boolean",
+       "null"
+      ],
+      "description": "Argument names seen at call sites in Slack's web client (partial; not a schema), or false"
+     },
+     "params_observed_source": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "response_known": {
+      "type": "boolean"
+     },
+     "response": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "additionalProperties": {
+       "type": "string"
+      }
+     },
+     "response_source": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "response_example": {
+      "type": "string"
+     },
+     "not_in_client": {
+      "type": "boolean"
+     },
+     "not_in_client_note": {
+      "type": "string"
+     },
+     "write_shaped": {
+      "type": "boolean",
+      "description": "Name looks like a write; never call without a human in the loop"
+     },
+     "url": {
+      "type": "string",
+      "format": "uri"
+     },
+     "safety_note_for_agents": {
+      "type": "string"
+     }
+    }
+   },
+   "Index": {
+    "type": "object",
+    "required": [
+     "generated",
+     "counts",
+     "methods"
+    ],
+    "properties": {
+     "generated": {
+      "type": "string"
+     },
+     "counts": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "integer"
+      }
+     },
+     "lookup": {
+      "type": "string"
+     },
+     "safety_note_for_agents": {
+      "type": "string"
+     },
+     "methods": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "name",
+        "status"
+       ],
+       "properties": {
+        "name": {
+         "type": "string"
+        },
+        "status": {
+         "type": "string"
+        },
+        "verified": {
+         "type": "string"
+        },
+        "params_known": {
+         "type": "boolean"
+        },
+        "response_known": {
+         "type": "boolean"
+        },
+        "write_shaped": {
+         "type": "boolean"
+        },
+        "purpose": {
+         "type": [
+          "string",
+          "null"
+         ]
+        },
+        "not_in_client": {
+         "type": "boolean"
+        },
+        "params_observed": {
+         "type": "boolean"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "headers": {
+   "RateLimit-Policy": {
+    "description": "IETF RateLimit-Policy, e.g. \"default\";q=120;w=60",
+    "schema": {
+     "type": "string"
+    }
+   },
+   "RateLimit": {
+    "description": "IETF RateLimit, e.g. \"default\";r=119;t=60",
+    "schema": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}
