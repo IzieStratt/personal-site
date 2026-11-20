@@ -1908,3 +1908,11 @@ export async function handleHmoji(request, env, ctx, pathname) {
   }
   return withCors(response)
 }
+
+// Read-only lookup for the izie account system (account.js): proves someone holds a live token
+// without exposing anything else from the record.
+export async function hmojiTokenInfo(env, token) {
+  const rec = await getRecord(env, String(token || '').trim())
+  if (!rec || rec.status !== 'active') return null
+  return { id: rec.id, name: String(rec.name ?? '').slice(0, 60), slackUserId: rec.slackUserId ?? null }
+}

@@ -301,7 +301,7 @@ export class Vibetime extends DurableObject {
             if (set) { for (const ws of set) { try { ws.close(1000, 'now private') } catch {} } this.sockets.delete(user.id) }
           }
         }
-        return json({ ok: true })
+        return json({ ok: true, handle: user.handle })
       }
       // dev-only signup, gated by a secret var (production uses /auth/login)
       if (p === '/api/v1/signup' && method === 'POST') {

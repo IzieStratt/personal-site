@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>izie account</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://blog.izie.top/style.css">
+    <link rel="stylesheet" href="account.css">
+    <script src="/cdn/theme.js"></script>
+  </head>
+  <body>
+    <main class="comments">
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="https://izie.top">home</a></li>
+          <li><a href="https://blog.izie.top">blog</a></li>
+        </ul>
+      </nav>
+      <h1>izie account</h1>
+      <p class="hint">one sign-in for everything on izie.top. passkeys only, no passwords.</p>
+
+      <section id="signed-out" hidden>
+        <h2>sign in</h2>
+        <div class="actions"><button type="button" id="login">sign in with a passkey</button></div>
+        <h2>new here?</h2>
+        <form id="signup" novalidate>
+          <label><span>username</span><input name="handle" type="text" maxlength="24" autocomplete="username" pattern="[a-z0-9][a-z0-9_-]{1,23}" required></label>
+          <label><span>name (shown on comments, you can change it later)</span><input name="name" type="text" maxlength="40" autocomplete="nickname"></label>
+          <div class="actions"><button type="submit">make an account with a passkey</button></div>
+        </form>
+        <p class="hint">your device makes the passkey (face, fingerprint, pin or a security key). nothing to remember, nothing to leak.</p>
+      </section>
+
+      <section id="signed-in" hidden>
+        <p id="who"></p>
+        <p id="verified-badge" class="hint"></p>
+
+        <h2>profile</h2>
+        <form id="profile" class="row">
+          <label><span>name</span><input name="name" type="text" maxlength="40" required></label>
+          <div class="actions"><button type="submit">save</button><button type="button" id="logout">sign out</button></div>
+        </form>
+
+        <h2>domains</h2>
+        <p class="hint">prove a domain is yours with a DNS record. once it's verified, only you can comment with it.</p>
+        <form id="add-domain" class="row">
+          <label><span>domain</span><input name="domain" type="text" placeholder="example.com" autocomplete="url" required></label>
+          <div class="actions"><button type="submit">add</button></div>
+        </form>
+        <ol id="domains" class="cards"></ol>
+
+        <h2>connected</h2>
+        <p class="hint">other things on izie.top with their own accounts. linking proves you hold them; the token is checked once and never stored.</p>
+        <ol id="links" class="cards"></ol>
+        <form id="link" class="row">
+          <label><span>service</span><select name="service"><option value="vibetime">vibetime (API token from your vibetime config)</option><option value="hmojis">hmojis (your hmoji token)</option></select></label>
+          <label><span>token</span><input name="token" type="password" autocomplete="off" required></label>
+          <div class="actions"><button type="submit">link</button></div>
+        </form>
+        <p id="comment-count" class="hint"></p>
+
+        <h2>passkeys</h2>
+        <ol id="passkeys" class="cards"></ol>
+        <div class="actions"><button type="button" id="add-passkey">add another passkey</button></div>
+
+        <details>
+          <summary>delete account</summary>
+          <p class="hint">your comments stay up, just no longer tied to an account. your domains are released.</p>
+          <form id="delete" class="row">
+            <label><span>type your username</span><input name="confirm" type="text" autocomplete="off"></label>
+            <div class="actions"><button type="submit">delete my account</button></div>
+          </form>
+        </details>
+      </section>
+      <p id="status" class="comment-status" role="status"></p>
+    </main>
+    <script src="account.js"></script>
+  </body>
+</html>

@@ -3,12 +3,14 @@
 // the blog-build workflow builds the pages and archives links after each push. Moderation reads D1 directly.
 import { ORIGIN, creationOptions, createSession, endSession, finishLogin, finishRegistration, isSignedIn, newChallenge, passkeyCount, randomB64u, requestOptions, timingSafeEqual } from './blog-passkeys.js'
 import { deleteFile, fileSha, gitBlobSha, listDir, putFile, readText } from './blog-github.js'
+import { adminAccounts } from './account.js'
 import { COMMENT_SETTINGS, parsePost, serializePost, slugify, tagSlug } from './blog/post-format.js'
 
 const POSTS_DIR = 'blog/posts'
 const CDN_DIR = 'website/public/cdn/blog'
 const MAX_UPLOAD = 25 << 20 // GitHub's contents API takes files up to 100MB; keep uploads small for the editor
 const MODES = ['review', 'open', 'off']
+const WHO = ['anyone', 'verified']
 const STATUSES = ['pending', 'approved', 'hidden']
 const SLUG = /^[\p{L}\p{N}-]+$/u
 
@@ -160,11 +162,21 @@ async function handleModeration(request, env, parts, url) {
     const row = await db.prepare("SELECT value FROM settings WHERE key = 'mode'").first('value')
     return json({ mode: row ?? 'review' })
   }
+  if (parts[0] === 'who') {
+    if (request.method === 'PUT') {
+      const { who } = await readJson(request)
+      if (!WHO.includes(who)) return json({ error: 'bad setting' }, 400)
+      await db.prepare("INSERT INTO settings (key, value) VALUES ('who', ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value").bind(who).run()
+    }
+    return json({ who: (await db.prepare("SELECT value FROM settings WHERE key = 'who'").first('value')) ?? 'anyone' })
+  }
+  // izie accounts: list them, and verify one by hand with a private note on who it is
+  if (parts[0] === 'accounts') return adminAccounts(request, env, parts.slice(1), request.method === 'PUT' ? await readJson(request) : {})
   if (parts[0] === 'comments' && !parts[1] && request.method === 'GET') {
     // newest first; includes the private email, so this is only ever served to a signed-in session
     const status = url.searchParams.get('status')
     const filter = STATUSES.includes(status) ? 'WHERE status = ?' : ''
-    const q = db.prepare(`SELECT id, post, parent, name, site, email, body, status, created FROM comments ${filter} ORDER BY created DESC LIMIT 200`)
+    const q = db.prepare(`SELECT c.id, c.post, c.parent, c.name, c.site, c.email, c.body, c.status, c.created, a.handle AS account FROM comments c LEFT JOIN accounts a ON a.id = c.account_id ${filter.replace('status', 'c.status')} ORDER BY c.created DESC LIMIT 200`)
     const { results } = await (filter ? q.bind(status) : q).all()
     return json(results)
   }

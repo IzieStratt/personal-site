@@ -1,6 +1,9 @@
 // Comments for the blog (blog.izie.top). Stored in D1 (binding COMMENTS); see blog/schema.sql.
 // Public API only: read approved comments, add one. Moderation lives in the blog editor (blog-admin.js),
 // behind a passkey sign-in, so there are no admin endpoints here.
+// Signed-in izie accounts (account.js) comment as themselves. A domain verified by an account can only be used
+// by that account, and the blog can be set to take comments only from verified accounts (settings key 'who').
+import { currentAccount, domainOwner, isVerified, verifiedDomains } from './account.js'
 
 const MODES = ['review', 'open', 'off']
 const MAX_DEPTH = 4 // replies deeper than this attach to their depth-4 ancestor
@@ -23,6 +26,17 @@ const effective = (blog, setting) =>
 
 const mode = async (db) =>
   (await db.prepare("SELECT value FROM settings WHERE key = 'mode'").first('value')) ?? 'review'
+
+// anyone | verified
+const who = async (db) =>
+  (await db.prepare("SELECT value FROM settings WHERE key = 'who'").first('value')) ?? 'anyone'
+
+// what the comment form needs to know about whoever is looking at it
+async function viewer(request, env) {
+  const a = await currentAccount(request, env)
+  if (!a) return null
+  return { handle: a.handle, name: a.display_name, domains: await verifiedDomains(env, a.id), verified: await isVerified(env, a) }
+}
 
 // "https://www.Example.com/about" -> "example.com"; null when it isn't a domain
 function cleanDomain(raw) {
@@ -51,18 +65,19 @@ export async function handleComments(request, env, url) {
     const setting = await postSetting(env, url, post)
     if (setting === null) return json({ error: 'no such post' }, 404)
     const shown = effective(await mode(db), setting)
-    if (shown === 'off') return json({ mode: 'off', comments: [] })
+    const [whoCan, me] = await Promise.all([who(db), viewer(request, env)])
+    if (shown === 'off') return json({ mode: 'off', who: whoCan, viewer: me, comments: [] })
     const { results } = await db
-      .prepare("SELECT id, parent, name, site, body, created FROM comments WHERE post = ? AND status = 'approved' ORDER BY created, id")
+      .prepare("SELECT id, parent, name, site, body, created, account_id IS NOT NULL AS account FROM comments WHERE post = ? AND status = 'approved' ORDER BY created, id")
       .bind(post).all()
-    return json({ mode: shown, comments: results })
+    return json({ mode: shown, who: whoCan, viewer: me, comments: results.map((c) => ({ ...c, account: !!c.account })) })
   }
 
   if (request.method !== 'POST') return json({ error: 'method not allowed' }, 405)
 
   // only our own pages may post
-  const origin = request.headers.get('origin')
-  if (origin && origin !== url.origin) return json({ error: 'bad origin' }, 403)
+  // (strict: the account cookie is shared across *.izie.top, so a missing Origin isn't trusted either)
+  if (request.headers.get('origin') !== url.origin) return json({ error: 'bad origin' }, 403)
 
   let input
   try { input = await request.json() } catch { return json({ error: 'bad json' }, 400) }
@@ -80,9 +95,32 @@ export async function handleComments(request, env, url) {
   if (!/^[a-z0-9-]{1,120}$/.test(post)) return json({ error: 'bad post' }, 400)
   if (!name || name.length > LIMITS.name) return json({ error: `name needs 1-${LIMITS.name} characters` }, 400)
   if (!body || body.length > LIMITS.body) return json({ error: `comment needs 1-${LIMITS.body} characters` }, 400)
-  const email = contact.includes('@') ? cleanEmail(contact) : null
-  const site = contact.includes('@') ? null : cleanDomain(contact)
-  if (!email && !site) return json({ error: 'add a website domain (like example.com) or an email address' }, 400)
+  const account = await currentAccount(request, env)
+  let email = null
+  let site = null
+  if (account) {
+    // signed in: the domain is optional, and has to be one of theirs
+    if (contact.trim()) {
+      site = cleanDomain(contact)
+      if (!site) return json({ error: 'pick one of your verified domains, or leave it empty' }, 400)
+    }
+  } else {
+    email = contact.includes('@') ? cleanEmail(contact) : null
+    site = contact.includes('@') ? null : cleanDomain(contact)
+    if (!email && !site) return json({ error: 'add a website domain (like example.com) or an email address' }, 400)
+  }
+  if (site) {
+    const owner = await domainOwner(env, site)
+    if (account && owner !== account.id) {
+      return json({ error: `verify ${site} on your account first (account.izie.top), or leave the domain empty` }, 403)
+    }
+    if (!account && owner) return json({ error: `${site} is verified by an izie account. sign in at account.izie.top to use it` }, 403)
+  }
+  if ((await who(db)) === 'verified' && !(await isVerified(env, account))) {
+    return json({ error: account
+      ? 'comments are only open to verified accounts right now. verify a domain at account.izie.top'
+      : 'comments are only open to verified accounts right now. sign in at account.izie.top' }, 403)
+  }
 
   // the post has to exist, so nobody can park comments on made-up pages
   const setting = await postSetting(env, url, post)
@@ -116,7 +154,7 @@ export async function handleComments(request, env, url) {
 
   const status = current === 'open' ? 'approved' : 'pending'
   await db
-    .prepare('INSERT INTO comments (post, parent, name, site, email, body, status, created, ip_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
-    .bind(post, parent, name, site, email, body, status, now.toISOString(), ip).run()
+    .prepare('INSERT INTO comments (post, parent, name, site, email, body, status, created, ip_hash, account_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(post, parent, name, site, email, body, status, now.toISOString(), ip, account?.id ?? null).run()
   return json({ ok: true, status })
 }

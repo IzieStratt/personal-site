@@ -52,7 +52,7 @@
         <li id="comment-${c.id}">
           <article class="comment">
             <header>
-              <strong>${esc(c.name)}</strong>${c.site ? ` <a class="site" href="https://${esc(c.site)}" rel="nofollow ugc noopener" target="_blank">${esc(c.site)}</a>` : ''}
+              <strong>${esc(c.name)}</strong>${c.account ? ' <span class="acct" title="signed in with an izie account">✓</span>' : ''}${c.site ? ` <a class="site" href="https://${esc(c.site)}" rel="nofollow ugc noopener" target="_blank">${esc(c.site)}</a>` : ''}
               <time datetime="${esc(c.created)}">${day(c.created)}</time>
             </header>
             <div class="text">${markdown(c.body)}</div>
@@ -62,6 +62,42 @@
         </li>`).join('')}</ol>`
     }
     list.innerHTML = branch(0) || '<p class="empty">no comments yet. you could be first!</p>'
+  }
+
+  // signed in at account.izie.top: comment as that account, and link only to domains it has verified
+  let me = null
+  const contactLabel = field('contact').closest('label')
+  const contactHelp = root.querySelector('#contact-help')
+  const signin = document.createElement('p')
+  signin.className = 'hint comment-account'
+  form.querySelector('.comment-note').after(signin)
+  let picker = null
+  function setViewer(viewer, whoCan) {
+    me = viewer
+    const back = encodeURIComponent(location.href)
+    const gated = whoCan === 'verified' && !me?.verified
+    if (me) {
+      signin.innerHTML = `commenting as <strong>@${esc(me.handle)}</strong> (<a href="https://account.izie.top/">account</a>).`
+      if (!field('name').value) field('name').value = me.name
+      if (!picker) {
+        picker = document.createElement('select')
+        picker.name = 'site-pick'
+        contactLabel.after(picker)
+      }
+      picker.innerHTML = `<option value="">no link</option>${me.domains.map((d) => `<option>${esc(d)}</option>`).join('')}`
+      contactLabel.hidden = true
+      contactHelp.textContent = me.domains.length ? 'pick one of your verified domains to show next to your name.' : 'verify a domain on your account to show it next to your name.'
+    } else {
+      signin.innerHTML = `have an <a href="https://account.izie.top/?next=${back}">izie account</a>? sign in to comment with a verified domain.`
+    }
+    if (gated) {
+      form.hidden = true
+      const off = root.querySelector('.comments-off')
+      off.hidden = false
+      off.innerHTML = me
+        ? 'comments are open to verified accounts only. <a href="https://account.izie.top/">verify a domain</a> to join in.'
+        : `comments are open to verified accounts only. <a href="https://account.izie.top/?next=${back}">sign in or make an account</a> to join in.`
+    }
   }
 
   function setMode(mode) {
@@ -81,6 +117,7 @@
       const data = await res.json()
       render(data.comments)
       setMode(data.mode)
+      if (data.mode !== 'off' && data.mode !== 'locked') setViewer(data.viewer, data.who)
     } catch {
       list.innerHTML = '<p class="empty">comments are not available right now.</p>'
       form.hidden = true
@@ -116,6 +153,7 @@
     const contact = field('contact').value.trim()
     const body = field('body').value.trim()
     if (!name || name.length > 40) return ['name', 'add a name (40 characters or fewer)']
+    if (me) return !body || body.length > 2000 ? ['body', 'write a comment (2000 characters or fewer)'] : null
     if (!contact.includes('@') ? !looksLikeDomain(contact.toLowerCase()) : !looksLikeEmail(contact.toLowerCase())) {
       return ['contact', contact.includes('@') ? "that email address doesn't look right" : 'add a website domain (like example.com) or an email address']
     }
@@ -144,7 +182,7 @@
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           post, parent: replyTo,
-          name: field('name').value, contact: field('contact').value,
+          name: field('name').value, contact: me ? picker.value : field('contact').value,
           body: field('body').value, website: field('website').value,
         }),
       })
@@ -152,7 +190,7 @@
       if (!res.ok) throw new Error(data.error || 'something went wrong')
       try {
         localStorage.setItem('comment-name', field('name').value)
-        localStorage.setItem('comment-contact', field('contact').value)
+        if (!me) localStorage.setItem('comment-contact', field('contact').value)
       } catch {}
       field('body').value = ''
       moveForm(null)

@@ -1,0 +1,16 @@
+/* on top of the blog stylesheet (palette, type, form bits under .comments) */
+h1 { margin-bottom: 0.2rem; }
+h2 { margin: 2rem 0 0.6rem; }
+section form { margin-top: 0.6rem; }
+.cards { list-style: none; padding: 0; margin: 0.6rem 0; display: grid; gap: 0.7rem; }
+.cards > li { padding: 0.7rem 1rem; border-radius: 0.75rem; background: var(--card); overflow-wrap: anywhere; }
+.cards .meta { margin: 0; }
+.cards .actions { margin-top: 0.5rem; }
+.ok { color: var(--tag-fg); }
+.record { display: grid; grid-template-columns: auto 1fr auto; gap: 0.3rem 0.6rem; align-items: center; margin: 0.5rem 0; font-size: 1rem; }
+.record code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em; overflow-wrap: anywhere; }
+.record button { padding: 0 0.6rem; font-size: 0.9rem; }
+.cf { margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dashed var(--line); }
+details { margin-top: 2.5rem; }
+summary { cursor: pointer; color: var(--muted); }
+.comment-status.bad { color: var(--bad); }

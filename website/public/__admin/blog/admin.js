@@ -214,6 +214,9 @@ async function loadComments() {
   const note = $('comments-status')
   try {
     pick((await api('GET', '/api/moderation/mode')).mode)
+    const w = (await api('GET', '/api/moderation/who')).who
+    for (const r of document.querySelectorAll('#who input')) r.checked = r.value === w
+    loadAccounts()
     const rows = await api('GET', '/api/moderation/comments')
     rows.sort((a, b) => (b.status === 'pending') - (a.status === 'pending'))
     note.textContent = rows.length ? `${rows.filter((c) => c.status === 'pending').length} waiting for you` : 'no comments yet'
@@ -222,7 +225,7 @@ async function loadComments() {
       li.className = c.status
       const meta = document.createElement('p')
       meta.className = 'meta'
-      meta.textContent = `${c.name} · ${c.site || c.email} · ${c.created.slice(0, 10)} · on ${c.post} · ${c.status}${c.parent ? ' · a reply' : ''}`
+      meta.textContent = `${c.name}${c.account ? ` (@${c.account})` : ''} · ${c.site || c.email || 'no contact'} · ${c.created.slice(0, 10)} · on ${c.post} · ${c.status}${c.parent ? ' · a reply' : ''}`
       const body = document.createElement('p')
       body.className = 'body'
       body.textContent = c.body
@@ -304,3 +307,47 @@ dd.list.addEventListener('click', (e) => { const i = dd.options.indexOf(e.target
 dd.list.addEventListener('mousemove', (e) => { const i = dd.options.indexOf(e.target.closest('[role=option]')); if (i >= 0 && i !== dd.active) highlight(i) })
 document.addEventListener('click', (e) => { if (!dd.list.hidden && !e.target.closest('.dropdown')) closeMenu(false) })
 $('reload-comments').addEventListener('click', loadComments)
+
+document.querySelectorAll('#who input').forEach((r) => r.addEventListener('change', async () => {
+  try { await api('PUT', '/api/moderation/who', { who: r.value }); $('comments-status').textContent = 'saved' } catch (e) { $('comments-status').textContent = e.message; loadComments() }
+}))
+
+// izie accounts. the note is for you only (who this person is); the account holder never sees it.
+async function loadAccounts() {
+  const note = $('accounts-status')
+  try {
+    const rows = await api('GET', '/api/moderation/accounts')
+    note.textContent = rows.length ? `${rows.length} account${rows.length === 1 ? '' : 's'}` : 'no accounts yet'
+    $('accounts').replaceChildren(...rows.map((a) => {
+      const li = document.createElement('li')
+      li.className = a.manual_verified || a.domains ? 'approved' : 'pending'
+      const meta = document.createElement('p')
+      meta.className = 'meta'
+      meta.textContent = `@${a.handle} · ${a.display_name} · since ${a.created.slice(0, 10)} · ${a.comments} comment${a.comments === 1 ? '' : 's'}`
+        + `${a.domains ? ` · domains: ${a.domains}` : ''}${a.links ? ` · ${a.links}` : ''}${a.manual_verified ? ` · verified by you ${String(a.manual_at).slice(0, 10)}` : ''}`
+      const input = document.createElement('input')
+      input.type = 'text'
+      input.placeholder = 'who is this? (only you see this)'
+      input.value = a.manual_note || ''
+      input.maxLength = 500
+      const actions = document.createElement('div')
+      actions.className = 'actions'
+      const btn = (label, verified) => {
+        const b = document.createElement('button')
+        b.type = 'button'
+        b.textContent = label
+        b.addEventListener('click', async () => {
+          b.disabled = true
+          try { await api('PUT', `/api/moderation/accounts/${encodeURIComponent(a.id)}`, { verified, note: input.value }); await loadAccounts() } catch (e) { note.textContent = e.message; b.disabled = false }
+        })
+        actions.append(b)
+      }
+      btn(a.manual_verified ? 'save note' : 'verify', true)
+      if (a.manual_verified) btn('unverify', false)
+      li.append(meta, input, actions)
+      return li
+    }))
+  } catch (e) {
+    note.textContent = `couldn't load accounts: ${e.message}`
+  }
+}

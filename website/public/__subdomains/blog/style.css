@@ -755,3 +755,20 @@ sup.archive a {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* izie accounts (account.izie.top): the domain picker for signed-in commenters and the ✓ by their name */
+.comments select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border: 2px solid var(--fg);
+  border-radius: 0.75rem;
+  background: var(--input-bg);
+  color: var(--fg);
+  font: inherit;
+}
+
+.comment .acct {
+  color: var(--tag-fg);
+  font-size: 0.9em;
+}

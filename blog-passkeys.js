@@ -7,14 +7,14 @@ const SESSION_MS = 12 * 3600_000
 export const SESSION_COOKIE = '__Host-blog_session'
 
 const enc = new TextEncoder()
-const b64uBytes = (bytes) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+export const b64uBytes = (bytes) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 export const randomB64u = (n = 32) => b64uBytes(crypto.getRandomValues(new Uint8Array(n)))
 export function fromB64u(s) {
   const b = atob(s.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(s.length / 4) * 4, '='))
   return Uint8Array.from(b, (c) => c.charCodeAt(0))
 }
-const sha256 = async (bytes) => new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))
-const hex = (bytes) => [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('')
+export const sha256 = async (bytes) => new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))
+export const hex = (bytes) => [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('')
 
 export function timingSafeEqual(a, b) {
   if (a.length !== b.length) return false
@@ -24,7 +24,7 @@ export function timingSafeEqual(a, b) {
 }
 
 // ---- minimal CBOR (RFC 8949) decoder: enough for attestationObject and COSE keys
-function cbor(bytes, start = 0) {
+export function cbor(bytes, start = 0) {
   let pos = start
   const readLen = (ai) => {
     if (ai < 24) return ai
@@ -59,36 +59,36 @@ function cbor(bytes, start = 0) {
 }
 
 // ---- WebAuthn helpers
-function parseClientData(b64u, expectedType, expectedChallenge) {
+export function parseClientData(b64u, expectedType, expectedChallenge, origin = ORIGIN) {
   const cd = JSON.parse(new TextDecoder().decode(fromB64u(b64u)))
   if (cd.type !== expectedType) throw new Error('wrong ceremony')
   if (cd.challenge !== expectedChallenge) throw new Error('challenge mismatch')
-  if (cd.origin !== ORIGIN) throw new Error('wrong origin')
+  if (cd.origin !== origin) throw new Error('wrong origin')
   return cd
 }
 
 // flags: 0x01 user present, 0x04 user verified (PIN/biometric), 0x40 attested credential data
-function parseAuthData(bytes) {
+export function parseAuthData(bytes) {
   const rpIdHash = bytes.slice(0, 32)
   const flags = bytes[32]
   const signCount = new DataView(bytes.buffer, bytes.byteOffset + 33, 4).getUint32(0)
   return { rpIdHash, flags, signCount, rest: bytes.slice(37) }
 }
 
-async function checkRpAndFlags(auth) {
-  const want = await sha256(enc.encode(RP_ID))
+export async function checkRpAndFlags(auth, rpId = RP_ID) {
+  const want = await sha256(enc.encode(rpId))
   if (hex(auth.rpIdHash) !== hex(want)) throw new Error('wrong relying party')
   if (!(auth.flags & 0x01) || !(auth.flags & 0x04)) throw new Error('passkey must be used with user verification')
 }
 
 // COSE EC2 P-256 key -> JWK
-function coseToJwk(map) {
+export function coseToJwk(map) {
   if (map.get(1) !== 2 || map.get(-1) !== 1) throw new Error('only ES256 P-256 keys are accepted')
   return { kty: 'EC', crv: 'P-256', x: b64uBytes(map.get(-2)), y: b64uBytes(map.get(-3)) }
 }
 
 // WebAuthn signatures are DER; WebCrypto wants raw r||s
-function derToRaw(der) {
+export function derToRaw(der) {
   let p = der[1] < 0x80 ? 2 : 3 // skip the SEQUENCE header (long-form length takes one more byte)
   const readInt = () => {
     if (der[p] !== 0x02) throw new Error('bad signature')

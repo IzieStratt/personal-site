@@ -6,6 +6,7 @@ import { handleQuicklinks } from './quicklinks.js'
 import { handleLostfm } from './lostfm.js'
 export { LostfmStore } from './lostfm.js'
 import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
+import { handleAccount } from './account.js'
 export { Vibetime } from './vibetime.js'
 import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './agent-core.js'
 
@@ -63,6 +64,8 @@ export default {
     }
     // the blog editor and comment moderation (passkey sign-in; see blog-admin.js)
     if (url.hostname === 'blog.izie.top' && BLOG_ADMIN_PATHS(url.pathname)) return handleBlogAdmin(request, env, url)
+    // izie accounts (passkeys, domain verification, linked services; see account.js)
+    if (url.hostname === 'account.izie.top' && url.pathname.startsWith('/api/')) return handleAccount(request, env, url)
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm(\/|$)/.test(url.pathname)) return withLostfmHeaders(await serveSubdomain(request, env, url))
