@@ -33,6 +33,10 @@
       .theme-toggle:hover .theme-face, .theme-toggle:focus-visible .theme-face { background: var(--fg); color: var(--bg); transform: translateY(-2px) rotate(-1deg); }
       .theme-icon { display: block; width: 1.15rem; height: 1.15rem; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
       @media (prefers-reduced-motion: reduce) { .theme-face { transition: none; } .theme-toggle:hover .theme-face, .theme-toggle:focus-visible .theme-face { transform: none; } }
+      .cmd { position: relative; }
+      .copy-btn { position: absolute; top: .55rem; right: .55rem; display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .55rem; border: 1px solid var(--tag); border-radius: .45rem; background: var(--term-bg); color: var(--term-fg); font: inherit; font-size: .8rem; cursor: pointer; opacity: .8; transition: opacity .15s ease; }
+      .copy-btn:hover, .copy-btn:focus-visible { opacity: 1; }
+      .copy-btn svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
       pre code { background: none; padding: 0; }
       .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
       @media (max-width: 34rem) { .cols { grid-template-columns: 1fr; } }
@@ -92,16 +96,31 @@ vibetime — last 7 days
       </div>
 
       <h2>get it</h2>
-      <pre><code># 1. sign in above to get your token, then on each computer:
+      <div class="cmd"><button class="copy-btn" type="button" aria-label="Copy to clipboard"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>copy</span></button><pre><code># 1. sign in above to get your token, then on each computer:
 vibetime login  -server https://vs.izie.top/vibetime/app -token vt_…
 vibetime service install        # starts quietly at login
 
 # 2. add the plugin for your AI tool (see the repo), then anytime:
-vibetime status                 # your time, offline, no account needed</code></pre>
+vibetime status                 # your time, offline, no account needed</code></pre></div>
 
       <footer>
         by <a href="https://izie.top">izie</a>
       </footer>
     </main>
+    <script>
+      for (const btn of document.querySelectorAll('.copy-btn')) {
+        btn.addEventListener('click', async () => {
+          const pre = btn.parentElement.querySelector('pre')
+          const text = pre.innerText.replace(/^\$ /gm, '').trim()
+          const label = btn.querySelector('span')
+          try {
+            await navigator.clipboard.writeText(text)
+            const prev = label.textContent
+            label.textContent = 'copied!'
+            setTimeout(() => { label.textContent = prev }, 1200)
+          } catch { label.textContent = 'press ⌘C' }
+        })
+      }
+    </script>
   </body>
 </html>
