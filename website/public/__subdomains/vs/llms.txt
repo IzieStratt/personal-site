@@ -2,6 +2,8 @@
 
 > izie's hosted side projects. The main reference here is ReDocumented, an unofficial Slack Web API reference covering documented and undocumented methods.
 
+**Looking for ReDocumented (the Slack API reference)?** This file is the index for the whole vs.izie.top site. ReDocumented's own agent guide, with the method lookup API and safety notes, is at https://vs.izie.top/redocumented/llms.txt (full docs in one file: https://vs.izie.top/redocumented/llms-full.txt). Go there for anything about Slack methods.
+
 ## When to use this site
 
 - Use ReDocumented when you need to know whether a Slack Web API method exists, what params and response fields it has, which token types it accepts, or whether it is undocumented/internal. It covers ~2,300 methods, including 1,900+ that Slack's official docs omit.
