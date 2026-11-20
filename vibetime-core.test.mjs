@@ -14,3 +14,13 @@ assert.ok(validTZ('UTC') && validTZ('America/New_York') && !validTZ('Mars/Base')
 assert.equal(clamp(999, 0, 60), 60); assert.equal(clamp(-5, 0, 60), 0); assert.equal(clamp(30.9, 0, 60), 30)
 assert.equal(esc('<b>&"'), '&lt;b&gt;&amp;&quot;')
 console.log('vibetime-core: all passed')
+
+import { validDate } from './vibetime-core.js'
+// DST: Sydney clocks jump forward 2026-10-04 02:00 -> 03:00. Local midnight is a real instant.
+const syd = 'Australia/Sydney'
+assert.equal(new Date(dayParts(new Date('2026-10-04T15:00:00Z'), syd).start).toISOString(), '2026-10-04T13:00:00.000Z', 'Sydney DST-day local midnight')
+assert.equal(dayParts(new Date('2026-10-04T15:00:00Z'), syd).key, '2026-10-05', 'Sydney day key')
+// Nepal +5:45 (non-half-hour offset)
+assert.equal(new Date(dayParts(new Date('2026-06-01T12:00:00Z'), 'Asia/Kathmandu').start).toISOString(), '2026-05-31T18:15:00.000Z', 'Kathmandu +5:45 midnight')
+assert.ok(validDate('2026-11-20') && !validDate('2026-13-45') && !validDate('2026-02-30') && !validDate('nope') && !validDate(''))
+console.log('vibetime-core: dst + validDate passed')

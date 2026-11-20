@@ -17,10 +17,20 @@ export function streaks(days) {
 export function dayParts(date, loc) {
   const key = new Intl.DateTimeFormat('en-CA', { timeZone: loc, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date)
   const [y, m, d] = key.split('-').map(Number)
-  const guess = Date.UTC(y, m - 1, d)
-  const asLocal = new Date(guess).toLocaleString('en-US', { timeZone: loc })
-  const off = guess - new Date(asLocal + ' UTC').getTime()
-  return { key, start: guess + off }
+  const guess = Date.UTC(y, m - 1, d) // wall-clock midnight read as UTC
+  // offset(ms) = (loc wall time at ms, read as UTC) - ms. Local-midnight instant = guess - offset(it).
+  const localWallAsUTC = (ms) => new Date(new Date(ms).toLocaleString('en-US', { timeZone: loc }) + ' UTC').getTime()
+  const offset = (ms) => localWallAsUTC(ms) - ms
+  let start = guess - offset(guess)
+  start = guess - offset(start) // refine so DST-change days are exact
+  return { key, start }
+}
+
+// validDate rejects well-formed but impossible dates like 2026-13-45.
+export function validDate(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s || '')) return false
+  const t = new Date(s + 'T00:00:00Z')
+  return !isNaN(t.getTime()) && t.toISOString().slice(0, 10) === s
 }
 
 export function validTZ(tz) {

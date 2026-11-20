@@ -3,9 +3,14 @@
 // agent talks to this over /vibetime/app/*. Phase 1: accounts + Hack Club login + sync +
 // live profile. Phase 2 (submissions + fraud audit) lives in the Go server for now.
 import { DurableObject } from 'cloudflare:workers'
-import { STREAK_MIN, CAPS, clamp, streaks, dayParts, validTZ, esc } from './vibetime-core.js'
+import { STREAK_MIN, CAPS, clamp, streaks, dayParts, validTZ, validDate, esc } from './vibetime-core.js'
 
 const SYNC_WINDOW_MIN = 15 // minutes may only be reported while this fresh (anti-backfill)
+const MAX_SYNC_MINUTES = 2000 // per /sync request
+const MAX_IMPORT_DAYS = 5000 // per /import request
+const MAX_SOCKETS_PER_USER = 20
+const COMMITMENT_TTL_MS = 7 * 86400000
+const DAY = 86400
 
 const json = (v, status = 200, headers = {}) =>
   new Response(JSON.stringify(v), { status, headers: { 'content-type': 'application/json', ...headers } })
@@ -43,6 +48,7 @@ export class Vibetime extends DurableObject {
         project TEXT NOT NULL, seconds INTEGER NOT NULL, PRIMARY KEY (user_id, source, date, project));
     `)
     this.sockets = new Map() // user_id -> Set<WebSocket>
+    this.insCache = new Map() // `${uid}|${tz}` -> {at, data}; short-lived, bounds anon /insights cost
   }
 
   now() {
@@ -71,6 +77,7 @@ export class Vibetime extends DurableObject {
   }
 
   async makeUser(handle, { reviewer = 0, sub = null, email = null, slack = null, verification = null, eligible = null } = {}) {
+    if (!HANDLE.test(handle)) throw new Error('handle must be 2-32 chars of a-z 0-9 _ -')
     const tok = token()
     this.sql.exec(
       'INSERT INTO users(handle, token_sha, reviewer, created, oauth_sub, email, slack_id, verification_status, ysws_eligible) VALUES(?,?,?,?,?,?,?,?,?)',
@@ -82,29 +89,40 @@ export class Vibetime extends DurableObject {
 
   // ---- sync (live commitments + minute aggregates)
   async sync(user, body) {
+    if (!body || typeof body !== 'object') return fail(400, 'bad body')
     if (!DEVICE.test(body.device || '') || (body.head || '').length !== 64) return fail(400, 'bad device or head')
+    const minutes = Array.isArray(body.minutes) ? body.minutes : []
+    if (minutes.length > MAX_SYNC_MINUTES) return fail(413, 'too many minutes in one sync')
     const now = this.now()
     const nowS = Math.floor(now / 1000)
     this.sql.exec('INSERT INTO commitments(user_id, device, head, count, received_at) VALUES(?,?,?,?,?)',
-      user.id, body.device, body.head, body.count | 0, now.getTime())
+      user.id, body.device, body.head, clamp(body.count, 0, 1e9), now.getTime())
+    this.sql.exec('DELETE FROM commitments WHERE user_id = ? AND received_at < ?', user.id, now.getTime() - COMMITMENT_TTL_MS)
     const oldest = Math.floor((nowS - SYNC_WINDOW_MIN * 60) / 60) * 60
     let accepted = 0, rejected = 0
-    for (const m of body.minutes || []) {
-      if (m.minute % 60 !== 0 || m.minute < oldest || m.minute > nowS || !m.project || m.project.length > 200) {
+    for (const m of minutes) {
+      if (!m || typeof m !== 'object' || typeof m.project !== 'string' || !m.project || m.project.length > 200 ||
+          !Number.isInteger(m.minute) || m.minute % 60 !== 0 || m.minute < oldest || m.minute > nowS) {
         rejected++
         continue
       }
+      const sec = clamp(m.seconds, 0, 60)
+      // The three attention modes can't sum to more than the minute's real seconds (you can't be
+      // hands-on and steering in the same second). Normalize an over-reported split down to sec.
+      let ho = clamp(m.hands_on, 0, sec), st = clamp(m.steering, 0, sec), wa = clamp(m.watching, 0, sec)
+      const msum = ho + st + wa
+      if (msum > sec) { ho = Math.round(ho * sec / msum); st = Math.round(st * sec / msum); wa = Math.max(0, sec - ho - st) }
       this.sql.exec(
         `INSERT INTO minutes(user_id, device, project, minute, seconds, prompts, ai_lines, human_edits, hands_on, steering, watching)
          VALUES(?,?,?,?,?,?,?,?,?,?,?)
          ON CONFLICT(user_id, device, project, minute) DO UPDATE SET seconds=excluded.seconds, prompts=excluded.prompts,
            ai_lines=excluded.ai_lines, human_edits=excluded.human_edits, hands_on=excluded.hands_on,
            steering=excluded.steering, watching=excluded.watching`,
-        user.id, body.device, m.project, m.minute, clamp(m.seconds, 0, 60), clamp(m.prompts || 0, 0, CAPS.prompts),
-        clamp(m.ai_lines || 0, 0, 10000), clamp(m.human_edits || 0, 0, 10000),
-        clamp(m.hands_on || 0, 0, 60), clamp(m.steering || 0, 0, 60), clamp(m.watching || 0, 0, 60))
+        user.id, body.device, m.project, m.minute, sec, clamp(m.prompts, 0, CAPS.prompts),
+        clamp(m.ai_lines, 0, 10000), clamp(m.human_edits, 0, 10000), ho, st, wa)
       accepted++
     }
+    this.invalidate(user.id)
     this.notify(user.id)
     return json({ accepted, rejected })
   }
@@ -177,23 +195,45 @@ export class Vibetime extends DurableObject {
     }
   }
 
+  cachedInsights(user, loc) {
+    const key = user.id + '|' + loc
+    const hit = this.insCache.get(key)
+    const t = Date.now()
+    if (hit && t - hit.at < 20000) return hit.data
+    const data = this.insights(user, loc)
+    if (this.insCache.size > 200) this.insCache.clear()
+    this.insCache.set(key, { at: t, data })
+    return data
+  }
+  invalidate(uid) {
+    for (const k of [...this.insCache.keys()]) if (k.startsWith(uid + '|')) this.insCache.delete(k)
+  }
+
   importedTotals(uid) {
-    const rows = this.sql.exec('SELECT project, SUM(seconds) s FROM imported WHERE user_id = ? GROUP BY project', uid).toArray()
     const byProject = {}
+    for (const r of this.sql.exec('SELECT project, SUM(seconds) s FROM imported WHERE user_id = ? GROUP BY project', uid).toArray())
+      byProject[r.project] = r.s
+    // Total caps each calendar day at 24h across all sources, so stacking sources can't inflate it.
     let total = 0
-    for (const r of rows) { byProject[r.project] = r.s; total += r.s }
+    for (const r of this.sql.exec('SELECT date, SUM(seconds) s FROM imported WHERE user_id = ? GROUP BY date', uid).toArray())
+      total += Math.min(r.s, DAY)
     return { byProject, total }
   }
 
   async importHistory(user, body) {
-    if (!/^[a-z0-9_-]{2,32}$/.test(body.source || '')) return fail(400, 'bad source')
+    if (!body || !/^[a-z0-9_-]{2,32}$/.test(body.source || '')) return fail(400, 'bad source')
+    const days = Array.isArray(body.days) ? body.days : []
+    if (days.length > MAX_IMPORT_DAYS) return fail(413, 'too many days in one import')
     let ok = 0, bad = 0
-    for (const d of body.days || []) {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date || '') || !d.project || d.project.length > 200 || !(d.seconds > 0)) { bad++; continue }
+    for (const d of days) {
+      const sec = Math.floor(Number(d && d.seconds))
+      if (!d || !validDate(d.date) || typeof d.project !== 'string' || !d.project || d.project.length > 200 ||
+          !Number.isFinite(sec) || sec <= 0) { bad++; continue }
       this.sql.exec('INSERT INTO imported(user_id, source, date, project, seconds) VALUES(?,?,?,?,?) ON CONFLICT(user_id, source, date, project) DO UPDATE SET seconds = excluded.seconds',
-        user.id, body.source, d.date, d.project, Math.min(d.seconds | 0, 86400))
+        user.id, body.source, d.date, d.project, Math.min(sec, DAY))
       ok++
     }
+    this.invalidate(user.id)
     this.notify(user.id)
     return json({ imported: ok, rejected: bad })
   }
@@ -201,8 +241,10 @@ export class Vibetime extends DurableObject {
   // ---- live updates over WebSocket
   notify(uid) {
     const set = this.sockets.get(uid)
-    if (!set) return
-    const msg = JSON.stringify(this.insights(this.userById(uid), 'UTC'))
+    if (!set || set.size === 0) return
+    const u = this.userById(uid)
+    if (!u || !u.public) return
+    const msg = JSON.stringify(this.insights(u, 'UTC'))
     for (const ws of set) { try { ws.send(msg) } catch {} }
   }
   userById(id) {
@@ -221,18 +263,20 @@ export class Vibetime extends DurableObject {
 
       let m
       if ((m = p.match(/^\/api\/v1\/users\/([^/]+)\/(stats|insights|live)$/))) {
-        const user = this.userByHandle(decodeURIComponent(m[1]))
+        let h; try { h = decodeURIComponent(m[1]) } catch { return fail(404, 'no such public user') }
+        const user = this.userByHandle(h)
         if (!user || !user.public) return fail(404, 'no such public user')
         const loc = url.searchParams.get('tz') || 'UTC'
         if (!validTZ(loc)) return fail(400, 'unknown time zone')
         if (m[2] === 'live') return this.live(request, user)
-        const ins = this.insights(user, loc)
+        const ins = this.cachedInsights(user, loc)
         return m[2] === 'stats'
           ? json({ handle: user.handle, today_seconds: ins.days.at(-1)?.seconds || 0, week_seconds: ins.week_seconds, projects: ins.projects })
           : json(ins)
       }
       if ((m = p.match(/^\/u\/([^/]+)$/))) {
-        const user = this.userByHandle(decodeURIComponent(m[1]))
+        let h; try { h = decodeURIComponent(m[1]) } catch { return new Response('not found', { status: 404 }) }
+        const user = this.userByHandle(h)
         if (!user || !user.public) return new Response('not found', { status: 404 })
         return this.profilePage(user)
       }
@@ -241,16 +285,22 @@ export class Vibetime extends DurableObject {
       const user = await this.userByToken(request)
       if (p === '/api/v1/sync' && method === 'POST') {
         if (!user) return fail(401, 'bad token')
-        return this.sync(user, await request.json())
+        return this.sync(user, await request.json().catch(() => null))
       }
       if (p === '/api/v1/import' && method === 'POST') {
         if (!user) return fail(401, 'bad token')
-        return this.importHistory(user, await request.json())
+        return this.importHistory(user, await request.json().catch(() => null))
       }
       if (p === '/api/v1/me' && method === 'POST') {
         if (!user) return fail(401, 'bad token')
-        const b = await request.json()
-        if (typeof b.public === 'boolean') this.sql.exec('UPDATE users SET public = ? WHERE id = ?', b.public ? 1 : 0, user.id)
+        const b = await request.json().catch(() => ({}))
+        if (typeof b.public === 'boolean') {
+          this.sql.exec('UPDATE users SET public = ? WHERE id = ?', b.public ? 1 : 0, user.id)
+          if (!b.public) {
+            const set = this.sockets.get(user.id)
+            if (set) { for (const ws of set) { try { ws.close(1000, 'now private') } catch {} } this.sockets.delete(user.id) }
+          }
+        }
         return json({ ok: true })
       }
       // dev-only signup, gated by a secret var (production uses /auth/login)
@@ -266,7 +316,7 @@ export class Vibetime extends DurableObject {
       }
       return fail(404, 'not found')
     } catch (e) {
-      return fail(500, String(e && e.message || e))
+      return fail(500, 'internal error')
     }
   }
 
@@ -342,6 +392,8 @@ export class Vibetime extends DurableObject {
     if (request.headers.get('Upgrade') !== 'websocket') return fail(426, 'expected websocket')
     const pair = new WebSocketPair()
     const [client, server] = [pair[0], pair[1]]
+    const existing = this.sockets.get(user.id)
+    if (existing && existing.size >= MAX_SOCKETS_PER_USER) return fail(429, 'too many live viewers')
     server.accept()
     if (!this.sockets.has(user.id)) this.sockets.set(user.id, new Set())
     this.sockets.get(user.id).add(server)
@@ -372,7 +424,7 @@ a{color:inherit}${TOGGLE_CSS}</style>
 <p>Keep this token private. Signing in again issues a new token.</p><p><a href="${esc(base)}/u/${esc(handle)}">Your public profile</a></p>`
 }
 function profileHTML(handle) {
-  const h = JSON.stringify(handle)
+  const h = JSON.stringify(handle).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(handle)} on vibetime</title><script src="/cdn/theme.js"></script><style>
 :root{color-scheme:light;--bg:#fbfaf7;--fg:#1d1b18;--muted:#6d665c;--line:#e6e1d8;--bar:#c2410c;--bar-dim:#f1dccf;--card:#fff;--m0:#c2410c;--m1:#2563eb;--m2:#a8a29e}

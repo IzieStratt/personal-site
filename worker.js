@@ -57,7 +57,7 @@ export default {
     if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm(\/|$)/.test(url.pathname)) return withLostfmHeaders(await serveSubdomain(request, env, url))
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
-    if (url.pathname.startsWith('/vibetime/app/')) { // vibetime server (DO); this namespace only exists on vs.izie.top
+    if (url.pathname.startsWith('/vibetime/app/')) { // vibetime server (DO). Path-gated, not host-gated: reachable on any izie.top host, but the DO enforces its own token auth and the OAuth redirect is pinned to vs.izie.top.
       // the vibetime server (Durable Object, SQLite-backed); one instance holds every account
       const sub = new URL(request.url)
       sub.pathname = url.pathname.slice('/vibetime/app'.length) || '/'
