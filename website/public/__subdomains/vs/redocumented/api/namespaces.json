@@ -1287,6 +1287,7 @@
   "client.codeChannels.getPullRequest",
   "client.codeChannels.getPullRequestCommits",
   "client.codeChannels.getPullRequestConnection",
+  "client.codeChannels.getPullRequestStates",
   "client.codeChannels.getPullRequestSummary",
   "client.codeChannels.getSummary",
   "client.codeChannels.getView",
@@ -1335,7 +1336,8 @@
   "compliance.exports.reactivateTokens",
   "compliance.exports.revokeAllTokens",
   "compliance.exports.revokeTokens",
-  "compliance.exports.start"
+  "compliance.exports.start",
+  "compliance.exports.startArchive"
  ],
  "connectInvites": [
   "connectInvites.list"
