@@ -213,6 +213,11 @@
   "admin.canvases.publishTemplate",
   "admin.canvases.unpublishTemplate"
  ],
+ "admin.codeChannels.github.installations": [
+  "admin.codeChannels.github.installations.add",
+  "admin.codeChannels.github.installations.list",
+  "admin.codeChannels.github.installations.setApproval"
+ ],
  "admin.conversations": [
   "admin.conversations.archive",
   "admin.conversations.bulkArchive",
@@ -783,6 +788,7 @@
  ],
  "ai.alpha.surfaces": [
   "ai.alpha.surfaces.deleteVersion",
+  "ai.alpha.surfaces.generateActionDraft",
   "ai.alpha.surfaces.getContent",
   "ai.alpha.surfaces.getData",
   "ai.alpha.surfaces.getSourcesShared",
@@ -2111,6 +2117,9 @@
   "functions.workflows.unpublish",
   "functions.workflows.update"
  ],
+ "functions.workflows.channelTasks": [
+  "functions.workflows.channelTasks.register"
+ ],
  "functions.workflows.collaborators": [
   "functions.workflows.collaborators.add",
   "functions.workflows.collaborators.remove"
@@ -2368,6 +2377,7 @@
   "megaphone.visualizer.journeys.get",
   "megaphone.visualizer.journeys.jump",
   "megaphone.visualizer.journeys.list",
+  "megaphone.visualizer.journeys.resetDismissals",
   "megaphone.visualizer.journeys.status"
  ],
  "megaphone.visualizer.notifications": [
