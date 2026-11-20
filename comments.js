@@ -87,7 +87,7 @@ export async function handleComments(request, env, url) {
   if (input.website) return json({ ok: true, status: 'pending' })
 
   const post = String(input.post ?? '')
-  const name = String(input.name ?? '').trim().replace(/\s+/g, ' ')
+  let name = String(input.name ?? '').trim().replace(/\s+/g, ' ')
   const contact = String(input.contact ?? '')
   const body = String(input.body ?? '').replace(/\r\n/g, '\n').trim()
   let parent = input.parent == null || input.parent === '' ? null : Number(input.parent)
@@ -96,6 +96,8 @@ export async function handleComments(request, env, url) {
   if (!name || name.length > LIMITS.name) return json({ error: `name needs 1-${LIMITS.name} characters` }, 400)
   if (!body || body.length > LIMITS.body) return json({ error: `comment needs 1-${LIMITS.body} characters` }, 400)
   const account = await currentAccount(request, env)
+  // signed-in comments always carry the account's own name, so nobody can post as someone else next to the ✓
+  if (account) name = account.display_name
   let email = null
   let site = null
   if (account) {

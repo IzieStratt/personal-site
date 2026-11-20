@@ -93,7 +93,7 @@ async function hasRecord(domain, token) {
 // the account that has verified this domain, or null. Re-checks DNS now and then; a gone record unverifies it.
 export async function domainOwner(env, domain) {
   const row = await env.COMMENTS.prepare('SELECT account_id, token, last_checked FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL')
-    .bind(domain).first().catch(() => null)
+    .bind(domain).first()
   if (!row) return null
   if (Date.now() - Date.parse(row.last_checked || 0) > RECHECK_MS) {
     let still = true
@@ -109,7 +109,9 @@ export async function domainOwner(env, domain) {
 
 export async function verifiedDomains(env, accountId) {
   const { results } = await env.COMMENTS.prepare('SELECT domain FROM account_domains WHERE account_id = ? AND verified_at IS NOT NULL ORDER BY domain').bind(accountId).all()
-  return results.map((r) => r.domain)
+  // domainOwner re-checks stale ones against DNS, so a removed record stops counting
+  const owned = await Promise.all(results.map(async (r) => ((await domainOwner(env, r.domain)) === accountId ? r.domain : null)))
+  return owned.filter(Boolean)
 }
 
 // verified = owns at least one domain, or izie checked them by hand
@@ -130,8 +132,7 @@ async function newChallenge(env, purpose, data = null) {
 
 async function takeChallenge(env, id, purpose) {
   if (typeof id !== 'string' || id.length > 64) return null
-  const row = await env.COMMENTS.prepare('SELECT * FROM account_challenges WHERE id = ?').bind(id).first()
-  await env.COMMENTS.prepare('DELETE FROM account_challenges WHERE id = ?').bind(id).run()
+  const row = await env.COMMENTS.prepare('DELETE FROM account_challenges WHERE id = ? RETURNING *').bind(id).first()
   if (!row || row.purpose !== purpose || row.expires < Date.now()) return null
   return { challenge: row.challenge, data: row.data ? JSON.parse(row.data) : null }
 }
@@ -222,7 +223,8 @@ async function loginVerify(env, body) {
   const key = await crypto.subtle.importKey('jwk', JSON.parse(row.public_key), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify'])
   if (!(await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, derToRaw(fromB64u(r.signature)), signed))) return fail(400, 'signature check failed')
   if ((auth.signCount || row.sign_count) && auth.signCount <= row.sign_count) return fail(400, 'passkey counter went backwards')
-  await env.COMMENTS.prepare('UPDATE account_passkeys SET sign_count = ?, last_used = ? WHERE id = ?').bind(auth.signCount, now(), String(body.id)).run()
+  const upd = await env.COMMENTS.prepare('UPDATE account_passkeys SET sign_count = ?, last_used = ? WHERE id = ? AND sign_count = ?').bind(auth.signCount, now(), String(body.id), row.sign_count).run()
+  if (!upd.meta.changes) return fail(400, 'that passkey was just used, try again')
   return json({ ok: true }, 200, { 'set-cookie': await startSession(env, row.account_id) })
 }
 
@@ -377,7 +379,12 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'passkeys' && p[1] && m === 'DELETE') {
       const n = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM account_passkeys WHERE account_id = ?').bind(a.id).first('n')
       if (n <= 1) return fail(400, "that's your only passkey. add another one before removing it")
-      await env.COMMENTS.prepare('DELETE FROM account_passkeys WHERE id = ? AND account_id = ?').bind(decodeURIComponent(p[1]), a.id).run()
+      const keep = await tokenHash(readCookie(request))
+      await env.COMMENTS.batch([
+        env.COMMENTS.prepare('DELETE FROM account_passkeys WHERE id = ? AND account_id = ?').bind(decodeURIComponent(p[1]), a.id),
+        // a removed passkey may have been the lost one: sign out everywhere else too
+        env.COMMENTS.prepare('DELETE FROM account_sessions WHERE account_id = ? AND token_hash != ?').bind(a.id, keep),
+      ])
       return json({ ok: true })
     }
 

@@ -78,7 +78,8 @@
     const gated = whoCan === 'verified' && !me?.verified
     if (me) {
       signin.innerHTML = `commenting as <strong>@${esc(me.handle)}</strong> (<a href="https://account.izie.top/">account</a>).`
-      if (!field('name').value) field('name').value = me.name
+      field('name').value = me.name
+      field('name').readOnly = true
       if (!picker) {
         picker = document.createElement('select')
         picker.name = 'site-pick'
