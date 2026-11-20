@@ -13,9 +13,9 @@
       :root { color-scheme: light; --bg: #fffdf7; --fg: #222; --muted: #6d665c; --line: #e6e1d8; --accent: #315f9d;
         --soft: #0000000d; --tag: #0003; --term-bg: #1d1c19; --term-fg: #ece8e1; }
       @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg: #1b1a17; --fg: #ece6d8;
-        --muted: #a39b8f; --line: #2d2a26; --accent: #8fb3e6; --soft: #ffffff14; --tag: #ffffff30; } }
-      :root[data-theme="dark"] { color-scheme: dark; --bg: #1b1a17; --fg: #ece6d8; --muted: #a39b8f; --line: #2d2a26;
-        --accent: #8fb3e6; --soft: #ffffff14; --tag: #ffffff30; }
+        --muted: #a39b8f; --line: #3a362f; --accent: #8fb3e6; --soft: #ffffff14; --tag: #ffffff30; --term-bg: #26231f; } }
+      :root[data-theme="dark"] { color-scheme: dark; --bg: #1b1a17; --fg: #ece6d8; --muted: #a39b8f; --line: #3a362f;
+        --accent: #8fb3e6; --soft: #ffffff14; --tag: #ffffff30; --term-bg: #26231f; }
       :root { color: var(--fg); background: var(--bg); font: 1.25rem/1.5 "xkcd Script", cursive; }
       body { width: min(48rem, calc(100% - 3rem)); margin: 10vh auto; padding: 0 0 6rem; overflow-wrap: anywhere; background: var(--bg); color: var(--fg); }
       h1 { margin: 0 0 .5rem; font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: normal; }
@@ -26,7 +26,13 @@
       li { margin: 0 0 .4rem; }
       a { color: var(--accent); }
       code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .95rem; background: var(--soft); padding: .1em .35em; border-radius: .25em; }
-      pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .95rem; line-height: 1.45; background: var(--term-bg); color: var(--term-fg); padding: 1rem 1.2rem; border-radius: .6rem; overflow-x: auto; }
+      pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .95rem; line-height: 1.45; background: var(--term-bg); color: var(--term-fg); padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: .6rem; overflow-x: auto; }
+      /* theme.js injects this button; its styles live in the main style.css we don't load, so include them here */
+      .theme-toggle { position: absolute; top: .4rem; right: .75rem; z-index: 1; padding: 6px; border: 0; background: none; color: var(--fg); font: inherit; font-size: 1rem; cursor: pointer; }
+      .theme-face { display: inline-flex; align-items: center; gap: .45rem; padding: .25rem .7rem .25rem .5rem; border: 2px solid var(--fg); border-radius: .75rem; background: var(--bg); transition: transform .15s ease, background-color .15s ease, color .15s ease; }
+      .theme-toggle:hover .theme-face, .theme-toggle:focus-visible .theme-face { background: var(--fg); color: var(--bg); transform: translateY(-2px) rotate(-1deg); }
+      .theme-icon { display: block; width: 1.15rem; height: 1.15rem; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      @media (prefers-reduced-motion: reduce) { .theme-face { transition: none; } .theme-toggle:hover .theme-face, .theme-toggle:focus-visible .theme-face { transform: none; } }
       pre code { background: none; padding: 0; }
       .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
       @media (max-width: 34rem) { .cols { grid-template-columns: 1fr; } }
@@ -94,8 +100,7 @@ vibetime service install        # starts quietly at login
 vibetime status                 # your time, offline, no account needed</code></pre>
 
       <footer>
-        A Hack Club project by <a href="https://izie.top">izie</a>.
-        Yes — this lives on the subdomain for things <em>not</em> tracked by Hackatime. The irony is the point.
+        by <a href="https://izie.top">izie</a>
       </footer>
     </main>
   </body>

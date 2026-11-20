@@ -358,6 +358,7 @@ export class Vibetime extends DurableObject {
 }
 
 // ---- helpers (pure) live in vibetime-core.js
+const TOGGLE_CSS = `.theme-toggle{position:absolute;top:.4rem;right:.75rem;z-index:1;padding:6px;border:0;background:none;color:var(--fg);font:inherit;font-size:1rem;cursor:pointer}.theme-face{display:inline-flex;align-items:center;gap:.45rem;padding:.25rem .7rem .25rem .5rem;border:2px solid var(--fg);border-radius:.75rem;background:var(--bg);transition:transform .15s,background-color .15s,color .15s}.theme-toggle:hover .theme-face,.theme-toggle:focus-visible .theme-face{background:var(--fg);color:var(--bg);transform:translateY(-2px) rotate(-1deg)}.theme-icon{display:block;width:1.15rem;height:1.15rem;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}@media(prefers-reduced-motion:reduce){.theme-face{transition:none}.theme-toggle:hover .theme-face,.theme-toggle:focus-visible .theme-face{transform:none}}`
 function tokenPage(handle, base, tok) {
   return `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>vibetime login</title><script src="/cdn/theme.js"></script><style>
@@ -365,7 +366,7 @@ function tokenPage(handle, base, tok) {
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#151412;--fg:#ece8e1;--line:#ffffff30}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#151412;--fg:#ece8e1;--line:#ffffff30}
 body{font:16px/1.5 system-ui;max-width:600px;margin:40px auto;padding:0 16px;background:var(--bg);color:var(--fg)}
-a{color:inherit}</style>
+a{color:inherit}${TOGGLE_CSS}</style>
 <h1>Signed in as ${esc(handle)}</h1><p>Run this on each computer you build on:</p>
 <code style="display:block;padding:12px;border:1px solid var(--line);border-radius:8px;word-break:break-all">vibetime login -server ${esc(base)} -token ${esc(tok)}</code>
 <p>Keep this token private. Signing in again issues a new token.</p><p><a href="${esc(base)}/u/${esc(handle)}">Your public profile</a></p>`
@@ -387,7 +388,7 @@ table{width:100%;border-collapse:collapse}td{padding:8px 0;border-bottom:1px sol
 .split{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}.split i{display:block;height:100%}
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:13px;color:var(--muted)}.legend s{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;text-decoration:none}
 .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bar);margin-right:6px}
-</style></head><body><main>
+${TOGGLE_CSS}</style></head><body><main>
 <h1 id="h"></h1><p style="color:var(--muted)"><span class="live"></span>Attended time building with AI. Updates live.</p>
 <div class="tiles"><div class="tile"><b id="today">–</b><span>today</span></div><div class="tile"><b id="week">–</b><span id="weekd">last 7 days</span></div>
 <div class="tile"><b id="streak">–</b><span id="streakd">day streak</span></div><div class="tile"><b id="best">–</b><span id="bestd">best day</span></div></div>
