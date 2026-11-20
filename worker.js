@@ -44,6 +44,11 @@ export default {
         headers: { Location: `${target}${url.search}` },
       })
     }
+    // agents guess at agents.txt / AGENTS.md / .well-known/llms.txt; answer every guess with the matching llms.txt
+    if (url.hostname === 'vs.izie.top') {
+      const alias = url.pathname.match(AGENT_FILE_ALIAS)
+      if (alias) return serveAgentFile(env, url, alias[1] ? '/redocumented/llms.txt' : '/llms.txt')
+    }
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/redocumented')) {
       return handleRedocumented(request, env, url)
     }
@@ -274,6 +279,15 @@ function handleVsAgentPaths(request, url) {
     return Response.redirect('https://vs.izie.top/redocumented/openapi-catalog.json', 302)
   }
   return null
+}
+
+const AGENT_FILE_ALIAS = /^(\/redocumented)?\/(?:agents?\.(?:txt|md)|ai\.txt|llms\.md|\.well-known\/(?:agents?|llms)\.(?:txt|md))$/i
+async function serveAgentFile(env, url, file) {
+  const res = await env.ASSETS.fetch(new URL(`/__subdomains/vs${file}`, url))
+  return new Response(res.body, { status: res.status, headers: {
+    'Content-Type': 'text/markdown; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'public, max-age=300',
+    'Content-Location': file, Link: `<${file}>; rel="canonical"`,
+  } })
 }
 
 const VS_LINKS = [
