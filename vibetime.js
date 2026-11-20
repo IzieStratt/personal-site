@@ -360,17 +360,23 @@ export class Vibetime extends DurableObject {
 // ---- helpers (pure) live in vibetime-core.js
 function tokenPage(handle, base, tok) {
   return `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>vibetime login</title><body style="font:16px/1.5 system-ui;max-width:600px;margin:40px auto;padding:0 16px">
+<title>vibetime login</title><script src="/cdn/theme.js"></script><style>
+:root{color-scheme:light;--bg:#fbfaf7;--fg:#1d1b18;--line:#8884}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#151412;--fg:#ece8e1;--line:#ffffff30}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#151412;--fg:#ece8e1;--line:#ffffff30}
+body{font:16px/1.5 system-ui;max-width:600px;margin:40px auto;padding:0 16px;background:var(--bg);color:var(--fg)}
+a{color:inherit}</style>
 <h1>Signed in as ${esc(handle)}</h1><p>Run this on each computer you build on:</p>
-<code style="display:block;padding:12px;border:1px solid #8884;border-radius:8px;word-break:break-all">vibetime login -server ${esc(base)} -token ${esc(tok)}</code>
+<code style="display:block;padding:12px;border:1px solid var(--line);border-radius:8px;word-break:break-all">vibetime login -server ${esc(base)} -token ${esc(tok)}</code>
 <p>Keep this token private. Signing in again issues a new token.</p><p><a href="${esc(base)}/u/${esc(handle)}">Your public profile</a></p>`
 }
 function profileHTML(handle) {
   const h = JSON.stringify(handle)
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(handle)} on vibetime</title><style>
-:root{--bg:#fbfaf7;--fg:#1d1b18;--muted:#6d665c;--line:#e6e1d8;--bar:#c2410c;--bar-dim:#f1dccf;--card:#fff;--m0:#c2410c;--m1:#2563eb;--m2:#a8a29e}
-@media(prefers-color-scheme:dark){:root{--bg:#151412;--fg:#ece8e1;--muted:#a39b8f;--line:#2d2a26;--bar:#fb923c;--bar-dim:#3a2a20;--card:#1d1c19;--m0:#fb923c;--m1:#60a5fa;--m2:#78716c}}
+<title>${esc(handle)} on vibetime</title><script src="/cdn/theme.js"></script><style>
+:root{color-scheme:light;--bg:#fbfaf7;--fg:#1d1b18;--muted:#6d665c;--line:#e6e1d8;--bar:#c2410c;--bar-dim:#f1dccf;--card:#fff;--m0:#c2410c;--m1:#2563eb;--m2:#a8a29e}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#151412;--fg:#ece8e1;--muted:#a39b8f;--line:#2d2a26;--bar:#fb923c;--bar-dim:#3a2a20;--card:#1d1c19;--m0:#fb923c;--m1:#60a5fa;--m2:#78716c}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#151412;--fg:#ece8e1;--muted:#a39b8f;--line:#2d2a26;--bar:#fb923c;--bar-dim:#3a2a20;--card:#1d1c19;--m0:#fb923c;--m1:#60a5fa;--m2:#78716c}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
 main{max-width:720px;margin:0 auto;padding:32px 16px}h1{margin:0 0 4px}h2{font-size:15px;color:var(--muted);margin:28px 0 8px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
