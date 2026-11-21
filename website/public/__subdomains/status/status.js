@@ -35,6 +35,14 @@ const ago = (ms) => {
   return `${Math.round(s / 3600)}h ago`
 }
 
+// a live count: 45s, 2m 14s, 1h 5m
+const clock = (ms) => {
+  const s = Math.max(0, Math.floor((Date.now() - ms) / 1000))
+  if (s < 60) return `${s}s ago`
+  if (s < 3600) return `${Math.floor(s / 60)}m ${s % 60}s ago`
+  return `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m ago`
+}
+
 // ok/total over the last `n` days for some ids, plus how many of those days have any data
 function uptime(idList, n) {
   let ok = 0, total = 0
@@ -134,10 +142,10 @@ function render() {
 // relative times are repainted on their own every few seconds, so they keep moving between fetches
 function paintTimes() {
   const u = $('updated')
-  if (failedRefresh && loadedAt) u.textContent = `couldn't refresh, showing data from ${ago(loadedAt)}`
-  else u.textContent = newestCheck ? `checked every 5 minutes, last ${ago(newestCheck)}` : ''
+  if (failedRefresh && loadedAt) u.textContent = `couldn't refresh, showing data from ${clock(loadedAt)}`
+  else u.textContent = newestCheck ? `checked every 5 minutes, last ${clock(newestCheck)}` : ''
   const t = document.getElementById('commit-age')
-  if (t) t.textContent = ago(Number(t.dataset.at))
+  if (t) t.textContent = clock(Number(t.dataset.at))
 }
 
 function drawGraph() {
@@ -227,6 +235,6 @@ async function load() {
 skeleton()
 load()
 setInterval(load, 30000) // the api is cached for 30s
-setInterval(() => { if (data) paintTimes() }, 5000)
+setInterval(() => { if (data) paintTimes() }, 1000) // counts up every second without refetching
 // background tabs throttle timers, so catch up the moment the tab is shown again
 document.addEventListener('visibilitychange', () => { if (!document.hidden) load() })
