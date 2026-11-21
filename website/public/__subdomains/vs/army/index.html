@@ -42,15 +42,15 @@
         <label>tile PNG (used as-is, starts as neocat)
           <input type="file" id="file" accept="image/png">
         </label>
-        <p class="hint">Spacing is the density control: it adds transparent pixels after each tile (0 = packed as your PNG is), and the loop rule then applies to the padded tile. For emoji that sit side by side in Slack, make the canvas a multiple of the (padded) tile width, or the pattern breaks at each emoji edge. The square preset resamples neocat to 42×42 so stacked emoji line up too. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
+        <p class="hint">Spacing is the density control: it sets the step between copies (tile + spacing): 0 packs them as your PNG is, positive adds a transparent gap, negative overlaps them. The loop and seam rules use that step. For emoji that sit side by side in Slack, make the canvas a multiple of the (padded) tile width, or the pattern breaks at each emoji edge. The square preset resamples neocat to 42×42 so stacked emoji line up too. Tight-crop your sprite first. The PNG itself is the repeating tile, so it should tile seamlessly. Also, <code>frames × |dx|</code> must be a whole multiple of the tile width (and likewise for <code>dy</code> and height), or the loop will jump.</p>
         <div class="row">
           <label>canvas <input type="number" id="size" min="1" max="128" step="1" value="112"></label>
           <label>frames <input type="number" id="frames" min="1" step="1" value="10"></label>
           <label>delay ms <input type="number" id="delay" min="10" step="10" value="80"></label>
           <label>scroll x <input type="number" id="dx" step="any" value="8"></label>
           <label>scroll y <input type="number" id="dy" step="any" value="0"></label>
-          <label>spacing x <input type="number" id="gx" min="0" step="1" value="0"></label>
-          <label>spacing y <input type="number" id="gy" min="0" step="1" value="0"></label>
+          <label>spacing x <input type="number" id="gx" step="1" value="0"></label>
+          <label>spacing y <input type="number" id="gy" step="1" value="0"></label>
         </div>
         <div class="row">
           <canvas id="preview" width="112" height="112"></canvas>
@@ -94,19 +94,14 @@
         var $ = function (id) { return document.getElementById(id); };
         var tile = null, tileName = "neocat", raf = 0;
 
-        // Base tile plus optional transparent spacing; with no spacing the tile is used untouched.
-        function cur() {
-          var gx = Math.max(0, Math.floor(Number($("gx").value)) || 0), gy = Math.max(0, Math.floor(Number($("gy").value)) || 0);
-          if (!tile || (!gx && !gy)) return tile;
-          var c = document.createElement("canvas"); c.width = tile.width + gx; c.height = tile.height + gy;
-          c.getContext("2d").drawImage(tile, 0, 0);
-          return c;
-        }
+        // The tile is used as-is; spacing is applied as the step between copies in renderFrame.
+        function cur() { return tile; }
 
         function readCfg() {
           return {
             size: Number($("size").value), frames: Number($("frames").value),
-            delay: Number($("delay").value), dx: Number($("dx").value), dy: Number($("dy").value)
+            delay: Number($("delay").value), dx: Number($("dx").value), dy: Number($("dy").value),
+            gx: Math.floor(Number($("gx").value)) || 0, gy: Math.floor(Number($("gy").value)) || 0
           };
         }
 
@@ -119,17 +114,23 @@
           if (!(Number.isInteger(cfg.frames) && cfg.frames >= 1)) errors.push("frames must be a whole number ≥ 1");
           if (!(cfg.delay >= 10)) errors.push("delay must be at least 10 ms (GIFs use centiseconds)");
           if (!isFinite(cfg.dx) || !isFinite(cfg.dy)) errors.push("scroll values must be numbers");
+          if (!(Number.isInteger(cfg.gx) && Number.isInteger(cfg.gy))) errors.push("spacing must be whole pixels");
           if (errors.length) return { errors: errors, warnings: warnings };
+          // Step between copies: tile + spacing. Negative spacing overlaps copies, so it must stay ≥ 1px.
+          var pw = t.width + cfg.gx, ph = t.height + cfg.gy;
+          if (pw < 1 || ph < 1) { errors.push("spacing is too negative: tile + spacing must be at least 1px (tile is " + t.width + "×" + t.height + ")"); return { errors: errors, warnings: warnings }; }
           if (cfg.size > LIMIT_PX) warnings.push("canvas is over " + LIMIT_PX + "px; Slack emoji must be ≤ " + LIMIT_PX + "×" + LIMIT_PX);
           // Presets like drohc (2.25 × 10 = 22.5 vs tile 23) are accepted, so allow half a pixel of slack.
-          [["dx", t.width, "width"], ["dy", t.height, "height"]].forEach(function (a) {
+          [["dx", pw, "width"], ["dy", ph, "height"]].forEach(function (a) {
             var v = cfg[a[0]]; if (v === 0) return;
             var total = cfg.frames * Math.abs(v), n = Math.round(total / a[1]);
             if (n < 1 || Math.abs(total - n * a[1]) > 0.5)
-              warnings.push("loop won't be seamless: frames × |" + a[0] + "| = " + +total.toFixed(3) + ", not a multiple of tile " + a[2] + " (" + a[1] + ")");
+              warnings.push("loop won't be seamless: frames × |" + a[0] + "| = " + +total.toFixed(3) + ", not a multiple of step " + a[2] + " (" + a[1] + ")");
           });
-          if (cfg.size % t.width !== 0)
-            warnings.push("canvas " + cfg.size + " isn't a multiple of tile width " + t.width + ": emoji placed side by side will show a seam (try " + Math.floor(LIMIT_PX / t.width) * t.width + ")");
+          if (cfg.size % pw !== 0) {
+            var fit = Math.floor(LIMIT_PX / pw) * pw;
+            warnings.push("canvas " + cfg.size + " isn't a multiple of the copy step " + pw + ": copies placed side by side will show a seam" + (fit ? " (try " + fit + ")" : ""));
+          }
           if (cfg.dx === 0 && cfg.dy === 0) warnings.push("both scroll values are 0, so nothing moves");
           return { errors: errors, warnings: warnings };
         }

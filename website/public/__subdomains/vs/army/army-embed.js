@@ -130,7 +130,8 @@ function encodeGIF(frames, delayCs){
 function renderFrame(tileCanvas, k, cfg){
   const c = document.createElement("canvas"); c.width=cfg.size; c.height=cfg.size;
   const x = c.getContext("2d");
-  const tw = tileCanvas.width, th = tileCanvas.height;
+  // Step between copies = tile + spacing (cfg.gx/gy). Negative spacing makes copies overlap.
+  const tw = tileCanvas.width + (cfg.gx||0), th = tileCanvas.height + (cfg.gy||0);
   const fx = cfg.dx*k, fy = cfg.dy*k;
   let ox = ((fx % tw)+tw)%tw; if (ox>0) ox-=tw;
   let oy = ((fy % th)+th)%th; if (oy>0) oy-=th;
