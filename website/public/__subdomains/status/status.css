@@ -13,10 +13,13 @@ body { font-family: "xkcd Script local", "xkcd Script", cursive; }
 
 h1 { margin-bottom: 0.4rem; }
 h2 { margin: 2rem 0 0.6rem; }
-.banner { display: inline-block; margin: 0.4rem 0 0; padding: 0.5rem 1rem; border-radius: 0.75rem; background: var(--card); border-left: 0.5rem solid var(--unknown); font-size: 1.15rem; }
-.banner.up { border-color: var(--up); }
-.banner.degraded { border-color: var(--degraded); }
-.banner.down { border-color: var(--down); }
+.banner { display: inline-flex; align-items: center; gap: 0.7rem; margin: 0.6rem 0 0; padding: 0.6rem 1.1rem; border-radius: 0.75rem; background: var(--card); border: 2px solid var(--unknown); font-size: 1.15rem; }
+/* same shape language as the row dots: circle up, diamond slow, square down, dashed circle no data */
+.banner::before { content: ""; flex: none; width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--unknown); }
+.banner.up { border-color: var(--up); } .banner.up::before { background: var(--up); }
+.banner.degraded { border-color: var(--degraded); } .banner.degraded::before { background: var(--degraded); border-radius: 1px; transform: rotate(45deg) scale(0.9); }
+.banner.down { border-color: var(--down); } .banner.down::before { background: var(--down); border-radius: 2px; }
+.banner.unknown::before { background: none; border: 2px dashed var(--unknown); box-sizing: border-box; }
 #updated { margin-top: 0.4rem; }
 
 .group { margin: 1.6rem 0 0; }
