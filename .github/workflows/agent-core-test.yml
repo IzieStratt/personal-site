@@ -1,0 +1,22 @@
+name: agent-core-test
+
+# Unit tests for the agent-facing helpers in worker.js. (The ReDocumented count check moved to IzieStratt/izie-datamine.)
+
+on:
+  pull_request:
+    paths: ['agent-core.js', 'agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
+  push:
+    branches: [main]
+    paths: ['agent-core.js', 'agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - run: node agent-core.test.mjs

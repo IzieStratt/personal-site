@@ -11,6 +11,15 @@ import { handleStatus, runChecks } from './status-core.js'
 export { Vibetime } from './vibetime.js'
 import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './agent-core.js'
 
+// sdmp and ReDocumented live in their own repo (IzieStratt/izie-datamine) and are served by a second static-assets worker;
+// everything else is in this worker's own assets. Paths and routing are unchanged, only where the file comes from.
+// vs/llms.txt and vs/index.html travel with ReDocumented because the daily sync rewrites the counts in them.
+const DATAMINE_PATH = /^\/__subdomains\/(?:slackdatamineplus(?:\/|$)|vs\/(?:redocumented(?:\/|$)|llms\.txt$|index\.html$|$))/
+function fetchAsset(env, input, init) {
+  const path = new URL(input.url || input).pathname
+  return (DATAMINE_PATH.test(path) ? env.DATAMINE : env.ASSETS).fetch(input, init)
+}
+
 const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
@@ -26,7 +35,7 @@ const worker = {
     }
     // fonts on the main cdn are loaded by every subdomain (account.izie.top etc.), and browsers need CORS for cross-origin fonts
     if (url.hostname === 'izie.top' && /^\/cdn\/.*\.(woff2?|ttf|otf)$/.test(url.pathname)) {
-      const res = await env.ASSETS.fetch(request)
+      const res = await fetchAsset(env, request)
       const headers = new Headers(res.headers)
       headers.set('Access-Control-Allow-Origin', '*')
       return new Response(res.body, { status: res.status, headers })
@@ -115,9 +124,9 @@ const worker = {
     if (prefix && !sharedAsset) {
       const originalPath = url.pathname
       url.pathname = `${prefix}${url.pathname}`
-      const response = await env.ASSETS.fetch(new Request(url, request))
+      const response = await fetchAsset(env, new Request(url, request))
       // subdomains without their own stylesheet (e.g. a bare 404 page) fall back to the root one
-      if (response.status === 404 && originalPath === '/style.css') return env.ASSETS.fetch(request)
+      if (response.status === 404 && originalPath === '/style.css') return fetchAsset(env, request)
       const location = response.headers.get('Location')
 
       if (location?.startsWith(prefix)) {
@@ -137,7 +146,7 @@ const worker = {
       return response
     }
 
-    return env.ASSETS.fetch(new Request(url, request))
+    return fetchAsset(env, new Request(url, request))
   },
 
   // every 5 minutes (wrangler.jsonc triggers.crons): run the status checks
@@ -184,7 +193,7 @@ async function handleRedocumented(request, env, url) {
 
   const target = new URL(url)
   target.pathname = `${REDOC_PREFIX}${path === '/redocumented' ? url.pathname : path}`
-  let response = await env.ASSETS.fetch(new Request(target, request))
+  let response = await fetchAsset(env, new Request(target, request))
 
   if (response.status === 404 && path.startsWith('/redocumented/api/')) response = redocNotFound()
 
@@ -213,7 +222,7 @@ let redocCatalog = null
 
 async function loadRedocCatalog(env, url) {
   if (!redocCatalog) {
-    const res = await env.ASSETS.fetch(new URL(`${REDOC_PREFIX}/redocumented/docs/data/methods.json`, url))
+    const res = await fetchAsset(env, new URL(`${REDOC_PREFIX}/redocumented/docs/data/methods.json`, url))
     const data = await res.json()
     const safety = data.safety_note_for_agents || data.schema?.safety_note_for_agents || ''
     redocCatalog = { safety, byName: new Map(data.methods.map((m) => [m.name, m])) }
@@ -277,7 +286,7 @@ function handleVsAgentPaths(request, url) {
 }
 
 async function serveAgentFile(env, url, file) {
-  const res = await env.ASSETS.fetch(new URL(`/__subdomains/vs${file}`, url))
+  const res = await fetchAsset(env, new URL(`/__subdomains/vs${file}`, url))
   return new Response(res.body, { status: res.status, headers: {
     'Content-Type': 'text/markdown; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'public, max-age=300',
     'Content-Location': file, Link: `<${file}>; rel="canonical"`,
@@ -314,7 +323,7 @@ async function vsForAgents(request, env, url, originalPath, response) {
   }
 
   if (markdown && response.ok && (originalPath === '/' || originalPath === '/index.html')) {
-    const md = await env.ASSETS.fetch(new URL('/__subdomains/vs/llms.txt', url))
+    const md = await fetchAsset(env, new URL('/__subdomains/vs/llms.txt', url))
     return new Response(md.body, { headers: { ...base, 'Content-Type': 'text/markdown; charset=utf-8', Link: VS_LINKS.join(', ') } })
   }
 
@@ -417,7 +426,7 @@ const LOSTFM_CSP = [
 async function serveSubdomain(request, env, url) {
   const assetUrl = new URL(url)
   assetUrl.pathname = `/__subdomains/vs${url.pathname}`
-  const response = await env.ASSETS.fetch(new Request(assetUrl, request))
+  const response = await fetchAsset(env, new Request(assetUrl, request))
   const location = response.headers.get('Location')
   if (location?.startsWith('/__subdomains/vs')) {
     const headers = new Headers(response.headers)
