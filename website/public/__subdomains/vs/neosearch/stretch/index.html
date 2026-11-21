@@ -28,8 +28,9 @@
       const NAMES = ["blank", "neocat_stretch_blob", "neocat_stretch_up", "neocat_stretch_down", "neocat_stretch_left",
         "neocat_stretch_right", "neocat_stretch_v", "neocat_stretch_h", "neocat_stretch_dr", "neocat_stretch_dl",
         "neocat_stretch_ur", "neocat_stretch_ul", "neocat_stretch_3way_left_fixed", "neocat_stretch_3way_right_fixed",
-        "neocat_stretch_3way_top_fixed", "neocat_stretch_3way_bottom_fixed", "neocat_stretch_4way", "neocat_stretch_down_end", "neocat"];
-      const KEYS = ".abcdefghijklmnopqr";
+        "neocat_stretch_3way_top_fixed", "neocat_stretch_3way_bottom_fixed", "neocat_stretch_4way", "neocat_stretch_down_end", "neocat",
+        "neocat_stretch_right_face", "neocat_stretch_ur_face"];
+      const KEYS = ".abcdefghijklmnopqrst";
       const rows = decodeURIComponent(location.hash.slice(1)).split("~").filter((r, i, all) => r || all.length > 1)
         .map(r => [...r].map(c => NAMES[KEYS.indexOf(c)]).filter(Boolean));
       const text = rows.map(r => (r.length ? r : ["blank"]).map(n => `:${n}:`).join("")).join("\n");
