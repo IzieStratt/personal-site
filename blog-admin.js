@@ -3,7 +3,7 @@
 // the blog-build workflow builds the pages and archives links after each push. Moderation reads D1 directly.
 import { ORIGIN, creationOptions, createSession, endSession, finishLogin, finishRegistration, isSignedIn, newChallenge, passkeyCount, randomB64u, requestOptions, timingSafeEqual } from './blog-passkeys.js'
 import { deleteFile, fileSha, gitBlobSha, listDir, putFile, readText } from './blog-github.js'
-import { adminAccounts } from './account.js'
+import { currentAccount } from './account.js'
 import { COMMENT_SETTINGS, parsePost, serializePost, slugify, tagSlug } from './blog/post-format.js'
 
 const POSTS_DIR = 'blog/posts'
@@ -26,7 +26,9 @@ const readJson = async (request) => JSON.parse(new TextDecoder().decode(await re
 // state-changing requests must come from our own page (SameSite cookies + Origin + a header a cross-site form can't send)
 const sameOrigin = (request) => request.headers.get('origin') === ORIGIN && request.headers.get('x-blog') === '1'
 
-// ---- sign-in
+// ---- sign-in: the editor's own passkey, or an izie account (account.izie.top) that is an admin
+const signedIn = async (request, env) => (await isSignedIn(request, env)) || !!(await currentAccount(request, env))?.is_admin
+
 async function setupOpen(env) {
   return (await passkeyCount(env)) === 0
 }
@@ -38,13 +40,14 @@ function setupCodeOk(env, given) {
 async function handleAuth(request, env, parts) {
   const [step, action] = parts
   if (step === 'status') {
-    return json({ enrolled: (await passkeyCount(env)) > 0, signedIn: await isSignedIn(request, env) })
+    const account = await currentAccount(request, env)
+    return json({ enrolled: (await passkeyCount(env)) > 0, signedIn: await signedIn(request, env), account: account ? { handle: account.handle, admin: !!account.is_admin } : null })
   }
   if (step === 'register' && action === 'options' && request.method === 'POST') {
     const body = await readJson(request)
     // the very first passkey needs the one-time setup code; after that only a signed-in session can add one
     const first = await setupOpen(env)
-    if (first ? !setupCodeOk(env, body.setup) : !(await isSignedIn(request, env))) return json({ error: 'sign in first' }, 403)
+    if (first ? !setupCodeOk(env, body.setup) : !(await signedIn(request, env))) return json({ error: 'sign in first' }, 403)
     const { id, challenge } = await newChallenge(env, 'register')
     const existing = await env.COMMENTS.prepare('SELECT id FROM passkeys').all()
     return json({ challengeId: id, options: creationOptions(challenge, randomB64u(16), existing.results.map((r) => r.id)) })
@@ -52,7 +55,7 @@ async function handleAuth(request, env, parts) {
   if (step === 'register' && action === 'verify' && request.method === 'POST') {
     const body = await readJson(request)
     const first = await setupOpen(env)
-    if (first ? !setupCodeOk(env, body.setup) : !(await isSignedIn(request, env))) return json({ error: 'sign in first' }, 403)
+    if (first ? !setupCodeOk(env, body.setup) : !(await signedIn(request, env))) return json({ error: 'sign in first' }, 403)
     await finishRegistration(env, body)
     if (!first) return json({ ok: true })
     // the setup code was just used, so the first passkey also signs this browser in
@@ -170,8 +173,6 @@ async function handleModeration(request, env, parts, url) {
     }
     return json({ who: (await db.prepare("SELECT value FROM settings WHERE key = 'who'").first('value')) ?? 'anyone' })
   }
-  // izie accounts: list them, and verify one by hand with a private note on who it is
-  if (parts[0] === 'accounts') return adminAccounts(request, env, parts.slice(1), request.method === 'PUT' ? await readJson(request) : {})
   if (parts[0] === 'comments' && !parts[1] && request.method === 'GET') {
     // newest first; includes the private email, so this is only ever served to a signed-in session
     const status = url.searchParams.get('status')
@@ -220,7 +221,7 @@ export async function handleBlogAdmin(request, env, url) {
 
   const [, , head, ...rest] = p.split('/')
   if (!PROTECTED.includes(head)) return json({ error: 'not found' }, 404)
-  if (!(await isSignedIn(request, env))) return json({ error: 'sign in with your passkey first' }, 401)
+  if (!(await signedIn(request, env))) return json({ error: 'sign in with your passkey first' }, 401)
   if (request.method !== 'GET' && !sameOrigin(request)) return json({ error: 'bad origin' }, 403)
 
   try {

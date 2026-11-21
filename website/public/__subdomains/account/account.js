@@ -204,7 +204,6 @@ function render(a) {
   $('comment-count').innerHTML = `blog: ${n ? `${n} comment${n === 1 ? '' : 's'} on ${posts} post${posts === 1 ? '' : 's'}` : 'no comments yet'} (<a href="https://blog.izie.top">blog</a>)`
 
   $('admin').hidden = !a.admin
-  if (a.admin) loadAdmin()
   $('passkeys').replaceChildren(...a.passkeys.map((k) => {
     const li = document.createElement('li')
     li.innerHTML = `<p class="meta"><strong>${esc(k.label || 'passkey')}</strong> · added ${esc(k.created.slice(0, 10))}${k.last_used ? ` · last used ${esc(k.last_used.slice(0, 10))}` : ''}</p>${a.passkeys.length > 1 ? '<div class="actions"><button type="button">remove</button></div>' : ''}`
@@ -253,48 +252,36 @@ $('delete').addEventListener('submit', busy(null, async (e) => {
   await load()
 }))
 
-// ---- admin
-async function loadAdmin() {
-  const { who } = await api('GET', 'admin/who')
-  for (const r of document.querySelectorAll('#who input')) r.checked = r.value === who
-  const rows = await api('GET', 'admin/accounts')
-  $('accounts').replaceChildren(...rows.map((x) => {
-    const li = document.createElement('li')
-    const meta = document.createElement('p')
-    meta.className = 'meta'
-    meta.textContent = `@${x.handle} · ${x.display_name} · since ${x.created.slice(0, 10)} · ${x.comments} comment${x.comments === 1 ? '' : 's'}`
-      + `${x.is_admin ? ' · admin' : ''}${x.domains ? ` · ${x.domains}` : ''}${x.links ? ` · ${x.links}` : ''}${x.manual_verified ? ' · ✓ verified by hand' : ''}`
-    const input = document.createElement('input')
-    input.type = 'text'
-    input.placeholder = 'who is this? (admins only)'
-    input.value = x.manual_note || ''
-    input.maxLength = 500
-    const actions = document.createElement('div')
-    actions.className = 'actions'
-    const btn = (label, verified) => {
-      const b = document.createElement('button')
-      b.type = 'button'
-      b.textContent = label
-      b.addEventListener('click', (e) => busy(e.currentTarget, async () => {
-        await api('PUT', `admin/accounts/${encodeURIComponent(x.id)}`, { verified, note: input.value })
-        say('saved')
-        await loadAdmin()
-      })())
-      actions.append(b)
-    }
-    btn(x.manual_verified ? 'save note' : 'verify', true)
-    if (x.manual_verified) btn('unverify', false)
-    li.append(meta, input, actions)
-    return li
-  }))
-}
-document.querySelectorAll('#who input').forEach((r) => r.addEventListener('change', busy(null, async () => {
-  await api('PUT', 'admin/who', { who: r.value })
-  say(`comments: ${r.value === 'verified' ? 'verified accounts only' : 'anyone'}`)
-})))
+// ---- claim links (an admin made this account for you; you set the passkey)
+const claimId = new URLSearchParams(location.search).get('claim')
+$('claim-go').addEventListener('click', busy($('claim-go'), async () => {
+  autofill?.abort()
+  say('making your passkey...')
+  const { challengeId, options } = await api('POST', 'claim/options', { claim: claimId })
+  const response = await createPasskey(options)
+  await api('POST', 'claim/verify', { challengeId, response, label: deviceLabel() })
+  history.replaceState(null, '', '/')
+  say('all set!')
+  $('claim').hidden = true
+  await load()
+}))
 
 async function load() {
   if (!window.PublicKeyCredential) say("this browser can't use passkeys, so it can't sign in here", true)
+  if (claimId) {
+    // peek first so a dead link says so right away
+    try {
+      const { handle } = await api('POST', 'claim/options', { claim: claimId })
+      $('claim-text').innerHTML = `izie made an account for you: <strong>@${esc(handle)}</strong>. make a passkey to start using it.`
+      $('claim').hidden = false
+      $('signed-out').hidden = true
+      $('signed-in').hidden = true
+      return
+    } catch (e) {
+      say(e.message, true)
+      history.replaceState(null, '', '/')
+    }
+  }
   const { account } = await api('GET', 'me')
   $('signed-out').hidden = !!account
   $('signed-in').hidden = !account

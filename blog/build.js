@@ -58,6 +58,7 @@ const commentsSection = (slug, setting) => `
           </form>
         </div>
       </section>
+      <script src="/cdn/dropdown.js" defer></script>
       <script src="/comments.js" defer></script>`
 
 const page = ({ title, body, head = '', foot = '' }) => `<!doctype html>

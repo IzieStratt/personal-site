@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://blog.izie.top/style.css">
     <link rel="stylesheet" href="account.css">
     <script src="/cdn/theme.js"></script>
+    <script src="/cdn/dropdown.js" defer></script>
   </head>
   <body>
     <main class="comments">
@@ -20,6 +21,13 @@
       </nav>
       <h1>izie account</h1>
       <p class="hint">one sign-in for everything on izie.top. passkeys only, no passwords.</p>
+
+      <section id="claim" hidden>
+        <h2>set up your account</h2>
+        <p id="claim-text"></p>
+        <div class="actions"><button type="button" id="claim-go">make my passkey</button></div>
+        <p class="hint">your device makes the passkey (face, fingerprint, pin or a security key), and it's saved by your password manager if you use one.</p>
+      </section>
 
       <section id="signed-out" hidden>
         <h2>sign in</h2>
@@ -58,7 +66,7 @@
         <p class="hint">other things on izie.top with their own accounts. linking proves you hold them; the token is checked once and never stored.</p>
         <ol id="links" class="cards"></ol>
         <form id="link" class="row">
-          <label><span>service</span><select name="service"><option value="vibetime">vibetime (API token from your vibetime config)</option><option value="hmojis">hmojis (your hmoji token)</option></select></label>
+          <label><span>service</span><select name="service" data-fancy><option value="vibetime">vibetime (API token from your vibetime config)</option><option value="hmojis">hmojis (your hmoji token)</option></select></label>
           <label><span>token</span><input name="token" type="password" autocomplete="off" required></label>
           <div class="actions"><button type="submit">link</button></div>
         </form>
@@ -70,13 +78,10 @@
 
         <section id="admin" hidden>
           <h2>admin</h2>
-          <fieldset class="pills" id="who">
-            <legend>who can comment on the blog</legend>
-            <label><input type="radio" name="who" value="anyone"><span>anyone</span></label>
-            <label><input type="radio" name="who" value="verified"><span>verified accounts only</span></label>
-          </fieldset>
-          <p class="hint">verify someone by hand with a note on who they are. only admins see the note.</p>
-          <ol id="accounts" class="cards"></ol>
+          <ul class="admin-links">
+            <li><a href="/admin/">accounts</a>: verify people, make accounts for them, add admins</li>
+            <li><a href="https://blog.izie.top/admin/">blog editor</a>: posts, comment moderation, who can comment</li>
+          </ul>
         </section>
 
         <details>

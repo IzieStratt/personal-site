@@ -84,6 +84,7 @@
         <ul>
           <li><a href="/" target="_blank">preview blog</a></li>
           <li><a href="/admin/">new post</a></li>
+          <li><a href="https://account.izie.top/admin/">accounts</a></li>
           <li><button type="button" id="signout" hidden>sign out</button></li>
         </ul>
       </nav>
@@ -92,6 +93,7 @@
       <section id="signin" aria-labelledby="signin-title" hidden>
         <h2 id="signin-title">sign in</h2>
         <p class="hint" id="signin-hint">use your passkey (your device's fingerprint, face or screen lock).</p>
+        <p class="hint">or <a href="https://account.izie.top/?next=https%3A%2F%2Fblog.izie.top%2Fadmin%2F">sign in with your izie account</a> (admins only).</p>
         <div id="setup" hidden>
           <label><span>setup code (only needed for the first passkey)</span><input id="setup-code" type="password" autocomplete="off"></label>
           <div class="actions"><button type="button" class="primary" id="enroll">create a passkey on this device</button></div>
@@ -162,10 +164,6 @@
       <p class="hint">verified = an <a href="https://account.izie.top/" target="_blank">izie account</a> with a domain proven by DNS, or one you verified by hand below. a verified domain can only ever be used by its account, whichever is picked.</p>
       <p id="comments-status" role="status" class="hint"></p>
       <ol class="moderation" id="moderation"></ol>
-
-      <h2>accounts</h2>
-      <p id="accounts-status" role="status" class="hint"></p>
-      <ol class="moderation" id="accounts"></ol>
 
       <h2>posts</h2>
       <ol class="posts" id="posts"></ol>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>izie accounts admin</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://blog.izie.top/style.css">
+    <link rel="stylesheet" href="/account.css">
+    <script src="/cdn/theme.js"></script>
+  </head>
+  <body>
+    <main class="comments">
+      <nav aria-label="Site navigation">
+        <ul>
+          <li><a href="/">your account</a></li>
+          <li><a href="https://blog.izie.top/admin/">blog editor</a></li>
+        </ul>
+      </nav>
+      <h1>accounts</h1>
+      <p id="gate" class="hint">checking...</p>
+
+      <div id="app" hidden>
+        <p class="hint">find someone to verify them by hand, or make an account for someone who has no domain. notes are internal: only admins see them.</p>
+        <div class="search">
+          <label><span>username, name, domain or note</span>
+            <input id="q" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggest" placeholder="@someone">
+          </label>
+          <ul id="suggest" role="listbox" hidden></ul>
+        </div>
+
+        <div id="picked"></div>
+
+        <form id="create" hidden novalidate>
+          <h2>make <span id="create-handle"></span></h2>
+          <label><span>name (shown on their comments; they can change it)</span><input name="name" type="text" maxlength="40"></label>
+          <label><span>internal note: who is this?</span><input name="note" type="text" maxlength="500" required></label>
+          <div class="actions"><button type="submit">make a verified account</button></div>
+        </form>
+
+        <h2>everyone</h2>
+        <ol id="all" class="cards"></ol>
+      </div>
+      <p id="status" class="comment-status toast" role="status" hidden></p>
+    </main>
+    <script src="admin.js"></script>
+  </body>
+</html>

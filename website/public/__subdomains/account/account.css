@@ -20,3 +20,14 @@ summary { cursor: pointer; color: var(--muted); }
 .toast { position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%); z-index: 10; max-width: min(36rem, calc(100% - 2rem)); padding: 0.6rem 1rem; border: 2px solid var(--fg); border-radius: 0.75rem; background: var(--bg); box-shadow: 0 4px 18px rgb(0 0 0 / 0.2); }
 .toast.bad { border-color: var(--bad); }
 #accounts input { margin-top: 0.4rem; }
+.admin-links { padding-left: 1.2rem; }
+.search { position: relative; }
+#suggest { position: absolute; top: calc(100% + 0.3rem); left: 0; right: 0; margin: 0; padding: 0.3rem; list-style: none; z-index: 20; box-sizing: border-box;
+  border: 1px solid var(--line); border-radius: 0.6rem; background: var(--bg); box-shadow: 0 6px 24px rgb(0 0 0 / 0.12); max-height: 18rem; overflow-y: auto; }
+#suggest[hidden] { display: none; }
+#suggest [role="option"] { padding: 0.35rem 0.6rem; border-radius: 0.4rem; cursor: pointer; font-size: 0.95rem; }
+#suggest [role="option"].active { background: var(--card); }
+#suggest .sub { color: var(--muted); font-size: 0.85em; }
+#picked > .cards { margin-top: 1rem; }
+.cards .claim { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; font-size: 0.9rem; }
+.cards .claim code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.8em; overflow-wrap: anywhere; }

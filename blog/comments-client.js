@@ -83,6 +83,7 @@
       if (!picker) {
         picker = document.createElement('select')
         picker.name = 'site-pick'
+        picker.dataset.fancy = '' // /cdn/dropdown.js gives it the site's own dropdown
         contactLabel.after(picker)
       }
       picker.innerHTML = `<option value="">no link</option>${me.domains.map((d) => `<option>${esc(d)}</option>`).join('')}`

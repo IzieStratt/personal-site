@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stretchy neocat</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/cdn/theme.js"></script>
+    <style>
+      #art { overflow-x: auto; line-height: 0; margin: 1rem 0; }
+      #art img { width: 24px; height: 24px; }
+      #art .row { white-space: nowrap; }
+      #art .gap { display: inline-block; width: 24px; height: 24px; }
+      button { padding: .5rem 1.2rem; border: 1px solid var(--fg); border-radius: 999px; background: none; color: var(--fg); font: inherit; cursor: pointer; }
+      #status { margin-left: .6rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Stretchy neocat</h1>
+      <p>Made with <code>/iz stretch</code>. Paste it into Slack.</p>
+      <div id="art"></div>
+      <button id="copy">Copy</button><span id="status"></span>
+    </main>
+    <script>
+      // must match CODES in music-stalker src/commands/stretch.py
+      const NAMES = ["blank", "neocat_stretch_blob", "neocat_stretch_up", "neocat_stretch_down", "neocat_stretch_left",
+        "neocat_stretch_right", "neocat_stretch_v", "neocat_stretch_h", "neocat_stretch_dr", "neocat_stretch_dl",
+        "neocat_stretch_ur", "neocat_stretch_ul", "neocat_stretch_3way_left_fixed", "neocat_stretch_3way_right_fixed",
+        "neocat_stretch_3way_top_fixed", "neocat_stretch_3way_bottom_fixed", "neocat_stretch_4way", "neocat_stretch_down_end", "neocat"];
+      const KEYS = ".abcdefghijklmnopqr";
+      const rows = decodeURIComponent(location.hash.slice(1)).split("~").filter((r, i, all) => r || all.length > 1)
+        .map(r => [...r].map(c => NAMES[KEYS.indexOf(c)]).filter(Boolean));
+      const text = rows.map(r => (r.length ? r : ["blank"]).map(n => `:${n}:`).join("")).join("\n");
+
+      const art = document.getElementById("art");
+      for (const r of rows) {
+        const div = document.createElement("div");
+        div.className = "row";
+        for (const n of r) {
+          if (n === "blank") { const s = document.createElement("span"); s.className = "gap"; div.append(s); continue; }
+          const img = document.createElement("img");
+          img.src = `../img/${n}.png`; img.alt = `:${n}:`;
+          div.append(img);
+        }
+        art.append(div);
+      }
+
+      const status = document.getElementById("status");
+      async function copy() {
+        try { await navigator.clipboard.writeText(text); status.textContent = "copied!"; }
+        catch { status.textContent = "click Copy to copy"; }
+      }
+      document.getElementById("copy").onclick = copy;
+      if (!text) status.textContent = "nothing to copy";
+      else copy();
+    </script>
+  </body>
+</html>

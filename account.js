@@ -354,6 +354,25 @@ export async function handleAccount(request, env, url) {
     }
     if (p[0] === 'login' && p[1] === 'verify' && m === 'POST') return await loginVerify(env, body)
 
+    // claim links: an admin made the account; the person sets their own passkey here
+    if (p[0] === 'claim' && p[1] === 'options' && m === 'POST') {
+      const row = await env.COMMENTS.prepare("SELECT data, expires FROM account_challenges WHERE id = ? AND purpose = 'claim'").bind(String(body.claim || '')).first()
+      if (!row || row.expires < Date.now()) return fail(400, 'that link has expired or was already used. ask izie for a new one')
+      const acct = await env.COMMENTS.prepare('SELECT * FROM accounts WHERE id = ?').bind(JSON.parse(row.data).accountId).first()
+      if (!acct) return fail(404, 'that account is gone')
+      const { results } = await env.COMMENTS.prepare('SELECT id FROM account_passkeys WHERE account_id = ?').bind(acct.id).all()
+      const { id, challenge } = await newChallenge(env, 'claimreg', { accountId: acct.id, claim: String(body.claim) })
+      return json({ challengeId: id, handle: acct.handle, options: creationOptions(challenge, acct.id, acct.handle, acct.display_name, results.map((r) => r.id)) })
+    }
+    if (p[0] === 'claim' && p[1] === 'verify' && m === 'POST') {
+      const ch = await takeChallenge(env, body.challengeId, 'claimreg')
+      if (!ch) return fail(400, 'that took too long, try again')
+      const claim = await takeChallenge(env, ch.data.claim, 'claim')
+      if (!claim) return fail(400, 'that link has expired or was already used. ask izie for a new one')
+      await savePasskey(env, ch.data.accountId, await readNewPasskey(body.response, ch.challenge), cleanName(body.label) || 'passkey')
+      return json({ ok: true }, 200, { 'set-cookie': await startSession(env, ch.data.accountId) })
+    }
+
     const a = await currentAccount(request, env)
     if (p[0] === 'me' && m === 'GET') return json({ account: a ? await profile(env, a) : null })
     if (!a) return fail(401, 'sign in first')
@@ -424,14 +443,7 @@ export async function handleAccount(request, env, url) {
     // site admin (accounts.is_admin): the same controls as the blog editor's accounts list
     if (p[0] === 'admin') {
       if (!a.is_admin) return fail(403, 'admins only')
-      if (p[1] === 'accounts') return await adminAccounts(request, env, p.slice(2), body)
-      if (p[1] === 'who') {
-        if (m === 'PUT') {
-          if (!['anyone', 'verified'].includes(body.who)) return fail(400, 'bad setting')
-          await env.COMMENTS.prepare("INSERT INTO settings (key, value) VALUES ('who', ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value").bind(body.who).run()
-        }
-        return json({ who: (await env.COMMENTS.prepare("SELECT value FROM settings WHERE key = 'who'").first('value')) ?? 'anyone' })
-      }
+      if (p[1] === 'accounts') return await adminAccounts(request, env, p.slice(2), body, a)
     }
     if (p[0] === 'links' && p[1] && !p[2] && m === 'POST') return await linkService(env, a, p[1], body.token)
     if (p[0] === 'links' && p[1] && p[2] && m === 'DELETE') {
@@ -444,15 +456,52 @@ export async function handleAccount(request, env, url) {
   }
 }
 
-// ---- for izie in the blog editor (blog-admin.js, already behind the owner's passkey)
-export async function adminAccounts(request, env, parts, body) {
+// ---- admin (account.izie.top/admin/; only accounts with is_admin)
+const CLAIM_MS = 7 * 86400_000
+const claimUrl = (id) => `${ACCOUNT_ORIGIN}/?claim=${id}`
+
+async function newClaim(env, accountId) {
+  await env.COMMENTS.prepare("DELETE FROM account_challenges WHERE purpose = 'claim' AND json_extract(data, '$.accountId') = ?").bind(accountId).run()
+  const id = randomB64u(24)
+  await env.COMMENTS.prepare('INSERT INTO account_challenges (id, challenge, purpose, data, expires) VALUES (?, ?, ?, ?, ?)')
+    .bind(id, '-', 'claim', JSON.stringify({ accountId }), Date.now() + CLAIM_MS).run()
+  return { url: claimUrl(id), expires: new Date(Date.now() + CLAIM_MS).toISOString() }
+}
+
+export async function adminAccounts(request, env, parts, body, me) {
   const db = env.COMMENTS
+  // make an account for someone (no domain needed): verified by hand, with a link for them to set their passkey
+  if (!parts[0] && request.method === 'POST') {
+    const handle = String(body.handle || '').trim().toLowerCase().replace(/^@/, '')
+    const name = cleanName(body.name) || handle
+    const note = String(body.note ?? '').trim().slice(0, 500)
+    if (!HANDLE.test(handle)) return json({ error: 'usernames are 2-24 lowercase letters, numbers, - or _' }, 400)
+    if (!note) return json({ error: 'add a note on who this is' }, 400)
+    if (await db.prepare('SELECT 1 FROM accounts WHERE handle = ?').bind(handle).first()) return json({ error: 'that username is taken' }, 409)
+    const id = randomB64u(16)
+    await db.prepare('INSERT INTO accounts (id, handle, display_name, created, manual_verified, manual_note, manual_at) VALUES (?, ?, ?, ?, 1, ?, ?)')
+      .bind(id, handle, name, now(), note, now()).run()
+    return json({ ok: true, id, claim: await newClaim(env, id) })
+  }
+  // a fresh claim link (also how someone who lost every passkey gets back in)
+  if (parts[0] && parts[1] === 'claim' && request.method === 'POST') {
+    const id = decodeURIComponent(parts[0])
+    if (!(await db.prepare('SELECT 1 FROM accounts WHERE id = ?').bind(id).first())) return json({ error: 'no such account' }, 404)
+    return json({ ok: true, claim: await newClaim(env, id) })
+  }
+  if (parts[0] && parts[1] === 'admin' && request.method === 'PUT') {
+    const id = decodeURIComponent(parts[0])
+    if (!body.admin && id === me.id) return json({ error: "you can't remove your own admin. ask another admin" }, 400)
+    await db.prepare('UPDATE accounts SET is_admin = ? WHERE id = ?').bind(body.admin ? 1 : 0, id).run()
+    return json({ ok: true })
+  }
   if (!parts[0] && request.method === 'GET') {
     const { results } = await db.prepare(`
       SELECT a.id, a.handle, a.display_name, a.created, a.is_admin, a.manual_verified, a.manual_note, a.manual_at,
         (SELECT group_concat(domain, ' ') FROM account_domains d WHERE d.account_id = a.id AND d.verified_at IS NOT NULL) AS domains,
         (SELECT group_concat(service || ':' || COALESCE(label, external_id), ' · ') FROM account_links l WHERE l.account_id = a.id) AS links,
-        (SELECT COUNT(*) FROM comments c WHERE c.account_id = a.id) AS comments
+        (SELECT COUNT(*) FROM comments c WHERE c.account_id = a.id) AS comments,
+        (SELECT COUNT(*) FROM account_passkeys k WHERE k.account_id = a.id) AS passkeys
       FROM accounts a ORDER BY a.created DESC LIMIT 500`).all()
     return json(results)
   }
