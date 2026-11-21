@@ -14,3 +14,8 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# private keys (e.g. the Domain Connect signing key, kept in ~/.config/izie and the DOMAIN_CONNECT_KEY secret)
+*.pem
+*.key
+.dev.vars
