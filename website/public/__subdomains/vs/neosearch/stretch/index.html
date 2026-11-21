@@ -33,7 +33,7 @@
         "neocat_stretch_left_face", "neocat_stretch_up_face"];
       const KEYS = ".abcdefghijklmnopqrstuv";
       // mirrors emoji_name() in stretch.py
-      const FAMILIES = ["neocat", "neodog", "neofox", "neobot", "neobotter", "neoboykisser", "neobread"];
+      const FAMILIES = ["neocat", "neodog", "neofox", "neobot", "neobread"];
       let hash = decodeURIComponent(location.hash.slice(1)), family = "neocat";
       const colon = hash.indexOf(":");
       if (colon > 0 && FAMILIES.includes(hash.slice(0, colon))) { family = hash.slice(0, colon); hash = hash.slice(colon + 1); }
