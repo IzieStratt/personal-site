@@ -1,0 +1,3 @@
+# TXT records at _dck1.izie.top (one record per line, all on the same name)
+p=1,a=RS256,d=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2LdptjiBIZKTYb1bKSyoeOFCF6ApOHAC7+MIHfo9xnZMQ81biDm+3cl1pZwaHwomyB88pgqd5qtzXUDywbVtFIc33fH5Kj1Cfg3zynt/WVH91HScqnk2s3JHc8WhEm1J/vozB229d9MPezVC5Hvdn1ok778B
+p=2,a=RS256,d=3QP/lBXXcCtLeZV0emld+Zgjpw8WSOLdUmCDEH3oFB8pZrqf/renDDrp6NFGNC9KEN4foNjYzqi9zKg8qDM35Afs38ZkET7zHZO6CViHi/W6hw0GMNsCR5rp7yxWHDj09xhxBAynD2bTNAtIVpEfnxTI0HOovmHg5S1oOaGx1nYHuuavm/b/ujByXQIDAQAB

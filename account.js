@@ -139,6 +139,46 @@ async function dnsHost(domain) {
   return { zone: parts.slice(-2).join('.'), cloudflare: false, ns: [] }
 }
 
+// ---- Domain Connect (domainconnect.org): the official one-click "add this record" flow that Cloudflare, GoDaddy,
+// IONOS and others run. The user approves on their DNS host's own page and comes back verified. Needs our template
+// (account/domain-connect/) live at the provider, and DOMAIN_CONNECT_KEY (PKCS8 PEM) to sign requests; the
+// public half is TXT at _dck1.izie.top.
+const DC_PROVIDER = 'izie.top'
+const DC_SERVICE = 'account-verify'
+const DC_KEY_HOST = '_dck1'
+
+async function dcSign(env, query) {
+  const pem = String(env.DOMAIN_CONNECT_KEY || '').replace(/-----[^-]+-----|\s/g, '')
+  const key = await crypto.subtle.importKey('pkcs8', fromB64u(pem.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')), { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign'])
+  const sig = new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, enc.encode(query)))
+  return btoa(String.fromCharCode(...sig))
+}
+
+// the provider's one-click link for this domain, or null when its DNS host doesn't run our template (yet)
+async function domainConnectUrl(env, domain, zone, token) {
+  if (!env.DOMAIN_CONNECT_KEY) return null
+  try {
+    const [api] = await dohTxt(`_domainconnect.${zone}`)
+    if (!api || !/^[a-z0-9.-]+(\/[\w./-]*)?$/i.test(api)) return null
+    const settings = await fetch(`https://${api}/v2/${zone}/settings`).then((r) => (r.ok ? r.json() : null))
+    if (!settings?.urlSyncUX || !settings.urlAPI) return null
+    const supported = await fetch(`${settings.urlAPI}/v2/domainTemplates/providers/${DC_PROVIDER}/services/${DC_SERVICE}`)
+    if (!supported.ok) return null
+    const host = domain === zone ? '' : domain.slice(0, -(zone.length + 1))
+    const params = [['domain', zone], ...(host ? [['host', host]] : []), ['token', token], ['redirect_uri', `${ACCOUNT_ORIGIN}/?connected=${encodeURIComponent(domain)}`]]
+    const query = params.map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
+    // signature over everything but key and sig; sig goes last
+    const sig = await dcSign(env, query)
+    return {
+      provider: settings.providerDisplayName || settings.providerName || settings.providerId,
+      url: `${settings.urlSyncUX}/v2/domainTemplates/providers/${DC_PROVIDER}/services/${DC_SERVICE}/apply?${query}&key=${DC_KEY_HOST}&sig=${encodeURIComponent(sig)}`,
+    }
+  } catch (e) {
+    console.error('domain connect', e)
+    return null
+  }
+}
+
 const txtName = (domain) => `${TXT_PREFIX}.${domain}`
 const txtValue = (token) => `izie-verify=${token}`
 
@@ -554,7 +594,11 @@ export async function handleAccount(request, env, url) {
         await env.COMMENTS.prepare('INSERT OR IGNORE INTO account_domains (account_id, domain, token, created) VALUES (?, ?, ?, ?)').bind(a.id, domain, randomB64u(18), now()).run()
         return json({ ok: true, domain })
       }
-      if (p[2] === 'dns' && m === 'GET') return json(await dnsHost(domain))
+      if (p[2] === 'dns' && m === 'GET') {
+        const host = await dnsHost(domain)
+        const row = await env.COMMENTS.prepare('SELECT token FROM account_domains WHERE account_id = ? AND domain = ?').bind(a.id, domain).first()
+        return json({ ...host, connect: row ? await domainConnectUrl(env, domain, host.zone, row.token) : null })
+      }
       if (p[2] === 'check' && m === 'POST') return await verifyDomain(env, a, domain)
       if (p[2] === 'cloudflare' && m === 'POST') return await cloudflareAdd(env, a, domain, body.token)
       if (!p[2] && m === 'DELETE') {

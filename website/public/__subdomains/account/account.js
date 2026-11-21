@@ -170,40 +170,46 @@ function domainCard(d) {
   return li
 }
 
-// Cloudflare: a button straight to the zone's DNS page, and a "do it for me" with a one-off API token
+// one-click: Domain Connect (the DNS host's own "allow izie.top to add this record?" page) when the host runs our
+// template; otherwise a link to the right DNS page, with the API-token way tucked away as a last resort
 async function cloudflareHelp(box, d) {
   let host
   try { host = await api('GET', `domains/${encodeURIComponent(d.domain)}/dns`) } catch { return }
   const tokenUrl = `https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=${encodeURIComponent(JSON.stringify([{ key: 'dns', type: 'edit' }]))}&name=${encodeURIComponent(`izie.top verify ${d.domain}`)}`
+  const dash = host.cloudflare ? `<a href="https://dash.cloudflare.com/?to=/:account/${encodeURIComponent(host.zone)}/dns/records" target="_blank" rel="noopener">open ${esc(host.zone)} on Cloudflare</a>` : ''
+  if (!host.connect && !host.cloudflare) return
   box.hidden = false
-  box.innerHTML = `
-    <p class="hint">${host.cloudflare ? `<strong>${esc(host.zone)} is on Cloudflare.</strong>` : 'using Cloudflare?'} skip the copying:</p>
-    <div class="actions">
-      <button type="button" data-act="cf-auto">add it for me</button>
-      <a href="https://dash.cloudflare.com/?to=/:account/${encodeURIComponent(host.zone)}/dns/records" target="_blank" rel="noopener">open the DNS page</a>
-    </div>
-    <form class="cf-token" hidden>
-      <p class="hint"><a href="${esc(tokenUrl)}" target="_blank" rel="noopener">make a token</a> with <em>Zone → DNS → Edit</em> for ${esc(host.zone)} (the link fills that in), paste it here. it's used once to add the record and never kept; delete the token after.</p>
-      <label><span>cloudflare API token</span><input name="token" type="password" autocomplete="off" required></label>
-      <div class="actions"><button type="submit">add record and verify</button></div>
-    </form>`
+  box.innerHTML = host.connect
+    ? `<div class="actions"><a class="button" href="${esc(host.connect.url)}">set it up with ${esc(host.connect.provider)}</a></div>
+       <p class="hint">${esc(host.connect.provider)} asks you to approve one TXT record, then sends you back here verified.</p>`
+    : `<p class="hint"><strong>${esc(host.zone)} is on Cloudflare.</strong> add the record there, then press check: ${dash}</p>
+       <details class="cf-more"><summary>or let izie.top add it with an API token</summary>
+         <form class="cf-token">
+           <p class="hint"><a href="${esc(tokenUrl)}" target="_blank" rel="noopener">make a token</a> (the link picks <em>DNS → Edit</em>), paste it here. it's used once and never kept.</p>
+           <label><span>cloudflare API token</span><input name="token" type="password" autocomplete="off" required></label>
+           <div class="actions"><button type="submit">add record and verify</button></div>
+         </form>
+       </details>`
   const form = box.querySelector('.cf-token')
-  box.querySelector('[data-act=cf-auto]').addEventListener('click', () => { form.hidden = false; form.elements.token.focus() })
-  form.addEventListener('submit', busy(null, async () => {
+  form?.addEventListener('submit', busy(null, async () => {
     say('adding the record on Cloudflare...')
     await api('POST', `domains/${encodeURIComponent(d.domain)}/cloudflare`, { token: form.elements.token.value })
     form.elements.token.value = ''
-    // Cloudflare's own resolver sees the new record within seconds, but give it a couple of tries
-    for (let i = 0; ; i++) {
-      try { await api('POST', `domains/${encodeURIComponent(d.domain)}/check`); break } catch (e) {
-        if (i >= 4) throw new Error('the record is in, but it isn\'t showing up yet. press check in a minute')
-        say('record added, waiting for it to show up...')
-        await new Promise((r) => setTimeout(r, 3000))
-      }
-    }
-    say(`${d.domain} is verified`)
+    await checkUntilSeen(d.domain)
     await load()
   }))
+}
+
+// new records take a few seconds to show up; try a handful of times
+async function checkUntilSeen(domain) {
+  for (let i = 0; ; i++) {
+    try { await api('POST', `domains/${encodeURIComponent(domain)}/check`); break } catch (e) {
+      if (i >= 6) throw new Error("the record is in, but it isn't showing up yet. press check in a minute")
+      say('record added, waiting for it to show up...')
+      await new Promise((r) => setTimeout(r, 3000))
+    }
+  }
+  say(`${domain} is verified`)
 }
 
 function render(a) {
@@ -295,6 +301,17 @@ $('claim-go').addEventListener('click', busy($('claim-go'), async () => {
   await load()
 }))
 
+// back from the DNS host's Domain Connect page: ?connected=<domain>, plus ?error= if it didn't go through
+async function connectedReturn() {
+  const q = new URLSearchParams(location.search)
+  const domain = q.get('connected')
+  if (!domain) return
+  history.replaceState(null, '', '/')
+  if (q.get('error')) return say(q.get('error') === 'access_denied' || /cancel/i.test(q.get('error_description') || q.get('error')) ? 'cancelled, nothing was changed' : `your DNS host said: ${q.get('error_description') || q.get('error')}`, true)
+  try { await checkUntilSeen(domain) } catch (e) { say(e.message, true) }
+  await load()
+}
+
 async function load() {
   if (!window.PublicKeyCredential) say("this browser can't use passkeys, so it can't sign in here", true)
   if (claimId) {
@@ -317,4 +334,4 @@ async function load() {
   if (account) render(account)
   else startAutofill()
 }
-load().catch((e) => say(e.message, true))
+load().then(connectedReturn).catch((e) => say(e.message, true))
