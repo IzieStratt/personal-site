@@ -16,7 +16,9 @@
       "type": "TXT",
       "host": "_izie-verify",
       "data": "izie-verify=%token%",
-      "ttl": 300
+      "ttl": 300,
+      "txtConflictMatchingMode": "Prefix",
+      "txtConflictMatchingPrefix": "izie-verify="
     }
   ]
 }
