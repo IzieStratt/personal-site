@@ -4,6 +4,8 @@
 -- and:         wrangler d1 execute izie-blog --remote --file account/migrate-admin.sql
 -- and:         wrangler d1 execute izie-blog --remote --file account/migrate-v3.sql
 -- and:         wrangler d1 execute izie-blog --remote --file account/migrate-notices.sql
+-- and:         wrangler d1 execute izie-blog --remote --file account/migrate-notice-sender.sql
+-- and:         wrangler d1 execute izie-blog --remote --file account/migrate-domain-method.sql
 CREATE TABLE IF NOT EXISTS accounts (
   id              TEXT PRIMARY KEY,                  -- random, base64url
   handle          TEXT NOT NULL UNIQUE,              -- lowercase, shown on the account page

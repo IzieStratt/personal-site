@@ -145,16 +145,26 @@ const linkify = (text) => esc(text).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)\]'"]
 function domainCard(d) {
   const li = document.createElement('li')
   const enc = encodeURIComponent(d.domain)
+  const how = d.method === 'web' ? 'by website (this host only)' : 'by DNS (covers its subdomains)'
   li.innerHTML = `
-    <p class="meta"><strong>${esc(d.domain)}</strong> ${d.verified_at ? `<span class="ok">✓ verified ${esc(d.verified_at.slice(0, 10))}</span>` : '<span class="hint">not verified yet</span>'}</p>
-    ${d.verified_at ? '<p class="hint">keep the record in place: it gets re-checked every so often.</p>' : `
-    <p class="hint">add this record at your DNS host, then press check:</p>
-    <div class="record">
-      <span>type</span><code>TXT</code><span></span>
-      <span>name</span><code>${esc(d.record.name)}</code><button type="button" data-copy="${esc(d.record.name)}">copy</button>
-      <span>value</span><code>${esc(d.record.value)}</code><button type="button" data-copy="${esc(d.record.value)}">copy</button>
-    </div>
-    <div class="cf" hidden></div>`}
+    <p class="meta"><strong>${esc(d.domain)}</strong> ${d.verified_at ? `<span class="ok">✓ verified ${esc(d.verified_at.slice(0, 10))}</span> <span class="hint">${how}</span>` : '<span class="hint">not verified yet</span>'}</p>
+    ${d.verified_at ? `<p class="hint">keep the ${d.method === 'web' ? 'tag or file' : 'record'} in place: it gets re-checked every so often.</p>` : `
+    <div class="cf" hidden></div>
+    <details class="way" open>
+      <summary>add a DNS record <span class="hint">(covers subdomains too)</span></summary>
+      <div class="record">
+        <span>type</span><code>TXT</code><span></span>
+        <span>name</span><code>${esc(d.record.name)}</code><button type="button" data-copy="${esc(d.record.name)}">copy</button>
+        <span>value</span><code>${esc(d.record.value)}</code><button type="button" data-copy="${esc(d.record.value)}">copy</button>
+      </div>
+    </details>
+    <details class="way">
+      <summary>or put it on your website <span class="hint">(no DNS, this exact domain only)</span></summary>
+      <p class="hint">either paste this into the &lt;head&gt; of https://${esc(d.domain)}/</p>
+      <div class="record"><span>tag</span><code>${esc(d.web.meta)}</code><button type="button" data-copy="${esc(d.web.meta)}">copy</button></div>
+      <p class="hint">or make a file at <code>${esc(d.web.file)}</code> containing</p>
+      <div class="record"><span>text</span><code>${esc(d.web.fileBody)}</code><button type="button" data-copy="${esc(d.web.fileBody)}">copy</button></div>
+    </details>`}
     <div class="actions">
       ${d.verified_at ? '' : '<button type="button" data-act="check">check</button>'}
       <button type="button" data-act="remove">remove</button>

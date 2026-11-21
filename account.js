@@ -186,6 +186,49 @@ async function hasRecord(domain, token) {
   return (await dohTxt(txtName(domain))).includes(txtValue(token))
 }
 
+// ---- website proof, for people who can't easily touch DNS: <meta name="izie-verify" content="TOKEN"> on the
+// homepage, or the token in https://DOMAIN/.well-known/izie-verify.txt. Proves that host only (no subdomains).
+const WELL_KNOWN = '/.well-known/izie-verify.txt'
+async function fetchSmall(url) {
+  // follow redirects ourselves and stay on the same host (https://example.com -> https://example.com/index.html is fine)
+  let target = new URL(url)
+  for (let hop = 0; hop < 4; hop++) {
+    const res = await fetch(target, { redirect: 'manual', headers: { 'user-agent': 'izie.top account verification (+https://account.izie.top)' }, cf: { cacheTtl: 0 } })
+    if (res.status >= 300 && res.status < 400 && res.headers.get('location')) {
+      const next = new URL(res.headers.get('location'), target)
+      if (next.hostname !== target.hostname || next.protocol !== 'https:') return null
+      target = next
+      continue
+    }
+    if (!res.ok) return null
+    const reader = res.body.getReader()
+    let out = ''
+    const dec = new TextDecoder()
+    while (out.length < 256 << 10) {
+      const { done, value } = await reader.read()
+      if (done) break
+      out += dec.decode(value, { stream: true })
+    }
+    reader.cancel().catch(() => {})
+    return out
+  }
+  return null
+}
+
+async function hasWebProof(domain, token) {
+  const [file, page] = await Promise.all([
+    fetchSmall(`https://${domain}${WELL_KNOWN}`).catch(() => null),
+    fetchSmall(`https://${domain}/`).catch(() => null),
+  ])
+  if (file && file.split(/\s+/).includes(token)) return true
+  if (!page) return false
+  // attribute order and quotes vary; look at each meta tag on its own
+  return (page.match(/<meta\b[^>]*>/gi) || []).some((tag) => /name\s*=\s*["']?izie-verify["'\s>/]/i.test(tag) && tag.includes(token))
+}
+
+// whichever way was used to prove it
+const stillProven = (row) => (row.method === 'web' ? hasWebProof(row.domain, row.token) : hasRecord(row.domain, row.token))
+
 // a domain and the domains above it: blog.example.com -> [blog.example.com, example.com]
 async function withParents(domain) {
   const suffix = await publicSuffix(domain)
@@ -203,21 +246,25 @@ const NOTICE_MAX = 2000
 async function stillVerified(env, row) {
   if (Date.now() - Date.parse(row.last_checked || 0) <= RECHECK_MS) return true
   let still = true
-  try { still = await hasRecord(row.domain, row.token) } catch { /* dns hiccup: keep it for now */ }
+  try { still = await stillProven(row) } catch { /* dns or site hiccup: keep it for now */ }
   await env.COMMENTS.prepare(`UPDATE account_domains SET ${still ? '' : 'verified_at = NULL, '}last_checked = ? WHERE account_id = ? AND domain = ?`)
     .bind(now(), row.account_id, row.domain).run()
-  if (!still) await notify(env, row.account_id, `${row.domain} is no longer verified: its TXT record (${txtName(row.domain)}) is gone. add it back and press check to get it back.`)
+  if (!still) await notify(env, row.account_id, row.method === 'web'
+    ? `${row.domain} is no longer verified: the izie-verify tag or ${WELL_KNOWN} file is gone. put it back and press check to get it back.`
+    : `${row.domain} is no longer verified: its TXT record (${txtName(row.domain)}) is gone. add it back and press check to get it back.`)
   return still
 }
 
-// the account that owns this domain, or null. Verifying example.com covers every subdomain under it, and
-// the highest verified domain wins (whoever runs example.com's DNS controls blog.example.com too).
+// the account that owns this domain, or null. DNS-verifying example.com covers every subdomain under it, and
+// the highest verified domain wins (whoever runs example.com's DNS controls blog.example.com too). A website
+// proof only ever covers its own host. On the same host, DNS beats a website proof.
 export async function domainOwner(env, domain) {
   const names = await withParents(domain)
   if (!names.length) return null
   const { results } = await env.COMMENTS.prepare(
-    `SELECT account_id, domain, token, last_checked FROM account_domains WHERE verified_at IS NOT NULL AND domain IN (${names.map(() => '?').join(',')}) ORDER BY length(domain)`,
-  ).bind(...names).all()
+    `SELECT account_id, domain, token, last_checked, method FROM account_domains WHERE verified_at IS NOT NULL AND domain IN (${names.map(() => '?').join(',')})
+     AND (method = 'dns' OR domain = ?) ORDER BY length(domain), method = 'web'`,
+  ).bind(...names, domain).all()
   for (const row of results) if (await stillVerified(env, row)) return row.account_id
   return null
 }
@@ -365,12 +412,16 @@ async function profile(env, a) {
   const db = env.COMMENTS
   const [keys, domains, links, comments] = await Promise.all([
     db.prepare('SELECT id, label, created, last_used FROM account_passkeys WHERE account_id = ? ORDER BY created').bind(a.id).all(),
-    db.prepare('SELECT domain, token, created, verified_at, last_checked FROM account_domains WHERE account_id = ? ORDER BY domain').bind(a.id).all(),
+    db.prepare('SELECT domain, token, created, verified_at, last_checked, method FROM account_domains WHERE account_id = ? ORDER BY domain').bind(a.id).all(),
     db.prepare('SELECT service, external_id, label, slack_id, created FROM account_links WHERE account_id = ? ORDER BY service').bind(a.id).all(),
     db.prepare("SELECT post, status, COUNT(*) AS n FROM comments WHERE account_id = ? GROUP BY post, status").bind(a.id).all().catch(() => ({ results: [] })),
   ])
   const notices = await db.prepare('SELECT id, body, sender, created FROM account_notices WHERE account_id = ? ORDER BY created DESC LIMIT 50').bind(a.id).all().catch(() => ({ results: [] }))
-  const doms = domains.results.map((d) => ({ ...d, record: { type: 'TXT', name: txtName(d.domain), value: txtValue(d.token) } }))
+  const doms = domains.results.map((d) => ({
+    ...d,
+    record: { type: 'TXT', name: txtName(d.domain), value: txtValue(d.token) },
+    web: { meta: `<meta name="izie-verify" content="${d.token}">`, file: `https://${d.domain}${WELL_KNOWN}`, fileBody: d.token },
+  }))
   return {
     id: a.id,
     handle: a.handle,
@@ -447,28 +498,36 @@ async function cloudflareAdd(env, a, domain, cfToken) {
 async function verifyDomain(env, a, domain) {
   const row = await env.COMMENTS.prepare('SELECT token FROM account_domains WHERE account_id = ? AND domain = ?').bind(a.id, domain).first()
   if (!row) return fail(404, 'add the domain first')
-  if (!(await hasRecord(domain, row.token))) {
-    return fail(400, `no matching TXT record at ${txtName(domain)} yet. new records can take a minute or two to show up`)
+  // DNS first (it covers subdomains), then the website ways
+  let method = null
+  try { if (await hasRecord(domain, row.token)) method = 'dns' } catch { /* try the website */ }
+  if (!method && (await hasWebProof(domain, row.token))) method = 'web'
+  if (!method) {
+    return fail(400, `couldn't find it yet. looked for the TXT record at ${txtName(domain)}, the izie-verify tag on https://${domain}/ and https://${domain}${WELL_KNOWN}. new DNS records can take a minute or two`)
   }
   const parent = (await withParents(domain)).slice(1)
   if (parent.length) {
     const owner = await domainOwner(env, parent[0])
     if (owner && owner !== a.id) return fail(409, `${parent[0]} is verified by another account, which covers ${domain} too`)
   }
-  const other = await env.COMMENTS.prepare('SELECT account_id FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL AND account_id != ?').bind(domain, a.id).first('account_id')
-  // whoever controls the DNS right now wins: the old claim is dropped
+  const otherRow = await env.COMMENTS.prepare('SELECT account_id, method FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL AND account_id != ?').bind(domain, a.id).first()
+  // a website proof can't take a domain from someone who proved it by DNS
+  if (otherRow && method === 'web' && otherRow.method === 'dns') return fail(409, `${domain} is verified by another account through DNS. a DNS record would be needed to take it over`)
+  const other = otherRow?.account_id
+  // whoever controls it right now wins: the old claim is dropped
   if (other) {
     await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = NULL WHERE domain = ? AND account_id = ?').bind(domain, other).run()
     await notify(env, other, `${domain} was just verified by another account (whoever controls its DNS now), so it no longer counts as yours.`)
   }
-  await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = ?, last_checked = ? WHERE account_id = ? AND domain = ?').bind(now(), now(), a.id, domain).run()
+  await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = ?, last_checked = ?, method = ? WHERE account_id = ? AND domain = ?').bind(now(), now(), method, a.id, domain).run()
+  if (method === 'web') return json({ ok: true, method })
   // a parent covers everything under it: tell anyone whose verified subdomain it now takes over
   const { results: under } = await env.COMMENTS.prepare("SELECT account_id, domain FROM account_domains WHERE verified_at IS NOT NULL AND account_id != ? AND domain LIKE ?")
     .bind(a.id, `%.${domain}`).all()
   for (const u of under) {
     await notify(env, u.account_id, `${domain} was verified by another account. it covers ${u.domain}, so ${u.domain} no longer counts as yours (whoever runs ${domain}'s DNS controls it too).`)
   }
-  return json({ ok: true })
+  return json({ ok: true, method })
 }
 
 // ---- router (account.izie.top/api/*)

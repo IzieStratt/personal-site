@@ -39,3 +39,6 @@ a.button { display: inline-block; padding: 0.3rem 1rem; border: 2px solid var(--
 a.button:hover, a.button:focus-visible { background: transparent; color: var(--fg) !important; }
 .cf-more { margin-top: 0.5rem; }
 .cf-more summary { font-size: 0.95rem; }
+details.way { margin: 0.5rem 0; }
+details.way > summary { cursor: pointer; }
+details.way .record { grid-template-columns: auto 1fr auto; }
