@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stretchy neocat</title>
+    <title>Stretchy neos</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/style.css">
     <script src="/cdn/theme.js"></script>
@@ -18,7 +18,7 @@
   </head>
   <body>
     <main>
-      <h1>Stretchy neocat</h1>
+      <h1>Stretchy neos</h1>
       <p>Made with <code>/iz stretch</code>. Paste it into Slack.</p>
       <div id="art"></div>
       <button id="copy">Copy</button><span id="status"></span>
@@ -32,8 +32,19 @@
         "neocat_stretch_right_face", "neocat_stretch_ur_face",
         "neocat_stretch_left_face", "neocat_stretch_up_face"];
       const KEYS = ".abcdefghijklmnopqrstuv";
-      const rows = decodeURIComponent(location.hash.slice(1)).split("~").filter((r, i, all) => r || all.length > 1)
-        .map(r => [...r].map(c => NAMES[KEYS.indexOf(c)]).filter(Boolean));
+      // mirrors emoji_name() in stretch.py
+      const FAMILIES = ["neocat", "neodog", "neofox", "neobot", "neobotter", "neoboykisser", "neobread"];
+      let hash = decodeURIComponent(location.hash.slice(1)), family = "neocat";
+      const colon = hash.indexOf(":");
+      if (colon > 0 && FAMILIES.includes(hash.slice(0, colon))) { family = hash.slice(0, colon); hash = hash.slice(colon + 1); }
+      function familyName(n) {
+        if (family === "neocat" || n === "blank") return n;
+        if (n === "neocat") return family;
+        n = family + n.slice("neocat".length).replace(/_fixed$/, "");
+        return n === "neodog_stretch_down_end" ? "neodog_stretch_end" : n;
+      }
+      const rows = hash.split("~").filter((r, i, all) => r || all.length > 1)
+        .map(r => [...r].map(c => NAMES[KEYS.indexOf(c)]).filter(Boolean).map(familyName));
       const text = rows.map(r => (r.length ? r : ["blank"]).map(n => `:${n}:`).join("")).join("\n");
 
       const art = document.getElementById("art");
