@@ -139,6 +139,8 @@ $('signup').addEventListener('submit', busy(null, async (e) => {
 
 // ---- signed in
 let me = null
+// message text is escaped first; then bare https links become links and line breaks stay
+const linkify = (text) => esc(text).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)\]'"]/g, (u) => `<a href="${u}" rel="noopener" target="_blank">${u}</a>`).replace(/\n/g, '<br>')
 
 function domainCard(d) {
   const li = document.createElement('li')
@@ -212,7 +214,7 @@ function render(a) {
     : 'not verified yet. verify a domain below so you can comment when comments are limited to verified accounts.'
   $('notices').replaceChildren(...a.notices.map((n) => {
     const li = document.createElement('li')
-    li.innerHTML = `<p class="meta">${esc(n.body)}</p><p class="hint">${esc(n.created.slice(0, 10))}</p><div class="actions"><button type="button">got it</button></div>`
+    li.innerHTML = `<p class="meta">${linkify(n.body)}</p><p class="hint">${n.sender ? `from @${esc(n.sender)} · ` : ''}${esc(n.created.slice(0, 10))}</p><div class="actions"><button type="button">got it</button></div>`
     li.querySelector('button').addEventListener('click', (e) => busy(e.currentTarget, async () => { await api('DELETE', `notices/${n.id}`); li.remove() })())
     return li
   }))

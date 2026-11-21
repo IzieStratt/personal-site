@@ -157,6 +157,7 @@ async function withParents(domain) {
 // a message on someone's account page
 const notify = (env, accountId, body) =>
   env.COMMENTS.prepare('INSERT INTO account_notices (account_id, body, created) VALUES (?, ?, ?)').bind(accountId, body, now()).run().catch(() => {})
+const NOTICE_MAX = 2000
 
 // re-checks a verified row against DNS now and then; a gone record unverifies it. true if it still stands
 async function stillVerified(env, row) {
@@ -328,7 +329,7 @@ async function profile(env, a) {
     db.prepare('SELECT service, external_id, label, slack_id, created FROM account_links WHERE account_id = ? ORDER BY service').bind(a.id).all(),
     db.prepare("SELECT post, status, COUNT(*) AS n FROM comments WHERE account_id = ? GROUP BY post, status").bind(a.id).all().catch(() => ({ results: [] })),
   ])
-  const notices = await db.prepare('SELECT id, body, created FROM account_notices WHERE account_id = ? ORDER BY created DESC LIMIT 50').bind(a.id).all().catch(() => ({ results: [] }))
+  const notices = await db.prepare('SELECT id, body, sender, created FROM account_notices WHERE account_id = ? ORDER BY created DESC LIMIT 50').bind(a.id).all().catch(() => ({ results: [] }))
   const doms = domains.results.map((d) => ({ ...d, record: { type: 'TXT', name: txtName(d.domain), value: txtValue(d.token) } }))
   return {
     id: a.id,
@@ -619,6 +620,19 @@ export async function adminAccounts(request, env, parts, body, me) {
     const id = decodeURIComponent(parts[0])
     if (!(await db.prepare('SELECT 1 FROM accounts WHERE id = ?').bind(id).first())) return json({ error: 'no such account' }, 404)
     return json({ ok: true, claim: await newClaim(env, id, me.id) })
+  }
+  // a message in someone's inbox (or everyone's, with id "all")
+  if (parts[0] && parts[1] === 'notice' && request.method === 'POST') {
+    const text = String(body.body ?? '').replace(/\r\n/g, '\n').trim()
+    if (!text || text.length > NOTICE_MAX) return json({ error: `messages are 1-${NOTICE_MAX} characters` }, 400)
+    const target = decodeURIComponent(parts[0])
+    if (target === 'all') {
+      const r = await db.prepare('INSERT INTO account_notices (account_id, body, sender, created) SELECT id, ?, ?, ? FROM accounts').bind(text, me.handle, now()).run()
+      return json({ ok: true, sent: r.meta.changes })
+    }
+    if (!(await db.prepare('SELECT 1 FROM accounts WHERE id = ?').bind(target).first())) return json({ error: 'no such account' }, 404)
+    await db.prepare('INSERT INTO account_notices (account_id, body, sender, created) VALUES (?, ?, ?, ?)').bind(target, text, me.handle, now()).run()
+    return json({ ok: true, sent: 1 })
   }
   if (parts[0] && parts[1] === 'admin' && request.method === 'PUT') {
     const id = decodeURIComponent(parts[0])

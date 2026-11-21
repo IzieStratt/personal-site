@@ -72,7 +72,11 @@ function card(a, claim) {
     <p class="hint">${bits.map(esc).join(' · ')}</p>
     <label><span>internal note</span><input type="text" maxlength="500" placeholder="who is this?" value="${esc(a.manual_note || '')}"></label>
     <div class="actions"></div>
-    <div class="claim"></div>`
+    <div class="claim"></div>
+    <details class="message"><summary>send a message</summary>
+      <label><span>shows up in their inbox on the account page, from you. links work.</span><textarea rows="3" maxlength="2000"></textarea></label>
+      <div class="actions"><button type="button">send</button></div>
+    </details>`
   const input = li.querySelector('input')
   const actions = li.querySelector('.actions')
   const btn = (label, fn) => {
@@ -103,6 +107,16 @@ function card(a, claim) {
     showClaim(li, (await api('POST', `admin/accounts/${encodeURIComponent(a.id)}/claim`)).claim)
   })
   if (claim) showClaim(li, claim)
+  const msg = li.querySelector('.message')
+  const send = msg.querySelector('button')
+  send.addEventListener('click', run(send, async () => {
+    const box = msg.querySelector('textarea')
+    if (!box.value.trim()) throw new Error('write something first')
+    await api('POST', `admin/accounts/${encodeURIComponent(a.id)}/notice`, { body: box.value })
+    box.value = ''
+    msg.open = false
+    say(`sent to @${a.handle}`)
+  }))
   return li
 }
 
@@ -219,6 +233,20 @@ $('create').addEventListener('submit', async (e) => {
   } finally {
     b.disabled = false
   }
+})
+
+$('broadcast').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const f = e.target
+  const b = f.querySelector('button')
+  if (!f.elements.body.value.trim()) return say('write something first', true)
+  if (!confirm(`send this to all ${accounts.length} accounts?`)) return
+  b.disabled = true
+  try {
+    const { sent } = await api('POST', 'admin/accounts/all/notice', { body: f.elements.body.value })
+    f.reset()
+    say(`sent to ${sent} account${sent === 1 ? '' : 's'}`)
+  } catch (err) { say(err.message, true) } finally { b.disabled = false }
 })
 
 async function refresh() {
