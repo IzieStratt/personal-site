@@ -68,9 +68,9 @@ export async function handleComments(request, env, url) {
     const [whoCan, me] = await Promise.all([who(db), viewer(request, env)])
     if (shown === 'off') return json({ mode: 'off', who: whoCan, viewer: me, comments: [] })
     const { results } = await db
-      .prepare("SELECT id, parent, name, site, body, created, account_id IS NOT NULL AS account FROM comments WHERE post = ? AND status = 'approved' ORDER BY created, id")
+      .prepare("SELECT c.id, c.parent, c.name, c.site, c.body, c.created, a.handle AS account FROM comments c LEFT JOIN accounts a ON a.id = c.account_id WHERE c.post = ? AND c.status = 'approved' ORDER BY c.created, c.id")
       .bind(post).all()
-    return json({ mode: shown, who: whoCan, viewer: me, comments: results.map((c) => ({ ...c, account: !!c.account })) })
+    return json({ mode: shown, who: whoCan, viewer: me, comments: results })
   }
 
   if (request.method !== 'POST') return json({ error: 'method not allowed' }, 405)

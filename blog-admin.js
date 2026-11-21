@@ -28,6 +28,12 @@ const sameOrigin = (request) => request.headers.get('origin') === ORIGIN && requ
 
 // ---- sign-in: the editor's own passkey, or an izie account (account.izie.top) that is an admin
 const signedIn = async (request, env) => (await isSignedIn(request, env)) || !!(await currentAccount(request, env))?.is_admin
+// adding an editor passkey outlives the izie session, so through an izie admin it needs a passkey check in the last 10 minutes
+const canAddPasskey = async (request, env) => {
+  if (await isSignedIn(request, env)) return true
+  const a = await currentAccount(request, env)
+  return !!a?.is_admin && Date.now() - (a.session_auth_at || 0) < 10 * 60_000
+}
 
 async function setupOpen(env) {
   return (await passkeyCount(env)) === 0
@@ -47,7 +53,7 @@ async function handleAuth(request, env, parts) {
     const body = await readJson(request)
     // the very first passkey needs the one-time setup code; after that only a signed-in session can add one
     const first = await setupOpen(env)
-    if (first ? !setupCodeOk(env, body.setup) : !(await signedIn(request, env))) return json({ error: 'sign in first' }, 403)
+    if (first ? !setupCodeOk(env, body.setup) : !(await canAddPasskey(request, env))) return json({ error: 'sign in first' }, 403)
     const { id, challenge } = await newChallenge(env, 'register')
     const existing = await env.COMMENTS.prepare('SELECT id FROM passkeys').all()
     return json({ challengeId: id, options: creationOptions(challenge, randomB64u(16), existing.results.map((r) => r.id)) })
@@ -55,7 +61,7 @@ async function handleAuth(request, env, parts) {
   if (step === 'register' && action === 'verify' && request.method === 'POST') {
     const body = await readJson(request)
     const first = await setupOpen(env)
-    if (first ? !setupCodeOk(env, body.setup) : !(await signedIn(request, env))) return json({ error: 'sign in first' }, 403)
+    if (first ? !setupCodeOk(env, body.setup) : !(await canAddPasskey(request, env))) return json({ error: 'sign in first' }, 403)
     await finishRegistration(env, body)
     if (!first) return json({ ok: true })
     // the setup code was just used, so the first passkey also signs this browser in

@@ -121,6 +121,8 @@ async function dohTxt(name) {
   })
   if (!res.ok) throw new Error('dns lookup failed, try again')
   const data = await res.json()
+  // only NOERROR / NXDOMAIN are real answers; a resolver failure must not read as "record removed"
+  if (data.Status !== 0 && data.Status !== 3) throw new Error('dns lookup failed, try again')
   return (data.Answer || []).filter((a) => a.type === 16).map((a) => a.data.replace(/^"|"$/g, '').replace(/"\s*"/g, ''))
 }
 
@@ -241,6 +243,9 @@ async function savePasskey(env, accountId, pk, label) {
 }
 
 const HANDLE = /^[a-z0-9][a-z0-9_-]{1,23}$/
+// names nobody can take or show, so no one passes as the site owner (admins can still make these for people)
+const RESERVED = /^(izie|izzie|admin|administrator|root|owner|mod|moderator|staff|support|system|official|izie[-_.]?top)$/
+const reserved = (s) => RESERVED.test(String(s).toLowerCase().replace(/[^a-z0-9_.-]/g, ''))
 const cleanName = (s) => String(s || '').trim().replace(/\s+/g, ' ').slice(0, 40)
 
 async function ipHash(request, env) {
@@ -252,6 +257,7 @@ async function signupOptions(request, env, body) {
   const handle = String(body.handle || '').trim().toLowerCase()
   const name = cleanName(body.name) || handle
   if (!HANDLE.test(handle)) return fail(400, 'pick a username: 2-24 letters, numbers, - or _')
+  if (reserved(handle) || reserved(name)) return fail(400, "that name is reserved, pick another")
   if (await env.COMMENTS.prepare('SELECT 1 FROM accounts WHERE handle = ?').bind(handle).first()) return fail(409, 'that username is taken')
   const ip = await ipHash(request, env)
   const n = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM accounts WHERE ip_hash = ? AND created > ?')
@@ -356,8 +362,11 @@ async function linkService(env, a, service, secret) {
   } else return fail(404, 'unknown service')
   const taken = await env.COMMENTS.prepare('SELECT account_id FROM account_links WHERE service = ? AND external_id = ?').bind(service, externalId).first('account_id')
   if (taken && taken !== a.id) return fail(409, 'that is already linked to another izie account')
-  await env.COMMENTS.prepare('INSERT OR REPLACE INTO account_links (service, external_id, account_id, label, slack_id, created) VALUES (?, ?, ?, ?, ?, ?)')
+  // insert, or refresh our own row; never take over a row another account got to first
+  const put = await env.COMMENTS.prepare(`INSERT INTO account_links (service, external_id, account_id, label, slack_id, created) VALUES (?, ?, ?, ?, ?, ?)
+    ON CONFLICT (service, external_id) DO UPDATE SET label = excluded.label, slack_id = excluded.slack_id WHERE account_links.account_id = excluded.account_id`)
     .bind(service, externalId, a.id, label, slackId, now()).run()
+  if (!put.meta.changes) return fail(409, 'that is already linked to another izie account')
   return json({ ok: true })
 }
 
@@ -433,7 +442,7 @@ export async function handleAccount(request, env, url) {
       const acct = await env.COMMENTS.prepare('SELECT * FROM accounts WHERE id = ?').bind(JSON.parse(row.data).accountId).first()
       if (!acct) return fail(404, 'that account is gone')
       const { results } = await env.COMMENTS.prepare('SELECT id FROM account_passkeys WHERE account_id = ?').bind(acct.id).all()
-      const { id, challenge } = await newChallenge(env, 'claimreg', { accountId: acct.id, claim: String(body.claim) }, await ipHash(request, env))
+      const { id, challenge } = await newChallenge(env, 'claimreg', { accountId: acct.id, claim: String(body.claim), admin: JSON.parse(row.data).admin ?? null }, await ipHash(request, env))
       return json({ challengeId: id, handle: acct.handle, options: creationOptions(challenge, acct.id, acct.handle, acct.display_name, results.map((r) => r.id)) })
     }
     if (p[0] === 'claim' && p[1] === 'verify' && m === 'POST') {
@@ -442,6 +451,9 @@ export async function handleAccount(request, env, url) {
       const claim = await takeChallenge(env, ch.data.claim, 'claim')
       if (!claim) return fail(400, 'that link has expired or was already used. ask izie for a new one')
       await savePasskey(env, ch.data.accountId, await readNewPasskey(body.response, ch.challenge), cleanName(body.label) || 'passkey')
+      // a recovery link: whoever had the account before is signed out everywhere
+      await env.COMMENTS.prepare('DELETE FROM account_sessions WHERE account_id = ?').bind(ch.data.accountId).run()
+      console.log('account claim used', JSON.stringify({ account: ch.data.accountId, by: ch.data.admin ?? null }))
       return json({ ok: true }, 200, { 'set-cookie': await startSession(env, ch.data.accountId) })
     }
 
@@ -472,6 +484,7 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'me' && m === 'PUT') {
       const name = cleanName(body.name)
       if (!name) return fail(400, 'name needs 1-40 characters')
+      if (reserved(name) && !a.is_admin) return fail(400, 'that name is reserved, pick another')
       await env.COMMENTS.prepare('UPDATE accounts SET display_name = ? WHERE id = ?').bind(name, a.id).run()
       return json({ ok: true })
     }
@@ -500,8 +513,11 @@ export async function handleAccount(request, env, url) {
       const n = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM account_passkeys WHERE account_id = ?').bind(a.id).first('n')
       if (n <= 1) return fail(400, "that's your only passkey. add another one before removing it")
       const keep = await tokenHash(readCookie(request))
+      // the count check lives in the DELETE too, so two removals at once can't leave zero passkeys
+      const del = await env.COMMENTS.prepare('DELETE FROM account_passkeys WHERE id = ? AND account_id = ? AND (SELECT COUNT(*) FROM account_passkeys WHERE account_id = ?) > 1')
+        .bind(decodeURIComponent(p[1]), a.id, a.id).run()
+      if (!del.meta.changes) return fail(400, "that's your only passkey. add another one before removing it")
       await env.COMMENTS.batch([
-        env.COMMENTS.prepare('DELETE FROM account_passkeys WHERE id = ? AND account_id = ?').bind(decodeURIComponent(p[1]), a.id),
         // a removed passkey may have been the lost one: sign out everywhere else too
         env.COMMENTS.prepare('DELETE FROM account_sessions WHERE account_id = ? AND token_hash != ?').bind(a.id, keep),
       ])
@@ -554,11 +570,12 @@ export async function handleAccount(request, env, url) {
 const CLAIM_MS = 7 * 86400_000
 const claimUrl = (id) => `${ACCOUNT_ORIGIN}/?claim=${id}`
 
-async function newClaim(env, accountId) {
+async function newClaim(env, accountId, adminId = null) {
   await env.COMMENTS.prepare("DELETE FROM account_challenges WHERE purpose = 'claim' AND json_extract(data, '$.accountId') = ?").bind(accountId).run()
   const id = randomB64u(24)
   await env.COMMENTS.prepare('INSERT INTO account_challenges (id, challenge, purpose, data, expires) VALUES (?, ?, ?, ?, ?)')
-    .bind(id, '-', 'claim', JSON.stringify({ accountId }), Date.now() + CLAIM_MS).run()
+    .bind(id, '-', 'claim', JSON.stringify({ accountId, admin: adminId }), Date.now() + CLAIM_MS).run()
+  console.log('account claim made', JSON.stringify({ account: accountId, by: adminId }))
   return { url: claimUrl(id), expires: new Date(Date.now() + CLAIM_MS).toISOString() }
 }
 
@@ -575,13 +592,13 @@ export async function adminAccounts(request, env, parts, body, me) {
     const id = randomB64u(16)
     await db.prepare('INSERT INTO accounts (id, handle, display_name, created, manual_verified, manual_note, manual_at) VALUES (?, ?, ?, ?, 1, ?, ?)')
       .bind(id, handle, name, now(), note, now()).run()
-    return json({ ok: true, id, claim: await newClaim(env, id) })
+    return json({ ok: true, id, claim: await newClaim(env, id, me.id) })
   }
   // a fresh claim link (also how someone who lost every passkey gets back in)
   if (parts[0] && parts[1] === 'claim' && request.method === 'POST') {
     const id = decodeURIComponent(parts[0])
     if (!(await db.prepare('SELECT 1 FROM accounts WHERE id = ?').bind(id).first())) return json({ error: 'no such account' }, 404)
-    return json({ ok: true, claim: await newClaim(env, id) })
+    return json({ ok: true, claim: await newClaim(env, id, me.id) })
   }
   if (parts[0] && parts[1] === 'admin' && request.method === 'PUT') {
     const id = decodeURIComponent(parts[0])

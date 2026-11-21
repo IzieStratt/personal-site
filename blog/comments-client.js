@@ -52,7 +52,7 @@
         <li id="comment-${c.id}">
           <article class="comment">
             <header>
-              <strong>${esc(c.name)}</strong>${c.account ? ' <span class="acct" title="signed in with an izie account">✓</span>' : ''}${c.site ? ` <a class="site" href="https://${esc(c.site)}" rel="nofollow ugc noopener" target="_blank">${esc(c.site)}</a>` : ''}
+              <strong>${esc(c.name)}</strong>${c.account ? ` <span class="acct" title="signed in with an izie account">✓ @${esc(c.account)}</span>` : ''}${c.site ? ` <a class="site" href="https://${esc(c.site)}" rel="nofollow ugc noopener" target="_blank">${esc(c.site)}</a>` : ''}
               <time datetime="${esc(c.created)}">${day(c.created)}</time>
             </header>
             <div class="text">${markdown(c.body)}</div>
