@@ -33,7 +33,6 @@ export const GROUPS = [
     name: 'Email',
     items: [
       { id: 'email-routing', name: 'Cloudflare Email Routing', kind: 'email' },
-      { id: 'resend', name: 'Resend', kind: 'resend' },
     ],
   },
   {
@@ -204,20 +203,14 @@ async function checkProbe(item) {
   }
 }
 
-// ---- email: Email Routing and Resend are checked together by a canary.
-// Every few hours Resend sends a mail to a routed address whose Worker stores it (the private inbox in ../resend/worker); later ticks look for it there.
-//   resend:        the API accepted the mail
-//   email routing: MX records point at Cloudflare on both domains, and the canary actually arrived
-// Needs secrets STATUS_RESEND_KEY (a send-only key is enough), INBOX_API_URL, INBOX_API_TOKEN. Without them, routing is checked by DNS alone.
-const MAIL_DOMAINS = ['izie.top', 'stalks.you']
-const CANARY_EVERY_MS = 3 * 3600000
-const CANARY_LATE_MS = 20 * 60000
-
 async function kvGet(db, k) {
   const row = await db.prepare('SELECT v FROM status_kv WHERE k = ?').bind(k).first()
   return row ? JSON.parse(row.v) : null
 }
 const kvSet = (db, k, v) => db.prepare('INSERT INTO status_kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v').bind(k, JSON.stringify(v)).run()
+
+// ---- email: Cloudflare Email Routing is healthy while the MX records of both mail domains still point at Cloudflare
+const MAIL_DOMAINS = ['izie.top', 'stalks.you']
 
 async function mxOk(domain) {
   const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${domain}&type=MX`, { headers: { accept: 'application/dns-json' }, signal: AbortSignal.timeout(8000) })
@@ -226,59 +219,14 @@ async function mxOk(domain) {
   return answers.some((a) => /mx\.cloudflare\.net\.?$/i.test(a.data || ''))
 }
 
-async function runCanary(env) {
-  if (!env.STATUS_RESEND_KEY || !env.INBOX_API_URL || !env.INBOX_API_TOKEN) return null
-  const db = env.COMMENTS
-  const now = Date.now()
-  let c = await kvGet(db, 'canary')
-  if (c && c.resendOk && !c.receivedAt) {
-    try {
-      const res = await fetch(`${env.INBOX_API_URL.replace(/\/$/, '')}/api/messages?limit=30`, { headers: { authorization: `Bearer ${env.INBOX_API_TOKEN}` }, signal: AbortSignal.timeout(10000) })
-      if (res.ok) {
-        delete c.inboxError
-        if ((await res.json()).data?.some((m) => m.subject?.includes(c.tag))) c.receivedAt = now
-      } else c.inboxError = `inbox api HTTP ${res.status}`
-    } catch { c.inboxError = 'inbox api unreachable' }
-    await kvSet(db, 'canary', c)
-  }
-  // send again on schedule, or after 15 minutes if the last send failed (so one network blip doesn't mean hours of red)
-  if (!c || now - c.sentAt > (c.resendOk ? CANARY_EVERY_MS : 15 * 60000)) {
-    const tag = `status-canary-${now.toString(36)}`
-    c = { tag, sentAt: now }
-    try {
-      const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        signal: AbortSignal.timeout(10000),
-        headers: { authorization: `Bearer ${env.STATUS_RESEND_KEY}`, 'content-type': 'application/json' },
-        body: JSON.stringify({ from: 'status <status@izie.top>', to: ['inbox-test@stalks.you'], subject: tag, text: 'automated check from status.izie.top, safe to ignore' }),
-      })
-      c.resendOk = res.ok
-      if (!res.ok) c.resendError = `Resend returned HTTP ${res.status}`
-    } catch { c.resendOk = false; c.resendError = 'Resend unreachable' }
-    await kvSet(db, 'canary', c)
-  }
-  return c
-}
-
-async function checkEmail(env, canary) {
+async function checkEmail() {
   const start = Date.now()
   const bad = []
   for (const d of MAIL_DOMAINS) {
     try { if (!(await mxOk(d))) bad.push(d) } catch { return { state: 'unknown', ms: null, detail: 'dns lookup failed' } }
   }
   if (bad.length) return { state: 'down', ms: Date.now() - start, detail: `${bad.join(', ')} no longer points at Cloudflare` }
-  if (!canary) return { state: 'up', ms: Date.now() - start, detail: 'MX records ok (set the canary secrets for an end-to-end test)' }
-  if (canary.receivedAt) return { state: 'up', ms: Date.now() - start, detail: `test mail arrived in ${Math.max(1, Math.round((canary.receivedAt - canary.sentAt) / 1000))}s` }
-  if (!canary.resendOk) return { state: 'unknown', ms: null, detail: 'last test mail was never sent' }
-  if (canary.inboxError) return { state: 'unknown', ms: null, detail: canary.inboxError }
-  if (Date.now() - canary.sentAt > CANARY_LATE_MS) return { state: 'down', ms: null, detail: 'test mail was sent but never arrived' }
-  return { state: 'up', ms: null, detail: 'MX ok, test mail in flight' }
-}
-
-function checkResend(env, canary) {
-  if (!canary) return { state: 'unknown', ms: null, detail: env.STATUS_RESEND_KEY ? 'waiting for the first test mail' : 'set STATUS_RESEND_KEY to test sending' }
-  if (!canary.resendOk) return { state: 'down', ms: null, detail: canary.resendError || 'send failed' }
-  return { state: 'up', ms: null, detail: `test mail accepted ${ago((Date.now() - canary.sentAt) / 60000)} ago` }
+  return { state: 'up', ms: Date.now() - start, detail: 'MX records point at Cloudflare' }
 }
 
 async function checkGithub(item, env) {
@@ -341,15 +289,13 @@ export async function runChecks(env, selfFetch) {
   const now = Date.now()
   const day = dayOf(now)
   await refreshCommit(env)
-  const canary = await runCanary(env).catch(() => null)
   const results = await Promise.all(
     ITEMS.map(async (item) => {
       const r = await (async () =>
         item.kind === 'web' ? await checkWeb(item)
         : item.kind === 'probe' ? await checkProbe(item)
         : item.kind === 'github' ? await checkGithub(item, env)
-        : item.kind === 'email' ? await checkEmail(env, canary)
-        : item.kind === 'resend' ? checkResend(env, canary)
+        : item.kind === 'email' ? await checkEmail()
         : await checkBeat(item, env))().catch(() => ({ state: 'unknown', ms: null, detail: 'check crashed' }))
       return { id: item.id, ...r }
     }),

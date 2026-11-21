@@ -9,24 +9,17 @@
     <link rel="stylesheet" href="https://blog.izie.top/style.css">
     <link rel="stylesheet" href="status.css">
     <script src="/cdn/theme.js"></script>
-    <script src="/cdn/dropdown.js" defer></script>
     <script src="status.js" defer></script>
   </head>
   <body>
     <main class="comments">
-      <nav aria-label="Site navigation">
-        <ul>
-          <li><a href="https://izie.top">home</a></li>
-          <li><a href="https://blog.izie.top">blog</a></li>
-        </ul>
-      </nav>
       <h1>izie status</h1>
       <p id="banner" class="banner" role="status">checking…</p>
       <p id="updated" class="hint"></p>
 
       <div id="groups"></div>
 
-      <section aria-labelledby="graph-title">
+      <section id="graph-section" aria-labelledby="graph-title" hidden>
         <h2 id="graph-title">uptime, past year</h2>
         <label class="pick"><span>show</span>
           <select id="pick"><option value="">everything</option></select>
