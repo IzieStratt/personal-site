@@ -7,10 +7,11 @@ import { handleLostfm } from './lostfm.js'
 export { LostfmStore } from './lostfm.js'
 import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
 import { handleAccount } from './account.js'
+import { handleStatus, runChecks } from './status-core.js'
 export { Vibetime } from './vibetime.js'
 import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './agent-core.js'
 
-export default {
+const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
     // sdmp.izie.top is the main address for the Slack datamine pages; the long name redirects to it, keeping the path and query string
@@ -30,6 +31,11 @@ export default {
       headers.set('Access-Control-Allow-Origin', '*')
       return new Response(res.body, { status: res.status, headers })
     }
+    // uptime.izie.top moved to the status page
+    if (url.hostname === 'uptime.izie.top') {
+      return new Response(null, { status: 302, headers: { Location: `https://status.izie.top${url.pathname === '/' ? '' : url.pathname}${url.search}` } })
+    }
+    if (url.hostname === 'status.izie.top' && url.pathname.startsWith('/api/')) return handleStatus(request, env, url)
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse
     if (url.hostname === 'izie.top' && (url.pathname === '/redoc' || url.pathname.startsWith('/redoc/'))) {
@@ -132,8 +138,14 @@ export default {
     }
 
     return env.ASSETS.fetch(new Request(url, request))
-  }
+  },
+
+  // every 5 minutes (wrangler.jsonc triggers.crons): run the status checks
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(runChecks(env, (req) => worker.fetch(req, env, ctx)))
+  },
 }
+export default worker
 
 // subdomains that serve another subdomain's files (sdmp is the main address for the slackdatamineplus folder; the long hostname redirects to it, see the top of fetch)
 const SUBDOMAIN_ALIASES = { sdmp: 'slackdatamineplus' }

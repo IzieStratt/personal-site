@@ -20,6 +20,8 @@
       "zone_name": "izie.top"
     }
   ],
+  // status checks (status-core.js), results land in the COMMENTS D1 database
+  "triggers": { "crons": ["*/5 * * * *"] },
   "assets": {
     "directory": "./website/public",
     "binding": "ASSETS",
