@@ -2,6 +2,7 @@
 -- apply with:  wrangler d1 execute izie-blog --remote --file account/schema.sql
 -- then, once:  wrangler d1 execute izie-blog --remote --file account/migrate-comments.sql
 -- and:         wrangler d1 execute izie-blog --remote --file account/migrate-admin.sql
+-- and:         wrangler d1 execute izie-blog --remote --file account/migrate-v3.sql
 CREATE TABLE IF NOT EXISTS accounts (
   id              TEXT PRIMARY KEY,                  -- random, base64url
   handle          TEXT NOT NULL UNIQUE,              -- lowercase, shown on the account page

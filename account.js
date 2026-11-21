@@ -15,6 +15,8 @@ const SESSION_MS = 30 * 86400_000
 const CHALLENGE_MS = 5 * 60_000
 const RECHECK_MS = 7 * 86400_000 // verified domains are re-checked this often; remove the record and you lose it
 const SIGNUPS_PER_DAY = 5
+const FRESH_MS = 10 * 60_000 // risky actions need a passkey check this recent
+const CHALLENGES_PER_MINUTE = 20 // per IP, across sign-in/sign-up/re-check
 const TXT_PREFIX = '_izie-verify'
 const enc = new TextEncoder()
 
@@ -42,8 +44,8 @@ const sessionCookie = (token, maxAge) =>
 
 async function startSession(env, accountId) {
   const token = randomB64u(32)
-  await env.COMMENTS.prepare('INSERT INTO account_sessions (token_hash, account_id, expires) VALUES (?, ?, ?)')
-    .bind(await tokenHash(token), accountId, Date.now() + SESSION_MS).run()
+  await env.COMMENTS.prepare('INSERT INTO account_sessions (token_hash, account_id, expires, auth_at) VALUES (?, ?, ?, ?)')
+    .bind(await tokenHash(token), accountId, Date.now() + SESSION_MS, Date.now()).run()
   return sessionCookie(token, SESSION_MS / 1000)
 }
 
@@ -53,11 +55,63 @@ export async function currentAccount(request, env) {
   if (!token || !env.COMMENTS) return null
   try {
     return await env.COMMENTS.prepare(
-      'SELECT a.* FROM account_sessions s JOIN accounts a ON a.id = s.account_id WHERE s.token_hash = ? AND s.expires > ?',
+      'SELECT a.*, s.auth_at AS session_auth_at FROM account_sessions s JOIN accounts a ON a.id = s.account_id WHERE s.token_hash = ? AND s.expires > ?',
     ).bind(await tokenHash(token), Date.now()).first()
   } catch {
     return null // tables not created yet
   }
+}
+
+// ends this browser's account session; returns the cookie that clears it (also used by the blog editor's sign-out)
+export async function endAccountSession(request, env) {
+  const t = readCookie(request)
+  if (t) await env.COMMENTS.prepare('DELETE FROM account_sessions WHERE token_hash = ?').bind(await tokenHash(t)).run()
+  return sessionCookie('', 0)
+}
+
+// risky actions (passkeys, deleting things, admin changes) need a passkey check in the last few minutes,
+// so a stolen cookie alone can't take the account over. The page answers {reauth: true} by asking for the passkey.
+class Reauth extends Error {}
+function requireFresh(a) {
+  if (Date.now() - (a.session_auth_at || 0) > FRESH_MS) throw new Reauth('confirm with your passkey first')
+}
+
+// ---- public suffixes (publicsuffix.org): shared hosts like is-a.dev or github.io can't be claimed whole,
+// and a verified name under one never covers its neighbours
+let psl = null
+async function suffixRules() {
+  if (psl) return psl
+  const src = 'https://publicsuffix.org/list/public_suffix_list.dat'
+  const cache = caches.default
+  let res = await cache.match(src)
+  if (!res) {
+    res = await fetch(src)
+    if (!res.ok) return { rules: new Set(), wild: new Set(), except: new Set() } // fail soft: only the 2-label fallback applies
+    const copy = new Response(res.clone().body, { headers: { 'cache-control': 'public, max-age=604800' } })
+    await cache.put(src, copy)
+  }
+  const rules = new Set(), wild = new Set(), except = new Set()
+  for (const raw of (await res.text()).split('\n')) {
+    const line = raw.trim()
+    if (!line || line.startsWith('//')) continue
+    if (line.startsWith('!')) except.add(line.slice(1))
+    else if (line.startsWith('*.')) wild.add(line.slice(2))
+    else rules.add(line)
+  }
+  return (psl = { rules, wild, except })
+}
+
+// the public suffix of a name: "meow.is-a.dev" -> "is-a.dev", "a.b.co.uk" -> "co.uk"
+async function publicSuffix(domain) {
+  const { rules, wild, except } = await suffixRules()
+  const labels = domain.split('.')
+  for (let i = 0; i < labels.length; i++) {
+    const name = labels.slice(i).join('.')
+    const parent = labels.slice(i + 1).join('.')
+    if (except.has(name)) return parent
+    if (rules.has(name) || (parent && wild.has(parent))) return name
+  }
+  return labels.at(-1)
 }
 
 // ---- domains
@@ -91,7 +145,12 @@ async function hasRecord(domain, token) {
 }
 
 // a domain and the domains above it: blog.example.com -> [blog.example.com, example.com]
-const withParents = (domain) => domain.split('.').slice(0, -1).map((_, i, a) => domain.split('.').slice(i).join('.'))
+async function withParents(domain) {
+  const suffix = await publicSuffix(domain)
+  const labels = domain.split('.')
+  const stop = labels.length - suffix.split('.').length // names at or above the public suffix are shared, never owned
+  return labels.slice(0, stop).map((_, i) => labels.slice(i).join('.'))
+}
 
 // re-checks a verified row against DNS now and then; a gone record unverifies it. true if it still stands
 async function stillVerified(env, row) {
@@ -106,7 +165,8 @@ async function stillVerified(env, row) {
 // the account that owns this domain, or null. Verifying example.com covers every subdomain under it, and
 // the highest verified domain wins (whoever runs example.com's DNS controls blog.example.com too).
 export async function domainOwner(env, domain) {
-  const names = withParents(domain)
+  const names = await withParents(domain)
+  if (!names.length) return null
   const { results } = await env.COMMENTS.prepare(
     `SELECT account_id, domain, token, last_checked FROM account_domains WHERE verified_at IS NOT NULL AND domain IN (${names.map(() => '?').join(',')}) ORDER BY length(domain)`,
   ).bind(...names).all()
@@ -128,12 +188,17 @@ export async function isVerified(env, account) {
 }
 
 // ---- passkey ceremonies
-async function newChallenge(env, purpose, data = null) {
+async function newChallenge(env, purpose, data = null, ip = null) {
+  if (ip) {
+    const n = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM account_challenges WHERE ip_hash = ? AND expires > ?')
+      .bind(ip, Date.now() + CHALLENGE_MS - 60_000).first('n')
+    if (n >= CHALLENGES_PER_MINUTE) throw Object.assign(new Error('slow down a little, then try again'), { status: 429 })
+  }
   const id = randomB64u(16)
   const challenge = randomB64u(32)
   await env.COMMENTS.prepare('DELETE FROM account_challenges WHERE expires < ?').bind(Date.now()).run()
-  await env.COMMENTS.prepare('INSERT INTO account_challenges (id, challenge, purpose, data, expires) VALUES (?, ?, ?, ?, ?)')
-    .bind(id, challenge, purpose, data == null ? null : JSON.stringify(data), Date.now() + CHALLENGE_MS).run()
+  await env.COMMENTS.prepare('INSERT INTO account_challenges (id, challenge, purpose, data, expires, ip_hash) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(id, challenge, purpose, data == null ? null : JSON.stringify(data), Date.now() + CHALLENGE_MS, ip).run()
   return { id, challenge }
 }
 
@@ -193,7 +258,7 @@ async function signupOptions(request, env, body) {
     .bind(ip, new Date(Date.now() - 86400_000).toISOString()).first('n')
   if (n >= SIGNUPS_PER_DAY) return fail(429, 'too many new accounts from here today, try tomorrow')
   const accountId = randomB64u(16)
-  const { id, challenge } = await newChallenge(env, 'signup', { accountId, handle, name })
+  const { id, challenge } = await newChallenge(env, 'signup', { accountId, handle, name }, ip)
   return json({ challengeId: id, options: creationOptions(challenge, accountId, handle, name, []) })
 }
 
@@ -215,8 +280,9 @@ async function signupVerify(request, env, body) {
   return json({ ok: true }, 200, { 'set-cookie': await startSession(env, accountId) })
 }
 
-async function loginVerify(env, body) {
-  const ch = await takeChallenge(env, body.challengeId, 'login')
+// checks a passkey assertion; returns the account id it belongs to
+async function verifyAssertion(env, body, purpose) {
+  const ch = await takeChallenge(env, body.challengeId, purpose)
   if (!ch) return fail(400, 'that took too long, try again')
   const r = body.response
   parseClientData(r.clientDataJSON, 'webauthn.get', ch.challenge, ACCOUNT_ORIGIN)
@@ -233,7 +299,13 @@ async function loginVerify(env, body) {
   if ((auth.signCount || row.sign_count) && auth.signCount <= row.sign_count) return fail(400, 'passkey counter went backwards')
   const upd = await env.COMMENTS.prepare('UPDATE account_passkeys SET sign_count = ?, last_used = ? WHERE id = ? AND sign_count = ?').bind(auth.signCount, now(), String(body.id), row.sign_count).run()
   if (!upd.meta.changes) return fail(400, 'that passkey was just used, try again')
-  return json({ ok: true }, 200, { 'set-cookie': await startSession(env, row.account_id) })
+  return row.account_id
+}
+
+async function loginVerify(env, body) {
+  const accountId = await verifyAssertion(env, body, 'login')
+  if (accountId instanceof Response) return accountId
+  return json({ ok: true }, 200, { 'set-cookie': await startSession(env, accountId) })
 }
 
 // ---- what the account page shows (manual_note stays internal)
@@ -321,7 +393,7 @@ async function verifyDomain(env, a, domain) {
   if (!(await hasRecord(domain, row.token))) {
     return fail(400, `no matching TXT record at ${txtName(domain)} yet. new records can take a minute or two to show up`)
   }
-  const parent = withParents(domain).slice(1)
+  const parent = (await withParents(domain)).slice(1)
   if (parent.length) {
     const owner = await domainOwner(env, parent[0])
     if (owner && owner !== a.id) return fail(409, `${parent[0]} is verified by another account, which covers ${domain} too`)
@@ -349,7 +421,7 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'signup' && p[1] === 'options' && m === 'POST') return await signupOptions(request, env, body)
     if (p[0] === 'signup' && p[1] === 'verify' && m === 'POST') return await signupVerify(request, env, body)
     if (p[0] === 'login' && p[1] === 'options' && m === 'POST') {
-      const { id, challenge } = await newChallenge(env, 'login')
+      const { id, challenge } = await newChallenge(env, 'login', null, await ipHash(request, env))
       return json({ challengeId: id, options: { challenge, rpId: ACCOUNT_RP_ID, userVerification: 'required', timeout: 60000 } })
     }
     if (p[0] === 'login' && p[1] === 'verify' && m === 'POST') return await loginVerify(env, body)
@@ -361,7 +433,7 @@ export async function handleAccount(request, env, url) {
       const acct = await env.COMMENTS.prepare('SELECT * FROM accounts WHERE id = ?').bind(JSON.parse(row.data).accountId).first()
       if (!acct) return fail(404, 'that account is gone')
       const { results } = await env.COMMENTS.prepare('SELECT id FROM account_passkeys WHERE account_id = ?').bind(acct.id).all()
-      const { id, challenge } = await newChallenge(env, 'claimreg', { accountId: acct.id, claim: String(body.claim) })
+      const { id, challenge } = await newChallenge(env, 'claimreg', { accountId: acct.id, claim: String(body.claim) }, await ipHash(request, env))
       return json({ challengeId: id, handle: acct.handle, options: creationOptions(challenge, acct.id, acct.handle, acct.display_name, results.map((r) => r.id)) })
     }
     if (p[0] === 'claim' && p[1] === 'verify' && m === 'POST') {
@@ -377,11 +449,26 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'me' && m === 'GET') return json({ account: a ? await profile(env, a) : null })
     if (!a) return fail(401, 'sign in first')
 
-    if (p[0] === 'logout' && m === 'POST') {
-      const t = readCookie(request)
-      if (t) await env.COMMENTS.prepare('DELETE FROM account_sessions WHERE token_hash = ?').bind(await tokenHash(t)).run()
-      return json({ ok: true }, 200, { 'set-cookie': sessionCookie('', 0) })
+    if (p[0] === 'logout' && m === 'POST') return json({ ok: true }, 200, { 'set-cookie': await endAccountSession(request, env) })
+
+    // confirm with a passkey again (only this account's passkeys count); unlocks risky actions for a few minutes
+    if (p[0] === 'reauth' && p[1] === 'options' && m === 'POST') {
+      const { results } = await env.COMMENTS.prepare('SELECT id FROM account_passkeys WHERE account_id = ?').bind(a.id).all()
+      const { id, challenge } = await newChallenge(env, 'reauth', { accountId: a.id }, await ipHash(request, env))
+      return json({ challengeId: id, options: { challenge, rpId: ACCOUNT_RP_ID, userVerification: 'required', timeout: 60000, allowCredentials: results.map((r) => ({ type: 'public-key', id: r.id })) } })
     }
+    if (p[0] === 'reauth' && p[1] === 'verify' && m === 'POST') {
+      const accountId = await verifyAssertion(env, body, 'reauth')
+      if (accountId instanceof Response) return accountId
+      if (accountId !== a.id) return fail(400, "that passkey belongs to a different account")
+      await env.COMMENTS.prepare('UPDATE account_sessions SET auth_at = ? WHERE token_hash = ?').bind(Date.now(), await tokenHash(readCookie(request))).run()
+      return json({ ok: true })
+    }
+
+    // everything risky below asks for a recent passkey check
+    const risky = (p[0] === 'me' && m === 'DELETE') || p[0] === 'passkeys' || (p[0] === 'domains' && m === 'DELETE')
+      || (p[0] === 'links' && m === 'DELETE') || (p[0] === 'admin' && m !== 'GET')
+    if (risky) requireFresh(a)
     if (p[0] === 'me' && m === 'PUT') {
       const name = cleanName(body.name)
       if (!name) return fail(400, 'name needs 1-40 characters')
@@ -425,6 +512,9 @@ export async function handleAccount(request, env, url) {
       const domain = cleanDomain(p[1] ? decodeURIComponent(p[1]) : body.domain)
       if (!domain) return fail(400, "that doesn't look like a domain (like example.com)")
       if ((domain === 'izie.top' || domain.endsWith('.izie.top')) && !a.is_admin) return fail(400, "izie.top addresses can't be claimed")
+      if (!p[1] && m === 'POST' && (await publicSuffix(domain)) === domain) {
+        return fail(400, `${domain} is shared by lots of people (it's a public suffix), so it can't be claimed whole. add your own name under it, like you.${domain}`)
+      }
       if (!p[1] && m === 'POST') {
         const count = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM account_domains WHERE account_id = ?').bind(a.id).first('n')
         if (count >= 10) return fail(400, 'ten domains is the limit')
@@ -452,6 +542,10 @@ export async function handleAccount(request, env, url) {
     }
     return fail(404, 'not found')
   } catch (e) {
+    if (e instanceof Reauth) return json({ error: e.message, reauth: true }, 403)
+    if (e.status) return fail(e.status, e.message)
+    // ceremony errors (wrong origin, bad signature, expired) are written for people; anything else stays in the logs
+    if (e instanceof SyntaxError || e instanceof TypeError) { console.error('account error', e); return fail(400, 'something went wrong, try again') }
     return fail(400, e.message || 'failed')
   }
 }

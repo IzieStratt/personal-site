@@ -14,15 +14,36 @@ function say(text, bad = false) {
   if (text && !bad) sayTimer = setTimeout(() => { el.hidden = true }, 4000)
 }
 
-async function api(method, path, body) {
+async function api(method, path, body, retried = false) {
   const res = await fetch(`/api/${path}`, {
     method,
     headers: { 'x-izie': '1', ...(body ? { 'content-type': 'application/json' } : {}) },
     body: body ? JSON.stringify(body) : undefined,
   })
   const data = await res.json().catch(() => ({}))
+  // risky actions want a fresh passkey check: ask for it, then try once more
+  if (data.reauth && !retried) {
+    await reauth()
+    return api(method, path, body, true)
+  }
   if (!res.ok) throw new Error(data.error || res.statusText)
   return data
+}
+
+const b64uDec = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(s.length / 4) * 4, '=')), (c) => c.charCodeAt(0))
+const b64uEnc = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+async function reauth() {
+  say('confirm it\'s you with your passkey...')
+  const { challengeId, options } = await api('POST', 'reauth/options', {}, true)
+  const cred = await navigator.credentials.get({
+    publicKey: { ...options, challenge: b64uDec(options.challenge), allowCredentials: options.allowCredentials.map((c) => ({ ...c, id: b64uDec(c.id) })) },
+  })
+  await api('POST', 'reauth/verify', {
+    challengeId,
+    id: cred.id,
+    response: { clientDataJSON: b64uEnc(cred.response.clientDataJSON), authenticatorData: b64uEnc(cred.response.authenticatorData), signature: b64uEnc(cred.response.signature) },
+  }, true)
+  say('')
 }
 
 const run = (btn, fn) => async (e) => {

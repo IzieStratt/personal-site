@@ -3,7 +3,7 @@
 // the blog-build workflow builds the pages and archives links after each push. Moderation reads D1 directly.
 import { ORIGIN, creationOptions, createSession, endSession, finishLogin, finishRegistration, isSignedIn, newChallenge, passkeyCount, randomB64u, requestOptions, timingSafeEqual } from './blog-passkeys.js'
 import { deleteFile, fileSha, gitBlobSha, listDir, putFile, readText } from './blog-github.js'
-import { currentAccount } from './account.js'
+import { currentAccount, endAccountSession } from './account.js'
 import { COMMENT_SETTINGS, parsePost, serializePost, slugify, tagSlug } from './blog/post-format.js'
 
 const POSTS_DIR = 'blog/posts'
@@ -72,7 +72,11 @@ async function handleAuth(request, env, parts) {
     return json({ ok: true }, 200, { 'set-cookie': cookie })
   }
   if (step === 'logout' && request.method === 'POST') {
-    return json({ ok: true }, 200, { 'set-cookie': await endSession(request, env) })
+    // signs out of the izie account too, since that also opens the editor
+    const headers = new Headers({ 'cache-control': 'no-store' })
+    headers.append('set-cookie', await endSession(request, env))
+    headers.append('set-cookie', await endAccountSession(request, env))
+    return Response.json({ ok: true }, { headers })
   }
   return json({ error: 'not found' }, 404)
 }
