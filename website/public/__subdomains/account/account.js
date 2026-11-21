@@ -210,6 +210,12 @@ function render(a) {
   $('verified-badge').innerHTML = a.verified
     ? `<span class="ok">✓ verified</span>${a.manualVerified ? ' by izie' : ' by domain'}: you can comment wherever comments are limited to verified accounts.`
     : 'not verified yet. verify a domain below so you can comment when comments are limited to verified accounts.'
+  $('notices').replaceChildren(...a.notices.map((n) => {
+    const li = document.createElement('li')
+    li.innerHTML = `<p class="meta">${esc(n.body)}</p><p class="hint">${esc(n.created.slice(0, 10))}</p><div class="actions"><button type="button">got it</button></div>`
+    li.querySelector('button').addEventListener('click', (e) => busy(e.currentTarget, async () => { await api('DELETE', `notices/${n.id}`); li.remove() })())
+    return li
+  }))
   $('profile').elements.name.value = a.name
   $('domains').replaceChildren(...a.domains.map(domainCard))
 

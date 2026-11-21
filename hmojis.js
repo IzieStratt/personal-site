@@ -39,6 +39,13 @@ const HMOJI_CONTENT_TYPES = {
   svg: 'image/svg+xml',
 }
 
+// user-made images (SVG can carry script) must never run as a page on vs.izie.top: a sandboxed, script-free
+// CSP and nosniff keep them inert when opened directly, so they can't touch cookies on izie.top. <img> use is unaffected.
+const IMAGE_SAFETY_HEADERS = {
+  'content-security-policy': "default-src 'none'; img-src data:; style-src 'unsafe-inline'; sandbox",
+  'x-content-type-options': 'nosniff',
+}
+
 const HMOJI_MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 const HMOJI_MAX_SUBMIT_BYTES = 5 * 1024 * 1024
 const MAX_BODY_BYTES = 4096
@@ -661,6 +668,7 @@ async function handleImage(request, env, ctx, url, id) {
     headers: {
       'content-type': contentType ?? 'application/octet-stream',
       'cache-control': 'private, max-age=3600',
+      ...IMAGE_SAFETY_HEADERS,
     },
   })
 }
@@ -1439,7 +1447,7 @@ async function handleReviewImage(request, env, ctx, url, id) {
   if (!image) return NOT_FOUND()
   const mime = meta.imgType || 'image/png'
   return new Response(image, {
-    headers: { 'content-type': mime, 'cache-control': 'private, max-age=300' },
+    headers: { 'content-type': mime, 'cache-control': 'private, max-age=300', ...IMAGE_SAFETY_HEADERS },
   })
 }
 

@@ -31,3 +31,4 @@ summary { cursor: pointer; color: var(--muted); }
 #picked > .cards { margin-top: 1rem; }
 .cards .claim { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; font-size: 0.9rem; }
 .cards .claim code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.8em; overflow-wrap: anywhere; }
+.notices > li { border-left: 4px solid var(--link); }

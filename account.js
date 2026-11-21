@@ -154,6 +154,10 @@ async function withParents(domain) {
   return labels.slice(0, stop).map((_, i) => labels.slice(i).join('.'))
 }
 
+// a message on someone's account page
+const notify = (env, accountId, body) =>
+  env.COMMENTS.prepare('INSERT INTO account_notices (account_id, body, created) VALUES (?, ?, ?)').bind(accountId, body, now()).run().catch(() => {})
+
 // re-checks a verified row against DNS now and then; a gone record unverifies it. true if it still stands
 async function stillVerified(env, row) {
   if (Date.now() - Date.parse(row.last_checked || 0) <= RECHECK_MS) return true
@@ -161,6 +165,7 @@ async function stillVerified(env, row) {
   try { still = await hasRecord(row.domain, row.token) } catch { /* dns hiccup: keep it for now */ }
   await env.COMMENTS.prepare(`UPDATE account_domains SET ${still ? '' : 'verified_at = NULL, '}last_checked = ? WHERE account_id = ? AND domain = ?`)
     .bind(now(), row.account_id, row.domain).run()
+  if (!still) await notify(env, row.account_id, `${row.domain} is no longer verified: its TXT record (${txtName(row.domain)}) is gone. add it back and press check to get it back.`)
   return still
 }
 
@@ -323,6 +328,7 @@ async function profile(env, a) {
     db.prepare('SELECT service, external_id, label, slack_id, created FROM account_links WHERE account_id = ? ORDER BY service').bind(a.id).all(),
     db.prepare("SELECT post, status, COUNT(*) AS n FROM comments WHERE account_id = ? GROUP BY post, status").bind(a.id).all().catch(() => ({ results: [] })),
   ])
+  const notices = await db.prepare('SELECT id, body, created FROM account_notices WHERE account_id = ? ORDER BY created DESC LIMIT 50').bind(a.id).all().catch(() => ({ results: [] }))
   const doms = domains.results.map((d) => ({ ...d, record: { type: 'TXT', name: txtName(d.domain), value: txtValue(d.token) } }))
   return {
     id: a.id,
@@ -337,6 +343,7 @@ async function profile(env, a) {
     links: links.results,
     slackIds: [...new Set(links.results.map((l) => l.slack_id).filter(Boolean))],
     comments: comments.results,
+    notices: notices.results,
   }
 }
 
@@ -409,8 +416,17 @@ async function verifyDomain(env, a, domain) {
   }
   const other = await env.COMMENTS.prepare('SELECT account_id FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL AND account_id != ?').bind(domain, a.id).first('account_id')
   // whoever controls the DNS right now wins: the old claim is dropped
-  if (other) await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = NULL WHERE domain = ? AND account_id = ?').bind(domain, other).run()
+  if (other) {
+    await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = NULL WHERE domain = ? AND account_id = ?').bind(domain, other).run()
+    await notify(env, other, `${domain} was just verified by another account (whoever controls its DNS now), so it no longer counts as yours.`)
+  }
   await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = ?, last_checked = ? WHERE account_id = ? AND domain = ?').bind(now(), now(), a.id, domain).run()
+  // a parent covers everything under it: tell anyone whose verified subdomain it now takes over
+  const { results: under } = await env.COMMENTS.prepare("SELECT account_id, domain FROM account_domains WHERE verified_at IS NOT NULL AND account_id != ? AND domain LIKE ?")
+    .bind(a.id, `%.${domain}`).all()
+  for (const u of under) {
+    await notify(env, u.account_id, `${domain} was verified by another account. it covers ${u.domain}, so ${u.domain} no longer counts as yours (whoever runs ${domain}'s DNS controls it too).`)
+  }
   return json({ ok: true })
 }
 
@@ -550,6 +566,10 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'admin') {
       if (!a.is_admin) return fail(403, 'admins only')
       if (p[1] === 'accounts') return await adminAccounts(request, env, p.slice(2), body, a)
+    }
+    if (p[0] === 'notices' && p[1] && m === 'DELETE') {
+      await env.COMMENTS.prepare('DELETE FROM account_notices WHERE id = ? AND account_id = ?').bind(Number(p[1]), a.id).run()
+      return json({ ok: true })
     }
     if (p[0] === 'links' && p[1] && !p[2] && m === 'POST') return await linkService(env, a, p[1], body.token)
     if (p[0] === 'links' && p[1] && p[2] && m === 'DELETE') {
