@@ -2,9 +2,15 @@
 const $ = (id) => document.getElementById(id)
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 
+// one message pinned to the bottom of the screen, so errors show up wherever you are on the page
+let sayTimer
 function say(text, bad = false) {
-  $('status').textContent = text
-  $('status').className = `comment-status${bad ? ' bad' : ''}`
+  const el = $('status')
+  el.textContent = text
+  el.className = `comment-status toast${bad ? ' bad' : ''}`
+  el.hidden = !text
+  clearTimeout(sayTimer)
+  if (text && !bad && !text.endsWith('...')) sayTimer = setTimeout(() => { el.hidden = true }, 4000)
 }
 
 async function api(method, path, body) {
@@ -65,10 +71,17 @@ const busy = (btn, fn) => async (e) => {
 }
 
 // ---- signed out
-$('login').addEventListener('click', busy($('login'), async () => {
-  say('waiting for your passkey...')
+// passkey sign-in. "conditional" runs quietly in the background so 1Password / the browser can offer the
+// passkey right in the username field; the button does the same thing out loud.
+let autofill = null
+async function passkeyLogin(conditional) {
   const { challengeId, options } = await api('POST', 'login/options')
-  const cred = await navigator.credentials.get({ publicKey: { ...options, challenge: b64u.dec(options.challenge) } })
+  if (!conditional) { autofill?.abort(); say('waiting for your passkey...') }
+  const ctrl = conditional ? (autofill = new AbortController()) : null
+  const cred = await navigator.credentials.get({
+    publicKey: { ...options, challenge: b64u.dec(options.challenge) },
+    ...(conditional ? { mediation: 'conditional', signal: ctrl.signal } : {}),
+  })
   await api('POST', 'login/verify', {
     challengeId,
     id: cred.id,
@@ -80,12 +93,21 @@ $('login').addEventListener('click', busy($('login'), async () => {
   })
   say('')
   await signedIn()
-}))
+}
+$('login-form').addEventListener('submit', busy($('login'), () => passkeyLogin(false)))
+async function startAutofill() {
+  try {
+    if (await window.PublicKeyCredential?.isConditionalMediationAvailable?.()) await passkeyLogin(true)
+  } catch (e) {
+    if (e.name !== 'AbortError' && e.name !== 'NotAllowedError') say(e.message, true)
+  }
+}
 
 $('signup').addEventListener('submit', busy(null, async (e) => {
   const f = e.target.elements
   const handle = f.handle.value.trim().toLowerCase()
   if (!/^[a-z0-9][a-z0-9_-]{1,23}$/.test(handle)) throw new Error('usernames are 2-24 lowercase letters, numbers, - or _')
+  autofill?.abort() // a pending autofill sign-in would block making a new passkey
   say('making your passkey...')
   const { challengeId, options } = await api('POST', 'signup/options', { handle, name: f.name.value })
   const response = await createPasskey(options)
@@ -181,6 +203,8 @@ function render(a) {
   const posts = new Set(a.comments.map((c) => c.post)).size
   $('comment-count').innerHTML = `blog: ${n ? `${n} comment${n === 1 ? '' : 's'} on ${posts} post${posts === 1 ? '' : 's'}` : 'no comments yet'} (<a href="https://blog.izie.top">blog</a>)`
 
+  $('admin').hidden = !a.admin
+  if (a.admin) loadAdmin()
   $('passkeys').replaceChildren(...a.passkeys.map((k) => {
     const li = document.createElement('li')
     li.innerHTML = `<p class="meta"><strong>${esc(k.label || 'passkey')}</strong> · added ${esc(k.created.slice(0, 10))}${k.last_used ? ` · last used ${esc(k.last_used.slice(0, 10))}` : ''}</p>${a.passkeys.length > 1 ? '<div class="actions"><button type="button">remove</button></div>' : ''}`
@@ -229,11 +253,52 @@ $('delete').addEventListener('submit', busy(null, async (e) => {
   await load()
 }))
 
+// ---- admin
+async function loadAdmin() {
+  const { who } = await api('GET', 'admin/who')
+  for (const r of document.querySelectorAll('#who input')) r.checked = r.value === who
+  const rows = await api('GET', 'admin/accounts')
+  $('accounts').replaceChildren(...rows.map((x) => {
+    const li = document.createElement('li')
+    const meta = document.createElement('p')
+    meta.className = 'meta'
+    meta.textContent = `@${x.handle} · ${x.display_name} · since ${x.created.slice(0, 10)} · ${x.comments} comment${x.comments === 1 ? '' : 's'}`
+      + `${x.is_admin ? ' · admin' : ''}${x.domains ? ` · ${x.domains}` : ''}${x.links ? ` · ${x.links}` : ''}${x.manual_verified ? ' · ✓ verified by hand' : ''}`
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.placeholder = 'who is this? (admins only)'
+    input.value = x.manual_note || ''
+    input.maxLength = 500
+    const actions = document.createElement('div')
+    actions.className = 'actions'
+    const btn = (label, verified) => {
+      const b = document.createElement('button')
+      b.type = 'button'
+      b.textContent = label
+      b.addEventListener('click', (e) => busy(e.currentTarget, async () => {
+        await api('PUT', `admin/accounts/${encodeURIComponent(x.id)}`, { verified, note: input.value })
+        say('saved')
+        await loadAdmin()
+      })())
+      actions.append(b)
+    }
+    btn(x.manual_verified ? 'save note' : 'verify', true)
+    if (x.manual_verified) btn('unverify', false)
+    li.append(meta, input, actions)
+    return li
+  }))
+}
+document.querySelectorAll('#who input').forEach((r) => r.addEventListener('change', busy(null, async () => {
+  await api('PUT', 'admin/who', { who: r.value })
+  say(`comments: ${r.value === 'verified' ? 'verified accounts only' : 'anyone'}`)
+})))
+
 async function load() {
   if (!window.PublicKeyCredential) say("this browser can't use passkeys, so it can't sign in here", true)
   const { account } = await api('GET', 'me')
   $('signed-out').hidden = !!account
   $('signed-in').hidden = !account
   if (account) render(account)
+  else startAutofill()
 }
 load().catch((e) => say(e.message, true))

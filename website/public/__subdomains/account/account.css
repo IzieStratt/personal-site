@@ -17,3 +17,6 @@ section form { margin-top: 0.6rem; }
 details { margin-top: 2.5rem; }
 summary { cursor: pointer; color: var(--muted); }
 .comment-status.bad { color: var(--bad); }
+.toast { position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%); z-index: 10; max-width: min(36rem, calc(100% - 2rem)); padding: 0.6rem 1rem; border: 2px solid var(--fg); border-radius: 0.75rem; background: var(--bg); box-shadow: 0 4px 18px rgb(0 0 0 / 0.2); }
+.toast.bad { border-color: var(--bad); }
+#accounts input { margin-top: 0.4rem; }

@@ -23,7 +23,10 @@
 
       <section id="signed-out" hidden>
         <h2>sign in</h2>
-        <div class="actions"><button type="button" id="login">sign in with a passkey</button></div>
+        <form id="login-form" class="row" novalidate>
+          <label><span>username (1Password and other passkey managers fill this in)</span><input name="username" type="text" autocomplete="username webauthn"></label>
+          <div class="actions"><button type="submit" id="login">sign in with a passkey</button></div>
+        </form>
         <h2>new here?</h2>
         <form id="signup" novalidate>
           <label><span>username</span><input name="handle" type="text" maxlength="24" autocomplete="username" pattern="[a-z0-9][a-z0-9_-]{1,23}" required></label>
@@ -65,6 +68,17 @@
         <ol id="passkeys" class="cards"></ol>
         <div class="actions"><button type="button" id="add-passkey">add another passkey</button></div>
 
+        <section id="admin" hidden>
+          <h2>admin</h2>
+          <fieldset class="pills" id="who">
+            <legend>who can comment on the blog</legend>
+            <label><input type="radio" name="who" value="anyone"><span>anyone</span></label>
+            <label><input type="radio" name="who" value="verified"><span>verified accounts only</span></label>
+          </fieldset>
+          <p class="hint">verify someone by hand with a note on who they are. only admins see the note.</p>
+          <ol id="accounts" class="cards"></ol>
+        </section>
+
         <details>
           <summary>delete account</summary>
           <p class="hint">your comments stay up, just no longer tied to an account. your domains are released.</p>
@@ -74,7 +88,7 @@
           </form>
         </details>
       </section>
-      <p id="status" class="comment-status" role="status"></p>
+      <p id="status" class="comment-status toast" role="status" hidden></p>
     </main>
     <script src="account.js"></script>
   </body>

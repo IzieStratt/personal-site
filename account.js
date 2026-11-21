@@ -90,21 +90,28 @@ async function hasRecord(domain, token) {
   return (await dohTxt(txtName(domain))).includes(txtValue(token))
 }
 
-// the account that has verified this domain, or null. Re-checks DNS now and then; a gone record unverifies it.
+// a domain and the domains above it: blog.example.com -> [blog.example.com, example.com]
+const withParents = (domain) => domain.split('.').slice(0, -1).map((_, i, a) => domain.split('.').slice(i).join('.'))
+
+// re-checks a verified row against DNS now and then; a gone record unverifies it. true if it still stands
+async function stillVerified(env, row) {
+  if (Date.now() - Date.parse(row.last_checked || 0) <= RECHECK_MS) return true
+  let still = true
+  try { still = await hasRecord(row.domain, row.token) } catch { /* dns hiccup: keep it for now */ }
+  await env.COMMENTS.prepare(`UPDATE account_domains SET ${still ? '' : 'verified_at = NULL, '}last_checked = ? WHERE account_id = ? AND domain = ?`)
+    .bind(now(), row.account_id, row.domain).run()
+  return still
+}
+
+// the account that owns this domain, or null. Verifying example.com covers every subdomain under it, and
+// the highest verified domain wins (whoever runs example.com's DNS controls blog.example.com too).
 export async function domainOwner(env, domain) {
-  const row = await env.COMMENTS.prepare('SELECT account_id, token, last_checked FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL')
-    .bind(domain).first()
-  if (!row) return null
-  if (Date.now() - Date.parse(row.last_checked || 0) > RECHECK_MS) {
-    let still = true
-    try { still = await hasRecord(domain, row.token) } catch { /* dns hiccup: keep it for now */ }
-    if (!still) {
-      await env.COMMENTS.prepare('UPDATE account_domains SET verified_at = NULL, last_checked = ? WHERE account_id = ? AND domain = ?').bind(now(), row.account_id, domain).run()
-      return null
-    }
-    await env.COMMENTS.prepare('UPDATE account_domains SET last_checked = ? WHERE account_id = ? AND domain = ?').bind(now(), row.account_id, domain).run()
-  }
-  return row.account_id
+  const names = withParents(domain)
+  const { results } = await env.COMMENTS.prepare(
+    `SELECT account_id, domain, token, last_checked FROM account_domains WHERE verified_at IS NOT NULL AND domain IN (${names.map(() => '?').join(',')}) ORDER BY length(domain)`,
+  ).bind(...names).all()
+  for (const row of results) if (await stillVerified(env, row)) return row.account_id
+  return null
 }
 
 export async function verifiedDomains(env, accountId) {
@@ -139,8 +146,9 @@ async function takeChallenge(env, id, purpose) {
 
 const creationOptions = (challenge, userHandle, name, displayName, exclude) => ({
   challenge,
-  rp: { id: ACCOUNT_RP_ID, name: 'izie.top' },
-  user: { id: userHandle, name, displayName },
+  rp: { id: ACCOUNT_RP_ID, name: 'izie account' },
+  // password managers (1Password etc.) show user.name as the login and file it under the rp: "izie · @handle"
+  user: { id: userHandle, name: `@${name}`, displayName: `${displayName} (@${name})` },
   pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
   authenticatorSelection: { residentKey: 'required', userVerification: 'required' },
   attestation: 'none',
@@ -244,6 +252,7 @@ async function profile(env, a) {
     name: a.display_name,
     created: a.created,
     manualVerified: !!a.manual_verified,
+    admin: !!a.is_admin,
     verified: !!a.manual_verified || doms.some((d) => d.verified_at),
     passkeys: keys.results,
     domains: doms,
@@ -311,6 +320,11 @@ async function verifyDomain(env, a, domain) {
   if (!row) return fail(404, 'add the domain first')
   if (!(await hasRecord(domain, row.token))) {
     return fail(400, `no matching TXT record at ${txtName(domain)} yet. new records can take a minute or two to show up`)
+  }
+  const parent = withParents(domain).slice(1)
+  if (parent.length) {
+    const owner = await domainOwner(env, parent[0])
+    if (owner && owner !== a.id) return fail(409, `${parent[0]} is verified by another account, which covers ${domain} too`)
   }
   const other = await env.COMMENTS.prepare('SELECT account_id FROM account_domains WHERE domain = ? AND verified_at IS NOT NULL AND account_id != ?').bind(domain, a.id).first('account_id')
   // whoever controls the DNS right now wins: the old claim is dropped
@@ -391,7 +405,7 @@ export async function handleAccount(request, env, url) {
     if (p[0] === 'domains') {
       const domain = cleanDomain(p[1] ? decodeURIComponent(p[1]) : body.domain)
       if (!domain) return fail(400, "that doesn't look like a domain (like example.com)")
-      if (domain === 'izie.top' || domain.endsWith('.izie.top')) return fail(400, "izie.top addresses can't be claimed")
+      if ((domain === 'izie.top' || domain.endsWith('.izie.top')) && !a.is_admin) return fail(400, "izie.top addresses can't be claimed")
       if (!p[1] && m === 'POST') {
         const count = await env.COMMENTS.prepare('SELECT COUNT(*) AS n FROM account_domains WHERE account_id = ?').bind(a.id).first('n')
         if (count >= 10) return fail(400, 'ten domains is the limit')
@@ -407,6 +421,18 @@ export async function handleAccount(request, env, url) {
       }
     }
 
+    // site admin (accounts.is_admin): the same controls as the blog editor's accounts list
+    if (p[0] === 'admin') {
+      if (!a.is_admin) return fail(403, 'admins only')
+      if (p[1] === 'accounts') return await adminAccounts(request, env, p.slice(2), body)
+      if (p[1] === 'who') {
+        if (m === 'PUT') {
+          if (!['anyone', 'verified'].includes(body.who)) return fail(400, 'bad setting')
+          await env.COMMENTS.prepare("INSERT INTO settings (key, value) VALUES ('who', ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value").bind(body.who).run()
+        }
+        return json({ who: (await env.COMMENTS.prepare("SELECT value FROM settings WHERE key = 'who'").first('value')) ?? 'anyone' })
+      }
+    }
     if (p[0] === 'links' && p[1] && !p[2] && m === 'POST') return await linkService(env, a, p[1], body.token)
     if (p[0] === 'links' && p[1] && p[2] && m === 'DELETE') {
       await env.COMMENTS.prepare('DELETE FROM account_links WHERE account_id = ? AND service = ? AND external_id = ?').bind(a.id, p[1], decodeURIComponent(p[2])).run()
@@ -423,7 +449,7 @@ export async function adminAccounts(request, env, parts, body) {
   const db = env.COMMENTS
   if (!parts[0] && request.method === 'GET') {
     const { results } = await db.prepare(`
-      SELECT a.id, a.handle, a.display_name, a.created, a.manual_verified, a.manual_note, a.manual_at,
+      SELECT a.id, a.handle, a.display_name, a.created, a.is_admin, a.manual_verified, a.manual_note, a.manual_at,
         (SELECT group_concat(domain, ' ') FROM account_domains d WHERE d.account_id = a.id AND d.verified_at IS NOT NULL) AS domains,
         (SELECT group_concat(service || ':' || COALESCE(label, external_id), ' · ') FROM account_links l WHERE l.account_id = a.id) AS links,
         (SELECT COUNT(*) FROM comments c WHERE c.account_id = a.id) AS comments
