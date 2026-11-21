@@ -15,6 +15,8 @@ let data = null
 let selected = ''
 let loadedAt = 0
 let firstDraw = true
+let newestCheck = 0 // when the cron last wrote results
+let failedRefresh = false
 
 const isoDay = (ms) => new Date(ms).toISOString().slice(0, 10)
 const items = () => (data ? data.groups.flatMap((g) => g.items) : [])
@@ -73,8 +75,7 @@ function render() {
   const down = names('down'), slow = names('degraded')
   banner.textContent = down.length ? `down: ${list(down)}` : slow.length ? `slow or stale: ${list(slow)}` : overall === 'unknown' ? 'waiting for the first checks' : 'everything is up'
 
-  const newest = Math.max(0, ...all.map((i) => i.checkedAt || 0))
-  $('updated').textContent = newest ? `checked every 5 minutes, last ${ago(newest)}` : ''
+  newestCheck = Math.max(0, ...all.map((i) => i.checkedAt || 0))
 
   const root = $('groups')
   root.replaceChildren()
@@ -124,8 +125,19 @@ function render() {
     foot.replaceChildren('site is at ')
     const a = el('a', null, c.sha.slice(0, 7))
     a.href = c.url
-    foot.append(a, ` on main: ${c.message}${c.date ? ` (${ago(Date.parse(c.date))})` : ''}`)
+    foot.append(a, ` on main: ${c.message}`)
+    if (c.date) { const t = el('span'); t.id = 'commit-age'; t.dataset.at = Date.parse(c.date); foot.append(' (', t, ')') }
   }
+  paintTimes()
+}
+
+// relative times are repainted on their own every few seconds, so they keep moving between fetches
+function paintTimes() {
+  const u = $('updated')
+  if (failedRefresh && loadedAt) u.textContent = `couldn't refresh, showing data from ${ago(loadedAt)}`
+  else u.textContent = newestCheck ? `checked every 5 minutes, last ${ago(newestCheck)}` : ''
+  const t = document.getElementById('commit-age')
+  if (t) t.textContent = ago(Number(t.dataset.at))
 }
 
 function drawGraph() {
@@ -201,9 +213,10 @@ async function load() {
     }
     data = next
     loadedAt = Date.now()
+    failedRefresh = false
     render()
   } catch {
-    if (data) $('updated').textContent = `couldn't refresh, showing data from ${ago(loadedAt)}`
+    if (data) { failedRefresh = true; paintTimes() }
     else {
       $('groups').replaceChildren()
       $('banner').className = 'banner down'
@@ -213,4 +226,7 @@ async function load() {
 }
 skeleton()
 load()
-setInterval(load, 60000)
+setInterval(load, 30000) // the api is cached for 30s
+setInterval(() => { if (data) paintTimes() }, 5000)
+// background tabs throttle timers, so catch up the moment the tab is shown again
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load() })
