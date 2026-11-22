@@ -25,7 +25,7 @@ export const GROUPS = [
       { id: 'sdmp-feed', name: 'SDMP feed', kind: 'probe', probe: 'sdmp' },
       { id: 'vibetime', name: 'Vibetime server', kind: 'web', url: 'https://vs.izie.top/vibetime/app/healthz' },
       { id: 'lostfm', name: 'Lost.fm', kind: 'probe', probe: 'lostfm' },
-      { id: 'shiritori', name: 'Shiritori', kind: 'web', url: 'https://vs.izie.top/shatori/' },
+      { id: 'shatori', name: 'Shatori', kind: 'web', url: 'https://vs.izie.top/shatori/' },
     ],
   },
   {

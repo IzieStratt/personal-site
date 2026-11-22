@@ -1,13 +1,13 @@
-// Online lobby and games for the Shiritori game (vs.izie.top/shatori). One Durable Object (the "hub")
+// Online lobby and games for the Shatori game (vs.izie.top/shatori). One Durable Object (the "hub")
 // holds every open lobby and game. The server is authoritative: it checks each word, runs the turn
 // clock, and decides the winner. Rules come from game-core.js, the same file the browser uses.
 //
 // Free-plan notes: WebSockets are hibernated while idle (no duration billed), and room state lives in
 // storage, so a hibernated hub loses nothing. Daily free-tier limits fail operations instead of billing.
 import { DurableObject } from 'cloudflare:workers'
-import './website/public/__subdomains/vs/shatori/game-core.js' // sets globalThis.ShiritoriCore
+import './website/public/__subdomains/vs/shatori/game-core.js' // sets globalThis.ShatoriCore
 
-const C = globalThis.ShiritoriCore
+const C = globalThis.ShatoriCore
 const ASSET_BASE = 'https://vs.izie.top/__subdomains/vs/shatori'
 const LOBBY_TTL_MS = 10 * 60 * 1000 // an unjoined lobby closes after 10 minutes
 const RECONNECT_MS = 30 * 1000 // a player who drops has this long to come back before forfeiting
@@ -34,7 +34,7 @@ const randomCode = () => {
 }
 const randomToken = () => crypto.randomUUID()
 
-export class ShiritoriLobby extends DurableObject {
+export class ShatoriLobby extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env)
     this.env = env
@@ -95,7 +95,7 @@ export class ShiritoriLobby extends DurableObject {
       }
     } catch (err) {
       this.send(ws, { t: 'error', msg: 'server error, try again' })
-      console.error('shiritori hub', err)
+      console.error('shatori hub', err)
     }
   }
 

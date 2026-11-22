@@ -29,11 +29,11 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
-  // online lobby for the Shiritori game (shiritori-lobby.js); SQLite-backed, which the free plan supports
+  // online lobby for the Shatori game (shatori-lobby.js); SQLite-backed, which the free plan supports
   "durable_objects": {
-    "bindings": [{ "name": "LOBBY", "class_name": "ShiritoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }, { "name": "VIBETIME", "class_name": "Vibetime" }]
+    "bindings": [{ "name": "LOBBY", "class_name": "ShatoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }, { "name": "VIBETIME", "class_name": "Vibetime" }]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }, { "tag": "v2", "new_sqlite_classes": ["LostfmStore"] }, { "tag": "v3", "new_sqlite_classes": ["Vibetime"] }],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ShiritoriLobby"] }, { "tag": "v2", "new_sqlite_classes": ["LostfmStore"] }, { "tag": "v3", "new_sqlite_classes": ["Vibetime"] }, { "tag": "v4", "renamed_classes": [{ "from": "ShiritoriLobby", "to": "ShatoriLobby" }] }],
   // sdmp.izie.top and vs.izie.top/redocumented files, deployed from IzieStratt/izie-datamine (deploy that worker first)
   "services": [{ "binding": "DATAMINE", "service": "izie-datamine" }],
   "kv_namespaces": [

@@ -1,6 +1,6 @@
 import { handleComments } from './comments.js'
 import { handleSuggestions } from './suggestions.js'
-export { ShiritoriLobby } from './shiritori-lobby.js'
+export { ShatoriLobby } from './shatori-lobby.js'
 import { handleHmoji } from './hmojis.js'
 import { handleQuicklinks } from './quicklinks.js'
 import { handleLostfm } from './lostfm.js'
@@ -99,7 +99,7 @@ const worker = {
       return env.VIBETIME.get(env.VIBETIME.idFromName('main')).fetch(new Request(sub, request))
     }
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
-      // one hub holds every lobby and game (see shiritori-lobby.js)
+      // one hub holds every lobby and game (see shatori-lobby.js)
       return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
     }
     if (url.pathname.startsWith('/api/graphs/')) {

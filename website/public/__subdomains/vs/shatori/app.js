@@ -1,13 +1,13 @@
 // UI and controller. Rules live in game-core.js. Vs-computer games run in the browser and are saved to
-// localStorage after every move. Online games are run by the server (shiritori-lobby.js): the browser
+// localStorage after every move. Online games are run by the server (shatori-lobby.js): the browser
 // renders what the server sends and reconnects with a saved token if the connection drops.
 (() => {
-  const C = window.ShiritoriCore;
-  const STORE_KEY = "shiritori.game.v1";
-  const SESSION_KEY = "shiritori.online.v1";
-  const NAME_KEY = "shiritori.name";
-  const THEME_COOKIE = "shiritori_theme";
-  const THEMES_COOKIE = "shiritori_themes";
+  const C = window.ShatoriCore;
+  const STORE_KEY = "shatori.game.v1";
+  const SESSION_KEY = "shatori.online.v1";
+  const NAME_KEY = "shatori.name";
+  const THEME_COOKIE = "shatori_theme";
+  const THEMES_COOKIE = "shatori_themes";
   const COOKIE_BUDGET = 3500; // browsers allow about 4 KB per cookie; stay under it
   const HUMAN = 0;
 
@@ -81,6 +81,30 @@
     document.cookie = `${name}=${encoded}; max-age=31536000; path=/; SameSite=Lax`;
     return true;
   }
+
+  // The keys and cookies used to be named "shiritori…". Move them to the new names once, so saved
+  // games, names and themes carry over.
+  (function moveOldStorage() {
+    const pairs = [
+      ["shiritori.game.v1", STORE_KEY],
+      ["shiritori.online.v1", SESSION_KEY],
+      ["shiritori.name", NAME_KEY],
+    ];
+    for (const [oldKey, key] of pairs) {
+      try {
+        const v = localStorage.getItem(oldKey);
+        if (v === null) continue;
+        if (localStorage.getItem(key) === null) localStorage.setItem(key, v);
+        localStorage.removeItem(oldKey);
+      } catch (_) {}
+    }
+    for (const [oldName, name] of [["shiritori_theme", THEME_COOKIE], ["shiritori_themes", THEMES_COOKIE]]) {
+      const v = readCookie(oldName);
+      if (v === null) continue;
+      if (readCookie(name) === null) writeCookie(name, v);
+      document.cookie = `${oldName}=; max-age=0; path=/`;
+    }
+  })();
 
   function loadCustom() {
     try {

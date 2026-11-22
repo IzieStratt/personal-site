@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// Review word suggestions from the Shiritori game (vs.izie.top/shatori).
-//   node scripts/review-shiritori-words.mjs list
-//   node scripts/review-shiritori-words.mjs accept <word> [word ...]
-//   node scripts/review-shiritori-words.mjs reject <word> [word ...]
+// Review word suggestions from the Shatori game (vs.izie.top/shatori).
+//   node scripts/review-shatori-words.mjs list
+//   node scripts/review-shatori-words.mjs accept <word> [word ...]
+//   node scripts/review-shatori-words.mjs reject <word> [word ...]
 // Reads and updates the word_suggestions table in D1 (izie-blog) through wrangler. Accepted words are
 // appended to words-extra.txt; commit and push to publish them. Nothing is accepted unless you name it.
 import { execFileSync } from 'node:child_process'
@@ -59,5 +59,5 @@ if (command === 'accept' || command === 'reject') {
   process.exit(0)
 }
 
-console.error('usage: review-shiritori-words.mjs list | accept <word...> | reject <word...>')
+console.error('usage: review-shatori-words.mjs list | accept <word...> | reject <word...>')
 process.exit(1)

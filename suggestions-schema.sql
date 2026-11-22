@@ -1,4 +1,4 @@
--- Word suggestions for the Shiritori game (vs.izie.top/shatori). Apply with:
+-- Word suggestions for the Shatori game (vs.izie.top/shatori). Apply with:
 --   wrangler d1 execute izie-blog --remote --file suggestions-schema.sql
 -- Same database as the blog comments (binding COMMENTS), its own table.
 CREATE TABLE IF NOT EXISTS word_suggestions (

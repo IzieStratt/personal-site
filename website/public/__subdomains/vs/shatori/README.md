@@ -1,6 +1,6 @@
-# Shiritori
+# Shatori
 
-A browser version of the Japanese word-chain game, in English. Play against the computer, or online against another player in a lobby. Computer games run entirely in the browser. Online games are run by a Durable Object (`shiritori-lobby.js` in the site repo): it checks every word and runs the clock, and the browser reconnects with a saved token if the connection drops.
+A browser version of the Japanese word-chain game, in English. Play against the computer, or online against another player in a lobby. Computer games run entirely in the browser. Online games are run by a Durable Object (`shatori-lobby.js` in the site repo): it checks every word and runs the clock, and the browser reconnects with a saved token if the connection drops.
 
 ## Files
 

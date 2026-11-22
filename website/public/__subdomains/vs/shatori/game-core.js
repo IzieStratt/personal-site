@@ -1,4 +1,4 @@
-// Pure game rules for Shiritori. No DOM, no timers: the UI passes in the clock.
+// Pure game rules for Shatori. No DOM, no timers: the UI passes in the clock.
 // Rules follow shiritorigame.com (as implemented in bots/shiritori/src/rules.js):
 //  - Each side starts at 150 points. Whoever's own score reaches 0 first wins.
 //  - A word costs the seconds left on the clock (rounded) plus (length - 4).
@@ -8,7 +8,7 @@
 
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory();
-  else root.ShiritoriCore = factory();
+  else root.ShatoriCore = factory();
 })(typeof self !== "undefined" ? self : this, function () {
   const START_SCORE = 150;
   const TURN_SECONDS = 12;

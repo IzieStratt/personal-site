@@ -1,6 +1,6 @@
-// Word suggestions for the Shiritori game (vs.izie.top/shatori). Stored in D1 (binding COMMENTS,
+// Word suggestions for the Shatori game (vs.izie.top/shatori). Stored in D1 (binding COMMENTS,
 // table word_suggestions; see suggestions-schema.sql). Nothing reaches the game until izie accepts
-// a word with scripts/review-shiritori-words.js, which adds it to words-extra.txt.
+// a word with scripts/review-shatori-words.js, which adds it to words-extra.txt.
 
 // Hard caps, all server side. D1 free tier is 100k rows written and 5M rows read per day, shared with
 // the blog comments, so the budget below stays far under that:
