@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://blog.izie.top/style.css">
     <link rel="stylesheet" href="status.css">
     <script src="/cdn/theme.js"></script>
+    <script src="/cdn/dropdown.js" defer></script>
     <script src="status.js" defer></script>
   </head>
   <body>
@@ -22,7 +23,7 @@
       <section id="graph-section" aria-labelledby="graph-title" hidden>
         <h2 id="graph-title">uptime, past year</h2>
         <label class="pick"><span>show</span>
-          <select id="pick"><option value="">everything</option></select>
+          <select id="pick" data-fancy><option value="">everything</option></select>
         </label>
         <div class="graph-wrap">
           <div id="months" class="months" aria-hidden="true"></div>

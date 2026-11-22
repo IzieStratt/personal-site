@@ -1,0 +1,22 @@
+name: cdn-selects-test
+
+# Every <select> on a static page must be data-fancy (site dropdown) or data-native, and data-fancy pages must load /cdn/dropdown.js.
+
+on:
+  pull_request:
+    paths: ['website/public/**', 'scripts/test_cdn_selects.mjs', '.github/workflows/cdn-selects-test.yml']
+  push:
+    branches: [main]
+    paths: ['website/public/**', 'scripts/test_cdn_selects.mjs', '.github/workflows/cdn-selects-test.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - run: node --test scripts/test_cdn_selects.mjs

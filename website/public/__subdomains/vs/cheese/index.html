@@ -126,7 +126,7 @@ body{transition:transform 1.2s,filter 2s}
   <section class="box">
     <h2>SHIPPING ADDRESS</h2>
     <label for="country">Country (sorted by third letter, resets itself)</label>
-    <select id="country"></select>
+    <select id="country" data-native></select>
     <label for="zip">ZIP code in Roman numerals</label>
     <input id="zip" placeholder="XCIV CCX">
     <label for="addr">Street address (no spaces, no vowels, max 9 characters)</label>
@@ -134,7 +134,7 @@ body{transition:transform 1.2s,filter 2s}
     <label for="phone">Phone number (use the dial)</label>
     <div class="row"><input id="phone" type="range" min="1000000000" max="9999999999" value="5555555555"><span id="phv" class="tiny"></span></div>
     <label for="dob">Date of birth of your favorite cheese</label>
-    <div class="row"><select id="dd"></select><select id="mm"></select><select id="yy"></select></div>
+    <div class="row"><select id="dd" data-native></select><select id="mm" data-native></select><select id="yy" data-native></select></div>
   </section>
 
   <section class="box">
