@@ -27,6 +27,22 @@ function quicklinkDirectory() {
         `\n        <li><code>/q/${key}/…</code> → <code>${base}/…</code></li>`
     )
     .join('')
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>quicklinks · izie.top</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1>quicklinks</h1>
+    <ul>${rows}
+    </ul>
+  </body>
+</html>`
+  return new Response(html, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  })
 }
 
 export function handleQuicklinks(url) {
