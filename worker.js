@@ -20,6 +20,16 @@ function fetchAsset(env, input, init) {
   return (DATAMINE_PATH.test(path) ? env.DATAMINE : env.ASSETS).fetch(input, init)
 }
 
+
+// botme.dunkirk.sh is a third-party service: never forward visitor credentials or
+// client-identifying headers to it (the izie account session cookie is Domain=izie.top,
+// so browsers send it on these same-origin paths).
+function botmeRequest(request, path) {
+  const upstream = new Request(`https://botme.dunkirk.sh${path}`, request)
+  for (const h of ['cookie', 'authorization', 'cf-connecting-ip', 'x-forwarded-for', 'x-real-ip']) upstream.headers.delete(h)
+  return upstream
+}
+
 const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
@@ -104,14 +114,16 @@ const worker = {
       return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
     }
     if (url.pathname.startsWith('/api/graphs/')) {
-      const response = await fetch(`https://botme.dunkirk.sh${url.pathname}${url.search}`, request)
+      const upstream = botmeRequest(request, `${url.pathname}${url.search}`)
+      const response = await fetch(upstream)
       const headers = new Headers(response.headers)
       headers.set('cache-control', 'no-store')
       headers.set('access-control-allow-origin', '*')
       return new Response(response.body, { status: response.status, headers })
     }
     if (url.pathname === '/api/leaderboard') {
-      const response = await fetch('https://botme.dunkirk.sh/api/leaderboard', request)
+      const upstream = botmeRequest(request, '/api/leaderboard')
+      const response = await fetch(upstream)
       const headers = new Headers(response.headers)
       headers.set('cache-control', 'no-store')
       headers.set('access-control-allow-origin', '*')
@@ -569,4 +581,4 @@ async function handleSlanderProxy(request, url) {
     if (e instanceof SlanderError) return slanderJson(e.status, { error: e.message })
     throw e
   }
-}
+                                                                               }
