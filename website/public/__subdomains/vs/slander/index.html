@@ -16,8 +16,8 @@
 <button type="button" id="preview">▶ preview whole thing</button>
 <button type="button" id="render">● render video</button>
 <button type="button" id="gif">export gif</button>
-<label>gif width <select id="gifw"><option>320</option><option selected>480</option><option>640</option></select></label>
-<label>gif fps <select id="giff"><option>10</option><option selected>15</option><option>20</option></select></label>
+<label>gif width <select data-native id="gifw"><option>320</option><option selected>480</option><option>640</option></select></label>
+<label>gif fps <select data-native id="giff"><option>10</option><option selected>15</option><option>20</option></select></label>
 <button type="button" id="copyframe">copy this frame</button>
 <button type="button" id="stop" disabled>■ stop</button>
 <span id="status"></span>
@@ -55,7 +55,7 @@
 <fieldset>
 <legend>output</legend>
 <p>
-<label>size <select id="size"><option value="1280x720" selected>1280×720</option><option value="1920x1080">1920×1080</option><option value="1080x1080">1080×1080</option><option value="1080x1920">1080×1920 (vertical)</option></select></label>
+<label>size <select data-native id="size"><option value="1280x720" selected>1280×720</option><option value="1920x1080">1920×1080</option><option value="1080x1080">1080×1080</option><option value="1080x1920">1080×1920 (vertical)</option></select></label>
 <label>caption size <input type="number" id="fsize" value="60" size="4"></label>
 <label>fade out last (s) <input type="number" id="fade" value="1.5" step="0.1" size="4"></label>
 </p>
@@ -73,7 +73,7 @@ or <input type="file" class="file" accept="image/*,video/*">
 <p>
 <label>start at (s) <input type="number" class="ss" value="0" step="0.1" size="4"></label>
 <label>beats <input type="number" class="beats" value="16" min="1" size="3"></label>
-<label>fit <select class="fit"><option value="auto" selected>auto</option><option value="fit">whole image</option><option value="fill">fill (crop)</option></select></label>
+<label>fit <select data-native class="fit"><option value="auto" selected>auto</option><option value="fit">whole image</option><option value="fill">fill (crop)</option></select></label>
 <label><input type="checkbox" class="key"> key out green</label>
 <label><input type="checkbox" class="crop" checked> crop black bars</label>
 <label><input type="checkbox" class="snd"> clip sound</label>
