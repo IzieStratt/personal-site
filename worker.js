@@ -91,6 +91,7 @@ const worker = {
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm(\/|$)/.test(url.pathname)) return withLostfmHeaders(await serveSubdomain(request, env, url))
+    if (url.hostname === 'vs.izie.top' && url.pathname === '/slander/proxy') return handleSlanderProxy(request, url)
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/api/suggest') return handleSuggestions(request, env)
     if (url.pathname.startsWith('/vibetime/app/')) { // vibetime server (DO). Path-gated, not host-gated: reachable on any izie.top host, but the DO enforces its own token auth and the OAuth redirect is pinned to vs.izie.top.
       // the vibetime server (Durable Object, SQLite-backed); one instance holds every account
@@ -442,4 +443,130 @@ function withLostfmHeaders(response) {
   headers.set('x-content-type-options', 'nosniff')
   headers.set('referrer-policy', 'no-referrer')
   return new Response(response.body, { status: response.status, headers })
+}
+
+// slander maker (vs.izie.top/slander/): same-origin media proxy that replaces the old local helper's /proxy.
+// Only http(s) on the default ports, no IP literals or private names, redirects re-checked hop by hop, size capped.
+const SLANDER_MAX = 50 * 1024 * 1024
+const SLANDER_HTML_MAX = 5 * 1024 * 1024
+const SLANDER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15'
+const SLANDER_ORIGIN = /^https?:\/\/(vs\.izie\.top|localhost|127\.0\.0\.1)(:\d+)?(\/|$)/
+
+class SlanderError extends Error {
+  constructor(status, msg) { super(msg); this.status = status }
+}
+
+function slanderJson(status, body) {
+  return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } })
+}
+
+// false for anything that is not a plain public hostname or IP (loopback, private, link-local, CGNAT, multicast, our own zone)
+function slanderPublicHost(host) {
+  const h = host.toLowerCase().replace(/^\[|\]$/g, '')
+  if (h.includes(':')) return /^[23][0-9a-f]{0,3}:/.test(h) && !h.startsWith('2002:') // IPv6: global unicast only
+  const v4 = h.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/)
+  if (v4) {
+    const [a, b] = v4.slice(1).map(Number)
+    return !(a === 0 || a === 10 || a === 127 || a >= 224 || (a === 100 && b >= 64 && b <= 127) ||
+      (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && (b === 168 || b === 0)) ||
+      (a === 198 && (b === 18 || b === 19)))
+  }
+  if (!h.includes('.') || /\.(localhost|local|internal|localdomain)$/.test(h)) return false
+  return !(h === 'izie.top' || h.endsWith('.izie.top')) // our own zone: no loops back into this worker
+}
+
+// follows redirects by hand so every hop is checked; returns the final response and its url
+async function slanderFetch(start) {
+  let u = start
+  for (let hop = 0; hop <= 5; hop++) {
+    let p
+    try { p = new URL(u) } catch { throw new SlanderError(400, 'need an http(s) url') }
+    if (!/^https?:$/.test(p.protocol) || p.username || p.password) throw new SlanderError(400, 'need an http(s) url')
+    if (p.port && p.port !== '80' && p.port !== '443') throw new SlanderError(403, 'refused: that port is not allowed')
+    if (!slanderPublicHost(p.hostname)) throw new SlanderError(403, 'refused: that address is not public')
+    let res
+    try { res = await fetch(p.href, { redirect: 'manual', headers: { 'User-Agent': SLANDER_UA, Accept: '*/*' } }) }
+    catch (e) { throw new SlanderError(502, `fetch failed: ${e.message}`.slice(0, 300)) }
+    if ([301, 302, 303, 307, 308].includes(res.status)) {
+      res.body?.cancel()
+      const loc = res.headers.get('Location')
+      if (!loc) throw new SlanderError(502, 'the site redirected without a location')
+      u = new URL(loc, p).href
+      continue
+    }
+    return { res, url: p.href }
+  }
+  throw new SlanderError(502, 'too many redirects')
+}
+
+async function slanderBody(res, cap) {
+  if ((+res.headers.get('Content-Length') || 0) > cap) { res.body?.cancel(); throw new SlanderError(413, `too big (over ${cap / (1024 * 1024)} MB)`) }
+  if (!res.body) return new Uint8Array(0)
+  const reader = res.body.getReader()
+  const chunks = []
+  let total = 0
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    total += value.byteLength
+    if (total > cap) { reader.cancel(); throw new SlanderError(413, `too big (over ${cap / (1024 * 1024)} MB)`) }
+    chunks.push(value)
+  }
+  const out = new Uint8Array(total)
+  let at = 0
+  for (const c of chunks) { out.set(c, at); at += c.byteLength }
+  return out
+}
+
+// same rules as the old helper: og:video, then og:image / twitter:image, then the first large <img>
+function slanderFindMedia(html, base) {
+  const abs = s => { try { const u = new URL(s.replace(/&amp;/g, '&').trim(), base); return /^https?:$/.test(u.protocol) ? u.href : null } catch { return null } }
+  const meta = {}
+  for (const t of html.match(/<meta\b[^>]*>/gi) || []) {
+    const key = (t.match(/\b(?:property|name)=["']([^"']+)["']/i)?.[1] || '').trim().toLowerCase()
+    const c = t.match(/\bcontent=["']([^"']*)["']/i)?.[1]
+    if (key && c && !(key in meta)) meta[key] = c.trim()
+  }
+  for (const k of ['og:video:secure_url', 'og:video', 'og:video:url', 'og:image', 'og:image:secure_url', 'twitter:image', 'twitter:image:src']) {
+    if (meta[k] && abs(meta[k])) return abs(meta[k])
+  }
+  for (const t of html.match(/<img\b[^>]*>/gi) || []) {
+    const src = t.match(/\bsrc=["']([^"']+)["']/i)?.[1]
+    if (!src || src.startsWith('data:') || /\.svg(\?|$)/i.test(src)) continue
+    const w = +(t.match(/\bwidth=["']?(\d+)/i)?.[1] || 999), h = +(t.match(/\bheight=["']?(\d+)/i)?.[1] || 999)
+    if (w >= 200 && h >= 200 && abs(src)) return abs(src)
+  }
+  return null
+}
+
+async function handleSlanderProxy(request, url) {
+  const from = request.headers.get('Origin') || request.headers.get('Referer') || ''
+  if (!SLANDER_ORIGIN.test(from)) return slanderJson(403, { error: 'only the slander maker page can use this' })
+  if (request.method !== 'GET') return slanderJson(405, { error: 'GET only' })
+  const target = url.searchParams.get('url') || ''
+  if (!target || target.length > 2048 || /[\x00-\x20\x7f]/.test(target)) return slanderJson(400, { error: 'need an http(s) url' })
+  try {
+    const { res, url: final } = await slanderFetch(target)
+    if (!res.ok) { res.body?.cancel(); return slanderJson(502, { error: `the site answered ${res.status}` }) }
+    const type = (res.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase()
+    const isHtml = type === 'text/html' || type === 'application/xhtml+xml'
+    if (url.searchParams.get('resolve') === '1') {
+      if (!isHtml) { res.body?.cancel(); return slanderJson(200, { media: final, type }) }
+      const html = new TextDecoder().decode(await slanderBody(res, SLANDER_HTML_MAX))
+      return slanderJson(200, { media: slanderFindMedia(html, final), page: final })
+    }
+    const bytes = await slanderBody(res, isHtml ? SLANDER_HTML_MAX : SLANDER_MAX)
+    // the bytes are served on our own origin, so html and svg stay inert: sandboxed and never sniffed
+    return new Response(bytes, {
+      headers: {
+        'Content-Type': type || 'application/octet-stream',
+        'Content-Security-Policy': "sandbox; default-src 'none'",
+        'X-Content-Type-Options': 'nosniff',
+        'Cache-Control': 'no-store',
+      },
+    })
+  } catch (e) {
+    if (e instanceof SlanderError) return slanderJson(e.status, { error: e.message })
+    throw e
+  }
 }
