@@ -3,8 +3,8 @@
 // the blog-build workflow builds the pages and archives links after each push. Moderation reads D1 directly.
 import { ORIGIN, creationOptions, createSession, endSession, finishLogin, finishRegistration, isSignedIn, newChallenge, passkeyCount, randomB64u, requestOptions, timingSafeEqual } from './blog-passkeys.js'
 import { deleteFile, fileSha, gitBlobSha, listDir, putFile, readText } from './blog-github.js'
-import { currentAccount, endAccountSession } from './account.js'
-import { COMMENT_SETTINGS, parsePost, serializePost, slugify, tagSlug } from './blog/post-format.js'
+import { currentAccount, endAccountSession } from '../account/account.js'
+import { COMMENT_SETTINGS, parsePost, serializePost, slugify, tagSlug } from '../../blog/post-format.js'
 
 const POSTS_DIR = 'blog/posts'
 const CDN_DIR = 'website/public/cdn/blog'

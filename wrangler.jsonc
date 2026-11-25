@@ -20,7 +20,7 @@
       "zone_name": "izie.top"
     }
   ],
-  // status checks (status-core.js), results land in the COMMENTS D1 database
+  // status checks (src/status/status-core.js), results land in the COMMENTS D1 database
   "triggers": { "crons": ["*/5 * * * *"] },
   "assets": {
     "directory": "./website/public",
@@ -29,7 +29,7 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
-  // online lobby for the Shatori game (shatori-lobby.js); SQLite-backed, which the free plan supports
+  // online lobby for the Shatori game (src/shatori/shatori-lobby.js); SQLite-backed, which the free plan supports
   "durable_objects": {
     "bindings": [{ "name": "LOBBY", "class_name": "ShatoriLobby" }, { "name": "LOSTFM_STORE", "class_name": "LostfmStore" }, { "name": "VIBETIME", "class_name": "Vibetime" }]
   },
@@ -54,7 +54,7 @@
       "id": "01baf867cd7c4e33b12416e851fab709"
     }
   ],
-  // blog comments (comments.js); schema in blog/schema.sql
+  // blog comments (src/blog/comments.js); schema in blog/schema.sql
   "d1_databases": [
     {
       "binding": "COMMENTS",
@@ -69,7 +69,7 @@
     // the blog editor commits to this repo (secrets: GITHUB_TOKEN, BLOG_ADMIN_SETUP; see blog/README.md)
     "BLOG_REPO": "IzieStratt/personal-site",
     "BLOG_BRANCH": "main",
-    // vibetime server (vibetime.js DO). Secrets: VIBETIME_OAUTH_CLIENT_ID, VIBETIME_OAUTH_CLIENT_SECRET.
+    // vibetime server (src/vibetime/vibetime.js DO). Secrets: VIBETIME_OAUTH_CLIENT_ID, VIBETIME_OAUTH_CLIENT_SECRET.
     "VIBETIME_PUBLIC_URL": "https://vs.izie.top/vibetime/app",
     "VIBETIME_OAUTH_BASE": "https://auth.hackclub.com"
   }

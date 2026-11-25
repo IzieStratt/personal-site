@@ -15,7 +15,7 @@ The editor's **publish** button saves the post, commits only the blog's files (p
 
 ## Online editor (blog.izie.top/admin)
 
-Sign in with a passkey, write, and publish from any browser. Saving commits the post to `main` through the GitHub API (`blog-github.js`). The `blog-build` workflow then archives new links, rebuilds the pages, and commits them back. GitHub deploys from `main`. Moderation (approve / hide / delete comments, the comment mode) runs against the D1 database directly (`blog-admin.js`). `blog-passkeys.js` does the sign-in.
+Sign in with a passkey, write, and publish from any browser. Saving commits the post to `main` through the GitHub API (`src/blog/blog-github.js`). The `blog-build` workflow then archives new links, rebuilds the pages, and commits them back. GitHub deploys from `main`. Moderation (approve / hide / delete comments, the comment mode) runs against the D1 database directly (`src/blog/blog-admin.js`). `src/blog/blog-passkeys.js` does the sign-in.
 
 One-time setup (the site fails closed until these exist: no passkey can be created without the setup code):
 
@@ -35,7 +35,7 @@ The local editor (`node blog/server.js`) still works for previewing and uses `wr
 
 Visitors comment with a name plus a website domain *or* an email, in markdown, with replies (threads, 4 levels deep). Emails are stored in the database but never sent to browsers. No reply emails are sent.
 
-- API: `comments.js` (in the site worker), storage: Cloudflare D1, schema: `blog/schema.sql`. The client is `blog/comments-client.js`, copied to the blog as `comments.js` on build.
+- API: `src/blog/comments.js` (in the site worker), storage: Cloudflare D1, schema: `blog/schema.sql`. The client is `blog/comments-client.js`, copied to the blog as `comments.js` on build.
 - Spam: honeypot field, same-origin only, comments only on posts that exist, 3/minute and 20/day per visitor (hashed IP), and the mode below.
 - Mode (set in the editor's "comments" section): `review` holds new comments until you approve them (default), `open` shows them right away, `off` stops new ones.
 - Per post (the "comments on this post" pills in the editor, or `comments:` in the post's front matter): `on` takes comments even when the blog-wide mode is off (they wait for approval), `locked` keeps the existing ones but takes no more, `off` hides the comment section. Blank follows the blog-wide mode. The worker reads this from the built post page, so rebuild and deploy after changing it.

@@ -4,10 +4,10 @@ name: agent-core-test
 
 on:
   pull_request:
-    paths: ['agent-core.js', 'agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
+    paths: ['src/agent/agent-core.js', 'src/agent/agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
   push:
     branches: [main]
-    paths: ['agent-core.js', 'agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
+    paths: ['src/agent/agent-core.js', 'src/agent/agent-core.test.mjs', '.github/workflows/agent-core-test.yml']
   workflow_dispatch:
 
 permissions:
@@ -19,4 +19,4 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - run: node agent-core.test.mjs
+      - run: node src/agent/agent-core.test.mjs

@@ -2,7 +2,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { parseCsv, parseImport, dedupe, computeStats, spotifyItemsToListens, safeImage, safeLink, pickImage } from '../website/public/__subdomains/vs/lostfm/lib.js'
-import { parseSubmission } from '../lostfm-core.js'
+import { parseSubmission } from '../src/lostfm/lostfm-core.js'
 
 test('csv parser handles quotes, commas and CRLF', () => {
   assert.deepEqual(parseCsv('a,"b, c","d ""e"""\r\n1,2,3\n'), [['a', 'b, c', 'd "e"'], ['1', '2', '3']])
