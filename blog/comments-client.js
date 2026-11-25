@@ -146,7 +146,7 @@
     field('contact').value = localStorage.getItem('comment-contact') || ''
   } catch {}
 
-  // the same rules the server enforces (comments.js), checked here first so mistakes show up right away.
+  // the same rules the server enforces (src/blog/comments.js), checked here first so mistakes show up right away.
   // the server still checks everything again; this is only for convenience.
   const looksLikeEmail = (v) => v.length <= 254 && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(v)
   const looksLikeDomain = (v) => /^(?=.{3,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(v.replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0])

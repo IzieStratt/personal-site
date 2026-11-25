@@ -4,9 +4,9 @@
 // - domain verification by a DNS TXT record (with a one-click path for Cloudflare)
 // - links to the other things on the site with their own accounts (vibetime, hmojis, blog comments)
 // - izie can mark an account verified by hand with an internal note (blog editor, blog-admin.js)
-// Tables in account/schema.sql (izie-blog D1, binding COMMENTS).
-import { b64uBytes, cbor, checkRpAndFlags, coseToJwk, derToRaw, fromB64u, hex, parseAuthData, parseClientData, randomB64u, sha256 } from './blog-passkeys.js'
-import { hmojiTokenInfo } from './hmojis.js'
+// Tables in src/account/schema.sql (izie-blog D1, binding COMMENTS).
+import { b64uBytes, cbor, checkRpAndFlags, coseToJwk, derToRaw, fromB64u, hex, parseAuthData, parseClientData, randomB64u, sha256 } from '../blog/blog-passkeys.js'
+import { hmojiTokenInfo } from '../hmojis/hmojis.js'
 
 export const ACCOUNT_RP_ID = 'izie.top'
 export const ACCOUNT_ORIGIN = 'https://account.izie.top'
@@ -141,7 +141,7 @@ async function dnsHost(domain) {
 
 // ---- Domain Connect (domainconnect.org): the official one-click "add this record" flow that Cloudflare, GoDaddy,
 // IONOS and others run. The user approves on their DNS host's own page and comes back verified. Needs our template
-// (account/domain-connect/) live at the provider, and DOMAIN_CONNECT_KEY (PKCS8 PEM) to sign requests; the
+// (src/account/domain-connect/) live at the provider, and DOMAIN_CONNECT_KEY (PKCS8 PEM) to sign requests; the
 // public half is TXT at _dck1.izie.top.
 const DC_PROVIDER = 'izie.top'
 const DC_SERVICE = 'account-verify'

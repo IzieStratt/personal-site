@@ -1,9 +1,9 @@
 // Comments for the blog (blog.izie.top). Stored in D1 (binding COMMENTS); see blog/schema.sql.
-// Public API only: read approved comments, add one. Moderation lives in the blog editor (blog-admin.js),
+// Public API only: read approved comments, add one. Moderation lives in the blog editor (src/blog/blog-admin.js),
 // behind a passkey sign-in, so there are no admin endpoints here.
-// Signed-in izie accounts (account.js) comment as themselves. A domain verified by an account can only be used
+// Signed-in izie accounts (src/account/account.js) comment as themselves. A domain verified by an account can only be used
 // by that account, and the blog can be set to take comments only from verified accounts (settings key 'who').
-import { currentAccount, domainOwner, isVerified, verifiedDomains } from './account.js'
+import { currentAccount, domainOwner, isVerified, verifiedDomains } from '../account/account.js'
 
 const MODES = ['review', 'open', 'off']
 const MAX_DEPTH = 4 // replies deeper than this attach to their depth-4 ancestor

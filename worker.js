@@ -1,15 +1,15 @@
-import { handleComments } from './comments.js'
-import { handleSuggestions } from './suggestions.js'
-export { ShatoriLobby } from './shatori-lobby.js'
-import { handleHmoji } from './hmojis.js'
-import { handleQuicklinks } from './quicklinks.js'
-import { handleLostfm } from './lostfm.js'
-export { LostfmStore } from './lostfm.js'
-import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './blog-admin.js'
-import { handleAccount } from './account.js'
-import { handleStatus, runChecks } from './status-core.js'
-export { Vibetime } from './vibetime.js'
-import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './agent-core.js'
+import { handleComments } from './src/blog/comments.js'
+import { handleSuggestions } from './src/shatori/suggestions.js'
+export { ShatoriLobby } from './src/shatori/shatori-lobby.js'
+import { handleHmoji } from './src/hmojis/hmojis.js'
+import { handleQuicklinks } from './src/quicklinks/quicklinks.js'
+import { handleLostfm } from './src/lostfm/lostfm.js'
+export { LostfmStore } from './src/lostfm/lostfm.js'
+import { handleBlogAdmin, BLOG_ADMIN_PATHS } from './src/blog/blog-admin.js'
+import { handleAccount } from './src/account/account.js'
+import { handleStatus, runChecks } from './src/status/status-core.js'
+export { Vibetime } from './src/vibetime/vibetime.js'
+import { prefersMarkdown, AGENT_FILE_ALIAS, RL_LIMIT, RL_WINDOW, rateLimitHit } from './src/agent/agent-core.js'
 
 // sdmp and ReDocumented live in their own repo (IzieStratt/izie-datamine) and are served by a second static-assets worker;
 // everything else is in this worker's own assets. Paths and routing are unchanged, only where the file comes from.
@@ -94,9 +94,9 @@ const worker = {
     if (url.hostname === 'vs.izie.top' && url.pathname.startsWith('/slack/hmojis/')) {
       return handleHmoji(request, env, ctx, url.pathname)
     }
-    // the blog editor and comment moderation (passkey sign-in; see blog-admin.js)
+    // the blog editor and comment moderation (passkey sign-in; see src/blog/blog-admin.js)
     if (url.hostname === 'blog.izie.top' && BLOG_ADMIN_PATHS(url.pathname)) return handleBlogAdmin(request, env, url)
-    // izie accounts (passkeys, domain verification, linked services; see account.js)
+    // izie accounts (passkeys, domain verification, linked services; see src/account/account.js)
     if (url.hostname === 'account.izie.top' && url.pathname.startsWith('/api/')) return handleAccount(request, env, url)
     if (url.pathname === '/api/comments') return handleComments(request, env, url)
     if (url.hostname === 'vs.izie.top' && /^\/lostfm\/(api|1)\//.test(url.pathname)) return handleLostfm(request, env, url)
@@ -110,7 +110,7 @@ const worker = {
       return env.VIBETIME.get(env.VIBETIME.idFromName('main')).fetch(new Request(sub, request))
     }
     if (url.hostname === 'vs.izie.top' && url.pathname === '/shatori/ws') {
-      // one hub holds every lobby and game (see shatori-lobby.js)
+      // one hub holds every lobby and game (see src/shatori/shatori-lobby.js)
       return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
     }
     if (url.pathname.startsWith('/api/graphs/')) {

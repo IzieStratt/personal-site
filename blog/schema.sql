@@ -18,7 +18,7 @@ CREATE INDEX IF NOT EXISTS comments_ip ON comments (ip_hash, created);
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 INSERT OR IGNORE INTO settings (key, value) VALUES ('mode', 'review');
 
--- online blog editor sign-in (blog-passkeys.js). One owner; passkeys are WebAuthn public keys as JWK.
+-- online blog editor sign-in (src/blog/blog-passkeys.js). One owner; passkeys are WebAuthn public keys as JWK.
 CREATE TABLE IF NOT EXISTS passkeys (
   id         TEXT PRIMARY KEY,                       -- credential id, base64url
   public_key TEXT    NOT NULL,                       -- JWK (ES256 / P-256)
