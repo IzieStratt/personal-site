@@ -1,6 +1,8 @@
 export const QUICKLINKS = {
   github: 'https://github.com/iziestratt',
   gh: 'https://github.com/iziestratt',
+  itch: 'https://iziestratt.itch.io/',
+  itchio: 'https://iziestratt.itch.io/',
 }
 
 const QUICKLINK_DIRECTORY_PATHS = ['/q', '/q/', '/quicklinks', '/quicklinks/']
@@ -17,7 +19,7 @@ function quicklinkTarget(pathname) {
   const [, key, rest] = match
   const base = QUICKLINKS[key]
   if (!base) return null
-  return rest ? `${base}/${rest}` : base
+  return rest ? `${base.replace(/\/$/, '')}/${rest}` : base
 }
 
 function quicklinkDirectory() {
