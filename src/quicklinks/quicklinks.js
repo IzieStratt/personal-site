@@ -13,20 +13,24 @@ function isRootHost(url) {
   )
 }
 
+// trailing slash on a base is dropped so `/q/itch/game/` -> `https://iziestratt.itch.io/game/`, not `//game/`
+const quicklinkBase = (base) => base.replace(/\/$/, '')
+
 function quicklinkTarget(pathname) {
   const match = pathname.match(/^\/(?:q|quicklinks)\/([^/]+)\/?(.*)$/)
   if (!match) return null
   const [, key, rest] = match
+  // own keys only: `/q/constructor/x` must not reach Object.prototype
+  if (!Object.hasOwn(QUICKLINKS, key)) return null
   const base = QUICKLINKS[key]
-  if (!base) return null
-  return rest ? `${base.replace(/\/$/, '')}/${rest}` : base
+  return rest ? `${quicklinkBase(base)}/${rest}` : base
 }
 
 function quicklinkDirectory() {
   const rows = Object.entries(QUICKLINKS)
     .map(
       ([key, base]) =>
-        `\n        <li><code>/q/${key}/…</code> → <code>${base}/…</code></li>`
+        `\n        <li><code>/q/${key}/…</code> → <code>${quicklinkBase(base)}/…</code></li>`
     )
     .join('')
   const html = `<!doctype html>

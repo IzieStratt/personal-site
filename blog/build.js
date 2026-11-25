@@ -34,7 +34,7 @@ const NUTSHELL = `
       }).observe(document.documentElement, { childList: true, subtree: true })
     </script>`
 
-// comments load from /api/comments (see ../comments.js); the form and list are filled in by comments.js
+// comments load from /api/comments (see src/blog/comments.js); the form and list are filled in by comments.js
 const commentsSection = (slug, setting) => `
       <section id="comments" class="comments" data-post="${slug}" data-setting="${setting || 'default'}" aria-labelledby="comments-title">
         <h2 id="comments-title">comments</h2>
