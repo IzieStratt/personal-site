@@ -40,10 +40,10 @@ export const GROUPS = [
     name: 'GitHub',
     items: [
       // GitHub delays scheduled runs by hours, so the age limits are generous. maxAgeMin is how stale the newest finished run may be before it counts as stalled (schedule period plus slack)
-      { id: 'sdmp-miner', name: 'SDMP miner', kind: 'github', repo: 'IzieStratt/slack-datamine-plus', workflow: 'mine.yml', maxAgeMin: 12 * 60 },
-      { id: 'sdmp-platforms', name: 'SDMP native clients', kind: 'github', repo: 'IzieStratt/slack-datamine-plus', workflow: 'platforms.yml', maxAgeMin: 12 * 60 },
+      { id: 'sdmp-miner', name: 'SDMP miner', kind: 'github', repo: 'IzieStratt/sdmp', workflow: 'mine.yml', maxAgeMin: 12 * 60 },
+      { id: 'sdmp-platforms', name: 'SDMP native clients', kind: 'github', repo: 'IzieStratt/sdmp', workflow: 'platforms.yml', maxAgeMin: 12 * 60 },
       // feed.yml is what pushes the Slack API catalog (ReDocumented) and the SDMP feed into this repo, once a day
-      { id: 'redoc-sync', name: 'Redoc sync (daily push)', kind: 'github', repo: 'IzieStratt/slack-datamine-plus', workflow: 'feed.yml', maxAgeMin: 30 * 60 },
+      { id: 'redoc-sync', name: 'Redoc sync (daily push)', kind: 'github', repo: 'IzieStratt/sdmp', workflow: 'feed.yml', maxAgeMin: 30 * 60 },
       { id: 'redoc-check', name: 'Redoc catalog check', kind: 'github', repo: 'IzieStratt/izie-datamine', workflow: 'redocumented-check.yml' },
       { id: 'blog-build', name: 'Blog build', kind: 'github', repo: 'IzieStratt/personal-site', workflow: 'blog-build.yml' },
     ],
