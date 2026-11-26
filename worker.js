@@ -76,6 +76,7 @@ const worker = {
     if (url.hostname === 'uptime.izie.top') {
       return new Response(null, { status: 302, headers: { Location: `https://status.izie.top${url.pathname === '/' ? '' : url.pathname}${url.search}` } })
     }
+    if (url.hostname === 'status.izie.top' && url.pathname === '/feed.xml') return handleStatus(request, env, new URL('/api/feed', url))
     if (url.hostname === 'status.izie.top' && url.pathname.startsWith('/api/')) return handleStatus(request, env, url)
     const quicklinksResponse = handleQuicklinks(url)
     if (quicklinksResponse) return quicklinksResponse

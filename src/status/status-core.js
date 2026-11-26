@@ -86,6 +86,7 @@ async function ensureSchema(db) {
     db.prepare('CREATE TABLE IF NOT EXISTS status_daily (day TEXT NOT NULL, id TEXT NOT NULL, ok INTEGER NOT NULL, total INTEGER NOT NULL, PRIMARY KEY (day, id))'),
     db.prepare('CREATE TABLE IF NOT EXISTS status_beat (id TEXT PRIMARY KEY, at INTEGER NOT NULL)'),
     db.prepare('CREATE TABLE IF NOT EXISTS status_kv (k TEXT PRIMARY KEY, v TEXT NOT NULL)'),
+    db.prepare('CREATE TABLE IF NOT EXISTS status_event (id TEXT NOT NULL, at INTEGER NOT NULL, state TEXT NOT NULL, detail TEXT, PRIMARY KEY (id, at))'),
   ])
   schemaReady = true
 }
@@ -301,7 +302,13 @@ export async function runChecks(env, selfFetch) {
     }),
   )
   const stmts = []
+  const before = Object.fromEntries((await db.prepare('SELECT id, state FROM status_now').all()).results.map((r) => [r.id, r.state]))
   for (const r of results) {
+    // an up<->down flip becomes an event for the feed (unknown on either side is not a flip)
+    const prev = before[r.id]
+    if ((prev === 'up' && r.state === 'down') || (prev === 'down' && r.state === 'up')) {
+      stmts.push(db.prepare('INSERT OR IGNORE INTO status_event (id, at, state, detail) VALUES (?, ?, ?, ?)').bind(r.id, now, r.state, r.detail))
+    }
     stmts.push(
       db
         .prepare('INSERT INTO status_now (id, state, ms, detail, checked_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET state = excluded.state, ms = excluded.ms, detail = excluded.detail, checked_at = excluded.checked_at')
@@ -316,6 +323,7 @@ export async function runChecks(env, selfFetch) {
         .bind(day, r.id, ok),
     )
   }
+  stmts.push(db.prepare('DELETE FROM status_event WHERE at < ?').bind(now - 400 * 86400000))
   stmts.push(db.prepare('DELETE FROM status_daily WHERE day < ?').bind(dayOf(now - 400 * 86400000)))
   await db.batch(stmts)
   return results
@@ -375,6 +383,8 @@ export async function handleStatus(request, env, url) {
     return json({ ok: true })
   }
 
+  if (url.pathname === '/api/feed' && request.method === 'GET') return statusFeed(db)
+
   if (url.pathname === '/api/status' && request.method === 'GET') {
     const since = dayOf(Date.now() - (HISTORY_DAYS - 1) * 86400000)
     const [now, daily, commit] = await Promise.all([
@@ -401,4 +411,22 @@ export async function handleStatus(request, env, url) {
   }
 
   return json({ error: 'not found' }, 404)
+}
+
+const xmlEsc = (t) => String(t ?? '').replace(/[<>&"']/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' })[c])
+
+// Atom feed of up/down changes, newest first. Served at status.izie.top/feed.xml (and /api/feed).
+async function statusFeed(db) {
+  const rows = (await db.prepare('SELECT id, at, state, detail FROM status_event ORDER BY at DESC LIMIT 100').all()).results
+  const names = Object.fromEntries(ITEMS.map((i) => [i.id, i.name]))
+  const entries = rows
+    .map((r) => {
+      const name = names[r.id] || r.id
+      const title = `${name} is ${r.state === 'down' ? 'down' : 'back up'}`
+      return `<entry><id>tag:status.izie.top,2026:${xmlEsc(r.id)}:${r.at}</id><title>${xmlEsc(title)}</title><updated>${new Date(r.at).toISOString()}</updated><link href="https://status.izie.top/"/><summary>${xmlEsc(r.detail || '')}</summary></entry>`
+    })
+    .join('')
+  const updated = new Date(rows[0]?.at || 0).toISOString()
+  const xml = `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><id>tag:status.izie.top,2026:feed</id><title>izie status</title><updated>${updated}</updated><link href="https://status.izie.top/"/><link rel="self" href="https://status.izie.top/feed.xml"/>${entries}</feed>`
+  return new Response(xml, { headers: { 'content-type': 'application/atom+xml; charset=utf-8', 'cache-control': 'public, max-age=60' } })
 }
