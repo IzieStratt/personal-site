@@ -21,13 +21,35 @@ function fetchAsset(env, input, init) {
 }
 
 
-// botme.dunkirk.sh is a third-party service: never forward visitor credentials or
+// captchasolv.ing is a third-party service: never forward visitor credentials or
 // client-identifying headers to it (the izie account session cookie is Domain=izie.top,
-// so browsers send it on these same-origin paths).
-function botmeRequest(request, path) {
-  const upstream = new Request(`https://botme.dunkirk.sh${path}`, request)
-  for (const h of ['cookie', 'authorization', 'cf-connecting-ip', 'x-forwarded-for', 'x-real-ip']) upstream.headers.delete(h)
-  return upstream
+// so browsers send it on these same-origin paths). Only the two read-only endpoints
+// the overview page uses are proxied; upstream response headers are not copied
+// wholesale, so the third party cannot set cookies on izie.top.
+const CAPTCHASOLV_ORIGIN = 'https://captchasolv.ing'
+const CAPTCHASOLV_PROXY_PATHS = new Set(['/api/leaderboard', '/api/graphs/user-solves'])
+// Edge cache TTLs match the overview page's poll intervals (leaderboard every 15s,
+// solve history every 60s), so many visitors share one upstream request per window.
+const CAPTCHASOLV_CACHE_TTL = { '/api/leaderboard': 15, '/api/graphs/user-solves': 60 }
+async function proxyCaptchasolv(request, url, ctx) {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'GET, HEAD' } })
+  }
+  if (!CAPTCHASOLV_PROXY_PATHS.has(url.pathname)) return new Response('Not Found', { status: 404 })
+  const ttl = CAPTCHASOLV_CACHE_TTL[url.pathname]
+  const cacheKey = new Request(`${url.origin}${url.pathname}${url.search}`, { method: 'GET' })
+  const cache = caches.default
+  const hit = await cache.match(cacheKey)
+  if (hit) return hit
+  const upstream = new Request(`${CAPTCHASOLV_ORIGIN}${url.pathname}${url.search}`, { method: 'GET' })
+  const response = await fetch(upstream)
+  const headers = new Headers()
+  headers.set('content-type', response.headers.get('content-type') || 'application/json')
+  headers.set('cache-control', `public, max-age=0, s-maxage=${ttl}`)
+  headers.set('access-control-allow-origin', '*')
+  const out = new Response(response.body, { status: response.status, headers })
+  if (response.ok) ctx.waitUntil(cache.put(cacheKey, out.clone()))
+  return out
 }
 
 const worker = {
@@ -113,21 +135,8 @@ const worker = {
       // one hub holds every lobby and game (see src/shatori/shatori-lobby.js)
       return env.LOBBY.get(env.LOBBY.idFromName('hub')).fetch(request)
     }
-    if (url.pathname.startsWith('/api/graphs/')) {
-      const upstream = botmeRequest(request, `${url.pathname}${url.search}`)
-      const response = await fetch(upstream)
-      const headers = new Headers(response.headers)
-      headers.set('cache-control', 'no-store')
-      headers.set('access-control-allow-origin', '*')
-      return new Response(response.body, { status: response.status, headers })
-    }
-    if (url.pathname === '/api/leaderboard') {
-      const upstream = botmeRequest(request, '/api/leaderboard')
-      const response = await fetch(upstream)
-      const headers = new Headers(response.headers)
-      headers.set('cache-control', 'no-store')
-      headers.set('access-control-allow-origin', '*')
-      return new Response(response.body, { status: response.status, headers })
+    if (url.pathname.startsWith('/api/graphs/') || url.pathname === '/api/leaderboard') {
+      return proxyCaptchasolv(request, url, ctx)
     }
     const match = url.hostname.match(/^([a-z0-9-]+)\.izie\.top$/)
     const prefix = match ? `/__subdomains/${SUBDOMAIN_ALIASES[match[1]] || match[1]}` : null
