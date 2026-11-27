@@ -1,5 +1,5 @@
 // Artist and song pages: /lostfm/artist/?name=X and /lostfm/track/?artist=X&name=Y.
-// Info comes from our own /lostfm/api/info (Last.fm page data + Spotify / Apple Music links).
+// Info comes from our own /lostfm/api/info (Spotify / Apple Music links and artwork).
 import { esc, icon, art } from './ui.js'
 import { safeLink } from './lib.js'
 
@@ -15,15 +15,14 @@ const listen = (href, label, ic) => {
 }
 
 function draw(d) {
-  const links = [listen(d.spotify, 'Listen on Spotify', 'spotify'), listen(d.apple, 'Listen on Apple Music', 'apple'), listen(d.lastfm, 'View on Last.fm', 'link')].join('')
+  const links = [listen(d.spotify, 'Listen on Spotify', 'spotify'), listen(d.apple, 'Listen on Apple Music', 'apple')].join('')
   const byline = type === 'track' ? `<p class="since">by <a class="plain" href="../artist/?name=${encodeURIComponent(artist)}">${esc(artist)}</a></p>` : ''
   el.innerHTML = `
     <header class="profile">
       ${art(d.image, name, 'avatar')}
       <div><h1>${esc(name)}</h1>${byline}
-        ${d.tags?.length ? `<p class="since">${d.tags.map(esc).join(' · ')}</p>` : ''}</div>
+</div>
     </header>
-    ${d.summary ? `<section class="card"><p>${esc(d.summary)}</p></section>` : ''}
     <section aria-labelledby="h-listen">
       <div class="section-head"><h2 id="h-listen">${icon('music')} Listen</h2></div>
       ${links ? `<div class="nav">${links}</div>` : '<p class="empty">No listening links found.</p>'}

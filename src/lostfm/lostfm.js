@@ -5,7 +5,7 @@
 //   POST /lostfm/api/token            make a scrobble token (shown once; we only keep its hash)
 //   GET  /lostfm/api/inbox?after=N    pull listens sent with your token (Authorization: Token …)
 //   GET  /lostfm/api/artist-image?name=X   artist photo via Spotify search, cached (so Apple Music and import-only users get pictures)
-//   GET  /lostfm/api/info?type=artist|track&artist=X[&name=Y]   Last.fm page info + Spotify / Apple Music listen links, cached
+//   GET  /lostfm/api/info?type=artist|track&artist=X[&name=Y]   Spotify / Apple Music listen links and artwork, cached
 //   GET  /lostfm/1/validate-token     ListenBrainz-compatible, so scrobbler apps that accept a custom
 //   POST /lostfm/1/submit-listens     ListenBrainz URL (Web Scrobbler, Pano Scrobbler, …) can send plays here
 //
@@ -184,7 +184,7 @@ export class LostfmStore extends DurableObject {
     return image
   }
 
-  // artist/track page data: Last.fm's public page (bio, tags, picture) plus where to listen (Spotify, Apple Music)
+  // artist/track page data: where to listen (Spotify, Apple Music) and artwork
   async info(type, artist, name, now) {
     const key = `${type}\u0000${artist.toLowerCase()}\u0000${name.toLowerCase()}`
     const cached = this.sql.exec('SELECT data, fetched_at FROM info WHERE key = ?', key).toArray()[0]
@@ -196,16 +196,15 @@ export class LostfmStore extends DurableObject {
     if (this.sql.exec('SELECT COUNT(*) c FROM lookups').one().c >= ARTIST_LOOKUPS_PER_HOUR) return cached ? JSON.parse(cached.data) : { type, artist, name, partial: true }
     this.sql.exec('INSERT INTO lookups (at) VALUES (?)', now)
     const lead = artist.split(', ')[0]
-    const [lf, sp, am] = await Promise.all([
-      lastfmPage(type, lead, name).catch(() => null),
+    const [sp, am] = await Promise.all([
       this.spotifyLink(type, lead, name, now).catch(() => null),
       appleLink(type, lead, name).catch(() => null),
     ])
     const data = {
       type, artist, name,
-      lastfm: lf?.url || '', summary: lf?.summary || '', tags: lf?.tags || [], image: lf?.image || sp?.image || am?.image || '',
+      image: sp?.image || am?.image || '',
       spotify: sp?.url || '', apple: am?.url || '',
-      partial: !lf && !sp && !am,
+      partial: !sp && !am,
     }
     this.sql.exec('INSERT INTO info (key, data, fetched_at) VALUES (?, ?, ?) ON CONFLICT(key) DO UPDATE SET data = excluded.data, fetched_at = excluded.fetched_at', key, JSON.stringify(data), now)
     return data
@@ -215,7 +214,7 @@ export class LostfmStore extends DurableObject {
     if (!this.env.SPOTIFY_CLIENT_ID || !this.env.SPOTIFY_CLIENT_SECRET) return null
     const token = await this.appToken(now)
     const q = type === 'track' ? `track:${name} artist:${lead}` : lead
-    const r = await fetch(`https://api.spotify.com/v1/search?${new URLSearchParams({ q, type, limit: '5' })}`, { headers: { authorization: `Bearer ${token}` } })
+    const r = await fetch(`https://api.spotify.com/v1/search?${new URLSearchParams({ q, type, limit: '5' })}`, { headers: { authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(4000) })
     if (!r.ok) return null
     const items = (await r.json())?.[`${type}s`]?.items || []
     const want = (type === 'track' ? name : lead).toLowerCase()
@@ -350,35 +349,10 @@ async function sameText(a, b) {
   return diff === 0
 }
 
-const decodeEntities = (t) => t.replace(/&(#x?[0-9a-f]+|amp|lt|gt|quot|apos|#39);/gi, (m, e) => {
-  if (e[0] === '#') { const c = e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10); return c > 0 && c < 0x110000 ? String.fromCodePoint(c) : '' }
-  return { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }[e.toLowerCase()] || m
-})
-const lfSeg = (s) => encodeURIComponent(s).replace(/%20/g, '+')
-
-// Last.fm's public artist/track page: its og: tags and tag links (no API key needed)
-async function lastfmPage(type, artist, name) {
-  const url = `https://www.last.fm/music/${lfSeg(artist)}${type === 'track' ? `/_/${lfSeg(name)}` : ''}`
-  const r = await fetch(url, { headers: { 'user-agent': 'lostfm (+https://vs.izie.top/lostfm/)', accept: 'text/html' }, redirect: 'follow' })
-  if (!r.ok) return null
-  const html = (await r.text()).slice(0, 600_000)
-  const meta = (prop) => decodeEntities(html.match(new RegExp(`<meta[^>]+property="og:${prop}"[^>]+content="([^"]*)"`, 'i'))?.[1] || '')
-  let summary = meta('description').replace(/\s+/g, ' ').trim()
-  if (/^(listen to|discover|stream)\b/i.test(summary) || /\blast\.fm\b.*\bfree\b/i.test(summary)) summary = ''
-  const image = meta('image')
-  const tags = [...html.matchAll(/<a href="\/tag\/[^"]+"[^>]*>([^<]{1,40})<\/a>/g)].map((m) => decodeEntities(m[1]).trim()).filter((t, i, a) => t && a.indexOf(t) === i).slice(0, 6)
-  return {
-    url,
-    summary: summary.slice(0, 600),
-    tags,
-    image: /^https:\/\/lastfm\.freetls\.fastly\.net\//.test(image) && !image.includes('2a96cbd8b46e442fc41c2b86b821562f') ? image : '',
-  }
-}
-
 async function appleLink(type, artist, name) {
   const term = type === 'track' ? `${artist} ${name}` : artist
   const entity = type === 'track' ? 'song' : 'musicArtist'
-  const r = await fetch(`https://itunes.apple.com/search?${new URLSearchParams({ term, entity, limit: '5' })}`)
+  const r = await fetch(`https://itunes.apple.com/search?${new URLSearchParams({ term, entity, limit: '5' })}`, { signal: AbortSignal.timeout(4000) })
   if (!r.ok) return null
   const results = (await r.json())?.results || []
   const m = type === 'track'
