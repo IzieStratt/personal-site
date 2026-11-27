@@ -5,6 +5,7 @@
 //   POST /lostfm/api/token            make a scrobble token (shown once; we only keep its hash)
 //   GET  /lostfm/api/inbox?after=N    pull listens sent with your token (Authorization: Token …)
 //   GET  /lostfm/api/artist-image?name=X   artist photo via Spotify search, cached (so Apple Music and import-only users get pictures)
+//   GET  /lostfm/api/info?type=artist|track&artist=X[&name=Y]   Last.fm page info + Spotify / Apple Music listen links, cached
 //   GET  /lostfm/1/validate-token     ListenBrainz-compatible, so scrobbler apps that accept a custom
 //   POST /lostfm/1/submit-listens     ListenBrainz URL (Web Scrobbler, Pano Scrobbler, …) can send plays here
 //
@@ -83,6 +84,16 @@ export async function handleLostfm(request, env, url) {
     return json({ image: image || '' }, 200, { 'cache-control': image ? 'public, max-age=86400' : 'public, max-age=3600' })
   }
 
+  if (path === '/api/info') {
+    if (request.method !== 'GET') return methodNotAllowed('GET')
+    const clean = (k) => (url.searchParams.get(k) || '').replace(/[\u0000-\u001f]/g, '').trim().slice(0, 200)
+    const type = url.searchParams.get('type') === 'track' ? 'track' : 'artist'
+    const artist = clean('artist'), name = clean('name')
+    if (!artist || (type === 'track' && !name)) return json({ error: 'artist (and name for tracks) are required' }, 400)
+    const info = await stub.info(type, artist, name, Math.floor(Date.now() / 1000))
+    return json(info, 200, { 'cache-control': 'public, max-age=3600' })
+  }
+
   const token = readToken(request, url)
 
   if (path === '/1/validate-token') {
@@ -139,6 +150,7 @@ export class LostfmStore extends DurableObject {
         artist TEXT NOT NULL, track TEXT NOT NULL, album TEXT, url TEXT, player TEXT, UNIQUE(token, listened_at, track));
       CREATE INDEX IF NOT EXISTS listens_token_id ON listens(token, id);
       CREATE TABLE IF NOT EXISTS artists (name TEXT PRIMARY KEY, image TEXT, fetched_at INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS info (key TEXT PRIMARY KEY, data TEXT NOT NULL, fetched_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS lookups (at INTEGER NOT NULL);
     `)
   }
@@ -170,6 +182,48 @@ export class LostfmStore extends DurableObject {
     }
     this.sql.exec('INSERT INTO artists (name, image, fetched_at) VALUES (?, ?, ?) ON CONFLICT(name) DO UPDATE SET image = excluded.image, fetched_at = excluded.fetched_at', key, image, now)
     return image
+  }
+
+  // artist/track page data: Last.fm's public page (bio, tags, picture) plus where to listen (Spotify, Apple Music)
+  async info(type, artist, name, now) {
+    const key = `${type}\u0000${artist.toLowerCase()}\u0000${name.toLowerCase()}`
+    const cached = this.sql.exec('SELECT data, fetched_at FROM info WHERE key = ?', key).toArray()[0]
+    if (cached) {
+      const d = JSON.parse(cached.data)
+      if (now - cached.fetched_at < (d.partial ? ARTIST_FAIL_RETRY : ARTIST_RETRY)) return d
+    }
+    this.sql.exec('DELETE FROM lookups WHERE at < ?', now - 3600)
+    if (this.sql.exec('SELECT COUNT(*) c FROM lookups').one().c >= ARTIST_LOOKUPS_PER_HOUR) return cached ? JSON.parse(cached.data) : { type, artist, name, partial: true }
+    this.sql.exec('INSERT INTO lookups (at) VALUES (?)', now)
+    const lead = artist.split(', ')[0]
+    const [lf, sp, am] = await Promise.all([
+      lastfmPage(type, lead, name).catch(() => null),
+      this.spotifyLink(type, lead, name, now).catch(() => null),
+      appleLink(type, lead, name).catch(() => null),
+    ])
+    const data = {
+      type, artist, name,
+      lastfm: lf?.url || '', summary: lf?.summary || '', tags: lf?.tags || [], image: lf?.image || sp?.image || am?.image || '',
+      spotify: sp?.url || '', apple: am?.url || '',
+      partial: !lf && !sp && !am,
+    }
+    this.sql.exec('INSERT INTO info (key, data, fetched_at) VALUES (?, ?, ?) ON CONFLICT(key) DO UPDATE SET data = excluded.data, fetched_at = excluded.fetched_at', key, JSON.stringify(data), now)
+    return data
+  }
+
+  async spotifyLink(type, lead, name, now) {
+    if (!this.env.SPOTIFY_CLIENT_ID || !this.env.SPOTIFY_CLIENT_SECRET) return null
+    const token = await this.appToken(now)
+    const q = type === 'track' ? `track:${name} artist:${lead}` : lead
+    const r = await fetch(`https://api.spotify.com/v1/search?${new URLSearchParams({ q, type, limit: '5' })}`, { headers: { authorization: `Bearer ${token}` } })
+    if (!r.ok) return null
+    const items = (await r.json())?.[`${type}s`]?.items || []
+    const want = (type === 'track' ? name : lead).toLowerCase()
+    const m = items.find((i) => (i?.name || '').toLowerCase() === want) || items[0]
+    const url = m?.external_urls?.spotify
+    if (!url || !/^https:\/\/open\.spotify\.com\//.test(url)) return null
+    const imgs = ((type === 'track' ? m.album?.images : m.images) || []).filter((i) => SPOTIFY_IMAGE.test(i?.url || ''))
+    return { url, image: (imgs.find((i) => (i.width || 0) <= 640 && (i.width || 0) >= 300) || imgs[0])?.url || '' }
   }
 
   rememberFailure(key, now) {
@@ -294,4 +348,44 @@ async function sameText(a, b) {
   let diff = 0
   for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i]
   return diff === 0
+}
+
+const decodeEntities = (t) => t.replace(/&(#x?[0-9a-f]+|amp|lt|gt|quot|apos|#39);/gi, (m, e) => {
+  if (e[0] === '#') { const c = e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10); return c > 0 && c < 0x110000 ? String.fromCodePoint(c) : '' }
+  return { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }[e.toLowerCase()] || m
+})
+const lfSeg = (s) => encodeURIComponent(s).replace(/%20/g, '+')
+
+// Last.fm's public artist/track page: its og: tags and tag links (no API key needed)
+async function lastfmPage(type, artist, name) {
+  const url = `https://www.last.fm/music/${lfSeg(artist)}${type === 'track' ? `/_/${lfSeg(name)}` : ''}`
+  const r = await fetch(url, { headers: { 'user-agent': 'lostfm (+https://vs.izie.top/lostfm/)', accept: 'text/html' }, redirect: 'follow' })
+  if (!r.ok) return null
+  const html = (await r.text()).slice(0, 600_000)
+  const meta = (prop) => decodeEntities(html.match(new RegExp(`<meta[^>]+property="og:${prop}"[^>]+content="([^"]*)"`, 'i'))?.[1] || '')
+  let summary = meta('description').replace(/\s+/g, ' ').trim()
+  if (/^(listen to|discover|stream)\b/i.test(summary) || /\blast\.fm\b.*\bfree\b/i.test(summary)) summary = ''
+  const image = meta('image')
+  const tags = [...html.matchAll(/<a href="\/tag\/[^"]+"[^>]*>([^<]{1,40})<\/a>/g)].map((m) => decodeEntities(m[1]).trim()).filter((t, i, a) => t && a.indexOf(t) === i).slice(0, 6)
+  return {
+    url,
+    summary: summary.slice(0, 600),
+    tags,
+    image: /^https:\/\/lastfm\.freetls\.fastly\.net\//.test(image) && !image.includes('2a96cbd8b46e442fc41c2b86b821562f') ? image : '',
+  }
+}
+
+async function appleLink(type, artist, name) {
+  const term = type === 'track' ? `${artist} ${name}` : artist
+  const entity = type === 'track' ? 'song' : 'musicArtist'
+  const r = await fetch(`https://itunes.apple.com/search?${new URLSearchParams({ term, entity, limit: '5' })}`)
+  if (!r.ok) return null
+  const results = (await r.json())?.results || []
+  const m = type === 'track'
+    ? results.find((x) => (x.trackName || '').toLowerCase() === name.toLowerCase() && (x.artistName || '').toLowerCase().includes(artist.toLowerCase())) || results[0]
+    : results.find((x) => (x.artistName || '').toLowerCase() === artist.toLowerCase()) || results[0]
+  const url = type === 'track' ? m?.trackViewUrl : m?.artistLinkUrl
+  if (!url || !/^https:\/\/music\.apple\.com\//.test(url)) return null
+  const art = (m.artworkUrl100 || '').replace(/100x100/, '600x600')
+  return { url, image: /^https:\/\/[^/]*mzstatic\.com\//.test(art) ? art : '' }
 }

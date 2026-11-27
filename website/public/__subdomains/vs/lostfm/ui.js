@@ -1,6 +1,6 @@
 // Shared rendering for lostfm profiles (izie's page and your own). Everything from data is escaped,
 // links and images go through the allowlists in lib.js.
-import { safeImage, safeLink } from './lib.js'
+import { safeImage } from './lib.js'
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 export const fmt = (n) => Number(n || 0).toLocaleString('en')
@@ -50,9 +50,13 @@ export function art(image, name, cls = 'art') {
   return `<span class="${cls}" style="${ph(name)}">${src ? `<img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : letter(name)}</span>`
 }
 
-const linked = (text, url) => {
-  const href = safeLink(url)
-  return href ? `<a class="plain" href="${esc(href)}" rel="noopener noreferrer" target="_blank">${esc(text)}</a>` : esc(text)
+// artist and song names open our own pages (Last.fm info + links to listen on Spotify / Apple Music)
+const here = new URL('.', import.meta.url).pathname
+const page = (kind, params) => `${here}${kind}/?${new URLSearchParams(params)}`
+const linked = (text, _url, kind = 'track', artist = '') => {
+  if (!text) return ''
+  const href = kind === 'artist' ? page('artist', { name: text }) : kind === 'track' && artist ? page('track', { artist, name: text }) : ''
+  return href ? `<a class="plain" href="${esc(href)}">${esc(text)}</a>` : esc(text)
 }
 
 export function ago(ts, now = Date.now() / 1000) {
@@ -88,7 +92,7 @@ function tiles(items, sub) {
     return `<li style="${ph(it.name)}">
       ${src ? `<img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="letter" aria-hidden="true">${letter(it.name)}</span>`}
       <span class="rank">#${i + 1}</span>
-      <span class="cap"><b>${linked(it.name, it.url)}</b><small>${sub(it)}</small></span>
+      <span class="cap"><b>${linked(it.name, it.url, it.artist === undefined ? 'artist' : 'album', it.artist)}</b><small>${sub(it)}</small></span>
     </li>`
   }).join('')}</ol>`
 }
@@ -98,7 +102,7 @@ function topTracks(items) {
   const max = items[0].plays
   return `<ol class="rows">${items.slice(0, 15).map((t, i) => `<li>
     <span class="rank">${i + 1}</span>${art(t.image, t.artist)}
-    <span class="text"><span class="name">${linked(t.name, t.url)}</span><span class="by">${esc(t.artist)}</span></span>
+    <span class="text"><span class="name">${linked(t.name, t.url, 'track', t.artist)}</span><span class="by">${linked(t.artist, '', 'artist')}</span></span>
     <span class="plays"><span class="fill" style="width:${Math.max(6, (t.plays / max) * 100)}%"></span><span>${plays(t.plays)}</span></span>
   </li>`).join('')}</ol>`
 }
@@ -108,12 +112,12 @@ function recentRows(stats, limit) {
   const rows = []
   if (np) {
     rows.push(`<li class="playing">${art(np.image, np.artist)}
-      <span class="text"><span class="name">${linked(np.name, np.url)}</span><span class="by">${esc(np.artist)}</span></span>
+      <span class="text"><span class="name">${linked(np.name, np.url, 'track', np.artist)}</span><span class="by">${linked(np.artist, '', 'artist')}</span></span>
       <time><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Scrobbling now</time></li>`)
   }
   for (const t of stats.recent.slice(0, limit)) {
     rows.push(`<li>${art(t.image, t.artist)}
-      <span class="text"><span class="name">${linked(t.name, t.url)}</span><span class="by">${esc(t.artist)}</span></span>
+      <span class="text"><span class="name">${linked(t.name, t.url, 'track', t.artist)}</span><span class="by">${linked(t.artist, '', 'artist')}</span></span>
       <time datetime="${new Date(t.ts * 1000).toISOString()}" title="${new Date(t.ts * 1000).toLocaleString('en')}">${ago(t.ts)}</time></li>`)
   }
   return `<ol class="rows no-rank">${rows.join('')}</ol>`
