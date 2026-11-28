@@ -3,7 +3,7 @@
 
 Watches the Music app and sends plays to lostfm (or any ListenBrainz-compatible server):
 a "now playing" when a track starts, and a scrobble once you've heard half of it (or 4 minutes),
-the same rule Last.fm uses. Tracks under 30 seconds are ignored.
+the usual scrobble rule. Tracks under 30 seconds are ignored.
 
     python3 apple-music-scrobbler.py --token YOUR_TOKEN              # run in the foreground
     python3 apple-music-scrobbler.py --token YOUR_TOKEN --install    # start at login (LaunchAgent)

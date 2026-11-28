@@ -438,7 +438,7 @@ const LOSTFM_CSP = [
   "default-src 'self'",
   "script-src 'self'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://i.scdn.co https://lastfm.freetls.fastly.net https://lastfm-img.freetls.fastly.net https://*.mzstatic.com https://coverartarchive.org https://archive.org https://*.archive.org",
+  "img-src 'self' data: https://i.scdn.co https://*.mzstatic.com https://coverartarchive.org https://archive.org https://*.archive.org",
   "connect-src 'self' https://api.spotify.com https://accounts.spotify.com",
   "font-src 'self'",
   "frame-ancestors 'none'",

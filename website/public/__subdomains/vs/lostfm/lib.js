@@ -1,14 +1,13 @@
 // Pure helpers for lostfm (no DOM), so they can be tested with node.
 // A listen is { id, ts (start, unix seconds), name, artist, album, url, source }.
 
-const LASTFM_PLACEHOLDER = '2a96cbd8b46e442fc41c2b86b821562f'
-const IMAGE_HOSTS = /^https:\/\/(i\.scdn\.co|lastfm(-img)?\.freetls\.fastly\.net|[a-z0-9-]+\.mzstatic\.com|coverartarchive\.org|archive\.org|[a-z0-9-]+\.archive\.org)\//
+const IMAGE_HOSTS = /^https:\/\/(i\.scdn\.co|[a-z0-9-]+\.mzstatic\.com|coverartarchive\.org|archive\.org|[a-z0-9-]+\.archive\.org)\//
 
 /** Only https images from hosts we expect; anything else becomes '' (the page draws a placeholder). */
-export const safeImage = (u) => (typeof u === 'string' && IMAGE_HOSTS.test(u) && !u.includes(LASTFM_PLACEHOLDER) ? u : '')
+export const safeImage = (u) => (typeof u === 'string' && IMAGE_HOSTS.test(u) ? u : '')
 /** Only https links to music services; anything else (javascript:, data:, http:) becomes ''. */
 export const safeLink = (u) =>
-  typeof u === 'string' && /^https:\/\/(open\.spotify\.com|music\.apple\.com|www\.last\.fm|www\.youtube\.com|music\.youtube\.com|soundcloud\.com)\//.test(u) ? u : ''
+  typeof u === 'string' && /^https:\/\/(open\.spotify\.com|music\.apple\.com|www\.youtube\.com|music\.youtube\.com|soundcloud\.com)\//.test(u) ? u : ''
 
 /** Spotify image lists are largest-first; take the smallest one at least `want` px wide. */
 export function pickImage(images, want = 300) {
@@ -18,20 +17,12 @@ export function pickImage(images, want = 300) {
   return (big.length ? big.at(-1) : ok[0]).url
 }
 
-function lastfmImage(images) {
-  for (const img of [...(images || [])].reverse()) {
-    const u = safeImage(img?.['#text'])
-    if (u) return u
-  }
-  return ''
-}
-
 export function spotifyItemsToListens(items) {
   const out = []
   for (const it of items || []) {
     const t = it?.track
     if (!t?.name || !it.played_at) continue
-    // played_at is when the play ended; store start times like Last.fm does
+    // played_at is when the play ended; store start times
     const ts = Math.floor(Date.parse(it.played_at) / 1000 - (t.duration_ms || 0) / 1000)
     out.push({
       id: `sp:${it.played_at}`, ts, name: t.name,
@@ -43,8 +34,8 @@ export function spotifyItemsToListens(items) {
   return out
 }
 
-const lf = (ts, name, artist, album = '', url = '', source = 'lastfm', image = '') =>
-  ts && name ? { id: `${source === 'lastfm' ? 'lf' : source}:${ts}:${name}`, ts, name, artist: artist || '', album: album || '', url: url || '', source, image: safeImage(image) } : null
+const lf = (ts, name, artist, album = '', url = '', source = 'csv', image = '') =>
+  ts && name ? { id: `${source === 'csv' ? 'lf' : source}:${ts}:${name}`, ts, name, artist: artist || '', album: album || '', url: url || '', source, image: safeImage(image) } : null
 
 export function parseCsv(text) {
   const rows = []
@@ -73,7 +64,7 @@ function toTs(v) {
   return Number.isFinite(ms) ? Math.floor(ms / 1000) : null
 }
 
-/** Accepts: lostfm's own export, Last.fm exports (CSV with or without header, API-style JSON pages),
+/** Accepts: lostfm's own export, generic CSVs (with or without header),
  *  and Spotify's extended streaming history JSON. Returns listens. Throws if nothing is recognised. */
 export function parseImport(text) {
   const trimmed = text.trim()
@@ -85,12 +76,7 @@ export function parseImport(text) {
       const walk = (v) => {
         if (Array.isArray(v)) return v.forEach(walk)
         if (!v || typeof v !== 'object') return
-        if (v.track && typeof v.track === 'object') return walk(v.track)
-        if (v.recenttracks) return walk(v.recenttracks)
-        if (v.date?.uts && v.name) {
-          const a = v.artist, al = v.album
-          out.push(lf(Number(v.date.uts), v.name, a?.['#text'] ?? a?.name ?? a, al?.['#text'] ?? al, v.url, 'lastfm', lastfmImage(v.image)))
-        } else if ('master_metadata_track_name' in v) {
+        if ('master_metadata_track_name' in v) {
           if (!v.master_metadata_track_name || (v.ms_played ?? 0) < 30000) return
           const end = Date.parse(v.ts)
           const id = v.spotify_track_uri?.split(':').pop()
@@ -125,7 +111,7 @@ export function parseImport(text) {
       const ui = col('uts', 'timestamp', 'date', 'utc_time', 'time', 'played_at'), bi = col('album', 'album_name')
       for (const r of rows.slice(1)) out.push(lf(toTs(r[ui]), r[ti], r[ai], bi >= 0 ? r[bi] : ''))
     } else {
-      // lastfm-to-csv: artist,album,track,date
+      // headerless: artist,album,track,date
       for (const r of rows) if (r.length >= 4) out.push(lf(toTs(r[3]), r[2], r[0], r[1]))
     }
   }

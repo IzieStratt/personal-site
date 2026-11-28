@@ -50,7 +50,7 @@ export function art(image, name, cls = 'art') {
   return `<span class="${cls}" style="${ph(name)}">${src ? `<img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : letter(name)}</span>`
 }
 
-// artist and song names open our own pages (Last.fm info + links to listen on Spotify / Apple Music)
+// artist and song names open our own pages (links to listen on Spotify / Apple Music)
 const here = new URL('.', import.meta.url).pathname
 const page = (kind, params) => `${here}${kind}/?${new URLSearchParams(params)}`
 const linked = (text, _url, kind = 'track', artist = '') => {
